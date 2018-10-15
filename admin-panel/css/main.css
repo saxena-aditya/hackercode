@@ -1,0 +1,10 @@
+#top-heading {
+	padding: 0 0 0 10px;
+	font-weight: bolder !important;
+}
+.bg-blue {
+	background: #33336f;
+}
+a.nav-link, .navbar-brand {
+	color: #fff !important;
+}
