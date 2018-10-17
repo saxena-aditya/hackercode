@@ -3,6 +3,10 @@
     flex-wrap: nowrap;
 }
 
+.ia {
+    padding: 5px 10px 0 5px;
+    color: #9c27b0;
+}
 .grey {
     background: #f9f9f9;
 }
@@ -61,7 +65,7 @@ ol.breadcrumb {
 }
 
 .bg-blue {
-    background: #33336f;
+    background: #9C27B0;
 }
 
 a.nav-link, .navbar-brand {
