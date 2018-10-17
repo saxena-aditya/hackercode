@@ -278,7 +278,41 @@ ul ul a {
     background: #ffffff;
 }
 
-@media (max-width: 768px) {
+/*===============CONTENT STYLES=======================*/
+.top-layer {
+    width: 100%;
+    display: flex;
+    margin: 0 10px;
+    border-bottom: 1px solid #f3ebeb;
+}
+
+.title > p {
+    margin: 0;
+    padding: 10px 0 5px 30px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #7e1f8e;
+}
+
+.disc > p {
+    margin: 0;
+    padding: 0 0 0 30px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+@media(max-width: 768px) {
+    .top-layer {
+        margin: 0;
+    }
+
+    .title > p, .disc > p {
+        padding: 0;
+    }
+}
+
+/*====================================================*/
+@media(max-width: 768px) {
     #sidebar {
         margin-left: -220px;
         transform: rotateY(100deg);
