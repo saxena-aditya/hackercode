@@ -301,13 +301,65 @@ ul ul a {
     font-weight: 500;
 }
 
+.exam-table {
+    width: 100%;
+    margin: 20px 10px 0 10px;
+}
+
+.table.table-stripe thead {
+    background: whitesmoke;
+}
+
+.exam-table > table {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.result-badge>p {
+    padding: 0;
+    margin: 0;
+}
+
+.result-badge-container {
+    position: relative;
+    width: 100%;
+}
+
+.result-badge {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    background: #e91e63;
+    color: #fff;
+    padding: 0 0 4px 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.result-badge:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 90%;
+    height: 0;
+    width: 0;
+    border-top: solid 12px transparent;
+    border-left: solid 12px #e91e63;
+    border-right: solid 12px transparent;
+    border-bottom: solid 12px transparent;
+}
+
 @media(max-width: 768px) {
-    .top-layer {
+    .top-layer, .exam-table {
         margin: 0;
     }
 
     .title > p, .disc > p {
         padding: 0;
+    }
+
+    table {
+        font-size: 0.8em;
     }
 }
 
