@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:view-controller path="/" view-name="login" />
+	   <context:component-scan base-package = "org.com.controller" />
+   <mvc:annotation-driven />
+	
+
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/hello">helloController</prop>
+				<prop key="addFields.rpc">TestController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="TestController" class="com.hackercode.controller.TestController">
+		<property name="isAddFieldActive" value="1" />
+	</bean>
+
+	<bean id="helloController" class="com.hackercode.controller.HelloController" />
+
+	<bean id = "viewResolver"
+   			class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+   			<property name = "prefix">
+   				<value>/WEB-INF/jsp/</value>
+   				</property>
+   			<property name = "suffix">
+   				<value>.jsp</value>
+   			</property>	
+   			
+   			</bean>
+
+</beans>
+
