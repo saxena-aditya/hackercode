@@ -342,6 +342,15 @@ ul.list-unstyled.components > li:hover:after {
     vertical-align: middle;
 }
 
+.take-exam-table.table-responsive {
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+}
+
+.take-exam-table.table-responsive table {
+    text-align: center;
+}
+
 .result-badge>p {
     padding: 0;
     margin: 0;

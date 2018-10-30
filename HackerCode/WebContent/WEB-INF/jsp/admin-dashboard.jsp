@@ -249,6 +249,31 @@
                     		</tbody>
                     	</table>
                     </div>
+                    <div class="take-exam-table table-responsive">
+                        <table class="table table-stripe table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Test</th>
+                                    <th>Duration</th>
+                                    <th>Valid Till</th>
+                                    <th>Take Test</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><p class="test-name">Co-Cubes Second PRE ASSESMENT TEST</p></td>
+                                    <td>3 Hours</td>
+                                    <td><p class="vaild-till-date">05/05/2018</p></td>
+                                    <td>
+                                        <button class="take-test-btn btn btn-success">
+                                            Take Test
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>    
+                   
                     </div>
                 </div>
             </div>
