@@ -265,7 +265,7 @@
                                     <td>3 Hours</td>
                                     <td><p class="vaild-till-date">05/05/2018</p></td>
                                     <td>
-                                        <button class="take-test-btn btn btn-success">
+                                        <button class="take-test-btn btn btn-success"  id="test-1">
                                             Take Test
                                         </button>
                                     </td>
