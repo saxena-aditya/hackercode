@@ -1,4 +1,20 @@
 (function() {
+	$('#f-screen').click()
+	function launchIntoFullscreen(element) {
+  if(element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if(element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+}
+document.getElementById('f-screen').addEventListener('click', function(e) {
+  launchIntoFullscreen(document.documentElement); 
+ 
+})
     const myQuestions = [{
         question: "Who is the strongest?",
         answers: {

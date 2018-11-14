@@ -226,6 +226,7 @@ span#question-number {
     font-size: 1.17em;
     /* background: rebeccapurple; */
     min-height: 68vh;
+    /* padding: 17px; */
 }
 
 .test-question {
@@ -250,8 +251,7 @@ label {
   position: absolute;
   left: 0px;
   top: 0px;
-    padding: 20px;
-
+  padding: 20px 0 0 40px;
   width: 100%;
   z-index: 1;
   opacity: 0;

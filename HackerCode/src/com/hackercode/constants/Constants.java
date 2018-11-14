@@ -19,6 +19,7 @@ public class Constants {
 	public static final String FALSE = "false";
 	public static final String STUDENT_FORM_FIELDS = "studentFormFields";
 	public static final String USER = "user";
+	public static final String ADMIN_TABLE = "admin"; 
 	
 }
 

@@ -1,9 +1,12 @@
 package com.hackercode.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -16,7 +19,9 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.apache.log4j.Logger;
 
 import com.hackercode.constants.Constants;
+import com.hackercode.dao.AdminDao;
 import com.hackercode.services.CommonServiceImpl;
+import com.hackercode.structures.Admin;
 import com.hackercode.structures.User;
 import com.hackercode.util.Util;
 
@@ -25,17 +30,17 @@ import com.hackercode.util.Util;
 public class HelloController extends AbstractController{
 	
 	static Logger log = Logger.getLogger(HelloController.class.getName());
-	
+	private AdminDao admindao;
 	private ModelAndView modelandview;
 	
-	
+	ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
+
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 
-    	ApplicationContext context = 
-    	    		new ClassPathXmlApplicationContext("Beans.xml");
+    	
     	//AdminDaoImpl dao=(AdminDaoImpl)context.getBean("adminDao"); 
-    	CommonServiceImpl cdao = (CommonServiceImpl)context.getBean("commonImplTarget");
+    	CommonServiceImpl cdao = (CommonServiceImpl)ctx.getBean("commonImplTarget");
     	//modelandview = new ModelAndView("hello");
     	//return modelandview;
     //	System.out.println("Our DataSource is = " + dataSource);
@@ -146,6 +151,17 @@ public class HelloController extends AbstractController{
 	@RequestMapping(value = "admin", method = RequestMethod.GET)
 	protected ModelAndView showAdminDashboard() {
 		return new ModelAndView("admin-dashboard"); 
+	}
+	
+	@RequestMapping(value = "show-admins", method = RequestMethod.GET)
+	protected ModelAndView showAdminList() {
+		
+		admindao = ctx.getBean(AdminDao.class);
+		ModelAndView mx = new ModelAndView("test");
+		List<Admin> admins = admindao.getAllAdmins();
+		
+		mx.addObject("admins", admins);
+		return mx;
 	}
 	
 	/*public String printHello(ModelMap model) {

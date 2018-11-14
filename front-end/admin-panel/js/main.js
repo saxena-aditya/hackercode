@@ -6,7 +6,7 @@ $(document).ready(function () {
     });
 
      $('#test-1').on('click', function(e) {
-     	window.open('../take-test/index.html', 'Take Test', 'type=fullWindow, fullscreen, scrollbars=yes');
+     	window.open('../take-test.html', 'Take Test', 'type=fullWindow, fullscreen, scrollbars=yes');
      })
 
 });
