@@ -10,34 +10,46 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
 import com.hackercode.dao.CommonDao;
 import com.hackercode.mappers.AdminMapper;
 import com.hackercode.sql.AdminSql;
 import com.hackercode.structures.User;
 
 
-
+@Component
 public class CommonDaoImpl implements CommonDao{
 		
 	static Logger log = Logger.getLogger(CommonDao.class.getName());
 	@Autowired
 	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 	
-	
+
 	public void setDataSource(DataSource dataSource) {
 	      this.dataSource = dataSource;
 	}
-	
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+
 
 	@Override
-	public Boolean isUserExists(String email) {
+	public Boolean isUserExists(String username) {
 		// TODO Auto-generated method stub
-		jdbcTemplate = new JdbcTemplate(dataSource);
-		Object [] params = new Object [] {email};
+		jdbcTemplate.setDataSource(getDataSource());
+		Object [] params = new Object [] {username};
 		int [] types = new int [] {Types.VARCHAR} ;
 		//User user=null;
-		Boolean user=false;
+		Boolean user = false;
 		try
 		{
 			user = (Boolean)jdbcTemplate.queryForObject(AdminSql.FIND_USER_EXIST, params, types, Boolean.class);
@@ -53,6 +65,7 @@ public class CommonDaoImpl implements CommonDao{
 	@Override
 	public String getUserType(int userId) {
 		// TODO Auto-generated method stub
+		jdbcTemplate.setDataSource(getDataSource());
 		String userType = null;
 		Object [] params = new Object [] {userId};
 		int [] types = new int [] {Types.NUMERIC} ;
@@ -72,6 +85,7 @@ public class CommonDaoImpl implements CommonDao{
 	@Override
 	public User getUser(String email, String password) {
 		// TODO Auto-generated method stub
+		jdbcTemplate.setDataSource(getDataSource());
 		Object [] params = new Object [] {email, password};
 		int [] types = new int [] {Types.VARCHAR,Types.VARCHAR};
 		
@@ -92,7 +106,7 @@ public class CommonDaoImpl implements CommonDao{
 	public boolean registerNewUser(String email, String username, String password) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.setDataSource(getDataSource());
 		Object [] params = new Object [] {username, password, "Student"};		
 		int [] types = new int [] {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR} ;
 		//User user=null;

@@ -128,14 +128,10 @@
                             $.cookie(ssid+tid+"min",min,{expires:date});
                             $.cookie(ssid+tid+"sec",sec,{expires:date});
                             
-                            
                         }
-                        
-                },5000);
-				
-			
+     
+                },5000);		
         });
-        
         // Preveventing Right Click
                     var oLastBtn=0;
                         bIsMenu = false;
@@ -285,7 +281,6 @@
                   {
                      
                     echo "<tr>";
-					
 					echo "<td><div id='".$r."d' class='not_visited'  onclick='fetch_q3($r)' style='cursor:pointer;' >$r</div></td>";
 					$r++;
 					if($r > $_GET['tot']) break;

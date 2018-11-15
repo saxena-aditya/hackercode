@@ -53,7 +53,7 @@ public class AdminDaoImpl implements AdminDao{
 	public List<Admin> getAllAdmins() {
 		// TODO Auto-generated method stub
 		jdbcTemplate.setDataSource(getDataSource());
-		System.out.println(SQLQueries.GET_ALL_ADMINS);
+		//System.out.println(SQLQueries.GET_ALL_ADMINS);
 
 		List<Admin> admins = jdbcTemplate.query(SQLQueries.GET_ALL_ADMINS, new ResultSetExtractor<List<Admin>>(){
 			@Override

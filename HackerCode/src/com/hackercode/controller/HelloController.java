@@ -1,8 +1,11 @@
 package com.hackercode.controller;
 
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +23,9 @@ import org.apache.log4j.Logger;
 
 import com.hackercode.constants.Constants;
 import com.hackercode.dao.AdminDao;
+import com.hackercode.dao.CommonDao;
+import com.hackercode.daoimpl.AdminDaoImpl;
+import com.hackercode.daoimpl.CommonDaoImpl;
 import com.hackercode.services.CommonServiceImpl;
 import com.hackercode.structures.Admin;
 import com.hackercode.structures.User;
@@ -34,13 +40,19 @@ public class HelloController extends AbstractController{
 	private ModelAndView modelandview;
 	
 	ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
-
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	protected ModelAndView showLoginAndRegiser() {
+		return new ModelAndView("login");
+	}
+	
+	
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 
     	
     	//AdminDaoImpl dao=(AdminDaoImpl)context.getBean("adminDao"); 
-    	CommonServiceImpl cdao = (CommonServiceImpl)ctx.getBean("commonImplTarget");
+    	CommonDao cdao = (CommonDao)ctx.getBean("CommonDao");
     	//modelandview = new ModelAndView("hello");
     	//return modelandview;
     //	System.out.println("Our DataSource is = " + dataSource);
@@ -81,25 +93,27 @@ public class HelloController extends AbstractController{
       //  modelandview = new ModelAndView("student_dashboard");
     	return null;
 	}
-   
-	/*public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
+	
+	@RequestMapping(value = "/login-user", method = RequestMethod.POST)
+	public ModelAndView handleLoginRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NoSuchAlgorithmException {
     	
-    	ApplicationContext context = 
+    	ApplicationContext ctx = 
     	    		new ClassPathXmlApplicationContext("Beans.xml");
-    	AdminDaoImpl dao=(AdminDaoImpl)context.getBean("adminDao"); 
-    	CommonDaoImpl cdao = (CommonDaoImpl)context.getBean("commonDao");
+    	
+    	AdminDao dao = (AdminDao) ctx.getBean(AdminDao.class); 
+    	CommonDao cdao = (CommonDao) ctx.getBean(CommonDao.class);
     	modelandview = new ModelAndView("hello");
-    	return modelandview;*/
-    	/*String email = request.getParameter("email");
+    	String username = request.getParameter("username");
         String pass = request.getParameter("pass");
         pass = Util.covertToMd5(pass);
+        System.out.println("username: " + username + ", pass: " + pass);
         try{
-        	Boolean userExists =   cdao.isUserExists(email, pass);  //checkUserPresent(email,pass);
-        	if(userExists.equals(Constants.FALSE)){
+        	Boolean userExists = cdao.isUserExists(username);  //checkUserPresent(email,pass);
+        	if(!userExists){
         		return wrongUserPass();
         	}
-        	Admin user = CommonServiceImpl.getUser(email);
+        	User user = cdao.getUser(username, pass);
         	String userType = user.getUserType();
         	if(userType.equals(Constants.ADMIN)){	
         		return setAdminSpecificData(user);
@@ -112,8 +126,8 @@ public class HelloController extends AbstractController{
         	System.out.println("Cannot find the user "+e);
         }
         
-		return modelandview;*/
-   // }
+		return modelandview;
+    }
     
    /* boolean checkUserPresent(String email, String pass){
     	return CommonServiceImpl.isUserExists(email);
@@ -121,7 +135,7 @@ public class HelloController extends AbstractController{
     
     private ModelAndView wrongUserPass() {
 		// TODO Auto-generated method stub
-    	modelandview = new ModelAndView("failed");
+    	modelandview = new ModelAndView("login");
 		modelandview.addObject(Constants.WRONG_USERNAME_PASSWORD, Constants.FALSE);
 		
 		return modelandview;
@@ -138,7 +152,7 @@ public class HelloController extends AbstractController{
 		Util.setParameters(modelandview,Admin);
 		Util.setStatBoxParameters(modelandview, statBox);*/
 		//commonDao.setLastLogin(user.getId());
-    	modelandview = new ModelAndView("admin_dashboard2");
+    	modelandview = new ModelAndView("admin-dashboard");
 		return modelandview;
 	}
     
@@ -172,7 +186,7 @@ public class HelloController extends AbstractController{
 	
 	private ModelAndView setStudentSpecificData() {
 		// TODO Auto-generated method stub
-    	modelandview =new ModelAndView("student_dashboard");
+    	modelandview =new ModelAndView("failed");
 		return modelandview;
 	}
 }
