@@ -1,0 +1,83 @@
+{
+    "test_id": "$id124",
+    "test_duration": 12300000,
+    "rules": {
+        "is_negative_marking": true,
+        "value": "25"
+    },
+    "instruction": [
+        "1 . If wrong answer marked 25% markes will be deducted",
+        "2 . If left no markes will be deducted",
+        "3 . If your marked answer is right you get 100% marks",
+        "4. In multiple correct answer if only correct answers are marked you will get awarded as per creteria"
+    ],
+    "question_set": [
+        {
+                "sec_id" : 1,
+                "questions":[
+           
+                {
+                    "id": "$4",
+                    "question": "Choose the members of akastuki",
+                    "options": [
+                        "Pain",
+                        "Naruto",
+                        "Hydra",
+                        "Sasuke"
+                    ],
+                    "answer": [
+                        "Pain",
+                        "Sasuke"
+                    ]
+                },
+                {
+                    "id": "$5",
+                    "question": "Choose the leader of akastuki",
+                    "options": [
+                        "Pain",
+                        "Itachi",
+                        "Orichimaru",
+                        "Sasuke"
+                    ],
+                    "answer": [
+                        "Pain"
+                    ]
+                }
+                ]
+                 
+    },
+          {
+                "sec_id" : 2,
+                "questions":[
+                    {
+                    "id": "$1",
+                    "question": "When a number is successively divided by 2, 3, 7, we get 1, 2, 3 as the remainder respectively. What is the smallest such number ?",
+                    "options": [
+                        12,
+                        23,
+                        65,
+                        90
+                    ],
+                    "answer": [
+                        65
+                    ]
+                },
+                {
+                    "id": "$2",
+                    "question": "Which of the following are prime numbers ?",
+                    "options": [
+                        247,
+                        397,
+                        423,
+                        111
+                    ],
+                    "answer": [
+                        397
+                    ]
+                }
+                ]
+                 
+    }
+       
+    ]
+}
