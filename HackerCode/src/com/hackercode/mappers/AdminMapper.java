@@ -13,6 +13,7 @@ public class AdminMapper implements RowMapper<User>{
 	      admin.setUsername(rs.getString("username"));
 	      admin.setPassword(rs.getString("password"));
 	      admin.setUserType(rs.getString("usertype"));
+	      
 	      return admin;
 	   }
 }

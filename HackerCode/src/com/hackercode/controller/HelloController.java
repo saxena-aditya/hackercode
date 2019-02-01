@@ -9,12 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,9 +21,6 @@ import org.apache.log4j.Logger;
 import com.hackercode.constants.Constants;
 import com.hackercode.dao.AdminDao;
 import com.hackercode.dao.CommonDao;
-import com.hackercode.daoimpl.AdminDaoImpl;
-import com.hackercode.daoimpl.CommonDaoImpl;
-import com.hackercode.services.CommonServiceImpl;
 import com.hackercode.structures.Admin;
 import com.hackercode.structures.User;
 import com.hackercode.util.Util;
@@ -64,8 +58,8 @@ public class HelloController extends AbstractController{
         if(confirmPass==null) {
         	//pass = Util.covertToMd5(pass);
         	try{
-	        	Boolean userExists =   cdao.isUserExists(email);  //checkUserPresent(email,pass);
-	        	if(userExists==false){
+	        	Boolean userExists = cdao.isUserExists(email);  //checkUserPresent(email,pass);
+	        	if(userExists == false){
 	        		return wrongUserPass();
 	        	}
 	        	User user = cdao.getUser(email,pass);
@@ -98,10 +92,10 @@ public class HelloController extends AbstractController{
 	public ModelAndView handleLoginRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NoSuchAlgorithmException {
     	
-    	ApplicationContext ctx = 
+    	@SuppressWarnings("resource")
+		ApplicationContext ctx = 
     	    		new ClassPathXmlApplicationContext("Beans.xml");
     	
-    	AdminDao dao = (AdminDao) ctx.getBean(AdminDao.class); 
     	CommonDao cdao = (CommonDao) ctx.getBean(CommonDao.class);
     	modelandview = new ModelAndView("hello");
     	String username = request.getParameter("username");
