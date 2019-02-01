@@ -5,7 +5,7 @@ public interface AdminSql {
 	//	    "SELECT password from users where username=?) THEN 'True' ELSE 'False' END";
 	
 	public static final String FIND_USER_EXIST = "SELECT CASE WHEN EXISTS ("+
-			"SELECT * FROM users WHERE username=?) THEN 'True' ELSE 'False' END";
+			"SELECT * FROM users WHERE username = ? AND pass = ?) THEN 'True' ELSE 'False' END";
 	
 	public static final String GET_USER_TYPE = "SELECT CASE WHEN EXISTS ("+
 			"SELECT usertype FROM users WHERE username=?) THEN 'True' ELSE 'False' END";
