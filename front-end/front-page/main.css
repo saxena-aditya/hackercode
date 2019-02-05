@@ -43,7 +43,7 @@ body, html {
 }
 
 #front {
-    background-color: #f6f6f6;
+    background-color: #ffffff;
 }
 #owl-graph {
     position: absolute;
@@ -112,10 +112,12 @@ body, html {
     background-color: #00b29a;
     color: #fff;
     padding: 10px 20px;
+    box-shadow: #cac3c3 2px 2px 6px;
 
 }
 #menu-hack li a:hover {
     background-color: #e85e53;
     text-decoration: none;
+    box-shadow: #dc3434 1px 1px 3px;
 }
 /*===============================*/
