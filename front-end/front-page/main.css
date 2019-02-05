@@ -1,0 +1,121 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body, html {
+    font-family: 'Rubik', sans-serif;
+}
+
+#front {
+    background-color: #f6f6f6;
+}
+#owl-graph {
+    position: absolute;
+    top: 4%;
+    width: 30vw;
+}
+#bulb-front {
+    position: absolute;
+    height: 48%;   
+    bottom: -8%;
+    right: 5%;
+ 
+}
+
+.head-area {
+    position: absolute;
+    float: left;
+    left: 50%;
+    //top: 20%; 
+    transform: translate(-50%, -50%);
+}
+.head-area h1 {
+    font-size: 10vw;
+    font-weight: bold;
+    letter-spacing: 5px;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    text-shadow: #545353 2px 4px 3px ;
+}
+.head-area h4 {
+    font-size: 2vw;
+    font-weight: bold;
+}
+.head-area h3 {
+    font-size: 1.5vw;
+}
+.choice-area {
+    margin-top: 3%;
+    font-size: 1.4vw;
+}
+#choice-qst {
+   margin: 0 5px 0 0; 
+}
+.choice-ans {
+    font-size: 1.8vw;
+    text-transform: capitalize;
+    text-decoration: underline;
+    color: #01b19b;
+}
+.choice-ans:hover {
+    color: #c3d71f;
+}
+
+/*=========== MENU ==============*/
+
+#menu-hack {
+    z-index: 9999;
+    position: absolute;
+    display : inline-flex;
+    flex-wrap: nowrap;
+    right: 0;
+    margin: 4% 10%;
+}
+#menu-hack li a{
+    margin: 0 15px 0 0;
+    background-color: #00b29a;
+    color: #fff;
+    padding: 10px 20px;
+
+}
+#menu-hack li a:hover {
+    background-color: #e85e53;
+    text-decoration: none;
+}
+/*===============================*/
