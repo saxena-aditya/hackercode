@@ -15,19 +15,24 @@
         /* result will hold the keys of the object now we can acces each object */
         let result = Object.keys((test.question_set));
         console.log(result);
-
+        /* decleraing a variable count so that we can access the question set wise */
+        let count = 0;
         result.map((key) => {
             console.log();
-            test.question_set[key].questions.map((question) => {
+            sideview_question_status.push(`<h5 class="set">${key}</h5>`);
+            test.question_set[key].questions.map((question, index) => {
                 myQuestions.push({
                     question: question.question,
                     answers: question.options
                 })
+                //console.log(count);
+                sideview_question_status.push(`<button class="classic-btn normal" id="${count++}">${index + 1}</button>`);
             })
         })
         testBilder();
         intitDeclaration();
-        showSlide(0)
+        showSlide(0);
+
     })
 
 
@@ -82,14 +87,16 @@
     }
 
     function testBilder() {
-        const questionSet = []
+        const questionSet = [];
+
         myQuestions.forEach(function (currentQuestion, questionNumber) {
             var qanswers = []
             for (option in currentQuestion.answers) {
+                console.log(currentQuestion.answers[option])
                 qanswers.push(`<label>
-		             <input type="radio" name="question${questionNumber}" value="${option}">
+		             <input type="radio" name="question${questionNumber}" value="${currentQuestion.answers[option]}">
 		             
-		              ${option}
+		              ${currentQuestion.answers[option]}
 		           </label>`)
             }
             questionSet.push(`<div class="slide">
@@ -98,16 +105,19 @@
 		         </div>`);
 
         })
-        test.innerHTML = questionSet.join("")
+        btns.innerHTML = "";
+        test.innerHTML = questionSet.join("");
+        btns.innerHTML = sideview_question_status.join("");
+
     }
 
-    /* function that init values */
+    /* DECLERATION OF GLOBAL VARIABLES !!!! */
     let slides;
     let next = document.getElementById('next-btn')
     let prev = document.getElementById('prev-btn')
     let submit = document.getElementById('submit-btn')
     let questionNumber = document.getElementById('question-number');
-
+    const sideview_question_status = [];
 
     function intitDeclaration() {
         slides = document.querySelectorAll(".slide")
@@ -145,6 +155,15 @@
         e.preventDefault()
         showNextSlide()
     })
+
+    /* function to update time of test */
+    const updateTime = () => {
+        const currentTime = new Date().getTime();
+        console.log(`updated time is : ${currentTime}`)
+
+    }
+
+
 
 }
 )()
