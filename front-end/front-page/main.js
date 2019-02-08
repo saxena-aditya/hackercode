@@ -10,15 +10,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     font: inherit;
     vertical-align: baseline;
 }
-::selection {
-    color: none;
-    background: none;
-}
-/* For Mozilla Firefox */
-body::-moz-selection {
-    color: none;
-    background: none;
-}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     display: block;
@@ -71,9 +63,8 @@ body, html {
     position: absolute;
     float: left;
     left: 50%;
-    top: 50%;
+    //top: 20%;
     transform: translate(-50%, -50%);
-    cursor: default;
 }
 
 .head-area h1 {
@@ -105,10 +96,9 @@ body, html {
 
 .choice-ans {
     font-size: 1.8vw;
-    font-weight: 500;
     text-transform: capitalize;
     text-decoration: underline;
-    color: #0a8a79;
+    color: #01b19b;
 }
 
 .choice-ans:hover {
@@ -140,14 +130,10 @@ body, html {
 }
 
 /*===============================*/
-.right-slide-x, .left-slide-x {
-    max-width: 44%;
+.right-slide-x {
+    max-width: 45%;
     background-color: green;
 }
-.sslide:nth-child(1) {
-  margin-right: 100px;
-}
-
 
 .right-slide-view {
     background-color: #4CAF50;
@@ -157,7 +143,7 @@ body, html {
 
 .slider-wrapper {
     padding: 2.5%;
-    display: flex;
+    //height: 100%;
 }
 
 .slide-arrow {
@@ -180,6 +166,12 @@ body, html {
     margin: 0 10px;
 }
 
+/* ---- reset ---- */
+
+body {
+  margin: 0;
+  font: normal 75% Arial, Helvetica, sans-serif;
+}
 
 canvas {
   display: block;
@@ -188,9 +180,9 @@ canvas {
 /* ---- particles.js container ---- */
 
 #particles-js {
-  /* position: absolute; */
+  position: absolute;
   width: 100%;
   height: 100%;
-  background-color: transparent;
+  background-color: #c3c3c3;
 }
 
