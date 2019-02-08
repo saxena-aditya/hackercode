@@ -1,3 +1,5 @@
+console.log("FUNCTION JS")
+
 $(document).ready(function(){
  $('#fullpage').fullpage({
     sectionsColor: ['#F78888','#F3D250','#479761','#5DA2D5'],
