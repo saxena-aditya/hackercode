@@ -111,7 +111,8 @@
             }
             questionSet.push(`<div class="slide">
 		           <div class="question"> ${currentQuestion.question} </div>
-		           <div class="answers"> ${qanswers.join("")} </div>
+                   <div class="answers"> ${qanswers.join("")} 
+                   </div>
 		         </div>`);
 
         })
@@ -123,6 +124,7 @@
 
     /* DECLERATION OF GLOBAL VARIABLES !!!! */
     let slides;
+    let review = document.getElementById('review-btn');
     let next = document.getElementById('next-btn')
     let prev = document.getElementById('prev-btn')
     let submit = document.getElementById('submit-btn')
@@ -131,6 +133,9 @@
     let total_time_for_exam = 0;
     /* var to select the timer clock on web page */
     const time_clock = document.getElementById('time-clock');
+    /* var to store the last slide number so that we can change the class*/
+    let prevSlide = -1;
+
 
     function intitDeclaration() {
         slides = document.querySelectorAll(".slide")
@@ -143,13 +148,12 @@
         slides[currentSlide].classList.remove("active-slide")
         slides[n].classList.add("active-slide")
         currentSlide = n;
-
         if (currentSlide === 0) {
             prev.style.display = "none"
         } else {
             prev.style.display = "inline-block"
         }
-
+        review.style.display = "block";
         if (currentSlide === slides.length - 1) {
             next.style.display = "none"
             submit.style.display = "inline-block"
@@ -157,9 +161,20 @@
             next.style.display = "inline-block"
             submit.style.display = "none"
         }
+
+        /* function that will change the class of the button */
+        IsAnsweredOrIsSkipped(prevSlide);
+        prevSlide = n;
+
     }
 
 
+    review.addEventListener('click', function (e) {
+        e.preventDefault();
+        console.log(currentSlide)
+        showNextSlide();
+        reviewed(currentSlide - 1);
+    })
     prev.addEventListener('click', function (e) {
         e.preventDefault()
         showPreviousSlide()
@@ -211,6 +226,59 @@
             minutes: minutes,
             seconds: seconds,
         };
+    }
+
+
+    function IsAnsweredOrIsSkipped(n) {
+        /* to add the class visited to sidebar button */
+        /* <button class="classic-btn normal" id="${count++}">${index + 1}</button> this is the html of button */
+
+        let resource = getButtonAndTags(n);
+        const visited_button = resource.button;
+        const inputTags = resource.tags;
+
+        visited_button.removeClass();
+        if (isAnswered(inputTags)) {
+            visited_button.addClass("classic-btn visited");
+        }
+        else {
+            visited_button.addClass("classic-btn not-answered");
+        }
+    }
+
+    /* function for review button */
+    function reviewed(n) {
+        let resource = getButtonAndTags(n);
+        const reviewed_button = resource.button;
+        const inputTags = resource.tags;
+        reviewed_button.removeClass();
+        if (isAnswered(inputTags)) {
+            reviewed_button.addClass("classic-btn answered-to-review");
+        }
+        else {
+            reviewed_button.addClass("classic-btn to-review");
+        }
+    }
+
+
+    /* function that will return us button and input tags of slide */
+    function getButtonAndTags(n) {
+        return {
+            button: $(`#${n}`),
+            tags: $(`:input[name="question${n}"]`)
+        }
+    }
+
+    /* function that will receive the radio buttons group and check is answered or not */
+    function isAnswered(inputTags) {
+        let isAnswered = false;
+        inputTags.map((i) => {
+            if (inputTags[i].checked) {
+                console.log("checked");
+                isAnswered = true;
+            }
+        })
+        return isAnswered;
     }
 
 
