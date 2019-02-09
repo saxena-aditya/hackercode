@@ -28,7 +28,17 @@
                 //console.log(count);
                 sideview_question_status.push(`<button class="classic-btn normal" id="${count++}">${index + 1}</button>`);
             })
-        })
+        });
+        /* setting clock to null because exam has not yet started */
+        time_clock.innerHTML = "";
+
+        /* storing the total time of exam received from server in a variable */
+        total_time_for_exam = test.test_duration;
+
+        /* calling a method toggleClock() that is gonnna receive the total time of exam and handle it and update it ! */
+        toggleClock(total_time_for_exam);
+
+        /* calling neccesary function to display question on web page and set timer */
         testBilder();
         intitDeclaration();
         showSlide(0);
@@ -92,7 +102,7 @@
         myQuestions.forEach(function (currentQuestion, questionNumber) {
             var qanswers = []
             for (option in currentQuestion.answers) {
-                console.log(currentQuestion.answers[option])
+                //console.log(currentQuestion.answers[option])
                 qanswers.push(`<label>
 		             <input type="radio" name="question${questionNumber}" value="${currentQuestion.answers[option]}">
 		             
@@ -118,6 +128,9 @@
     let submit = document.getElementById('submit-btn')
     let questionNumber = document.getElementById('question-number');
     const sideview_question_status = [];
+    let total_time_for_exam = 0;
+    /* var to select the timer clock on web page */
+    const time_clock = document.getElementById('time-clock');
 
     function intitDeclaration() {
         slides = document.querySelectorAll(".slide")
@@ -156,13 +169,49 @@
         showNextSlide()
     })
 
-    /* function to update time of test */
-    const updateTime = () => {
-        const currentTime = new Date().getTime();
-        console.log(`updated time is : ${currentTime}`)
+
+    /* function to toggle the clock */
+    function toggleClock(total_duration) {
+        let total_time = total_duration;
+        setInterval(function () {
+            setClock(total_time);
+            total_time = total_time - 1000;//because 1sec = 1000 milliseconds
+        }, 1000)
 
     }
 
+
+
+    /* function to handle the total time of exam and time elapsed */
+    function setClock(total_duration) {
+        /* since total_duration will be in milli sec we need to convert it into sec and min and hrs asap */
+        //created a function convertMillisecondsToDigitalClock
+        const time = convertMillisecondsToDigitalClock(total_duration);
+        const sec = time.seconds;
+        const min = time.minutes;
+        const hr = time.hours;
+        let clock = "";
+        if (hr == 0) {
+            clock = min + "m" + " " + sec + "sec";
+        }
+        else {
+            clock = hr + "hr" + " " + min + "m" + " " + sec + "sec";
+        }
+        time_clock.innerHTML = clock;
+
+    }
+
+    // CONVERT MILLISECONDS TO DIGITAL CLOCK FORMAT
+    function convertMillisecondsToDigitalClock(ms) {
+        let hours = Math.floor(ms / 3600000); // 1 Hour = 36000 Milliseconds
+        let minutes = Math.floor((ms % 3600000) / 60000); // 1 Minutes = 60000 Milliseconds
+        let seconds = Math.floor(((ms % 360000) % 60000) / 1000); // 1 Second = 1000 Milliseconds
+        return {
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds,
+        };
+    }
 
 
 }
