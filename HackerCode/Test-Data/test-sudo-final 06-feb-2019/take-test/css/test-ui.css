@@ -177,7 +177,19 @@ p.index-label {
     border-radius: 5px;
 }
 
-.pre-btn:hover,.next-btn:hover {
+.btn{
+    background-color: #9C27B0;
+    border-radius:5px; 
+}
+
+#review-btn{
+    margin-right: auto;
+}
+#clear-response-btn{
+    margin: auto;
+}
+
+.pre-btn:hover,.next-btn:hover,.btn:hover {
     background: #6b1779;
 }
 
@@ -229,8 +241,9 @@ span#question-number {
     /* padding: 17px; */
 }
 
-.test-question {
+ .test-question {
     /* font-size: 1.2em; */
+    color: black;
 }
 
 .btns {

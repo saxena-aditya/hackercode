@@ -124,6 +124,8 @@
 
     /* DECLERATION OF GLOBAL VARIABLES !!!! */
     let slides;
+    /* adding a clear response button */
+    let clear = document.getElementById('clear-response-btn');
     let review = document.getElementById('review-btn');
     let next = document.getElementById('next-btn')
     let prev = document.getElementById('prev-btn')
@@ -182,6 +184,10 @@
     next.addEventListener('click', function (e) {
         e.preventDefault()
         showNextSlide()
+    })
+    clear.addEventListener('click',function(e){
+        e.preventDefault();
+        clearResponse();
     })
 
 
@@ -279,6 +285,21 @@
             }
         })
         return isAnswered;
+    }
+
+
+
+    /* function for clearing response */
+    function clearResponse(){
+        console.log("IN CLEAR RESPONSE FUNCS")
+        let inputTags = getButtonAndTags(currentSlide).tags;
+        inputTags.map((i) => {
+            if (inputTags[i].checked) {
+                console.log("checked");
+               inputTags[i].checked=false;
+            }
+        })
+
     }
 
 
