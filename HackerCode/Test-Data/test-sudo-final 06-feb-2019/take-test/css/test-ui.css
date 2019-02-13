@@ -1,5 +1,15 @@
 body {
     font-family: 'Karla', sans-serif !important;
+    height: 100vh;
+}
+
+.container-fluid{
+    padding-bottom: -25px;
+}
+
+
+footer{
+    margin-top:auto;
 }
 
 .height-full {
@@ -71,6 +81,9 @@ body {
 p.margin-0.tag-text {
     font-size: 0.95em;
 }
+
+
+
 
 p#time-clock {
     height: 100%;
@@ -172,6 +185,11 @@ p.index-label {
     border-radius: 5px;
 }
 
+#submit-btn-2{
+    margin:auto;
+    margin-top:5px;
+}
+
 .next-btn, .pre-btn {
     background-color: #9C27B0;
     border-radius: 5px;
@@ -220,7 +238,7 @@ p.index-label {
 /*-----------------------------------*/
 .question-button-container {
     background-color: #fff;
-    height: 350px;
+    height: 300px;
     overflow-y: scroll;
 }
 
@@ -237,7 +255,7 @@ span#question-number {
     padding: 15px;
     font-size: 1.17em;
     /* background: rebeccapurple; */
-    min-height: 68vh;
+    min-height: 63vh;
     /* padding: 17px; */
 }
 
@@ -281,4 +299,12 @@ label {
   width:100%;
   display: block;
   font-weight: bold;
+}
+
+.tag:hover{
+    cursor: pointer;
+}
+
+#marks{
+    margin-left: auto;
 }

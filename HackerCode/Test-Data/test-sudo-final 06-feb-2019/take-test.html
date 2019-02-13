@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="container-fluid ">
+    <div class="container-fluid">
         <button id="f-screen"><i class="fa fa-arrows-alt"></i>full screen</button>
         <div class="row bg-blue">
             <div class="col-md-12">
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-md-12 bg-grey">
                         <div class="d-flex question-tags justify-content-between">
-                            <div class="d-flex">
+                            <div class="d-flex" id="question_type">
                                 <div class="tag bg-blue-light">
                                     <p class="margin-0 tag-text fff">General Awareness</p>
                                 </div>
@@ -53,9 +53,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-9">
-                        <div class="test-type-info">
+                        <div class="test-type-info row">
                             <span>
                                 Question Type: <span id="test-type-name">Multiple Choice Questions</span>
+                            </span>
+                            <span id="marks">
+                              <!--MARKS OF EACH QUESTION TO BE APPENDED-->
+
                             </span>
                         </div>
                     </div>
@@ -117,6 +121,7 @@
                     <div class="col-md-12">
                         <div class="notice-area">
                             <p class="margin-0">
+                              <!-- PROFILE OF USER TO BE ADDED HERE ---->
                                 <span id="note-prob">Note:</span>
                                 Please don't try to switch tabs. If you tried to switch tabs there will be strict acton
                                 taken.
@@ -169,62 +174,12 @@
                 <div class="row">
                     <div class="question-button-container col-md-10 offset-md-1">
                         <div class="d-flex flex-wrap" id="question-btns">
-                            <button class="classic-btn normal" id="0">1</button>
-                            <button class="classic-btn visited" id="1">1</button>
-                            <button class="classic-btn not-answered" id="2">1</button>
-                            <button class="classic-btn to-review">1</button>
-                            <button class="classic-btn answered-to-review">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
-                            <button class="classic-btn visited">1</button>
+                          <!-- QUESTIONS ARE ADDED DYNAMICALLY FROM THE SERVER -->
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                  <button id="submit-btn-2" class="btn-class sub-btn">Submit<i class="fas fa-check-double fff adjust-padd"></i></button>
                 </div>
             </div>
         </div>
