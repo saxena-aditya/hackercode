@@ -106,6 +106,9 @@ const myQuestions = [];
      let q_types =[] ;
      let q_type_buttons;
 
+        let key;
+
+
      /* marks of each question */
      let marks_of_each_question = [];
 
@@ -176,12 +179,12 @@ clear.addEventListener('click',function(e){
 function addEvent()
 {
     q_type_buttons.map(button=>{
-        console.log(button)
+       // console.log(button)
         q_type_buttons[button].addEventListener('click',function(e){
-            console.log(e);
-            console.log("clicked");
+            // console.log(e);
+            // console.log("clicked");
 
-            changeButtons(q_type_keys[button].key);
+            changeButtons(q_type_keys[button].key,button);
         })
     })
 }
@@ -218,7 +221,8 @@ function intitDeclaration() {
   })
   q_type_buttons = $(`${q_types.join(',')}`);
    addEvent();
-   changeButtons(q_type_keys[0].key);
+   changeButtons(q_type_keys[0].key,0);
+   key=0;
 }
 
 
@@ -227,16 +231,18 @@ function showSlide(n) {
     slides[currentSlide].classList.remove("active-slide")
     slides[n].classList.add("active-slide")
     currentSlide = n;
-    console.log(slides[n].getAttribute('name'));
+    console.log("N TH SLIDE : ",n);
     let q_number = parseInt(slides[n].getAttribute('name'))+1;
     questionNumber.innerHTML = q_number;
+    let length =getSetLength(key);
+    console.log("LENGTH : ",length)
     if (currentSlide === 0) {
         prev.style.display = "none"
     } else {
         prev.style.display = "inline-block"
     }
     review.style.display = "block";
-    if (currentSlide === slides.length - 1) {
+    if (currentSlide === length - 1) {
         next.style.display = "none"
         submit.style.display = "inline-block"
     } else {
@@ -359,7 +365,7 @@ function isAnswered(inputTags) {
     let isAnswered = false;
     inputTags.map((i) => {
         if (inputTags[i].checked) {
-            console.log("checked");
+           // console.log("checked");
             isAnswered = true;
         }
     })
@@ -370,11 +376,11 @@ function isAnswered(inputTags) {
 
 /* function for clearing response */
 function clearResponse(){
-    console.log("IN CLEAR RESPONSE FUNCS")
+    //console.log("IN CLEAR RESPONSE FUNCS")
     let inputTags = getButtonAndTags(currentSlide).tags;
     inputTags.map((i) => {
         if (inputTags[i].checked) {
-            console.log("checked");
+           // console.log("checked");
            inputTags[i].checked=false;
         }
     })
@@ -416,7 +422,7 @@ function testBilder() {
 
 
 
-function changeButtons(button_obj)
+function changeButtons(button_obj,index)
 {
     console.log("btn obj : ",button_obj);
     btns.innerHTML="";
@@ -427,11 +433,35 @@ function changeButtons(button_obj)
             btns.innerHTML=`<h5 class="set">${obj.key}</h5>` + obj.button.join("");
         }
     })
+    key=index;
+    if(key===0)
+    showSlide(0);
+    else
+    showSlide(getLength(key));
+    
 
-
+   
 }
 
+function getLength(n)
+{
+   let length=0;
+    for(i=0;i<n;i++)
+    {
+       length= length+q_type_keys[i].button.length;
+    }
+    return length;
+}
 
+function getSetLength(n)
+{
+    let length=0;
+    for(i=0;i<=n;i++)
+    {
+       length= length+q_type_keys[i].button.length;
+    }
+    return length;
+}
 
 
 
