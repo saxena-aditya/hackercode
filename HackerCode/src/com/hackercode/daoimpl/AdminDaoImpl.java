@@ -26,7 +26,7 @@ public class AdminDaoImpl implements AdminDao{
 	
 	@Autowired
 	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplate = new JdbcTemplate();;
+	private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 	
 	public void setDataSource(DataSource dataSource) {
 	      this.dataSource = dataSource;

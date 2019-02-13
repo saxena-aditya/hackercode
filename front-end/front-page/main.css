@@ -66,7 +66,13 @@ body, html {
     bottom: -8%;
     right: 5%;
 }
-
+#celeb {
+  height: 100%;
+  position: absolute;
+  top: 40%;
+  left: -10%;
+  z-index: -1;
+}
 .head-area {
     position: absolute;
     float: left;
@@ -193,4 +199,15 @@ canvas {
   height: 100%;
   background-color: transparent;
 }
+.slider-xx {
+  padding: 0px;
+}
 
+.img-d {
+  height: 20vw;
+  width: fit-content !important;
+}
+.img-d img {
+  height: 100%;
+  width: auto;
+}

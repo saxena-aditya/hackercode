@@ -72,10 +72,26 @@
                 </div>
             </div>
             <div class="section">
-                <div class="slide">Slide 1 </div>
-                <div class="slide">Slide 2 </div>
-                <div class="slide">Slide 3 </div>
-                <div class="slide">Slide 4 </div>
+                <img src="../ff-ideas/celeb.png" alt="" id="celeb">
+               <!--  <div class="heading-xx">
+                   Our Crowns
+               </div>
+               <div class="slider-xx">
+                   <div class="xx-1 variable-width">
+                       <div class="img-d"><img src="../ff-ideas/p-1.png" alt=""></div>
+                       <div class="img-d"><img src="../ff-ideas/p-2.jpg" alt=""></div>
+                       <div class="img-d"><img src="../ff-ideas/p-3.jpg" alt=""></div>
+                       <div class="img-d"><img src="../ff-ideas/p-4.jpg" alt=""></div>
+                       <div class="img-d"><img src="../ff-ideas/p-5.jpeg" alt=""></div>
+                       <div class="img-d"><img src="../ff-ideas/p-1.png" alt=""></div>
+                       <div class="img-d"><img src="../ff-ideas/p-2.jpg" alt=""></div>
+                       <div class="img-d"><img src="../ff-ideas/p-3.jpeg" alt=""></div>
+                       <div class="img-d"><img src="../ff-ideas/p-4.jpg" alt=""></div>
+                       <div class="img-d"><img src="../ff-ideas/p-2.jpg" alt=""></div>
+                       <div class="img-d"><img src="../ff-ideas/p-1.png" alt=""></div>
+                   
+                   </div>
+               </div> -->
             </div>
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"/>
@@ -108,6 +124,18 @@
                     asNavFor: '.left-slide-x'
 
                 });
+                $('.xx-1').slick({
+                    arrows: true,
+                    dots: true,
+                    centerMode: true,
+                    focusOnSelect: true,
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    prevArrow: "<i class='fa fa-arrow-left slide-arrow arrow-prev'></i>",
+                    nextArrow: "<i class='fa fa-arrow-right slide-arrow arrow-next'></i>",
+                 // asNavFor: '.left-slide-x'
+
+                });
 
                 $('.left-slide-x').slick({
                     arrows: true,
@@ -116,6 +144,8 @@
                     focusOnSelect: true,
                     slidesToShow: 1,
                     slidesToScroll: 1,
+                      variableWidth: true,
+
                     prevArrow: "<i class='fa fa-arrow-left slide-arrow arrow-prev'></i>",
                     nextArrow: "<i class='fa fa-arrow-right slide-arrow arrow-next'></i>",
                     asNavFor: '.right-slide-x'
