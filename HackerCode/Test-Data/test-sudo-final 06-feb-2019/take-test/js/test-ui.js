@@ -424,7 +424,7 @@ function changeButtons(button_obj)
     q_type_keys.map(obj=>{
         if(obj.key===temp_key)
         {
-            btns.innerHTML=obj.button.join("");
+            btns.innerHTML=`<h5 class="set">${obj.key}</h5>` + obj.button.join("");
         }
     })
 

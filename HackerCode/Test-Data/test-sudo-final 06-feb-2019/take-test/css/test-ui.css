@@ -78,6 +78,11 @@ footer{
     border-right: solid 7px #03a9f4;
 }
 
+.tag:active{
+    border-color: #6e9cb1;
+    box-shadow: 1px 1px 1px 1px #6e9cb1;
+}
+
 p.margin-0.tag-text {
     font-size: 0.95em;
 }
@@ -119,7 +124,13 @@ span#note-prob {
     font-weight: 600;
     margin: 10px 15px 0 0;
 }
-
+.triangle-down {
+	width: 0;
+	height: 0;
+	border-left: 9px solid #fff;
+	border-right: 9px solid #fff;
+	border-top: 18px solid #555;
+}
 .classic-btn:focus {
     outline : none;
 }
@@ -141,7 +152,10 @@ span#note-prob {
 }
 
 .not-answered {
-    background-color: #F44336;
+    border-left: 25%;
+    border-right: 25%;
+    border-top:50%;
+    background-color: rgb(218, 255, 9);
 }
 
 .to-review {
@@ -221,7 +235,10 @@ p.index-label {
 }
 
 .not-answered:hover {
-    background: #dc1e11;
+    border-left: 25%;
+    border-right: 25%;
+    border-top:50%;
+    background: #d9ff00;
     color: #fff;
 }
 
