@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -82,8 +83,9 @@ public class TestController extends AbstractController{
 		return model;
 	}
 	
-	@RequestMapping(value = "/get-test-data/{testID}", method = RequestMethod.GET)
-	public ModelAndView testData(@PathVariable String testID) {
+	@RequestMapping(value = "/get-test-data/{testID}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String testData(@PathVariable String testID) {
 		TestDAO testDAO = ctx.getBean(TestDAO.class);
 		
 		int testIdentifier = 0;
@@ -96,8 +98,8 @@ public class TestController extends AbstractController{
 		}
 		
 		String testData = testDAO.getTestData(testIdentifier);
-		
-		return new ModelAndView("test-data").addObject("data", testData);
+		return testData;
+		//return new ModelAndView("test-data").addObject("data", testData);
 	}
     
 	@Override

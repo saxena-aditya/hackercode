@@ -127,8 +127,16 @@ public class TestDAOImpl implements TestDAO{
 								ss.addProperty("max_marks",q.getQuestionMaxMarks());
 								ss.addProperty("neg_marks", q.getQuestionNegMarks());
 								ss.addProperty("question", q.getQuestionContent());
-								ss.addProperty("options", q.getQuestionOptions());
-								ss.addProperty("answer", q.getQuestionAns());
+								String[] array = q.getQuestionOptions().split(",");
+								JsonArray xz = new JsonArray();
+								
+								for(int i1=0; i1<array.length; i1++)
+									xz.add(array[i1]);
+
+								ss.add("options", xz);
+								JsonArray j = new JsonArray();
+								j.add(q.getQuestionAns());
+								ss.add("answer", j);
 								//sx is array of questions specific to sets 
 								sx.add(ss);
 							}
@@ -136,9 +144,9 @@ public class TestDAOImpl implements TestDAO{
 						t.addProperty("total_sets", sets.size());
 						JsonObject setQuestions = 	new JsonObject();
 						setQuestions.add("questions", sx);
-						xx.add(sets.get(i),setQuestions);
+						xx.add(sets.get(i).toLowerCase(),setQuestions);
 					}
-					t.add("questions",xx);
+					t.add("question_set",xx);
 					return t.toString();
 				}
 				else  {

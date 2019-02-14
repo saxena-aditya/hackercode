@@ -3,7 +3,7 @@
 
 (function () {
     /* function for getting test data */
-    $.get('http://localhost:3000/', function (data, status) {
+    $.get('http://localhost:8080/HackerCode/get-test-data/1', function (data, status) {
         console.log(data);
         const test = { ...data };
         if (data == 0)
@@ -30,9 +30,7 @@
                 })
                 //console.log(count);
     
-
                 marks_of_each_question.push(question.marks);
-
 
                 temp_button.push(`<button class="classic-btn normal" id="${count++}" value=${index + 1}>${index + 1}</button>`);
                 //sideview_question_slide.push(`<button class="classic-btn normal" id="${count++}" value=${index + 1}>${index + 1}</button>`);
@@ -52,7 +50,7 @@
         total_time_for_exam = test.test_duration;
 
         /* calling a method toggleClock() that is gonnna receive the total time of exam and handle it and update it ! */
-        toggleClock(total_time_for_exam);
+        toggleClock(10000);
 
         /* setting the top-set slide none */
         question_type.innerHTML=""
@@ -113,11 +111,6 @@ const myQuestions = [];
      let marks_of_each_question = [];
 
 
-
-
-
-
-
 /*---------------------------------------EVENT LISTENER----------------------------*/
 
 
@@ -137,7 +130,7 @@ btns.addEventListener('click', function (e) {
 })
 
 
-$('#f-screen').click()
+/*$('#f-screen').click()
 function launchIntoFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
@@ -148,17 +141,16 @@ function launchIntoFullscreen(element) {
     } else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
     }
-}
-
+}*/
+/*
 
 document.getElementById('f-screen').addEventListener('click', function (e) {
     launchIntoFullscreen(document.documentElement);
 
-})
+})*/
 
 review.addEventListener('click', function (e) {
     e.preventDefault();
-    console.log(currentSlide)
     showNextSlide();
     reviewed(currentSlide - 1);
 })
@@ -293,7 +285,7 @@ function setClock(total_duration) {
     /* if time is over */
     if(sec+min+hr===0)
     {
-        //window.location="/exam-over";
+        window.location="/exam-over";
         return;
     }
     let clock = "";
