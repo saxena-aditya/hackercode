@@ -1,6 +1,7 @@
 body {
     font-family: 'Karla', sans-serif !important;
     height: 100vh;
+    background: #8080801c;
 }
 
 .container-fluid{
@@ -328,8 +329,9 @@ label {
     margin-left: auto;
 }
 footer {
-  //position: absolute;
+  position: absolute;
   width: 100%;
- padding: 3px;
- bottom: 0;
+  /* padding: 3px; */
+  /* height: 5vw; */
+  bottom: 0;
 }
