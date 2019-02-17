@@ -3,9 +3,11 @@
 
 (function () {
     /* function for getting test data */
-    $.get('http://localhost:8080/HackerCode/get-test-data/1', function (data, status) {
+    $.get('http://localhost:3000/', function (data, status) {
         console.log(data);
         const test = { ...data };
+        test_store={...data}
+        console.log(test)
         if (data == 0)
             return;//if test was not received here
 
@@ -47,10 +49,31 @@
         time_clock.innerHTML = "";
 
         /* storing the total time of exam received from server in a variable */
-        total_time_for_exam = test.test_duration;
+        // if(!localStorage.time)
+        // {
+        //     console.log("first time");
+        //     total_time_for_exam = test.test_duration;
+        // }
+        // else{
+        //     if(localStorage.time - test.test_duration > 30){
+        //         total_time_for_exam = localStorage.time;
+        //     }
+        //     else{
+        //         total_time_for_exam = test.test_duration;
+        //     }
+        //     console.log("LOCAL STORAGE TIME",localStorage.time)
+            
+        // }
 
+
+        /* FOR test type */
+        test_type = test.test_type;
+        isEligible(test_type,test.test_duration);
+
+
+        total_time_for_exam = test.test_duration;
         /* calling a method toggleClock() that is gonnna receive the total time of exam and handle it and update it ! */
-        toggleClock(10000);
+        toggleClock(total_time_for_exam , test_type);
 
         /* setting the top-set slide none */
         question_type.innerHTML=""
@@ -64,8 +87,6 @@
 
     })
 
-
-/* ---------------------------------------VARIABLES DECLERATION---------------------- */
 
 const myQuestions = [];
 
@@ -90,6 +111,7 @@ const myQuestions = [];
      let next = document.getElementById('next-btn')
      let prev = document.getElementById('prev-btn')
      let submit = document.getElementById('submit-btn')
+     let submit_btn_2 = document.getElementById('submit-btn-2')
      let questionNumber = document.getElementById('question-number');
      const sideview_question_status = [];
      let total_time_for_exam = 0;
@@ -109,6 +131,14 @@ const myQuestions = [];
 
      /* marks of each question */
      let marks_of_each_question = [];
+
+     /* variables for storing end time start time , will be stored in testtype */
+     let test_type;
+        let test_store;
+
+
+
+
 
 
 /*---------------------------------------EVENT LISTENER----------------------------*/
@@ -130,7 +160,7 @@ btns.addEventListener('click', function (e) {
 })
 
 
-/*$('#f-screen').click()
+$('#f-screen').click()
 function launchIntoFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
@@ -141,16 +171,17 @@ function launchIntoFullscreen(element) {
     } else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
     }
-}*/
-/*
+}
+
 
 document.getElementById('f-screen').addEventListener('click', function (e) {
     launchIntoFullscreen(document.documentElement);
 
-})*/
+})
 
 review.addEventListener('click', function (e) {
     e.preventDefault();
+    console.log(currentSlide)
     showNextSlide();
     reviewed(currentSlide - 1);
 })
@@ -165,7 +196,24 @@ next.addEventListener('click', function (e) {
 clear.addEventListener('click',function(e){
     e.preventDefault();
     clearResponse();
+    clearAnswerResponse(currentSlide)
 })
+
+submit.addEventListener('click',function(e){
+    e.preventDefault();
+    console.log("SUBMITTED BUTTON CLICKED>>>>>>");
+    console.log("TEST_STORE ",test_store);
+    submitTest();
+})
+
+submit_btn_2.addEventListener('click',function(e){
+    e.preventDefault();
+    console.log("SUBMITTED BUTTON CLICKED>>>>>>");
+    console.log("TEST_STORE ",test_store);
+    submitTest();
+})
+
+
 
 
 function addEvent()
@@ -215,6 +263,9 @@ function intitDeclaration() {
    addEvent();
    changeButtons(q_type_keys[0].key,0);
    key=0;
+
+   /* setting the diasabled true for submit button */
+   submit.disabled = true;
 }
 
 
@@ -228,6 +279,22 @@ function showSlide(n) {
     questionNumber.innerHTML = q_number;
     let length =getSetLength(key);
     console.log("LENGTH : ",length)
+    
+    showButtons(n);
+    
+    showMarks(n);
+
+
+
+    /* function that will change the class of the button */
+    IsAnsweredOrIsSkipped(prevSlide);
+    prevSlide = n;
+
+}
+
+/* showing button */
+function showButtons(n)
+{   
     if (currentSlide === 0) {
         prev.style.display = "none"
     } else {
@@ -239,39 +306,128 @@ function showSlide(n) {
         submit.style.display = "inline-block"
     } else {
         next.style.display = "inline-block"
-        submit.style.display = "none"
+       // submit.style.display = "none"
     }
 
-    
-    marks.innerHTML=`<strong>Mark for this question : ${marks_of_each_question[n]}</strong>`
-
-
-
-    /* function that will change the class of the button */
-    IsAnsweredOrIsSkipped(prevSlide);
-    prevSlide = n;
-
 }
+
+function showMarks(n)
+{
+    marks.innerHTML=`<strong>Mark for this question : ${marks_of_each_question[n]}</strong>`
+}
+
+
+/* FUNCTION FOR SHOWING IMAGE OF USER AND ID FOR TEST */
+function showUserInfo(user)
+{
+    const photo_url = user.image_url;
+    const user_id = user.id;
+    const user_image = $('user_img');
+    const user_unique_id = $('user_id');
+    user_image.innerHTML=`<img src=${photo_url}>`;
+    user_unique_id.innerHTML=`<strong>ID: ${user_id}</strong>`;
+}
+
+
+
 
 
 
 
 
 /* function to toggle the clock */
-function toggleClock(total_duration) {
+function toggleClock(total_duration,{type , start_time , end_time}) {
     let total_time = total_duration;
     setInterval(function () {
         setClock(total_time);
+        randomUpdateTime(total_time)
         if(total_time===(total_duration/2))
         {
             /* submit button available at half time */
-            submit.style.display = "inline-block";
+            toggleSubmitButton();
+            
         }
+        /* calling function for each type of exam */
+        if(type === 'strict')
+        {
+            /* calling strictExam() */
+            strictExamSubmit(end_time , total_time);
+        }
+        else{
+            /* calling for looseExam() */
+            looseExamSubmit( end_time , total_time);
+        }
+
         total_time = total_time - 1000;//because 1sec = 1000 milliseconds
     }, 1000)
 
 }
+function randomUpdateTime(total_time)
+{
+    let random = parseInt(getRandomInt(1,59));
+    if(total_time%random === 0)
+    {
+        updateTime(total_time)
+    }
+}
 
+
+
+
+
+
+/* strict and loose exam function */
+function strictExamSubmit(end_time , total_time)
+{
+    if(total_time<=0 || new Date().getTime === end_time)
+    {
+        window.location.href = '/strictExamSubmit';
+    }
+}
+
+function looseExamSubmit(end_time , total_time)
+{
+    if(total_time<=0)
+    {
+        window.location.href = '/looseExamSubmit';
+    }
+}
+
+function isEligible({type , start_time , end_time},total_duration)
+{
+    if(type === 'strict')
+    {
+        isEligibleForStrictExam(start_time , end_time , total_duration);
+    }
+    else{
+        isEligibleForLooseExam(start_time,end_time,total_duration);
+    }
+}
+
+function isEligibleForStrictExam(start_time , end_time , total_duration){
+    let currentDay = new Date().getTime();
+    if(!(total_duration >0 && currentDay<end_time && currentDay>= start_time))
+    {
+        window.location.href='/notEligibleforstrict';
+    }
+
+}
+function isEligibleForLooseExam(start_time,end_time,total_duration)
+{
+    let currentDay = new Date().getTime();
+    if(!(total_duration >0  && currentDay>= start_time))
+    {
+        window.location.href='/notEligibleforloose';
+    }
+}
+
+
+
+/* change attribute from disabled to availabe */
+function toggleSubmitButton()
+{
+    submit.disabled=false;
+}
 
 
 /* function to handle the total time of exam and time elapsed */
@@ -285,7 +441,7 @@ function setClock(total_duration) {
     /* if time is over */
     if(sec+min+hr===0)
     {
-        window.location="/exam-over";
+        //window.location="/exam-over";
         return;
     }
     let clock = "";
@@ -315,18 +471,48 @@ function convertMillisecondsToDigitalClock(ms) {
 function IsAnsweredOrIsSkipped(n) {
     /* to add the class visited to sidebar button */
     /* <button class="classic-btn normal" id="${count++}">${index + 1}</button> this is the html of button */
-
+    console.log("INIT VALUE OF BTN n ",n);
     let resource = getButtonAndTags(n);
     const visited_button = resource.button;
     const inputTags = resource.tags;
 
     visited_button.removeClass();
     if (isAnswered(inputTags)) {
+        storeAnswerToTestObj(n,inputTags);
         visited_button.addClass("classic-btn visited");
     }
     else {
         visited_button.addClass("classic-btn not-answered");
     }
+}
+
+
+
+/* storeAnswer */
+function storeAnswerToTestObj(slideNumber,inputTags){
+    console.log("ANSWER SET ",key);
+    let prevSlideLength = getLength(key);
+    console.log("HEY >>>>>>>>>>>>>>>>>>>>>>>>>>>",slideNumber - prevSlideLength);
+    const questionNo  = parseInt(slideNumber - prevSlideLength);
+    let answer = getAnsweredValue(inputTags);
+    console.log("QUESTION SET",test_store.question_set);
+    console.log(">>>>",q_type_keys[key].key);
+    const set=q_type_keys[key].key;
+    console.log("SET NAME ",test_store.question_set[set-1]);
+     console.log("QUESTION ",test_store.question_set[set].questions[questionNo])
+     test_store.question_set[set].questions[questionNo].answer = `${answer}`;  
+     console.log("ANSWER ",test_store.question_set[set].questions[questionNo].answer)
+
+    };
+
+
+function clearAnswerResponse(slideNumber){
+    console.log("ANSWER SET REMOVED ",key);
+    let prevSlideLength = getLength(key);
+    console.log("HEY REMOVED >>>>>>>>>>>>>>>>>>>>>>>>>>>",slideNumber - prevSlideLength);
+    const questionNo  = slideNumber - prevSlideLength;
+    let answer = getAnsweredValue(inputTags);
+    test_store.question_set.q_type_keys[key].questions[questionNo].answer =""; 
 }
 
 /* function for review button */
@@ -364,6 +550,16 @@ function isAnswered(inputTags) {
     return isAnswered;
 }
 
+function getAnsweredValue(inputTags){
+    let Answer = "";
+    inputTags.map((i) => {
+        if (inputTags[i].checked) {
+           // console.log("checked");
+            Answer = inputTags[i].value;
+        }
+    })
+    return Answer;
+}
 
 
 /* function for clearing response */
@@ -426,9 +622,8 @@ function changeButtons(button_obj,index)
         }
     })
     key=index;
-    if(key===0)
-    showSlide(0);
-    else
+    console.log("CHANGE BUTTON S ----->>",key);
+    if(!(key===0))
     showSlide(getLength(key));
     
 
@@ -455,8 +650,81 @@ function getSetLength(n)
     return length;
 }
 
+/* Function required for setting the time strict and loose functionality 
+    1. update time 
+        >>> will update time to server
+
+    2. two methods for strict and loose clock
+        a> strict clock (start_time , end_time , current_time , test_duration)
+            logic:- 
+                current_time should be <= to start_time and >= end time he can start anytime but at end_time exam is submitted to server
+        b> loose clock (start_time , end_time , current_time , test_duration)
+            logic:-
+               exam can start before end_time and start_time and will run till test_duration is over
+
+    3. hash function that decide after how many seconds after will we ping to server for saving test data and time
+    4. storing the current status of test to server
+        >>> that is storing the answer to the servers
+    
+    FAQ:-
+    1. what happens if computer is shut down or window is closed
+    >>> time will be stored in local storage and when the user opens the window again time will start from there only.
+        and also the time will be stored to the server after a interval of time
+    
+    2. what happens if in strict time the user starts giving the test just before the end_time
+    >>> user can start test at any time but there will be a function that will decrement the test_duration each 
+    second so either the test_duration becomes or current_time = end_time exam will be stopped .
+    3. in case of loose test
+    >>> user can start giving test before the end time anytime even a second before but the test wont be over if current_time is equals to end_time
+    , the test will get over once the test_duration is 0.
 
 
+*/
+
+function updateTime(time)
+{
+    localStorage.time = time;
+    console.log("LOCAL STORAGE TIME : ",localStorage.time);
+    updateServerTime(time);
+}
+
+function updateServerTime(time){
+    console.log("PINGED SERVER !!!!");
+    let updatedTime = JSON.stringify({'time':time})
+    $.ajax({
+        url:'http://localhost:3000/updateTime',
+        type:"POST",
+        data:updatedTime,
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",
+        success: function(data){
+          console.log(data)
+        }
+      })
+}
+
+/* generate a random int which will ping server */
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+  }
+
+function submitTest()
+{
+    console.log("PINGED SERVER !!!!");
+    let updatedTest = JSON.stringify({'test':test_store})
+    $.ajax({
+        url:'http://localhost:3000/submit',
+        type:"POST",
+        data:updatedTest,
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",
+        success: function(data){
+          console.log(data)
+        }
+      })    
+}
 
 
 

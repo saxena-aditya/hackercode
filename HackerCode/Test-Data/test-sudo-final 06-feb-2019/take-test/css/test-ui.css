@@ -1,24 +1,19 @@
 body {
     font-family: 'Karla', sans-serif !important;
     height: 100vh;
-    background: #8080801c;
 }
 
 .container-fluid{
     padding-bottom: -25px;
 }
-/* 
-#submit-btn {
-  display : none !important;
-} */
+
 
 footer{
     margin-top:auto;
 }
 
 .height-full {
-    height: fit-content;
-    max-height: 100vw;
+    height: -webkit-fill-available;
 }
 
 .adjust-padd {
@@ -29,7 +24,7 @@ footer{
     padding: 0 !important;
 }
 .bg-white {
-    background-color: #fff !important;
+	background-color: #fff !important;
 }
 .bg-blue {
     background-color: #2b2b8e;
@@ -56,7 +51,6 @@ footer{
 }
 
 .bg-grey {
-    /* height: fit-content; */
     background-color: #c3bcbc21 !important;
 }
 
@@ -131,11 +125,11 @@ span#note-prob {
     margin: 10px 15px 0 0;
 }
 .triangle-down {
-    width: 0;
-    height: 0;
-    border-left: 9px solid #fff;
-    border-right: 9px solid #fff;
-    border-top: 18px solid #555;
+	width: 0;
+	height: 0;
+	border-left: 9px solid #fff;
+	border-right: 9px solid #fff;
+	border-top: 18px solid #555;
 }
 .classic-btn:focus {
     outline : none;
@@ -221,10 +215,13 @@ p.index-label {
 }
 
 #review-btn{
-    margin-right: auto;
+    margin-right:0;
+    background-color: rgba(166, 233, 186, 0.774);
 }
 #clear-response-btn{
-    margin: auto;
+    background-color: rgba(100, 158, 206, 0.733);
+    margin-right:auto;
+
 }
 
 .pre-btn:hover,.next-btn:hover,.btn:hover {
@@ -291,7 +288,7 @@ span#question-number {
     padding: 10px 0 0 0;
 }
 .padding-10 {
-    padding: 10px !important;
+	padding: 10px !important;
 
 }
 
@@ -331,10 +328,18 @@ label {
 #marks{
     margin-left: auto;
 }
-footer {
-  position: absolute;
-  width: 100%;
-  /* padding: 3px; */
-  /* height: 5vw; */
-  bottom: 0;
+
+#user_id,#user_img{
+
+    display: inline-block;
+}
+
+#user_img img{
+    width:70px;
+    height:70px;
+    border-radius: 50px;
+}
+
+#submit-btn:disabled{
+    background-color: rgb(124, 133, 124);
 }
