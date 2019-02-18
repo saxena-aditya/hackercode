@@ -33,6 +33,7 @@
                 //console.log(count);
     
                 marks_of_each_question.push(question.marks);
+                negative_of_each_question.push(question.negative);
 
                 temp_button.push(`<button class="classic-btn normal" id="${count++}" value=${index + 1}>${index + 1}</button>`);
                 //sideview_question_slide.push(`<button class="classic-btn normal" id="${count++}" value=${index + 1}>${index + 1}</button>`);
@@ -111,7 +112,7 @@ const myQuestions = [];
      let next = document.getElementById('next-btn')
      let prev = document.getElementById('prev-btn')
      let submit = document.getElementById('submit-btn')
-     let submit_btn_2 = document.getElementById('submit-btn-2')
+     //let submit_btn_2 = document.getElementById('submit-btn-2')
      let questionNumber = document.getElementById('question-number');
      const sideview_question_status = [];
      let total_time_for_exam = 0;
@@ -131,7 +132,7 @@ const myQuestions = [];
 
      /* marks of each question */
      let marks_of_each_question = [];
-
+     let negative_of_each_question = [];
      /* variables for storing end time start time , will be stored in testtype */
      let test_type;
         let test_store;
@@ -206,12 +207,12 @@ submit.addEventListener('click',function(e){
     submitTest();
 })
 
-submit_btn_2.addEventListener('click',function(e){
-    e.preventDefault();
-    console.log("SUBMITTED BUTTON CLICKED>>>>>>");
-    console.log("TEST_STORE ",test_store);
-    submitTest();
-})
+// submit_btn_2.addEventListener('click',function(e){
+//     e.preventDefault();
+//     console.log("SUBMITTED BUTTON CLICKED>>>>>>");
+//     console.log("TEST_STORE ",test_store);
+//     submitTest();
+// })
 
 
 
@@ -225,13 +226,29 @@ function addEvent()
             // console.log("clicked");
 
             changeButtons(q_type_keys[button].key,button);
+            toggleSetButtonClass(q_type_keys[button].key,button);
         })
     })
 }
 
 
+function toggleSetButtonClass(buttonKey,cbutton)
+{
+    console.log("TOGGLE SET BUTTON ",buttonKey,cbutton)
+    q_type_buttons.map(button=>{
+        if(button === cbutton)
+        {
+            q_type_buttons[button].removeAttribute('class','bg-blue-light');
+            q_type_buttons[button].setAttribute('class','bg-blue tag2');
+        }
+        else{
+            q_type_buttons[button].removeAttribute('class','bg-blue');
+            q_type_buttons[button].setAttribute('class','bg-blue-light tag');
+        }
+       
+     })
 
-
+}
 
 
 
@@ -266,6 +283,8 @@ function intitDeclaration() {
 
    /* setting the diasabled true for submit button */
    submit.disabled = true;
+   
+toggleSetButtonClass(q_type_buttons,0)
 }
 
 
@@ -294,8 +313,14 @@ function showSlide(n) {
 
 /* showing button */
 function showButtons(n)
-{   
-    if (currentSlide === 0) {
+{    
+    // console.log("LENGTH>>>>>>>><<<<<<<<<<<<<<<<<<<",n)
+    let length =getSetLength(key);
+    const k = (((key-1) >= 0) ? (key-1) : -1);
+    let startsetLength = getSetLength(k);
+    // let difference = length-startsetLength;
+    // console.log("_____________>>> ",length,startsetLength,difference);
+    if (currentSlide === startsetLength) {
         prev.style.display = "none"
     } else {
         prev.style.display = "inline-block"
@@ -313,7 +338,7 @@ function showButtons(n)
 
 function showMarks(n)
 {
-    marks.innerHTML=`<strong>Mark for this question : ${marks_of_each_question[n]}</strong>`
+    marks.innerHTML=`<strong class="marks-sec">Mark for this question : <span id="positive">${marks_of_each_question[n]}</span> || Negative Marks : <span id="negative">${negative_of_each_question[n]}</span></strong>`
 }
 
 
@@ -331,22 +356,30 @@ function showUserInfo(user)
 
 
 
-
-
-
-
 /* function to toggle the clock */
 function toggleClock(total_duration,{type , start_time , end_time}) {
     let total_time = total_duration;
+    if(type=='strict')
+    {
+        let currentTime = new Date().getTime();
+        let actualTotalTime = end_time-currentTime;
+        if(!(localStorage.total_time))
+        {
+            localStorage.total_time = actualTotalTime;
+            total_time=actualTotalTime;
+        }
+    }
     setInterval(function () {
         setClock(total_time);
-        randomUpdateTime(total_time)
+        randomUpdateTime(total_time);
+        localStorage.total_time=total_time;
         if(total_time===(total_duration/2))
         {
             /* submit button available at half time */
             toggleSubmitButton();
             
         }
+        
         /* calling function for each type of exam */
         if(type === 'strict')
         {
@@ -356,6 +389,11 @@ function toggleClock(total_duration,{type , start_time , end_time}) {
         else{
             /* calling for looseExam() */
             looseExamSubmit( end_time , total_time);
+        }
+        /* colorchange */
+        if(total_time<300000)
+        {
+            changeTimeColor();
         }
 
         total_time = total_time - 1000;//because 1sec = 1000 milliseconds
@@ -376,12 +414,19 @@ function randomUpdateTime(total_time)
 
 
 
+
 /* strict and loose exam function */
 function strictExamSubmit(end_time , total_time)
 {
-    if(total_time<=0 || new Date().getTime === end_time)
+    const currentTime = newDate.getTime();
+    if(total_time<=0 || currentTime === end_time)
     {
         window.location.href = '/strictExamSubmit';
+    }
+    /* FOR SHOWING TOAST */
+    if(total_time===300000 || (end_time - currentTime) === 500000)
+    {
+        showToast();
     }
 }
 
@@ -390,6 +435,10 @@ function looseExamSubmit(end_time , total_time)
     if(total_time<=0)
     {
         window.location.href = '/looseExamSubmit';
+    }
+    if(total_time===300000)
+    {
+        showToast();
     }
 }
 
@@ -490,26 +539,26 @@ function IsAnsweredOrIsSkipped(n) {
 
 /* storeAnswer */
 function storeAnswerToTestObj(slideNumber,inputTags){
-    console.log("ANSWER SET ",key);
+    //console.log("ANSWER SET ",key);
     let prevSlideLength = getLength(key);
-    console.log("HEY >>>>>>>>>>>>>>>>>>>>>>>>>>>",slideNumber - prevSlideLength);
+    //console.log("HEY >>>>>>>>>>>>>>>>>>>>>>>>>>>",slideNumber - prevSlideLength);
     const questionNo  = parseInt(slideNumber - prevSlideLength);
     let answer = getAnsweredValue(inputTags);
-    console.log("QUESTION SET",test_store.question_set);
-    console.log(">>>>",q_type_keys[key].key);
+    //console.log("QUESTION SET",test_store.question_set);
+    //console.log(">>>>",q_type_keys[key].key);
     const set=q_type_keys[key].key;
-    console.log("SET NAME ",test_store.question_set[set-1]);
-     console.log("QUESTION ",test_store.question_set[set].questions[questionNo])
+    //console.log("SET NAME ",test_store.question_set[set-1]);
+     //console.log("QUESTION ",test_store.question_set[set].questions[questionNo])
      test_store.question_set[set].questions[questionNo].answer = `${answer}`;  
-     console.log("ANSWER ",test_store.question_set[set].questions[questionNo].answer)
+     //console.log("ANSWER ",test_store.question_set[set].questions[questionNo].answer)
 
     };
 
 
 function clearAnswerResponse(slideNumber){
-    console.log("ANSWER SET REMOVED ",key);
+    //console.log("ANSWER SET REMOVED ",key);
     let prevSlideLength = getLength(key);
-    console.log("HEY REMOVED >>>>>>>>>>>>>>>>>>>>>>>>>>>",slideNumber - prevSlideLength);
+    //console.log("HEY REMOVED >>>>>>>>>>>>>>>>>>>>>>>>>>>",slideNumber - prevSlideLength);
     const questionNo  = slideNumber - prevSlideLength;
     let answer = getAnsweredValue(inputTags);
     test_store.question_set.q_type_keys[key].questions[questionNo].answer =""; 
@@ -612,7 +661,7 @@ function testBilder() {
 
 function changeButtons(button_obj,index)
 {
-    console.log("btn obj : ",button_obj);
+    //console.log("btn obj : ",button_obj);
     btns.innerHTML="";
     const temp_key = button_obj;
     q_type_keys.map(obj=>{
@@ -622,8 +671,7 @@ function changeButtons(button_obj,index)
         }
     })
     key=index;
-    console.log("CHANGE BUTTON S ----->>",key);
-    if(!(key===0))
+    //console.log("CHANGE BUTTON S ----->>",key);
     showSlide(getLength(key));
     
 
@@ -703,6 +751,34 @@ function updateServerTime(time){
       })
 }
 
+
+/* Showing toast at last min */
+function showToast()
+{
+  const body =  $('body');
+    body.append(`<div id="toast">5 Min Remaining !! Hurry Up </div>`)
+  var x = document.getElementById("toast");
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  changeTimeColor();
+}
+
+
+/* function to change the color of time after showToast() is called */
+function changeTimeColor()
+{
+    console.log(">>>!!!!>>>>",time_clock);
+    // time_clock.removeClass('black');
+    // time_clock.addClass('red');
+    time_clock.removeAttribute('class','black');
+    time_clock.style.color="red";
+}
+
+
+
+
+
+
 /* generate a random int which will ping server */
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -726,7 +802,10 @@ function submitTest()
       })    
 }
 
+function activeSetButton()
+{
 
+}
 
 
 
@@ -734,3 +813,9 @@ function submitTest()
 })()
 
 
+
+/* will remove the local storage variable */
+ //when browser closed - psedocode
+ $(window).on("unload", function(e){
+    localStorage.removeItem(total_time);
+  });

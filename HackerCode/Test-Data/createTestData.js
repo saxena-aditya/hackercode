@@ -40,8 +40,47 @@ const createTestData = (file) => {
 
 }
 
+const updateServerTime = (time)=>{
+    try{
+        let rawData = fs.readFileSync('test.json');
+        let data = JSON.parse(rawData);
+        console.log()
+        console.log("DATA---->>>>>>>>>>",data);
+        console.log()
+        if(time<0)
+        time = 180000
+        data.test_duration = time;
+        console.log(">>>>>>>>UPODATED DATA>>>>>>>>>>>",data)
+        fs.writeFileSync('test.json',JSON.stringify(data))
+    }
+   catch(err){
+       console.log("ERROR",err)
+   }
 
-module.exports = { createTestData }
+}
+
+const updateTest=(test)=>{
+    try{
+        let rawData = fs.readFileSync('test.json');
+        let data = JSON.parse(rawData);
+        console.log()
+        console.log("DATA---->>>>>>>>>>",data);
+        console.log()
+        if(time<0)
+        time = 180000
+        data= test;
+        console.log(">>>>>>>>UPODATED DATA>>>>>>>>>>>",data)
+        fs.writeFileSync('test.json',JSON.stringify(data))
+    }
+   catch(err){
+       console.log("ERROR",err)
+   }
+}
+
+
+
+
+module.exports = { createTestData  , updateServerTime,updateTest}
 
 
 
