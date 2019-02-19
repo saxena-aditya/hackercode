@@ -233,8 +233,9 @@ p.index-label {
 }
 
 #submit-btn-2{
-    margin:auto;
-    margin-top:5px;
+    /* margin: 5% 3% 0 0; */
+    margin-top: 5%;
+    margin-right: 12%;
 }
 
 .next-btn, .pre-btn {
@@ -308,8 +309,8 @@ span#question-number {
     padding: 15px;
     font-size: 1.17em;
     /* background: rebeccapurple; */
-    min-height: 63vh;
-    /* padding: 17px; */
+    min-height: 64vh;
+    max-height: 64vh;
 }
 
  .test-question {
@@ -443,7 +444,7 @@ label {
 
   /* MARKS STATEMENT */
   .question{
-      width:40%;
+      width: 97%;
       margin-right:auto;
   }
   .marks-sec{

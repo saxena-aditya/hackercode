@@ -343,8 +343,7 @@ function showMarks(n)
 
 
 /* FUNCTION FOR SHOWING IMAGE OF USER AND ID FOR TEST */
-function showUserInfo(user)
-{
+function showUserInfo(user) {
     const photo_url = user.image_url;
     const user_id = user.id;
     const user_image = $('user_img');
