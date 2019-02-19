@@ -6,14 +6,16 @@ body {
 .container-fluid{
     padding-bottom: -25px;
 }
-
+button#f-screen {
+  display: none;
+}
 
 footer{
     margin-top:auto;
 }
 
 .height-full {
-    height: -webkit-fill-available;
+    /* height: -webkit-fill-available; */
 }
 
 .adjust-padd {
@@ -24,7 +26,7 @@ footer{
     padding: 0 !important;
 }
 .bg-white {
-	background-color: #fff !important;
+    background-color: #fff !important;
 }
 .bg-blue {
     background-color: #2b2b8e;
@@ -156,11 +158,11 @@ span#note-prob {
     margin: 10px 15px 0 0;
 }
 .triangle-down {
-	width: 0;
-	height: 0;
-	border-left: 9px solid #fff;
-	border-right: 9px solid #fff;
-	border-top: 18px solid #555;
+    width: 0;
+    height: 0;
+    border-left: 9px solid #fff;
+    border-right: 9px solid #fff;
+    border-top: 18px solid #555;
 }
 .classic-btn:focus {
     outline : none;
@@ -319,7 +321,7 @@ span#question-number {
     padding: 10px 0 0 0;
 }
 .padding-10 {
-	padding: 10px !important;
+    padding: 10px !important;
 
 }
 
@@ -467,4 +469,9 @@ margin-left:auto;
 }
 .inactive{
     background-color: rgb(233, 133, 19);
+}
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
