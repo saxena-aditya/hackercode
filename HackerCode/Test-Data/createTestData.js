@@ -21,7 +21,7 @@ const createTestData = (file) => {
         result.map((key) => {
             console.log();
             test.question_set[key].questions.map((question) => {
-                question.answer = null;
+                //question.answer = null;
             })
         })
 
@@ -50,7 +50,7 @@ const updateServerTime = (time)=>{
         if(time<0)
         time = 180000
         data.test_duration = time;
-        console.log(">>>>>>>>UPODATED DATA>>>>>>>>>>>",data)
+        console.log(">>>>>>>>UPDATED DATA>>>>>>>>>>>",data)
         fs.writeFileSync('test.json',JSON.stringify(data))
     }
    catch(err){
