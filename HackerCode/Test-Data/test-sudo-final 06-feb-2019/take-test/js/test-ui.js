@@ -289,7 +289,7 @@ function toggleSetButtonClass(buttonKey,cbutton)
 
 /* ---------------------------------------Functions--------------------------------- */
 function intitDeclaration() {
-    slides = document.querySelectorAll(".slide")
+    
     q_types=q_type_keys.map(obj=>{
     //console.log("OBJ : ",obj);
       keys.push(obj.key);
@@ -356,10 +356,7 @@ function showButtons(n)
 
 }
 
-function showMarks(n)
-{
-    marks.innerHTML=`<strong class="marks-sec">Mark for this question : <span id="positive">${marks_of_each_question[n]}</span> || Negative Marks : <span id="negative">${negative_of_each_question[n]}</span></strong>`
-}
+
 
 
 /* FUNCTION FOR SHOWING IMAGE OF USER AND ID FOR TEST */
@@ -435,60 +432,10 @@ function randomUpdateTime(total_time)
 
 
 
-/* strict and loose exam function */
-function strictExamSubmit(end_time , total_time)
-{
-    const currentTime = newDate.getTime();
-    if(total_time<=0 || currentTime === end_time)
-    {
-        window.location.href = '/strictExamSubmit';
-    }
-    /* FOR SHOWING TOAST */
-    if(total_time===300000 || (end_time - currentTime) === 500000)
-    {
-        showToast();
-    }
-}
 
-function looseExamSubmit(end_time , total_time)
-{
-    if(total_time<=0)
-    {
-        window.location.href = '/looseExamSubmit';
-    }
-    if(total_time===300000)
-    {
-        showToast();
-    }
-}
 
-function isEligible({type , start_time , end_time},total_duration)
-{
-    if(type === 'strict')
-    {
-        isEligibleForStrictExam(start_time , end_time , total_duration);
-    }
-    else{
-        isEligibleForLooseExam(start_time,end_time,total_duration);
-    }
-}
 
-function isEligibleForStrictExam(start_time , end_time , total_duration){
-    let currentDay = new Date().getTime();
-    if(!(total_duration >0 && currentDay<end_time && currentDay>= start_time))
-    {
-        window.location.href='/notEligibleforstrict';
-    }
 
-}
-function isEligibleForLooseExam(start_time,end_time,total_duration)
-{
-    let currentDay = new Date().getTime();
-    if(!(total_duration >0  && currentDay>= start_time))
-    {
-        window.location.href='/notEligibleforloose';
-    }
-}
 
 
 
@@ -562,21 +509,28 @@ function IsAnsweredOrIsSkipped(n) {
 function storeAnswerToTestObj(slideNumber,inputTags){
     //console.log("ANSWER SET ",inputTags);
     let tempKey = key;
-    //console.log(key)
-    //console.log("????PREV SLIDE : ",prevSlide,currentSlide,slideNumber);
+    console.log(key)
+    console.log(" PREVIOUS SLIDE < CURRENT SLIDE , SLIDE NUMBER ",prevSlide,currentSlide,slideNumber);
+    if(prevSlide > currentSlide)
+    {
+        
+    }
     if(prevKey<key)
     {
-        //console.log("????PREV SLIDE : ",prevSlide);
+        console.log("PREV SLIDE  , PREV KEY : ",prevSlide , prevKey);
         tempKey=prevKey
     }
     let prevSlideLength = getLength(tempKey);
-    //console.log("TEMP KEY ",tempKey);
-   // //console.log("HEY >>>>>>>>>>>>>>>>>>>>>>>>>>>",slideNumber );
+    console.log("TEMP KEY ",tempKey);
+    console.log("PREV SLIDE LENGTH : ",prevSlideLength)
+    console.log("SLide NUMBER",slideNumber );
     const questionNo  = parseInt(slideNumber - prevSlideLength);
     let answer = getAnsweredValue(inputTags);
+    console.log("ANSWER >>>",answer)
     const set=q_type_keys[tempKey].key;
-    //console.log("SET ",set);
-     test_store.question_set[set].questions[questionNo].answer = `${answer}`;  
+    console.log("SET ",set);
+     console.log("QUESTION :",test_store.question_set[set].questions[questionNo]);
+     //test_store.question_set[set].questions[questionNo].answer = `${answer}`;  
      //console.log(test_store)
     };
 
@@ -590,51 +544,13 @@ function clearAnswerResponse(slideNumber){
     test_store.question_set.q_type_keys[key].questions[questionNo].answer =""; 
 }
 
-/* function for review button */
-function reviewed(n) {
-    let resource = getButtonAndTags(n);
-    const reviewed_button = resource.button;
-    const inputTags = resource.tags;
-    reviewed_button.removeClass();
-    if (isAnswered(inputTags)) {
-        reviewed_button.addClass("classic-btn answered-to-review");
-    }
-    else {
-        reviewed_button.addClass("classic-btn to-review");
-    }
-}
 
 
-/* function that will return us button and input tags of slide */
-function getButtonAndTags(n) {
-    return {
-        button: $(`#${n}`),
-        tags: $(`:input[name="question${n}"]`)
-    }
-}
 
-/* function that will receive the radio buttons group and check is answered or not */
-function isAnswered(inputTags) {
-    let isAnswered = false;
-    inputTags.map((i) => {
-        if (inputTags[i].checked) {
-           // //console.log("checked");
-            isAnswered = true;
-        }
-    })
-    return isAnswered;
-}
 
-function getAnsweredValue(inputTags){
-    let Answer = "";
-    inputTags.map((i) => {
-        if (inputTags[i].checked) {
-           // //console.log("checked");
-            Answer = inputTags[i].value;
-        }
-    })
-    return Answer;
-}
+
+
+
 
 
 /* function for clearing response */
@@ -658,53 +574,7 @@ function showPreviousSlide() {
     showSlide(currentSlide - 1)
 }
 
-function testBilder() {
-    const questionSet = [];
-    //console.log("TEST BILDER METHOD CALLED()00");
-    myQuestions.forEach(function (currentQuestion, questionNumber) {
-        var qanswers = []
-        ////console.log(currentQuestion)
-        for (option in currentQuestion.answers) {
-            ////console.log(currentQuestion.answers[option])
-            //console.log("MARKED ANSWER ",currentQuestion.markedAnswer);
-            if(currentQuestion.markedAnswer)
-            {
-                if(currentQuestion.answers[option] === currentQuestion.markedAnswer[0])
-                {
-                    //console.log("WAS CHECKED !!!");
-                    qanswers.push(`<label>
-                    <input type="radio" checked="true" name="question${questionNumber}" value="${currentQuestion.answers[option]}">
-                    
-                     ${currentQuestion.answers[option]}
-                  </label>`)
-                }
-                else{
-                    qanswers.push(`<label>
-                    <input type="radio" name="question${questionNumber}" value="${currentQuestion.answers[option]}">
-                    
-                     ${currentQuestion.answers[option]}
-                  </label>`)
-                }
-            }
-          else{
-                qanswers.push(`<label>
-                <input type="radio" name="question${questionNumber}" value="${currentQuestion.answers[option]}">
-                
-                 ${currentQuestion.answers[option]}
-              </label>`)
-            }
-          
-        }
-        questionSet.push(`<div class="slide" name=${currentQuestion.id}>
-               <div class="question"> ${currentQuestion.question} </div>
-               <div class="answers"> ${qanswers.join("")} 
-               </div>
-             </div>`);
 
-    })
-    btns.innerHTML = "";
-    test.innerHTML = questionSet.join("");
-}
 
 
 
@@ -725,9 +595,6 @@ function changeButtons(button_obj,index)
     key=index;
     ////console.log("CHANGE BUTTON S ----->>",key);
     showSlide(getLength(key));
-    
-
-   
 }
 
 function getLength(n)
@@ -785,6 +652,7 @@ function updateTime(time)
 {
     localStorage.time = time;
     //console.log("LOCAL STORAGE TIME : ",localStorage.time);
+    console.log(">>>TEST STORE >>>",test_store);
     updateServerTime(time);
 }
 
@@ -854,39 +722,8 @@ function submitTest()
       })    
 }
 
-function storeButtons(index)
-{
-    
-}
 
-/* function that will create tags for */
-function addButtonClassForSideViewButton(Buttons , key){
-    //console.log("?????? add button class for side view ", Buttons , key);
-    // //console.log(test_store.question_set[key])
-    //console.log("q type keys",q_type_keys);
-    let index =0;
-    /* for getting a temporary data out of the actual keys */
-    let tempButtonKey;
-    q_type_keys.map((obj,i)=>{
-        if(obj.key===key)
-        {
-            index=i;
-            tempButtonKey = obj;
-        }
-    })
-    const starting_id = getLength(index);
-    //console.log("StARTING KEY ID: ",starting_id)
-    //console.log("HURRAY FOUND",tempButtonKey,index)
-   Buttons =  tempButtonKey.button.map((element,i)=>{
-       //console.log("ELEMENTS INDEX ",element,i)
-        return `<button class="classic-btn  ${tempButtonKey.buttonStatus[i]}" id="${starting_id+i}" value=${i + 1}>${i + 1}</button>`;
-        // $(`#${starting_id+index}`).setAttribute("class",`${tempButtonKey.buttonStatus[index]}`);
-    });
 
-    //Buttons
-
-    return Buttons;
-}
 
 
 })()

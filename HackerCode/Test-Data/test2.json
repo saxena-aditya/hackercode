@@ -1,0 +1,301 @@
+{
+    "test_id":"$id124",
+    "test_duration":999966138990,
+    "test_type":{
+        "type":"loose",
+        "start_time":1550489298951,
+        "end_time":15509999489698952
+    },
+    "rules":{
+            "is_negative_marking":true,
+            "value":"25"
+            },
+    "instruction":[
+            "1 . If wrong answer marked 25% markes will be deducted",
+            "2 . If left no markes will be deducted",
+            "3 . If your marked answer is right you get 100% marks",
+            "4. In multiple correct answer if only correct answers are marked you will get awarded as per creteria"
+            ],
+    "question_set":{
+            "set-1":{
+                    "set_id":1,
+                    "questions":[
+                            {
+                                "id":"$001",
+                                "question":"Excluding stoppages, the speed of a bus is 54 kmph and including stoppages, it is 45 kmph. For how many minutes does the bus stop per hour?",
+                                "options":["9","10","12","20"],
+                                "answer":["10"],
+                                "marks":"1",
+                                "negative":"2/3",
+                                "status":"visited"
+                            },
+                            {
+                                "id":"$002",
+                                "question":"The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:",
+                                "options":["45","47.5","52","56.25"],
+                                "answer":["56.25"],
+                                "marks":"2",
+                                "negative":"4/3",
+                                "status":"not-answered"
+                            },
+                            {
+                                "id":"$003",
+                                "question":"Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is: ",
+                                "options":["1 hr","1 hr 12 min","1 hr 15min","1hr 20 min"],
+                                "answer":["1 hr 12 min"],
+                                "marks":"3",
+                                "negative":"5/7",
+                                "status":"to-review"
+                            },
+                            {
+                                "id":"$004",
+                                "question":"Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be : ",
+                                "options":["4:3:5","5:3:4","15:9:20","15:20:12"],
+                                "answer":["15:20:12"],
+                                "marks":"4",
+                                "negative":"1/3",
+                                "status":"answered-to-review"
+                            },
+                            {
+                                "id":"$005",
+                                "question":"A motor car starts with the speed of 70 km/hr with its speed increasing every two hours by 10 kmph. In how many hours will it cover 345 kms? ",
+                                "options":["4(1/2) hrs","4 hrs 5 min","Can not be determined","2 (1/4) hrs"],
+                                "answer":["4 hrs 5 min"],
+                                "marks":"5",
+                                "negative":"4/3",
+                                "status":"normal"
+                            },
+                            {
+                                "id":"$006",
+                                "question":" A thief is noticed by a policeman from a distance of 200 m. The thief starts running and the policeman chases him. The thief and the policeman run at the rate of 10 km and 11 km per hour respectively. What is the distance between them after 6 minutes? ",
+                                "options":["100m","150m","190m","200m"],
+                                "answer":["100m"],
+                                "marks":"6",
+                                "negative":"4/3",
+                                "status":"normal"
+                            },
+                            {
+                                "id":"$007",
+                                "question":" A person travels from P to Q at a speed of 40 kmph and returns by increasing his speed by 50%. What is his average speed for the both the trips? ",
+                                "options":["36 kmph","45 kmph","48 kmph","50 kmph"],
+                                "answer":["48 kmph"],
+                                "marks":"7",
+                                "negative":"4/3",
+                                "status":"normal"
+                            },
+                            {
+                                "id":"$008",
+                                "question":"A man takes 5 hours 45 min. in walking to a certain place and riding back. He would have gained 2 hours by riding both ways. The time he would take to walk both ways, is",
+                                "options":["3 hrs 45 min","7 hrs 30 min","7 hrs 45 min","11 hrs 45 min"],
+                                "answer":["7 hrs 45 min"],
+                                "marks":"8",
+                                "negative":"4/3",
+                                "status":"normal"
+                            },
+                            {
+                                "id":"$009",
+                                "question":"A can complete a journey in 19 hours. He travels first half of the journey at the rate of 21 km/hr and second half at the rate of 24 km/hr. Find the total journey in km.",
+                                "options":["220km","224km","250km","234km"],
+                                "answer":["250km"],
+                                "marks":"9",
+                                "negative":"4/3",
+                                "status":"normal"
+                            },
+                            {
+                                "id":"$010",
+                                "question":"Bombay Express Left Delhi from Bombay at 14.30 hrs, travelling at a speed of 60 kmph and Rajdhani Express left. Delhi for Bombay on the same day at 16.30 hrs, travelling at a speed of 80 kmph. How far away from Delhi will the two trains meet? ",
+                                "options":["120km","360km","480km","500km"],
+                                "answer":["480km"],
+                                "marks":"10",
+                                "negative":"4/3",
+                                "status":"normal"
+                            }]
+                        },
+                        "set-2":{
+                            "sec_id":2,
+                            "questions":[
+                                {
+                                    "id":"$001",
+                                    "question":"The speed of a bus is 54 kmph and including stoppages, it is 45 kmph. For how many minutes does the bus stop per hour?",
+                                    "options":["9","10","12","20"],
+                                    "answer":["10"],
+                                    "marks":"1",
+                                    "negative":"2/3",
+                                    "status":"visited"
+                                },
+                                {
+                                    "id":"$002",
+                                    "question":"The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:",
+                                    "options":["45","47.5","52","56.25"],
+                                    "answer":["56.25"],
+                                    "marks":"2",
+                                    "negative":"4/3",
+                                    "status":"not-answered"
+                                },
+                                {
+                                    "id":"$003",
+                                    "question":"Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is: ",
+                                    "options":["1 hr","1 hr 12 min","1 hr 15min","1hr 20 min"],
+                                    "answer":["1 hr 12 min"],
+                                    "marks":"3",
+                                    "negative":"5/7",
+                                    "status":"to-review"
+                                },
+                                {
+                                    "id":"$004",
+                                    "question":"Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be : ",
+                                    "options":["4:3:5","5:3:4","15:9:20","15:20:12"],
+                                    "answer":["15:20:12"],
+                                    "marks":"4",
+                                    "negative":"1/3",
+                                    "status":"answered-to-review"
+                                },
+                                {
+                                    "id":"$005",
+                                    "question":"A motor car starts with the speed of 70 km/hr with its speed increasing every two hours by 10 kmph. In how many hours will it cover 345 kms? ",
+                                    "options":["4(1/2) hrs","4 hrs 5 min","Can not be determined","2 (1/4) hrs"],
+                                    "answer":["4 hrs 5 min"],
+                                    "marks":"5",
+                                    "negative":"4/3",
+                                    "status":"normal"
+                                },
+                                {
+                                    "id":"$006",
+                                    "question":" A thief is noticed by a policeman from a distance of 200 m. The thief starts running and the policeman chases him. The thief and the policeman run at the rate of 10 km and 11 km per hour respectively. What is the distance between them after 6 minutes? ",
+                                    "options":["100m","150m","190m","200m"],
+                                    "answer":["100m"],
+                                    "marks":"6",
+                                    "negative":"4/3",
+                                    "status":"normal"
+                                },
+                                {
+                                    "id":"$007",
+                                    "question":" A person travels from P to Q at a speed of 40 kmph and returns by increasing his speed by 50%. What is his average speed for the both the trips? ",
+                                    "options":["36 kmph","45 kmph","48 kmph","50 kmph"],
+                                    "answer":["48 kmph"],
+                                    "marks":"7",
+                                    "negative":"4/3",
+                                    "status":"normal"
+                                },
+                                {
+                                    "id":"$008",
+                                    "question":"A man takes 5 hours 45 min. in walking to a certain place and riding back. He would have gained 2 hours by riding both ways. The time he would take to walk both ways, is",
+                                    "options":["3 hrs 45 min","7 hrs 30 min","7 hrs 45 min","11 hrs 45 min"],
+                                    "answer":["7 hrs 45 min"],
+                                    "marks":"8",
+                                    "negative":"4/3",
+                                    "status":"normal"
+                                },
+                                {
+                                    "id":"$009",
+                                    "question":"A can complete a journey in 19 hours. He travels first half of the journey at the rate of 21 km/hr and second half at the rate of 24 km/hr. Find the total journey in km.",
+                                    "options":["220km","224km","250km","234km"],
+                                    "answer":["250km"],
+                                    "marks":"9",
+                                    "negative":"4/3",
+                                    "status":"normal"
+                                },
+                                {
+                                    "id":"$010",
+                                    "question":"Bombay Express Left Delhi from Bombay at 14.30 hrs, travelling at a speed of 60 kmph and Rajdhani Express left. Delhi for Bombay on the same day at 16.30 hrs, travelling at a speed of 80 kmph. How far away from Delhi will the two trains meet? ",
+                                    "options":["120km","360km","480km","500km"],
+                                    "answer":["480km"],
+                                    "marks":"10",
+                                    "negative":"4/3",
+                                    "status":"normal"
+                                }]},
+                                "set-3":{
+                                    "sec_id":2,
+                                    "questions":[
+                                        {
+                                            "id":"$001",
+                                            "question":"Bus is 54 kmph and including stoppages, it is 45 kmph. For how many minutes does the bus stop per hour?",
+                                            "options":["9","10","12","20"],
+                                            "answer":["10"],
+                                            "marks":"1",
+                                            "negative":"2/3",
+                                            "status":"visited"
+                                        },
+                                        {
+                                            "id":"$002",
+                                            "question":"The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:",
+                                            "options":["45","47.5","52","56.25"],
+                                            "answer":["56.25"],
+                                            "marks":"2",
+                                            "negative":"4/3",
+                                            "status":"not-answered"
+                                        },
+                                        {
+                                            "id":"$003",
+                                            "question":"Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is: ",
+                                            "options":["1 hr","1 hr 12 min","1 hr 15min","1hr 20 min"],
+                                            "answer":["1 hr 12 min"],
+                                            "marks":"3",
+                                            "negative":"5/7",
+                                            "status":"to-review"
+                                        },
+                                        {
+                                            "id":"$004",
+                                            "question":"Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be : ",
+                                            "options":["4:3:5","5:3:4","15:9:20","15:20:12"],
+                                            "answer":["15:20:12"],
+                                            "marks":"4",
+                                            "negative":"1/3",
+                                            "status":"answered-to-review"
+                                        },
+                                        {
+                                            "id":"$005",
+                                            "question":"A motor car starts with the speed of 70 km/hr with its speed increasing every two hours by 10 kmph. In how many hours will it cover 345 kms? ",
+                                            "options":["4(1/2) hrs","4 hrs 5 min","Can not be determined","2 (1/4) hrs"],
+                                            "answer":["4 hrs 5 min"],
+                                            "marks":"5",
+                                            "negative":"4/3",
+                                            "status":"normal"
+                                        },
+                                        {
+                                            "id":"$006",
+                                            "question":" A thief is noticed by a policeman from a distance of 200 m. The thief starts running and the policeman chases him. The thief and the policeman run at the rate of 10 km and 11 km per hour respectively. What is the distance between them after 6 minutes? ",
+                                            "options":["100m","150m","190m","200m"],
+                                            "answer":["100m"],
+                                            "marks":"6",
+                                            "negative":"4/3",
+                                            "status":"normal"
+                                        },
+                                        {
+                                            "id":"$007",
+                                            "question":" A person travels from P to Q at a speed of 40 kmph and returns by increasing his speed by 50%. What is his average speed for the both the trips? ",
+                                            "options":["36 kmph","45 kmph","48 kmph","50 kmph"],
+                                            "answer":["48 kmph"],
+                                            "marks":"7",
+                                            "negative":"4/3",
+                                            "status":"normal"
+                                        },
+                                        {
+                                            "id":"$008",
+                                            "question":"A man takes 5 hours 45 min. in walking to a certain place and riding back. He would have gained 2 hours by riding both ways. The time he would take to walk both ways, is",
+                                            "options":["3 hrs 45 min","7 hrs 30 min","7 hrs 45 min","11 hrs 45 min"],
+                                            "answer":["7 hrs 45 min"],
+                                            "marks":"8",
+                                            "negative":"4/3",
+                                            "status":"normal"
+                                        },
+                                        {
+                                            "id":"$009",
+                                            "question":"A can complete a journey in 19 hours. He travels first half of the journey at the rate of 21 km/hr and second half at the rate of 24 km/hr. Find the total journey in km.",
+                                            "options":["220km","224km","250km","234km"],
+                                            "answer":["250km"],
+                                            "marks":"9",
+                                            "negative":"4/3",
+                                            "status":"normal"
+                                        },
+                                        {
+                                            "id":"$010",
+                                            "question":"Bombay Express Left Delhi from Bombay at 14.30 hrs, travelling at a speed of 60 kmph and Rajdhani Express left. Delhi for Bombay on the same day at 16.30 hrs, travelling at a speed of 80 kmph. How far away from Delhi will the two trains meet? ",
+                                            "options":["120km","360km","480km","500km"],
+                                            "answer":["480km"],
+                                            "marks":"10",
+                                            "negative":"4/3",
+                                            "status":"normal"
+                                        }]}
+                                        }
+                                    }
