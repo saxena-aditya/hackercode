@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 app.post('/updateTime',(req,res)=>{
     testData.test_duration = req.body.time;
     console.log(req.body);
-    updateServerTime(req.body.time)
+    updateServerTime(req.body.test)
     res.send('success')
 })
 

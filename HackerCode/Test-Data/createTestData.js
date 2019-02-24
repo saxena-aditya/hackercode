@@ -21,14 +21,8 @@ const createTestData = (file) => {
         result.map((key) => {
             console.log();
             test.question_set[key].questions.map((question) => {
-                question.answer = null;
-            })
-        })
-
-        result.map((key) => {
-            console.log();
-            test.question_set[key].questions.map((question) => {
-                //console.log(question);
+            question.answer = null;
+            question.status = "normal";
             })
         })
 
@@ -40,17 +34,11 @@ const createTestData = (file) => {
 
 }
 
-const updateServerTime = (time)=>{
+const updateServerTime = (test)=>{
     try{
         let rawData = fs.readFileSync('test.json');
-        let data = JSON.parse(rawData);
-        console.log()
-        console.log("DATA---->>>>>>>>>>",data);
-        console.log()
-        if(time<0)
-        time = 180000
-        data.test_duration = time;
-        console.log(">>>>>>>>UPODATED DATA>>>>>>>>>>>",data)
+        let data = test;
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>DATA",data);
         fs.writeFileSync('test.json',JSON.stringify(data))
     }
    catch(err){
@@ -62,13 +50,12 @@ const updateServerTime = (time)=>{
 const updateTest=(test)=>{
     try{
         let rawData = fs.readFileSync('test.json');
-        let data = JSON.parse(rawData);
+        let data =test;
         console.log()
         console.log("DATA---->>>>>>>>>>",data);
         console.log()
         if(time<0)
         time = 180000
-        data= test;
         console.log(">>>>>>>>UPODATED DATA>>>>>>>>>>>",data)
         fs.writeFileSync('test.json',JSON.stringify(data))
     }

@@ -1,0 +1,349 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+::selection {
+    color: none;
+    background: none;
+}
+/* For Mozilla Firefox */
+body::-moz-selection {
+    color: none;
+    background: none;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body, html {
+    font-family: 'Rubik', sans-serif;
+}
+
+#front {
+    background-color: #ffffff;
+}
+
+#owl-graph {
+    position: absolute;
+    top: 4%;
+    width: 30vw;
+}
+
+#bulb-front {
+    position: absolute;
+    height: 48%;
+    bottom: -8%;
+    right: 5%;
+}
+
+.head-area {
+    position: absolute;
+    float: left;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: default;
+}
+
+.head-area h1 {
+    font-size: 10vw;
+    font-weight: bold;
+    letter-spacing: 5px;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    text-shadow: #545353 2px 4px 3px ;
+}
+
+.head-area h4 {
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+.head-area h3 {
+    font-size: 1.5vw;
+}
+
+.choice-area {
+    margin-top: 3%;
+    font-size: 1.4vw;
+}
+
+#choice-qst {
+    margin: 0 5px 0 0;
+}
+
+.choice-ans {
+    font-size: 1.8vw;
+    font-weight: 500;
+    text-transform: capitalize;
+    text-decoration: underline;
+    color: #0a8a79;
+}
+
+.choice-ans:hover {
+    color: #c3d71f;
+}
+
+/*=========== MENU ==============*/
+#menu-hack {
+    z-index: 9999;
+    position: absolute;
+    display : inline-flex;
+    flex-wrap: nowrap;
+    right: 0;
+    margin: 4% 10%;
+}
+
+#menu-hack li a {
+    margin: 0 15px 0 0;
+    background-color: #00b29a;
+    color: #fff;
+    padding: 10px 20px;
+    box-shadow: #cac3c3 2px 2px 6px;
+}
+
+#menu-hack li a:hover {
+    background-color: #e85e53;
+    text-decoration: none;
+    box-shadow: #dc3434 1px 1px 3px;
+}
+
+/*===============================*/
+
+
+
+
+
+
+.right-slide-x, .left-slide-x {
+   
+   width:43%;
+   height: 70%;
+    
+}
+
+.right-slide-x
+{
+   
+    background-color:darkgrey;
+     background-size: cover;
+    text-align: center;
+}
+.left-slide-x
+{
+    background-color: darkgrey;
+    background-size: cover;
+}
+.sslide:nth-child(1) {
+  margin-right: 100px;
+
+}
+
+
+
+
+
+.right-slide-view {
+    font-family: 'Bree Serif', serif;
+    font-size: 2em;
+    background-color: ;
+    height: 400px;
+    width: 500px;
+    text-align: center;
+    
+}
+.left-slide-view {
+    font-family:  serif;
+    font-size: 1.6em;
+    background-color: ;
+    height: 400px;
+    width: 500px;
+    text-align: center;
+    
+}
+
+.slider-wrapper {
+    padding: 2.5%;
+    display: flex;
+}
+
+.slide-arrow {
+    position: absolute;
+    top: 35%;
+    display: block;
+    cursor: pointer;
+    font-size: 3vw;
+    z-index: 999;
+}
+.arrow-prev {
+     left: -25px;
+}
+.arrow-next {
+    right: -25px;;
+}
+
+/* the slides */
+
+
+
+
+
+.right-slide-view {
+   
+    margin: 0 10px;
+    width: 50px;
+    text-align: center;
+    
+}
+#street{
+    background-image: url(../../../../hackercode/front-end/ff-ideas/celeb.png);
+      
+        position: absolute;
+        background-position: center;
+    background-repeat: no-repeat;
+}
+ 
+.right-slide-view p{
+    margin-top: 50px;
+    font-size: 0.7em;
+    font-family: 'PT Sans', sans-serif;
+}
+
+canvas {
+  display: block;
+  vertical-align: bottom;
+}
+/* ---- particles.js container ---- */
+
+#particles-js {
+  /* position: absolute; */
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+#website-link p
+{
+    margin-top: 0;
+   font-family: 'Lora', serif;
+}
+
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,800);
+.section figure.snip1167 {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 7px;
+  min-width: 70px;
+  max-width: 350px;
+  width: 100%;
+  color: #333;
+  text-align: left;
+  box-shadow: none !important;
+    float:right; 
+   
+}
+figure.snip1167 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+figure.snip1167 img {
+  max-width: 100%;
+    
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+  z-index: 1;
+  position: relative;
+}
+figure.snip1167 blockquote {
+ 
+    height: 120px;
+  display: block;
+  border-radius: 8px;
+  position: relative;
+  background-color: lightcyan;
+  padding: 60px 50px 30px 50px;
+  font-size: 0.8em;
+  font-weight: 500;
+  margin: -50px 0 0;
+  line-height: 1.6em;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+figure.snip1167 blockquote:before,
+figure.snip1167 blockquote:after {
+  font-family: 'FontAwesome';
+  content: "\201C";
+  position: absolute;
+  font-size: 50px;
+  opacity: 0.3;
+  font-style: normal;
+}
+figure.snip1167 blockquote:before {
+  top: 50px;
+  left: 30px;
+}
+figure.snip1167 blockquote:after {
+  content: "\201D";
+  right: 20px;
+  bottom: 0;
+}
+figure.snip1167 .author {
+  padding: 5px;
+  margin: 0;
+  text-transform: uppercase;
+  color:black;
+  text-align: center;
+}
+figure.snip1167 .author h5 {
+  opacity: 0.8;
+  margin: 0;
+  font-weight: 800;
+}
+figure.snip1167 .author h5 span {
+  font-weight: 400;
+  text-transform: none;
+  display: block;
+}
+
+.section .head h1
+{
+    font-size: 3em;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+}
+
+
