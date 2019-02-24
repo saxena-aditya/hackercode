@@ -1,11 +1,10 @@
 {
     "test_id":"$id124",
     "test_duration":999966138990,
-    "test_type":{
         "type":"loose",
         "start_time":1550489298951,
-        "end_time":15509999489698952
-    },
+        "end_time":15509999489698952,
+        "test_started":false,
     "rules":{
             "is_negative_marking":true,
             "value":"25"

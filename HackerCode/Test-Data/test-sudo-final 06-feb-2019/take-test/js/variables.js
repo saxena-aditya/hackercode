@@ -25,6 +25,7 @@ let previous_question_set       =   undefined;//will store the question set whic
 let current_question_number     =   undefined;//stores the question number of active set
 let previous_question_number    =   undefined;//stores the previous question number of active set
 let test_store                  =   undefined;//will store the whole test to itself
+let test_started                =   undefined;//will store a boolean value 
 
 /* variables that will store the main ingredients of test */
 let test_slides              =   [];//will contain all the question slides

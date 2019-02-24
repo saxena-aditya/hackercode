@@ -471,78 +471,6 @@ function setClock(total_duration) {
 
 }
 
-// CONVERT MILLISECONDS TO DIGITAL CLOCK FORMAT
-function convertMillisecondsToDigitalClock(ms) {
-    let hours = Math.floor(ms / 3600000); // 1 Hour = 36000 Milliseconds
-    let minutes = Math.floor((ms % 3600000) / 60000); // 1 Minutes = 60000 Milliseconds
-    let seconds = Math.floor(((ms % 360000) % 60000) / 1000); // 1 Second = 1000 Milliseconds
-    return {
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds,
-    };
-}
-
-
-function IsAnsweredOrIsSkipped(n) {
-    /* to add the class visited to sidebar button */
-    /* <button class="classic-btn normal" id="${count++}">${index + 1}</button> this is the html of button */
-    console.log("INIT VALUE OF BTN n ",n);
-    let resource = getButtonAndTags(n);
-    const visited_button = resource.button;
-    console.log("VISITED BUTTONS ",visited_button);
-    const inputTags = resource.tags;
-
-    visited_button.removeClass();
-    if (isAnswered(inputTags)) {
-        storeAnswerToTestObj(n,inputTags);
-        visited_button.addClass("classic-btn visited");
-    }
-    else {
-        visited_button.addClass("classic-btn not-answered");
-    }
-}
-
-
-
-/* storeAnswer */
-function storeAnswerToTestObj(slideNumber,inputTags){
-    //console.log("ANSWER SET ",inputTags);
-    let tempKey = key;
-    console.log(key)
-    console.log(" PREVIOUS SLIDE < CURRENT SLIDE , SLIDE NUMBER ",prevSlide,currentSlide,slideNumber);
-    if(prevSlide > currentSlide)
-    {
-        
-    }
-    if(prevKey<key)
-    {
-        console.log("PREV SLIDE  , PREV KEY : ",prevSlide , prevKey);
-        tempKey=prevKey
-    }
-    let prevSlideLength = getLength(tempKey);
-    console.log("TEMP KEY ",tempKey);
-    console.log("PREV SLIDE LENGTH : ",prevSlideLength)
-    console.log("SLide NUMBER",slideNumber );
-    const questionNo  = parseInt(slideNumber - prevSlideLength);
-    let answer = getAnsweredValue(inputTags);
-    console.log("ANSWER >>>",answer)
-    const set=q_type_keys[tempKey].key;
-    console.log("SET ",set);
-     console.log("QUESTION :",test_store.question_set[set].questions[questionNo]);
-     //test_store.question_set[set].questions[questionNo].answer = `${answer}`;  
-     //console.log(test_store)
-    };
-
-
-function clearAnswerResponse(slideNumber){
-    ////console.log("ANSWER SET REMOVED ",key);
-    let prevSlideLength = getLength(key);
-    ////console.log("HEY REMOVED >>>>>>>>>>>>>>>>>>>>>>>>>>>",slideNumber - prevSlideLength);
-    const questionNo  = slideNumber - prevSlideLength;
-    let answer = getAnsweredValue(inputTags);
-    test_store.question_set.q_type_keys[key].questions[questionNo].answer =""; 
-}
 
 
 
@@ -553,18 +481,12 @@ function clearAnswerResponse(slideNumber){
 
 
 
-/* function for clearing response */
-function clearResponse(){
-    ////console.log("IN CLEAR RESPONSE FUNCS")
-    let inputTags = getButtonAndTags(currentSlide).tags;
-    inputTags.map((i) => {
-        if (inputTags[i].checked) {
-           // //console.log("checked");
-           inputTags[i].checked=false;
-        }
-    })
 
-}
+
+
+
+
+
 
 function showNextSlide() {
     showSlide(currentSlide + 1)
@@ -648,13 +570,7 @@ function getSetLength(n)
 
 */
 
-function updateTime(time)
-{
-    localStorage.time = time;
-    //console.log("LOCAL STORAGE TIME : ",localStorage.time);
-    console.log(">>>TEST STORE >>>",test_store);
-    updateServerTime(time);
-}
+
 
 function updateServerTime(time){
     //console.log("PINGED SERVER !!!!");
@@ -672,39 +588,17 @@ function updateServerTime(time){
 }
 
 
-/* Showing toast at last min */
-function showToast()
-{
-  const body =  $('body');
-    body.append(`<div id="toast">5 Min Remaining !! Hurry Up </div>`)
-  var x = document.getElementById("toast");
-  x.className = "show";
-  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-  changeTimeColor();
-}
 
 
 /* function to change the color of time after showToast() is called */
-function changeTimeColor()
-{
-    //console.log(">>>!!!!>>>>",time_clock);
-    // time_clock.removeClass('black');
-    // time_clock.addClass('red');
-    time_clock.removeAttribute('class','black');
-    time_clock.style.color="red";
-}
 
 
 
 
 
 
-/* generate a random int which will ping server */
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
-  }
+
+
 
 function submitTest()
 {
@@ -729,10 +623,3 @@ function submitTest()
 })()
 
 
-
-/* will remove the local storage variable */
- //when browser closed - psedocode
- $(window).on("unload", function(e){
-     localStorage.prev_time=localStorage.total_time;
-    localStorage.removeItem(total_time);
-  });

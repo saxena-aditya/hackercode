@@ -5,9 +5,10 @@ $( function () {
     /* function for getting test data */
     $.get('http://localhost:3000/', function (data, status) {
         if (data == 0)
-            return;//if test was not received here
+            window.location.href="/"//if test was not received here
             
             console.log("SERVER APPROACHED")
+            console.log("data from server",data);
             //STORING THE RECEIVED DATA FROM SERVER TO VARIABLES
             const test = { ...data };
             test_store={...data}
@@ -34,9 +35,16 @@ $( function () {
         start_time              =   test.start_time
         end_time                =   test.end_time
         test_type               =   test.test_type
+        test_started            =   test.test_started
 
-        isEligible(start_time , end_time , total_exam_duration , test_type);//will check the eligibilty of user
-        testBuilder(test_store.question_set);
+        if(!test_started)
+        {
+            isEligible(start_time , end_time , total_exam_duration , test_type);//will check the eligibilty of user
+            test_store.test_started = true;
+            test_started            = true;
+        }
+        testBuilder(test_store.question_set);//will build the test slides and other useful stuff
+        toggleClock(total_exam_duration,test_type,start_time,end_time);//will start the clock
     }
 
 
@@ -81,13 +89,17 @@ $( function () {
             question_set[key].questions.forEach((question,index)=>
             {   //question [{} , {} ,{} ]
                 //{}
-
+                    answer = null;
+                    if(question.answer)
+                    {
+                        answer = question.answer[0];
+                    }
                         /* adding slide to [] */
                         test_slides.push({
                             id: index+1,
                             question : question.question,//Question
                             answers : question.options,//Options 
-                            markedAnswer : question.answer[0],//answer will be a array 
+                            markedAnswer : answer,//answer will be a array 
                             marks_for_question :question.marks,//storing marks
                             negative_for_question : question.negative//storing the negative marks 
                     
@@ -215,7 +227,9 @@ $( function () {
         let lower_limit_of_length    =   getLengthTillSetIndex(current_question_set);//will return the length till the starting of this set
         let set_length               =   getSetLength(current_question_set);//will return the length of current set ie how many question
 
-        let total_length             =   lower_limit_of_length+set_length-1;
+        console.log(">>",lower_limit_of_length,set_length);
+        let total_length             =   parseInt(lower_limit_of_length)+parseInt(set_length)-1;
+        console.log(total_length , n)
 
         if(n === total_length)
         {
@@ -295,7 +309,7 @@ $( function () {
     function getSetLength(index)
     {
         const key = question_sets[index];
-        let length = test_store.question_set[key].length;
+        let length = test_store.question_set[key].questions.length;
         return length;
     }
 
@@ -309,24 +323,185 @@ $( function () {
         for(let i =0;i<length;i++)
         {
                 const button = sideViewButtons[i];
-                console.log(button);
                 button.addEventListener('click',function(){
                     showSlide(true_length+i);//will update the slide
-                    addClass(previousSlide);//will add class to buttons
+                    addAnsweredOrSkippedClass(previousSlide);//will add class to buttons
                 })
         }
     }
 
-
-    function addClass(slideNumber)
+    //will add class to current button
+    function addAnsweredOrSkippedClass(slideNumber)
     {
-        slides[slideNumber]
+        let {tags,button} = getButtonAndTags(slideNumber);
+        button=button[0];
+        let temp_length = getLengthTillSetIndex(current_question_set);
+        const key   = question_sets[current_question_set];
+        const index = slideNumber - temp_length;
+        //test_store.question_set[key].questions
+        if(isAnswered(tags))
+        {
+            button.setAttribute('class','classic-btn  visited');
+            test_store.question_set[key].questions[index].status = "visited";//updating the status of button
+        }
+        else{
+            button.setAttribute('class','classic-btn  not-answered');
+            test_store.question_set[key].questions[index].status = "not-answered";//updating the status of button
+        }
     }
+
+      /* function for review button */
+      function addReviewedOrNotReviewedClass(n) {
+        let {button,tags} = getButtonAndTags(n);
+        button=button[0];
+        console.log(button)
+        let temp_length = getLengthTillSetIndex(current_question_set);
+        const key   = question_sets[current_question_set];
+        const index = n - temp_length;
+
+        if (isAnswered(tags)) {
+            button.setAttribute('class',"classic-btn answered-to-review");
+            test_store.question_set[key].questions[index].status = "answered-to-review";//updating the status of button
+        }
+        else {
+            button.setAttribute('class',"classic-btn to-review");
+            test_store.question_set[key].questions[index].status = "to-review";//updating the status of button
+        }
+    }
+
+            /* CLOCK METHODS  */
+            /* function to toggle the clock */
+        function toggleClock(total_duration, type , start_time , end_time) {
+            let total_time = total_duration;
+            if(type=='strict')
+            {
+                let currentTime = new Date().getTime();
+                let actualTotalTime = end_time-currentTime;
+                if(localStorage.prev_time)
+                {
+                    localStorage.total_time = actualTotalTime;
+                    total_time=localStorage.prev_time;
+                }
+            }
+            setInterval(function () {
+                setClock(total_time);
+                randomUpdateTime(total_time);
+                localStorage.total_time=total_time;
+                if(total_time===(total_duration/2))
+                {
+                    /* submit button available at half time */
+                    toggleSubmitButton();
+                    
+                }
+                
+                /* calling function for each type of exam */
+                if(type === 'strict')
+                {
+                    /* calling strictExam() */
+                    strictExamSubmit(end_time , total_time);
+                }
+                else{
+                    /* calling for looseExam() */
+                    looseExamSubmit( end_time , total_time);
+                }
+                /* colorchange */
+                if(total_time<300000)
+                {
+                    changeTimeColor();
+                }
+                total_time = total_time - 1000;//because 1sec = 1000 milliseconds
+                total_exam_duration = total_time;
+            }, 1000)
+
+        }
+        function randomUpdateTime(total_time)
+        {
+            let random = parseInt(getRandomInt(1,59));
+            if(total_time%random === 0)
+            {
+                updateTime(total_time)
+                testDataUpdate();
+            }
+        }
+
+
+        /* change attribute from disabled to availabe */
+        function toggleSubmitButton()
+        {
+            submit.disabled=false;
+        }
+
+        /* generate a random int which will ping server */
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+        }
+
+        /* function to handle the total time of exam and time elapsed */
+        function setClock(total_duration) {
+            /* since total_duration will be in milli sec we need to convert it into sec and min and hrs asap */
+            //created a function convertMillisecondsToDigitalClock
+            const time = convertMillisecondsToDigitalClock(total_duration);
+            const sec = time.seconds;
+            const min = time.minutes;
+            const hr = time.hours;
+            /* if time is over */
+            if(sec+min+hr===0)
+            {
+                //window.location="/exam-over";
+                return;
+            }
+            let clock = "";
+            if (hr == 0) {
+                clock = min + "m" + " " + sec + "sec";
+            }
+            else {
+                clock = hr + "hr" + " " + min + "m" + " " + sec + "sec";
+            }
+            time_clock.innerHTML = clock;
+
+        }
+
+        // CONVERT MILLISECONDS TO DIGITAL CLOCK FORMAT
+        function convertMillisecondsToDigitalClock(ms) {
+            let hours = Math.floor(ms / 3600000); // 1 Hour = 36000 Milliseconds
+            let minutes = Math.floor((ms % 3600000) / 60000); // 1 Minutes = 60000 Milliseconds
+            let seconds = Math.floor(((ms % 360000) % 60000) / 1000); // 1 Second = 1000 Milliseconds
+            return {
+                hours: hours,
+                minutes: minutes,
+                seconds: seconds,
+            };
+        }
+
+        /* Showing toast at last min */
+        function showToast()
+        {
+        const body =  $('body');
+            body.append(`<div id="toast">5 Min Remaining !! Hurry Up </div>`)
+        var x = document.getElementById("toast");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        changeTimeColor();
+        }
+
+        function changeTimeColor()
+        {
+            time_clock.removeAttribute('class','black');
+            time_clock.style.color="red";
+        }
+
+        function updateTime(time)
+        {
+            localStorage.time = time;
+        }
+
 
     /* function that will return us button and input tags of slide */
     function getButtonAndTags(n) {
         return {
-        button: $(`#${n}`),
+        button: $(`#sideview${n}`),
         tags: $(`:input[name="question${n}"]`)
         }
     }
@@ -336,66 +511,77 @@ $( function () {
             let isAnswered = false;
             inputTags.map((i) => {
                 if (inputTags[i].checked) {
-                // //console.log("checked");
                     isAnswered = true;
                 }
             })
+            if(isAnswered)
+            {
+                //will add the answer to test_store
+                let temp_length = getLengthTillSetIndex(current_question_set);
+                const key   = question_sets[current_question_set];
+                const index = currentSlide - temp_length;
+                const answer = getAnsweredValue(inputTags);
+                console.log(">ANSWERED",answer);
+                test_store.question_set[key].questions[index].answer = [`${answer}`];//updating the status of button
+                
+            }
             return isAnswered;
         }
-    /* function for review button */
-    function reviewed(n) {
-        let resource = getButtonAndTags(n);
-        const reviewed_button = resource.button;
-        const inputTags = resource.tags;
-        reviewed_button.removeClass();
-        if (isAnswered(inputTags)) {
-            reviewed_button.addClass("classic-btn answered-to-review");
-        }
-        else {
-            reviewed_button.addClass("classic-btn to-review");
-        }
-    }
+  
     
     function getAnsweredValue(inputTags){
         let Answer = "";
         inputTags.map((i) => {
             if (inputTags[i].checked) {
-               // //console.log("checked");
                 Answer = inputTags[i].value;
             }
         })
         return Answer;
     }
 
+    /* function for clearing response */
+    function clearResponse(){
+        let inputTags = getButtonAndTags(currentSlide).tags;
+        inputTags.map((i) => {
+            if (inputTags[i].checked) {
+                inputTags[i].checked=false;
+            }
+        })
+        let temp_length = getLengthTillSetIndex(current_question_set);
+        const key   = question_sets[current_question_set];
+        const index = currentSlide - temp_length;
+        test_store.question_set[key].questions[index].status = "not-answered";//updating the status of button
+        test_store.question_set[key].questions[index].answer = undefined;//updating the answer
+    }
+
 
     //EVENT LISTENER BUTTON
     review.addEventListener('click', function (e) {
         e.preventDefault();
-        //console.log(currentSlide)
-        //console.log("INSIDE REVIEW BUTON ",getSetLength(key))
         if(!(currentSlide === getSetLength(current_question_set)+getLengthTillSetIndex(current_question_set)))
         {
+            addReviewedOrNotReviewedClass(currentSlide);
             showNextSlide();
-            reviewed(currentSlide - 1);
         }
         else{
         
-            reviewed(currentSlide);
+            addReviewedOrNotReviewedClass(currentSlide);
         }    
         
     })
     prev.addEventListener('click', function (e) {
         e.preventDefault()
+        addAnsweredOrSkippedClass(currentSlide);
         showPreviousSlide()
     })
     next.addEventListener('click', function (e) {
         e.preventDefault()
+        addAnsweredOrSkippedClass(currentSlide);
         showNextSlide()
     })
     clear.addEventListener('click',function(e){
         e.preventDefault();
         clearResponse();
-        clearAnswerResponse(currentSlide)
     })
     
     submit.addEventListener('click',function(e){
@@ -403,9 +589,71 @@ $( function () {
         submitTest();
     })
 
-
-    function clearAnswerResponse(slideNumber){
-      
+    function showNextSlide() {
+        showSlide(currentSlide + 1)
+    }
+    
+    function showPreviousSlide() {
+        showSlide(currentSlide - 1)
     }
 
+
+    
+    /* strict and loose exam function */
+    function strictExamSubmit(end_time , total_time)
+    {
+        const currentTime = newDate.getTime();
+        if(total_time<=0 || currentTime === end_time)
+        {
+            window.location.href = '/strictExamSubmit';
+        }
+        /* FOR SHOWING TOAST */
+        if(total_time===300000 || (end_time - currentTime) === 500000)
+        {
+            showToast();
+        }
+    }
+
+    function looseExamSubmit(end_time , total_time)
+    {
+        if(total_time<=0)
+        {
+            window.location.href = '/looseExamSubmit';
+        }
+        if(total_time===300000)
+        {
+            showToast();
+        }
+        if(total_time<=300000)
+        {
+            changeTimeColor();
+        }
+    }
+
+   function testDataUpdate()
+   {
+    test_store.test_duration = total_exam_duration;
+    let updatedTest = JSON.stringify({'test':test_store})
+    console.log(test_store);
+    $.ajax({
+        url:'http://localhost:3000/updateTime',
+        type:"POST",
+        data:updatedTest,
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",
+        success: function(data){
+          //console.log(data)
+        }
+      })
+   }
+    
+
 })
+
+
+/* will remove the local storage variable */
+ //when browser closed - psedocode
+ $(window).on("unload", function(e){
+    localStorage.prev_time=localStorage.total_time;
+   localStorage.removeItem(total_time);
+ });
