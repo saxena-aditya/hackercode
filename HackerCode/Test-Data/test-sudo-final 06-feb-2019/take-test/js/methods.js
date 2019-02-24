@@ -14,6 +14,7 @@ $( function () {
             test_store={...data}
             
             startTest(test);//function to initiate test and everything
+            submit.disabled = true; //hide the submit button initially
     });
   
 
