@@ -32,9 +32,9 @@ $( function () {
         we need to pass the start_time , end_time , total duration of test & test_type
         */
 
-        total_exam_duration     =   test.test_duration
-        start_time              =   test.start_time
-        end_time                =   test.end_time
+        total_exam_duration     =   new Date(test.test_duration).getTime()
+        start_time              =   new Date(test.start_time).getTime()
+        end_time                =   new Date(test.end_time).getTime()
         test_type               =   test.test_type
         test_started            =   test.test_started
 
@@ -101,8 +101,8 @@ $( function () {
                             question : question.question,//Question
                             answers : question.options,//Options 
                             markedAnswer : answer,//answer will be a array 
-                            marks_for_question :question.marks,//storing marks
-                            negative_for_question : question.negative//storing the negative marks 
+                            marks_for_question :question.max_marks,//storing marks
+                            negative_for_question : question.neg_marks//storing the negative marks 
                     
                     })
             })
