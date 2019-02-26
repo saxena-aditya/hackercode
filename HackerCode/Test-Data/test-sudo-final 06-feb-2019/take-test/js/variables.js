@@ -26,6 +26,8 @@ let current_question_number     =   undefined;//stores the question number of ac
 let previous_question_number    =   undefined;//stores the previous question number of active set
 let test_store                  =   undefined;//will store the whole test to itself
 let test_started                =   undefined;//will store a boolean value 
+let answer_status_store         =   undefined;//will store the object so that we can store it
+let is_db_for_answer            =   false;//for checking if we have a answer database
 
 /* variables that will store the main ingredients of test */
 let test_slides              =   [];//will contain all the question slides
