@@ -3,7 +3,6 @@ console.log("METHODS.js");
 $( function () {
 
     /* function for getting test data */
-<<<<<<< HEAD
 
     $.ajax({
     url: 'http://localhost:3000',
@@ -22,30 +21,6 @@ $( function () {
         console.log(c); //or whatever
     }
 });
-
-    /*$.get('http://localhost:8080/HackerCode/get-test-data/1', function (data, status) {
-=======
-    let url = window.location.href;
-    let id = url.split('/').pop()
-    url = test_start_url;
-    $.get(url, function (data, status) {
->>>>>>> a9c27d8847bc1df8cd617a2db1e0da406ab48116
-        if (data == 0)
-           // window.location.href="/"//if test was not received here
-            
-<<<<<<< HEAD
-=======
-            startTest(test);//function to initiate test and everything
-<<<<<<< HEAD
-            submit.disabled = false; //hide the submit button initially
-=======
-            submit.disabled = true; //hide the submit button initially
->>>>>>> a9c27d8847bc1df8cd617a2db1e0da406ab48116
->>>>>>> 66f6fa68b22deb16fb1592e32b0440eb460c6891
-    });
-  
-*/
-
 
 
     //method that will be called to from ajax request to start and build the test
