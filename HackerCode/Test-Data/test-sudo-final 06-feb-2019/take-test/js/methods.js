@@ -3,6 +3,7 @@ console.log("METHODS.js");
 $( function () {
 
     /* function for getting test data */
+<<<<<<< HEAD
 
     $.ajax({
     url: 'http://localhost:3000',
@@ -23,9 +24,20 @@ $( function () {
 });
 
     /*$.get('http://localhost:8080/HackerCode/get-test-data/1', function (data, status) {
+=======
+    let url = window.location.href;
+    let id = url.split('/').pop()
+    url = `http://localhost:3000/${id}`;
+    $.get(url, function (data, status) {
+>>>>>>> a9c27d8847bc1df8cd617a2db1e0da406ab48116
         if (data == 0)
            // window.location.href="/"//if test was not received here
             
+<<<<<<< HEAD
+=======
+            startTest(test);//function to initiate test and everything
+            submit.disabled = true; //hide the submit button initially
+>>>>>>> a9c27d8847bc1df8cd617a2db1e0da406ab48116
     });
   
 */
@@ -42,11 +54,12 @@ $( function () {
         we need to pass the start_time , end_time , total duration of test & test_type
         */
 
-        total_exam_duration     =   test.test_duration
-        start_time              =   test.start_time
-        end_time                =   test.end_time
+        total_exam_duration     =   new Date(test.test_duration).getTime()
+        start_time              =   new Date(test.start_time).getTime()
+        end_time                =   new Date(test.end_time).getTime()
         test_type               =   test.test_type
         test_started            =   test.test_started
+        is_db_for_answer        =   test.has_db
 
         if(!test_started)
         {
@@ -92,7 +105,7 @@ $( function () {
     function testBuilder(question_set)
     {
         let keysArray = Object.keys(question_set);//we will get the keys here such as set-1 , set-2 ,set-3
-       keysArray.forEach(key=>{
+        keysArray.forEach(key=>{
 
         //key would be like set-1 set-2 set-3
 
@@ -107,12 +120,13 @@ $( function () {
                     }
                         /* adding slide to [] */
                         test_slides.push({
-                            id: index+1,
+                            id: question.id,//id for database
+                            status : question.status,//status 
                             question : question.question,//Question
                             answers : question.options,//Options 
                             markedAnswer : answer,//answer will be a array 
-                            marks_for_question :question.marks,//storing marks
-                            negative_for_question : question.negative//storing the negative marks 
+                            marks_for_question :question.max_marks,//storing marks
+                            negative_for_question : question.neg_marks//storing the negative marks 
                     
                     })
             })
@@ -124,9 +138,26 @@ $( function () {
             showSlide(0);//will show the first slide
             activeSet(0);//will set the active class for question_set_buttons
             loadSideButton(0);//will load the buttons at the side showing questions
-            addEventListenerToSetButtons();//will add events to set buttons
+            addEventListenerToSetButtons();//will add events to set 
+            answer_statusStore();//for creating or updating answer_status object
+
     }
  
+    function answer_statusStore()
+    {
+        if(!(is_db_for_answer))
+        {
+            // if we have test_data stored in database
+            ifAnswer_statusNotCreatedAlready(test_slides);//will create the object for storing to database
+        }
+        else
+        {
+            alreadyCreatedAnswer_Status();
+        }
+        
+    }
+
+
 
     /* method for declaring values */
     function initDecleration() {
@@ -642,8 +673,16 @@ $( function () {
 
    function testDataUpdate()
    {
+<<<<<<< HEAD
     test_store.test_duration = total_exam_duration;
     let updatedTest = JSON.stringify({'test':test_store});-
+=======
+    test_store.test_duration = new Date(total_exam_duration);
+    test_store.end_time      = new Date(test_store.end_time);
+    test_store.start_time    = new Date(test_store.start_time);
+
+    let updatedTest = JSON.stringify({'test':test_store})
+>>>>>>> a9c27d8847bc1df8cd617a2db1e0da406ab48116
     console.log(test_store);
     $.ajax({
         url:'http://localhost:3000/updateTime',
@@ -656,6 +695,27 @@ $( function () {
         }
       });
    }
+
+
+   //method for creating object if not created to store object
+   function ifAnswer_statusNotCreatedAlready(slides)
+   {
+        slides.map(slide=>{
+            answer_status_store[slide.id] = {
+                answer : slide.answer,
+                status : slide.status
+            }
+        })
+   }
+
+   //if already created object
+   function alreadyCreatedAnswer_Status()
+   {
+       $.get("localhost:3000/get",function(data , status){
+           answer_status_store = data;
+       })
+   }
+
     
 
 });
