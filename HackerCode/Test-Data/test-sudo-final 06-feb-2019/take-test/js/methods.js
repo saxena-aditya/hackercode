@@ -683,16 +683,8 @@ $( function () {
 
    function testDataUpdate()
    {
-<<<<<<< HEAD
     test_store.test_duration = total_exam_duration;
     let updatedTest = JSON.stringify({'test':test_store});-
-=======
-    test_store.test_duration = new Date(total_exam_duration);
-    test_store.end_time      = new Date(test_store.end_time);
-    test_store.start_time    = new Date(test_store.start_time);
-
-    let updatedTest = JSON.stringify({'test':test_store})
->>>>>>> a9c27d8847bc1df8cd617a2db1e0da406ab48116
     console.log(test_store);
     $.ajax({
         url:test_update_url,
