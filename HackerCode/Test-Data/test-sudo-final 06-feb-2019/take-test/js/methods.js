@@ -1,28 +1,39 @@
-console.log("METHODS.js")
+console.log("METHODS.js");
 
 $( function () {
 
     /* function for getting test data */
-    $.get('http://localhost:3000/', function (data, status) {
+
+    $.ajax({
+    url: 'http://localhost:3000',
+    type: 'GET',
+    dataType: 'json',
+    success: function(data) { 
+        console.log("SERVER APPROACHED");
+        console.log("data from server",data);
+        //STORING THE RECEIVED DATA FROM SERVER TO VARIABLES
+        const test = { ...data };
+        test_store={...data};
+        
+        startTest(test);//function to initiate test and everything
+    },
+    error: function(a,b,c) {
+        console.log(c); //or whatever
+    }
+});
+
+    /*$.get('http://localhost:8080/HackerCode/get-test-data/1', function (data, status) {
         if (data == 0)
-            window.location.href="/"//if test was not received here
+           // window.location.href="/"//if test was not received here
             
-            console.log("SERVER APPROACHED")
-            console.log("data from server",data);
-            //STORING THE RECEIVED DATA FROM SERVER TO VARIABLES
-            const test = { ...data };
-            test_store={...data}
-            
-            startTest(test);//function to initiate test and everything
     });
   
-
+*/
 
 
 
     //method that will be called to from ajax request to start and build the test
-    function startTest(test)
-    {
+    function startTest(test) {
         //initialize test_store variable so that a copy of test can be stored and retured to the server !
         test_store = {...test};//copying test to test_store
 
@@ -118,8 +129,7 @@ $( function () {
  
 
     /* method for declaring values */
-    function initDecleration()
-    {
+    function initDecleration() {
         //variables
         current_question_set = 0;//will store the index of current question_sets
         previous_question_set = -1;//will store the index of previous question_sets
@@ -158,7 +168,7 @@ $( function () {
                     <input type="radio" name="question${questionNumber}" value="${currentQuestion.answers[option]}">
                     
                      ${currentQuestion.answers[option]}
-                  </label>`)
+                  </label>`);
                 }
               
             }
@@ -168,7 +178,7 @@ $( function () {
                    </div>
                  </div>`);
     
-        })
+        });
         btns.innerHTML = "";
         test.innerHTML = questionSet.join("");
 
@@ -179,8 +189,8 @@ $( function () {
     function showSets()
     {
         let temp_set_buttons = question_sets.map((key,index)=>{
-            return `<div class="tag bg-blue-light" id=${key}><p class="margin-0 tag-text fff">${key}</p></div>`
-        })
+            return `<div class="tag bg-blue-light" id=${key}><p class="margin-0 tag-text fff">${key}</p></div>`;
+        });
 
         set_btns.innerHTML = temp_set_buttons.join("");
     }
@@ -193,7 +203,7 @@ $( function () {
             $(`#${key}`)[0].addEventListener('click',function(){
                 activeSet(i);//change the class for activeSet
                 loadSideButton(i);//will load the buttons at the side showing questions
-            })
+            });
         }
     }
 
@@ -201,13 +211,13 @@ $( function () {
     /* for showing positive and negative marks on slide */
     function showMarks(right_answer , wrong_answer)
     {
-         marks.innerHTML=`<strong class="marks-sec">Mark for this question : <span id="positive">${right_answer}</span> || Negative Marks : <span id="negative">${wrong_answer}</span></strong>`
+         marks.innerHTML=`<strong class="marks-sec">Mark for this question : <span id="positive">${right_answer}</span> || Negative Marks : <span id="negative">${wrong_answer}</span></strong>`;
     }
 
     
     function showSlide(n) {
-    slides[currentSlide].classList.remove("active-slide")
-    slides[n].classList.add("active-slide")
+    slides[currentSlide].classList.remove("active-slide");
+    slides[n].classList.add("active-slide");
 
     previousSlide    =  currentSlide;//updating previous slide value
     currentSlide     =  n;//updating current slide value
@@ -229,7 +239,7 @@ $( function () {
 
         console.log(">>",lower_limit_of_length,set_length);
         let total_length             =   parseInt(lower_limit_of_length)+parseInt(set_length)-1;
-        console.log(total_length , n)
+        console.log(total_length , n);
 
         if(n === total_length)
         {
@@ -252,23 +262,23 @@ $( function () {
 
 
     function activeSet(index)
-{
-    let key = question_sets[index]; //will give set-1 set-2 set-3 
-    let prev_key    = question_sets[current_question_set];//will give set-1 set-2 set-3
+    {
+        let key = question_sets[index]; //will give set-1 set-2 set-3 
+        let prev_key    = question_sets[current_question_set];//will give set-1 set-2 set-3
 
-    const older_set_button  =   $(`#${prev_key}`)[0];//will give button
-    const new_set_button    =   $(`#${key}`)[0];//will give the button 
-    /*<div class="tag bg-blue-light" id=${key}><p class="margin-0 tag-text fff">${key}</p></div>*/
+        const older_set_button  =   $(`#${prev_key}`)[0];//will give button
+        const new_set_button    =   $(`#${key}`)[0];//will give the button 
+        /*<div class="tag bg-blue-light" id=${key}><p class="margin-0 tag-text fff">${key}</p></div>*/
 
-    //Now remove the class from the previous button and set the class of new button
-    older_set_button.removeAttribute('class','bg-blue tag2');//remove the older active class
-    older_set_button.setAttribute('class','bg-blue-light tag');//add the normal class
+        //Now remove the class from the previous button and set the class of new button
+        older_set_button.removeAttribute('class','bg-blue tag2');//remove the older active class
+        older_set_button.setAttribute('class','bg-blue-light tag');//add the normal class
 
-    new_set_button.removeAttribute('class','bg-blue-light');//remove the normal class
-    new_set_button.setAttribute('class','bg-blue tag2');//add the active class
+        new_set_button.removeAttribute('class','bg-blue-light');//remove the normal class
+        new_set_button.setAttribute('class','bg-blue tag2');//add the active class
 
-    previous_question_set   =     current_question_set;//updating the var
-    current_question_set    =    index;//updating the var
+        previous_question_set   =     current_question_set;//updating the var
+        current_question_set    =    index;//updating the var
     }
 
     function loadSideButton(index)
@@ -283,8 +293,8 @@ $( function () {
        test_store.question_set[key].questions.forEach((question,index)=>{
             sideViewButtons.push(
                 `<button class="classic-btn  ${question.status}" id="sideview${length+index}" value="${index+length}">${index + 1}</button>`
-            )
-       })
+            );
+       });
        btns.innerHTML="";
        btns.innerHTML = sideViewButtons.join("");
        addEventListenerToSideButtons(index);
@@ -316,7 +326,7 @@ $( function () {
 
     function addEventListenerToSideButtons(index)
     {
-        const sideViewButtons = $('#question-btns').children("button")//will select all the buttons
+        const sideViewButtons = $('#question-btns').children("button");//will select all the buttons
         console.log("SIDE",sideViewButtons.length);
         let true_length = getLengthTillSetIndex(index);
         let length = sideViewButtons.length;
@@ -326,7 +336,7 @@ $( function () {
                 button.addEventListener('click',function(){
                     showSlide(true_length+i);//will update the slide
                     addAnsweredOrSkippedClass(previousSlide);//will add class to buttons
-                })
+                });
         }
     }
 
@@ -419,7 +429,7 @@ $( function () {
             let random = parseInt(getRandomInt(1,59));
             if(total_time%random === 0)
             {
-                updateTime(total_time)
+                updateTime(total_time);
                 testDataUpdate();
             }
         }
@@ -479,7 +489,7 @@ $( function () {
         function showToast()
         {
         const body =  $('body');
-            body.append(`<div id="toast">5 Min Remaining !! Hurry Up </div>`)
+            body.append(`<div id="toast">5 Min Remaining !! Hurry Up </div>`);
         var x = document.getElementById("toast");
         x.className = "show";
         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
@@ -503,7 +513,7 @@ $( function () {
         return {
         button: $(`#sideview${n}`),
         tags: $(`:input[name="question${n}"]`)
-        }
+        };
     }
 
     /* function that will receive the radio buttons group and check is answered or not */
@@ -513,7 +523,7 @@ $( function () {
                 if (inputTags[i].checked) {
                     isAnswered = true;
                 }
-            })
+            });
             if(isAnswered)
             {
                 //will add the answer to test_store
@@ -535,7 +545,7 @@ $( function () {
             if (inputTags[i].checked) {
                 Answer = inputTags[i].value;
             }
-        })
+        });
         return Answer;
     }
 
@@ -546,7 +556,7 @@ $( function () {
             if (inputTags[i].checked) {
                 inputTags[i].checked=false;
             }
-        })
+        });
         let temp_length = getLengthTillSetIndex(current_question_set);
         const key   = question_sets[current_question_set];
         const index = currentSlide - temp_length;
@@ -568,33 +578,33 @@ $( function () {
             addReviewedOrNotReviewedClass(currentSlide);
         }    
         
-    })
+    });
     prev.addEventListener('click', function (e) {
-        e.preventDefault()
+        e.preventDefault();
         addAnsweredOrSkippedClass(currentSlide);
-        showPreviousSlide()
-    })
+        showPreviousSlide();
+    });
     next.addEventListener('click', function (e) {
-        e.preventDefault()
+        e.preventDefault();
         addAnsweredOrSkippedClass(currentSlide);
-        showNextSlide()
-    })
+        showNextSlide();
+    });
     clear.addEventListener('click',function(e){
         e.preventDefault();
         clearResponse();
-    })
+    });
     
     submit.addEventListener('click',function(e){
         e.preventDefault();
         submitTest();
-    })
+    });
 
     function showNextSlide() {
-        showSlide(currentSlide + 1)
+        showSlide(currentSlide + 1);
     }
     
     function showPreviousSlide() {
-        showSlide(currentSlide - 1)
+        showSlide(currentSlide - 1);
     }
 
 
@@ -633,7 +643,7 @@ $( function () {
    function testDataUpdate()
    {
     test_store.test_duration = total_exam_duration;
-    let updatedTest = JSON.stringify({'test':test_store})
+    let updatedTest = JSON.stringify({'test':test_store});-
     console.log(test_store);
     $.ajax({
         url:'http://localhost:3000/updateTime',
@@ -644,11 +654,11 @@ $( function () {
         success: function(data){
           //console.log(data)
         }
-      })
+      });
    }
     
 
-})
+});
 
 
 /* will remove the local storage variable */
