@@ -713,7 +713,7 @@ $( function () {
    //if already created object
    function alreadyCreatedAnswer_Status()
    {
-       $.get("localhost:3000/get",function(data , status){
+       $.get(test_get_store_url,function(data , status){
            if(data !== 0 && typeof(data) === 'object')
            {
             answer_status_store = data;
@@ -724,13 +724,7 @@ $( function () {
        })
    }
 
-<<<<<<< HEAD
 })
-=======
-    
-
-});
->>>>>>> 66f6fa68b22deb16fb1592e32b0440eb460c6891
 
 
 /* will remove the local storage variable */
