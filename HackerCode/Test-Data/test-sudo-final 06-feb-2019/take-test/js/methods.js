@@ -22,26 +22,6 @@ $( function () {
     }
 });
 
-    /*$.get('http://localhost:8080/HackerCode/get-test-data/1', function (data, status) {
-=======
-    let url = window.location.href;
-    let id = url.split('/').pop()
-    url = `http://localhost:3000/${id}`;
-    $.get(url, function (data, status) {
->>>>>>> a9c27d8847bc1df8cd617a2db1e0da406ab48116
-        if (data == 0)
-           // window.location.href="/"//if test was not received here
-            
-<<<<<<< HEAD
-=======
-            startTest(test);//function to initiate test and everything
-            submit.disabled = true; //hide the submit button initially
->>>>>>> a9c27d8847bc1df8cd617a2db1e0da406ab48116
-    });
-  
-*/
-
-
 
     //method that will be called to from ajax request to start and build the test
     function startTest(test) {
@@ -120,6 +100,7 @@ $( function () {
                         /* adding slide to [] */
                         test_slides.push({
                             id: question.id,//id for database
+                            q_id: index+1, //for question number
                             status : question.status,//status 
                             question : question.question,//Question
                             answers : question.options,//Options 
@@ -144,7 +125,12 @@ $( function () {
  
     function answer_statusStore()
     {
-        if(!(is_db_for_answer))
+        //check for local storAge object
+        if(localStorage.answer_status_store)
+        {
+            answer_status_store = localStorage.answer_status_store;
+        }
+        else if(!(is_db_for_answer))
         {
             // if we have test_data stored in database
             ifAnswer_statusNotCreatedAlready(test_slides);//will create the object for storing to database
@@ -252,7 +238,7 @@ $( function () {
     previousSlide    =  currentSlide;//updating previous slide value
     currentSlide     =  n;//updating current slide value
 
-    let q_number = test_slides[n].id;
+    let q_number = test_slides[n].q_id;
     questionNumber.innerHTML = q_number;
 
     showTestButton(n);//for showing review , submit , next and previous button
@@ -383,10 +369,15 @@ $( function () {
         {
             button.setAttribute('class','classic-btn  visited');
             test_store.question_set[key].questions[index].status = "visited";//updating the status of button
+            answer_status_store[test_slides[slideNumber].id].status = "visited";
+            console.log("STORE : ",test_slides[slideNumber].id ,answer_status_store[test_slides[slideNumber].id] ,   answer_status_store)
+            answer_status_store['$001'].status = 'sa';
+            console.log(answer_status_store );
         }
         else{
             button.setAttribute('class','classic-btn  not-answered');
             test_store.question_set[key].questions[index].status = "not-answered";//updating the status of button
+            answer_status_store[test_slides[slideNumber].id].status = "not-answered";
         }
     }
 
@@ -402,13 +393,14 @@ $( function () {
         if (isAnswered(tags)) {
             button.setAttribute('class',"classic-btn answered-to-review");
             test_store.question_set[key].questions[index].status = "answered-to-review";//updating the status of button
+            answer_status_store[test_slides[currentSlide].id].status = "answered-to-review";
         }
         else {
             button.setAttribute('class',"classic-btn to-review");
             test_store.question_set[key].questions[index].status = "to-review";//updating the status of button
+            answer_status_store[test_slides[currentSlide].id].status = "to-review";
         }
     }
-
             /* CLOCK METHODS  */
             /* function to toggle the clock */
         function toggleClock(total_duration, type , start_time , end_time) {
@@ -561,6 +553,7 @@ $( function () {
                 const key   = question_sets[current_question_set];
                 const index = currentSlide - temp_length;
                 const answer = getAnsweredValue(inputTags);
+                answer_status_store[test_slides[currentSlide].id].answer = answer;
                 console.log(">ANSWERED",answer);
                 test_store.question_set[key].questions[index].answer = [`${answer}`];//updating the status of button
                 
@@ -592,6 +585,7 @@ $( function () {
         const index = currentSlide - temp_length;
         test_store.question_set[key].questions[index].status = "not-answered";//updating the status of button
         test_store.question_set[key].questions[index].answer = undefined;//updating the answer
+        answer_status_store[test_slides[currentSlide].id].answer = undefined;
     }
 
 
@@ -670,21 +664,30 @@ $( function () {
         }
     }
 
+    //this function will store the testdata to server
+    function submitTest()
+    {
+        console.log("SUBMITTE TEST",answer_status_store);
+        $.ajax({
+            url:test_submit_url,
+            type:"POST",
+            data:answer_status_store,
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: function(data){
+              alert("TEST SUBMITTED !");
+            }
+          })
+        localStorage.removeItem(answer_status_store);
+    }
+
    function testDataUpdate()
    {
-<<<<<<< HEAD
     test_store.test_duration = total_exam_duration;
     let updatedTest = JSON.stringify({'test':test_store});-
-=======
-    test_store.test_duration = new Date(total_exam_duration);
-    test_store.end_time      = new Date(test_store.end_time);
-    test_store.start_time    = new Date(test_store.start_time);
-
-    let updatedTest = JSON.stringify({'test':test_store})
->>>>>>> a9c27d8847bc1df8cd617a2db1e0da406ab48116
     console.log(test_store);
     $.ajax({
-        url:'http://localhost:3000/updateTime',
+        url:test_update_url,
         type:"POST",
         data:updatedTest,
         contentType:"application/json; charset=utf-8",
@@ -710,14 +713,18 @@ $( function () {
    //if already created object
    function alreadyCreatedAnswer_Status()
    {
-       $.get("localhost:3000/get",function(data , status){
-           answer_status_store = data;
+       $.get(test_get_store_url,function(data , status){
+           if(data !== 0 && typeof(data) === 'object')
+           {
+            answer_status_store = data;
+           }
+          else{
+              ifAnswer_statusNotCreatedAlready();
+          }
        })
    }
 
-    
-
-});
+})
 
 
 /* will remove the local storage variable */

@@ -357,12 +357,11 @@ figure.snip1167 .author h5 span {
 }
 
 
-
 #footer{
   margin-bottom: -150px;
   clear: both;
     background-color: black;
-   height: 650px;
+    height: 900px;
 }
 
 .tomottoWrap{
@@ -437,7 +436,6 @@ textarea {
   -ms-transform: translate(-50%, -50%);
   white-space: nowrap;
 }
-
 
 @charset "UTF-8";
 
@@ -531,152 +529,26 @@ textarea {
 }
 
 
+
+
 .panel a#login_pop, .panel a#join_pop {
    
    
     display: block;
-    
-    
+    float: right;
    
+    margin-top: 10px;
+   
+   
+
+  
    
 }
 a#login_pop:hover, a#join_pop:hover {
     border-color: grey ;
 }
-.overl {
- 
-    bottom: 0;
-    cursor: default;
-    left: 0;
-    opacity: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    visibility: hidden;
-    z-index: 1;
-    
-
-    -webkit-transition: opacity .5s;
-    -moz-transition: opacity .5s;
-    -ms-transition: opacity .5s;
-    -o-transition: opacity .5s;
-    transition: opacity .5s;
-}
-.overl:target {
-    visibility: visible;
-    opacity: 0.3;
-}
-.popu {
-    height: 350px;
-    width: 300px;
-    background-color: #fff;
-    border: 4px solid #fff;
-    display: inline-block;
-    left: 50%;
-    opacity: 0;
-    margin-top: 10px;
-    padding: 20px;
-    position: fixed;
-    text-align: center;
-    top: 10%;
-    visibility: hidden;
-    z-index: 10;
-
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    border-radius: 10px;
-
-    -webkit-box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
-    -moz-box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
-    -ms-box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
-    -o-box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
-    box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
-
-    -webkit-transition: opacity .5s, top .5s;
-    -moz-transition: opacity .5s, top .5s;
-    -ms-transition: opacity .5s, top .5s;
-    -o-transition: opacity .5s, top .5s;
-    transition: opacity .5s, top .5s;
-}
-.overl:target+.popu {
-    text-align: center;
-    top: 50%;
-    opacity: 1;
-    visibility: visible;
-}
-.close {
-    background-color: grey;
-   
-    line-height: 30px;
-    position: absolute;
-    right: 0;
-    text-align: left;
-    text-decoration: none;
-    top: -25px;
-    
-
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    border-radius: 15px;
-}
-.close:before {
-   
-    content: "X";
-    font-size: 20px;
-    text-shadow:  -1px ;
-}
-
-
-.popu label {
-    display: inline-block;
-    text-align: center;
-    width: 130px;
-    height: 10px;
-    font-family: 'Merriweather', serif;
-}
-.popu input[type="text"], .popu input[type="password"], .popu input[type="email"] {
-    border:  solid;
-    border-color: lightgreen;
-    color: lightgreen;
-    float: inherit;
-    padding: px;
-  
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
-    border-radius: 4px;
-}
-.popu input[type="text"]:hover, .popu input[type="password"]:hover {
-    border-color: lightcyan lightcyan lightcyan;
-}
-
-
-.panel a#signup_pop, .panel a#join_pop {
-   
-   
-    display: block;
-   
-   
-   
-}
-a#signup_pop:hover, a#join_pop:hover {
-    border-color: grey ;
-}
-
-
 .overlay {
-    background-color: grey;
+   
     bottom: 0;
     cursor: default;
     left: 0;
@@ -698,15 +570,13 @@ a#signup_pop:hover, a#join_pop:hover {
     opacity: 0.3;
 }
 .popup {
-    height: 250px;
-    width: 300px;
     background-color: #fff;
     border: 4px solid #fff;
     display: inline-block;
     left: 50%;
     opacity: 0;
     margin-top: 10px;
-    padding: 20px;
+    padding: 14px;
     position: fixed;
     text-align: center;
     top: 10%;
@@ -766,22 +636,23 @@ a#signup_pop:hover, a#join_pop:hover {
     text-shadow:  -1px ;
 }
 
-
+.popup p, .popup div {
+    margin-bottom: 10px;
+}
 .popup label {
     display: inline-block;
     text-align: left;
-    margin: auto
-    width: 750px;
-    height: 10px;
-    font-family: 'Merriweather', serif;
+    width: 190px;
+    height: 150px;
 }
 .popup input[type="text"], .popup input[type="password"] {
-    border:  solid;
+    border: 2px solid;
     border-color: lightgreen ;
     color: lightgreen;
-   
+    float: inherit;
+    padding: 2px;
+    margin-top: 20px;
 
-   
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     -ms-border-radius: 2px;
@@ -789,17 +660,6 @@ a#signup_pop:hover, a#join_pop:hover {
     border-radius: 4px;
 }
 .popup input[type="text"]:hover, .popup input[type="password"]:hover {
-    border-color: lightgreen;
+    border-color: #555 #888 #888;
 }
-
-
-
-
-
-
-
-
-
-
-
 
