@@ -3,7 +3,6 @@ console.log("METHODS.js");
 $( function () {
 
     /* function for getting test data */
-<<<<<<< HEAD
 
     $.ajax({
     url: 'http://localhost:3000',
