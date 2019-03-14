@@ -5,7 +5,7 @@ $( function () {
     /* function for getting test data */
 
     $.ajax({
-    url: 'http://localhost:3000',
+    url: test_start_url,
     type: 'GET',
     dataType: 'json',
     success: function(data) { 
@@ -33,12 +33,12 @@ $( function () {
         we need to pass the start_time , end_time , total duration of test & test_type
         */
 
-        total_exam_duration     =   new Date(test.test_duration).getTime()
-        start_time              =   new Date(test.start_time).getTime()
-        end_time                =   new Date(test.end_time).getTime()
-        test_type               =   test.test_type
-        test_started            =   test.test_started
-        is_db_for_answer        =   test.has_db
+        total_exam_duration     =   new Date(test.test_duration).getTime();
+        start_time              =   new Date(test.start_time).getTime();
+        end_time                =   new Date(test.end_time).getTime();
+        test_type               =   test.test_type;
+        test_started            =   test.test_started;
+        is_db_for_answer        =   test.has_db;
 
         if(!test_started)
         {
@@ -159,8 +159,8 @@ $( function () {
     function slidesBuilder() {
         const questionSet = [];
         test_slides.forEach(function (currentQuestion, questionNumber) {
-            var qanswers = []
-            for (option in currentQuestion.answers) {
+            var qanswers = [];
+            for (var option in currentQuestion.answers) {
                 if(currentQuestion.markedAnswer)
                 {
                     if(currentQuestion.answers[option] === currentQuestion.markedAnswer)
@@ -169,14 +169,14 @@ $( function () {
                         <input type="radio" checked="true" name="question${questionNumber}" value="${currentQuestion.answers[option]}">
                         
                          ${currentQuestion.answers[option]}
-                      </label>`)
+                      </label>`);
                     }
                     else{
                         qanswers.push(`<label>
                         <input type="radio" name="question${questionNumber}" value="${currentQuestion.answers[option]}">
                         
                          ${currentQuestion.answers[option]}
-                      </label>`)
+                      </label>`);
                     }
                 }
               else{
@@ -349,7 +349,7 @@ $( function () {
         for(let i =0;i<length;i++)
         {
                 const button = sideViewButtons[i];
-                button.addEventListener('click',function(){
+                button.addEventListener('click', function(){
                     showSlide(true_length+i);//will update the slide
                     addAnsweredOrSkippedClass(previousSlide);//will add class to buttons
                 });
@@ -371,7 +371,6 @@ $( function () {
             test_store.question_set[key].questions[index].status = "visited";//updating the status of button
             answer_status_store[test_slides[slideNumber].id].status = "visited";
             console.log("STORE : ",test_slides[slideNumber].id ,answer_status_store[test_slides[slideNumber].id] ,   answer_status_store)
-            answer_status_store['$001'].status = 'sa';
             console.log(answer_status_store );
         }
         else{
