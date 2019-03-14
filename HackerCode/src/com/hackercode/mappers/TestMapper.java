@@ -7,20 +7,20 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.hackercode.structures.Test;
 
-public class TestMapper implements RowMapper {
+public class TestMapper implements RowMapper<Object> {
 
 	@Override
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Test test = new Test();
-		test.setTestID(rs.getInt("t_id"));
-		test.setTestName(rs.getString("t_name"));
-		test.setTestAdmin(rs.getString("t_user_id"));
-		test.setTestCode(rs.getString("t_test_code"));
-		test.setTestStartTime(rs.getTimestamp("t_start_time"));
-		test.setTestEndTime(rs.getTimestamp("t_end_time"));
-		test.setTestTotalTime(rs.getInt("t_total_time"));
-		test.setTestIsTimeStrict(rs.getString("t_is_time_strict"));
-		test.setTestIsAnsShuffle(rs.getString("t_is_ans_shuffle"));
+		test.setTestId(rs.getString("t_id"));
+		test.setName(rs.getString("t_name"));
+		test.setAdmin(rs.getString("t_user_id"));
+		test.setCode(rs.getString("t_test_code"));
+		test.setStartTime(rs.getString("t_start_time"));
+		test.setEndTime(rs.getString("t_end_time"));
+		test.setTotalTime(rs.getInt("t_total_time"));
+		test.setIsTimeStrict(rs.getString("t_is_time_strict"));
+		test.setIsAnsShuffle(rs.getString("t_is_ans_shuffle"));
 	
 		return test;
 	}

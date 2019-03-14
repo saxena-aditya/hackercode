@@ -35,7 +35,7 @@ public class HelloController extends AbstractController{
 	
 	ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/test-login", method = RequestMethod.GET)
 	protected ModelAndView showLoginAndRegiser() {
 		return new ModelAndView("login");
 	}

@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.poi.ss.usermodel.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,8 +26,11 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import com.hackercode.dao.AdminDao;
 import com.hackercode.dao.TestDAO;
 import com.hackercode.structures.Question;
+import com.hackercode.structures.Test;
+import com.hackercode.structures.User;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 @Configuration
 @Controller
 public class TestController extends AbstractController{
@@ -35,11 +40,31 @@ public class TestController extends AbstractController{
 	public ModelAndView serverFileUpload(HttpServletRequest req, HttpServletResponse res) {	
 		return new ModelAndView("test-admin-panel").addObject("fileUploadURL", "/file-process");
 	}
+	
+	@RequestMapping(value="/save-test", method=RequestMethod.POST)
+	@ResponseBody
+	public int saveTest(@ModelAttribute("test") Test test, BindingResult result){
+		TestDAO testDAO = ctx.getBean(TestDAO.class);
+		if (result.hasErrors())return 0;
+		try {
+			boolean testSaved = testDAO.saveTest(test);
+			if (testSaved) {
+				return 1; 
+			}
+			else {
+				return 0;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	@RequestMapping(value = "/file-process", method = RequestMethod.POST)
 	public ModelAndView fileProcess(ModelAndView model,MultipartFile file) throws IOException {
-		String LOCATION = null;
 		TestDAO testDAO = ctx.getBean(TestDAO.class);
 
+		String LOCATION = null;
 		InputStream in = file.getInputStream();
 		File currdir = new File("D:/HackerCode/HackerCode/file-data/");
 		String path = currdir.getAbsolutePath();
@@ -100,6 +125,41 @@ public class TestController extends AbstractController{
 		String testData = testDAO.getTestData(testIdentifier);
 		return testData;
 		//return new ModelAndView("test-data").addObject("data", testData);
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute("username") String username,
+								@ModelAttribute("password") String password, 
+								HttpServletRequest req){
+		req.getSession().setAttribute("isLoggedIn", false);
+		TestDAO testDao = ctx.getBean(TestDAO.class);
+		if (testDao.isUser(username, password, req)) {
+			User user = testDao.getUser(username, req);
+			if (user.isAdmin()) {
+				return new ModelAndView("test-admin-dashboard");
+			}
+			else {
+				return new ModelAndView("admin-dashboard");
+			}
+		}
+		return new ModelAndView("test-adim-login");
+	}
+	
+	@RequestMapping(value="/admin-login", method=RequestMethod.GET)
+	public ModelAndView showAdminLogin() {
+		
+		return new ModelAndView("test-admin-login");
+	}
+	@RequestMapping(value="/admin-dashboard",	method=RequestMethod.GET)
+	public ModelAndView showAdminPanel(){
+		return new ModelAndView("test-admin-dashboard");
+	}
+	@RequestMapping(value="/add-test",	method=RequestMethod.GET)
+	public ModelAndView showAddTestPanel(HttpServletRequest req){
+		User user = (User)req.getSession().getAttribute("user");
+		return new ModelAndView("test-admin-upload-test")
+				.addObject("testId", RandomStringUtils.randomAlphanumeric(17).toUpperCase())
+				.addObject("userId", user.getEmail());
 	}
     
 	@Override
