@@ -1,121 +1,173 @@
 package com.hackercode.structures;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Test {
-	private int testID;
-	private String testName;
-	private String testAdmin;
-	private String testCode;
-	private java.sql.Timestamp testStartTime;
-	private java.sql.Timestamp testEndTime;
-	private int testTotalTime;
-	private String testIsTimeStrict;
-	private String testIsAnsShuffle;
+	private String testId;
+	private String name;
+	private String admin;
+	private String code;
+	private String password;
+	private String startTime;
+	private String endTime;
+	private int totalTime;
+	private String isTimeStrict;
+	private String isAnsShuffle;
+	private  MultipartFile file;
+	private String filePath;
+	
 	/**
-	 * @return the testID
+	 * @return the filePath
 	 */
-	public int getTestID() {
-		return testID;
+	public String getFilePath() {
+		return filePath;
 	}
 	/**
-	 * @param testID the testID to set
+	 * @param filePath the filePath to set
 	 */
-	public void setTestID(int testID) {
-		this.testID = testID;
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 	/**
-	 * @return the testName
+	 * @return the password
 	 */
-	public String getTestName() {
-		return testName;
+	public String getPassword() {
+		return password;
 	}
 	/**
-	 * @param testName the testName to set
+	 * @param password the password to set
 	 */
-	public void setTestName(String testName) {
-		this.testName = testName;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	/**
-	 * @return the testAdmin
+	 * @return the file
 	 */
-	public String getTestAdmin() {
-		return testAdmin;
+	public MultipartFile getFile() {
+		return file;
 	}
 	/**
-	 * @param testAdmin the testAdmin to set
+	 * @param file the file to set
 	 */
-	public void setTestAdmin(String testAdmin) {
-		this.testAdmin = testAdmin;
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	/**
-	 * @return the testCode
+	 * @return the testId
 	 */
-	public String getTestCode() {
-		return testCode;
+	public String getTestId() {
+		return testId;
 	}
 	/**
-	 * @param testCode the testCode to set
+	 * @param testId the testId to set
 	 */
-	public void setTestCode(String testCode) {
-		this.testCode = testCode;
+	public void setTestId(String testId) {
+		this.testId = testId;
 	}
 	/**
-	 * @return the testStartTime
+	 * @return the name
 	 */
-	public java.sql.Timestamp getTestStartTime() {
-		return testStartTime;
+	public String getName() {
+		return name;
 	}
 	/**
-	 * @param testStartTime the testStartTime to set
+	 * @param name the name to set
 	 */
-	public void setTestStartTime(java.sql.Timestamp testStartTime) {
-		this.testStartTime = testStartTime;
+	public void setName(String name) {
+		this.name = name;
 	}
 	/**
-	 * @return the testEndTime
+	 * @return the admin
 	 */
-	public java.sql.Timestamp getTestEndTime() {
-		return testEndTime;
+	public String getAdmin() {
+		return admin;
 	}
 	/**
-	 * @param testEndTime the testEndTime to set
+	 * @param admin the admin to set
 	 */
-	public void setTestEndTime(java.sql.Timestamp testEndTime) {
-		this.testEndTime = testEndTime;
+	public void setAdmin(String admin) {
+		this.admin = admin;
 	}
 	/**
-	 * @return the testTotalTime
+	 * @return the code
 	 */
-	public int getTestTotalTime() {
-		return testTotalTime;
+	public String getCode() {
+		return code;
 	}
 	/**
-	 * @param testTotalTime the testTotalTime to set
+	 * @param code the code to set
 	 */
-	public void setTestTotalTime(int testTotalTime) {
-		this.testTotalTime = testTotalTime;
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	/**
+	 * @return the startTime
+	 */
+	public String getStartTime() {
+		return startTime;
 	}
 	/**
-	 * @return the testIsTimeStrict
+	 * @param startTime the startTime to set
 	 */
-	public String getTestIsTimeStrict() {
-		return testIsTimeStrict;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
 	/**
-	 * @param testIsTimeStrict the testIsTimeStrict to set
+	 * @return the endTime
 	 */
-	public void setTestIsTimeStrict(String testIsTimeStrict) {
-		this.testIsTimeStrict = testIsTimeStrict;
+	public String getEndTime() {
+		return endTime;
 	}
 	/**
-	 * @return the testIsAnsShuffle
+	 * @param endTime the endTime to set
 	 */
-	public String getTestIsAnsShuffle() {
-		return testIsAnsShuffle;
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 	/**
-	 * @param testIsAnsShuffle the testIsAnsShuffle to set
+	 * @return the totalTime
 	 */
-	public void setTestIsAnsShuffle(String testIsAnsShuffle) {
-		this.testIsAnsShuffle = testIsAnsShuffle;
+	public int getTotalTime() {
+		return totalTime;
 	}
+	/**
+	 * @param totalTime the totalTime to set
+	 */
+	public void setTotalTime(int totalTime) {
+		this.totalTime = totalTime;
+	}
+	/**
+	 * @return the isTimeStrict
+	 */
+	public String getIsTimeStrict() {
+		return isTimeStrict;
+	}
+	/**
+	 * @param isTimeStrict the isTimeStrict to set
+	 */
+	public void setIsTimeStrict(String isTimeStrict) {
+		this.isTimeStrict = isTimeStrict;
+	}
+	/**
+	 * @return the isAnsShuffle
+	 */
+	public String getIsAnsShuffle() {
+		return isAnsShuffle;
+	}
+	/**
+	 * @param isAnsShuffle the isAnsShuffle to set
+	 */
+	public void setIsAnsShuffle(String isAnsShuffle) {
+		this.isAnsShuffle = isAnsShuffle;
+	}
+	
+	public String toString() {
+		return "Admin: " + this.getAdmin()+"\n Name: " + this.getName() + "\n Code: " + this.getCode() + 
+				"\n Start Time: " + this.getStartTime() + "\n End Time: " + this.getEndTime() +
+				"\n isAnsShuffle: " + this.getIsAnsShuffle() + "\n isTimeStrict: " +  
+				this.getIsTimeStrict()+ "\n File: " + this.getFile().getName();
+	}
+	
+	
 }
