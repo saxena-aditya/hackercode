@@ -556,6 +556,8 @@ $( function () {
                 answer_status_store[test_slides[currentSlide].id].answer = answer;
                 console.log(">ANSWERED",answer);
                 test_store.question_set[key].questions[index].answer = [`${answer}`];//updating the status of button
+                test_store.question_set[key].questions[index].answered = true;
+                answer_status_store[test_slides[currentSlide].id].answered = true;
                 
             }
             return isAnswered;
@@ -586,6 +588,7 @@ $( function () {
         test_store.question_set[key].questions[index].status = "not-answered";//updating the status of button
         test_store.question_set[key].questions[index].answer = undefined;//updating the answer
         answer_status_store[test_slides[currentSlide].id].answer = undefined;
+        answer_status_store[test_slides[currentSlide].id].answered = false;
     }
 
 
@@ -705,7 +708,8 @@ $( function () {
         slides.map(slide=>{
             answer_status_store[slide.id] = {
                 answer : slide.answer,
-                status : slide.status
+                status : slide.status,
+                answered : false
             }
         })
    }

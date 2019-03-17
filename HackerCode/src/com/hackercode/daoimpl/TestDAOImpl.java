@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -19,6 +20,9 @@ import com.hackercode.mappers.TestMapper;
 import com.hackercode.structures.Admin;
 import com.hackercode.structures.Question;
 import com.hackercode.structures.Test;
+
+import net.sf.json.JSONObject;
+
 import com.google.gson.*;
 
 @Component
@@ -157,6 +161,41 @@ public class TestDAOImpl implements TestDAO{
 			System.out.println(e.getMessage());
 		}
 		return null;
+	}
+	
+	@Override
+	public int makeAnswerSheet(String data) {
+		jdbcTemplate.setDataSource(getDataSource());
+		
+		int result = 0;
+		
+		//getting the json data from the client
+		JSONObject testData = JSONObject.fromObject(data);
+		Iterator<String> keys = testData.keys();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			String q_id = key;
+			if (testData.get(key) instanceof JSONObject) {
+		          // do something with jsonObject here    
+					JSONObject question = testData.getJSONObject(key);
+					String answer = question.getString("answer");
+					boolean status = question.getBoolean("answered");
+					if(status) {
+					
+						//SQL QUERY FOR GETTING ANSWER FOR THE QUESTION HERE !!!
+						/*
+						 * String db_ans = ........
+						 * if(answer.equals(db_answer){
+						 * 	result+= positive;
+						 * }
+						 * else {
+						 * 	result -= negative;
+						 * }
+						 * */
+					}
+		    }
+		}
+		return result;
 	}
 
 }

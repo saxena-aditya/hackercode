@@ -25,6 +25,8 @@ import com.hackercode.dao.AdminDao;
 import com.hackercode.dao.TestDAO;
 import com.hackercode.structures.Question;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 @Configuration
 @Controller
@@ -102,6 +104,16 @@ public class TestController extends AbstractController{
 		//return new ModelAndView("test-data").addObject("data", testData);
 	}
     
+	@RequestMapping(value = "/get-result/", method = RequestMethod.POST, consumes = { "application/json" })
+	@ResponseBody
+	public String setTestResult(String json) {
+		TestDAO testDAO = ctx.getBean(TestDAO.class);
+		int result = testDAO.makeAnswerSheet(json);
+		//now we can show this to him
+		return Integer.toString(result);
+	}
+	
+	
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
