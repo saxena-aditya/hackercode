@@ -339,33 +339,62 @@ public class TestDAOImpl implements TestDAO{
 	public int makeAnswerSheet(String data) {
 		jdbcTemplate.setDataSource(getDataSource());
 		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>DATA before json \n " + data );
+		
 		int result = 0;
 		
 		//getting the json data from the client
 		JSONObject testData = JSONObject.fromObject(data);
+		
+		System.out.println("AFTER JSON >> "+testData);
 		Iterator<String> keys = testData.keys();
+		String testIdentifier = testData.getString("test_id");
+		List<Question> list = null;
+		List<Question> questions = jdbcTemplate.query("SELECT * FROM hc_tests WHERE t_id = ?", new Object[]{testIdentifier}, new ResultSetExtractor<List<Question>>(){
+		public List<Question> extractData(ResultSet rs) throws SQLException, DataAccessException {
+			List<Question> list = new ArrayList<Question>();
+			while (rs.next()) {
+				Question q = new Question();
+				q.setQuestionId(rs.getInt(1));
+				q.setTestId(rs.getInt(2));
+				q.setQuestionSet(rs.getString(3));
+				q.setQuestionTag(rs.getString(4));
+				q.setQuestionType(rs.getString(5));
+				q.setQuestionContent(rs.getString(6));
+				q.setQuestionMaxMarks(rs.getInt(7));
+				q.setQuestionNegMarks(rs.getInt(8));
+				q.setQuestionOptions(rs.getString(9));
+				q.setQuestionAns(rs.getString(10));
+				list.add(q);
+			}	
+			return list;
+		}
+	});
+
 		while(keys.hasNext()) {
 			String key = keys.next();
 			String q_id = key;
-			if (testData.get(key) instanceof JSONObject) {
-		          // do something with jsonObject here    
-					JSONObject question = testData.getJSONObject(key);
-					String answer = question.getString("answer");
-					boolean status = question.getBoolean("answered");
-					if(status) {
-					
-						//SQL QUERY FOR GETTING ANSWER FOR THE QUESTION HERE !!!
-						/*
-						 * String db_ans = ........
-						 * if(answer.equals(db_answer){
-						 * 	result+= positive;
-						 * }
-						 * else {
-						 * 	result -= negative;
-						 * }
-						 * */
-					}
-		    }
+			
+			
+			
+						
+//			if (testData.get(key) instanceof JSONObject) {
+//		          // do something with jsonObject here    
+//					JSONObject question = testData.getJSONObject(key);
+//					String answer = question.getString("answer");
+//					boolean status = question.getBoolean("answered");
+//					String question_id = question.getString("id");
+//					if(status) {
+//						// finding the question in questions(object)
+//						for(Question q : questions) {
+//							String id
+//							if(String.toString.equals(question_id))
+//							{
+//								if(answer.equals(q.getQuestionAns()))
+//							}
+//						}
+//					}
+//		    }
 		}
 		return result;
 	}

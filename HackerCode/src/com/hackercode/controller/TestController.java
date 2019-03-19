@@ -165,10 +165,11 @@ public class TestController extends AbstractController{
 				.addObject("userId", user.getEmail());
 	}
     
-	@RequestMapping(value = "/get-result/", method = RequestMethod.POST, consumes = { "application/json" })
+	@RequestMapping(value = "/get-result", method = RequestMethod.POST, consumes = { "application/json" })
 	@ResponseBody
 	public String setTestResult(String json) {
 		TestDAO testDAO = ctx.getBean(TestDAO.class);
+		System.out.println("????" + json);
 		int result = testDAO.makeAnswerSheet(json);
 		//now we can show this to him
 		return Integer.toString(result);

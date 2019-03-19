@@ -22,4 +22,7 @@ public interface AdminSql {
 
 	public static final String REGISTER_NEW_USER ="INSERT INTO users (username, password, usertype) values(?,?,?)";
 	
+	
+	//for getting the test data for checking answer!
+	public static final String GET_TEST_DATA = "SELECT * FROM hc_tests WHERE t_id = ?";
 }
