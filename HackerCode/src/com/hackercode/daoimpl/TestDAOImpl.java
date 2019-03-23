@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
@@ -37,8 +40,9 @@ import com.hackercode.mappers.UserMapper;
 import com.hackercode.structures.Admin;
 import com.hackercode.structures.Question;
 import com.hackercode.structures.Test;
-import net.sf.json.JSONObject;
 import com.hackercode.structures.User;
+import com.hackercode.structures.TestData;
+import com.hackercode.structures.TestInfoFromClient;
 import com.google.gson.*;
 
 @Component
@@ -344,14 +348,28 @@ public class TestDAOImpl implements TestDAO{
 		int result = 0;
 		
 		//getting the json data from the client
-		JSONObject testData = JSONObject.fromObject(data);
-		
-		System.out.println("AFTER JSON >> "+testData);
-		Iterator<String> keys = testData.keys();
-		String testIdentifier = testData.getString("test_id");
+				Gson gson = new GsonBuilder().create(); 
+				JsonObject job = gson.fromJson(data, JsonObject.class);
+				System.out.println("job"+job);
+				JsonObject ovl = job.getAsJsonObject("test-data");
+				System.out.println(ovl);
+				Set<Map.Entry<String, JsonElement>> entries = ovl.entrySet();//will return members of your object
+				ArrayList <TestData> testStore = new ArrayList();
+				for (Map.Entry<String, JsonElement> entry: entries) {
+				    JsonObject temp = ovl.getAsJsonObject(entry.getKey());
+				    TestData tmp = gson.fromJson(temp, TestData.class);
+				    testStore.add(tmp);
+				}
+				
+		//test-info
+		JsonObject testInfo = job.getAsJsonObject("test-info");
+		System.out.println("testInfo "+testInfo);
+		TestInfoFromClient testData = gson.fromJson(testInfo, TestInfoFromClient.class);
+		String testIdentifier = testData.getId();
+		System.out.println("TESTID : >>" + testIdentifier);
 		List<Question> list = null;
 		List<Question> questions = jdbcTemplate.query("SELECT * FROM hc_tests WHERE t_id = ?", new Object[]{testIdentifier}, new ResultSetExtractor<List<Question>>(){
-		public List<Question> extractData(ResultSet rs) throws SQLException, DataAccessException {
+			public List<Question> extractData(ResultSet rs) throws SQLException, DataAccessException {
 			List<Question> list = new ArrayList<Question>();
 			while (rs.next()) {
 				Question q = new Question();
@@ -370,32 +388,33 @@ public class TestDAOImpl implements TestDAO{
 			return list;
 		}
 	});
+		System.out.println("QUESTIONS :::::"+questions);
 
-		while(keys.hasNext()) {
-			String key = keys.next();
-			String q_id = key;
-			
-			
-			
-						
-//			if (testData.get(key) instanceof JSONObject) {
-//		          // do something with jsonObject here    
-//					JSONObject question = testData.getJSONObject(key);
-//					String answer = question.getString("answer");
-//					boolean status = question.getBoolean("answered");
-//					String question_id = question.getString("id");
-//					if(status) {
-//						// finding the question in questions(object)
-//						for(Question q : questions) {
-//							String id
-//							if(String.toString.equals(question_id))
-//							{
-//								if(answer.equals(q.getQuestionAns()))
-//							}
-//						}
-//					}
-//		    }
-		}
+//		while(keys.hasNext()) {
+//			String key = keys.next();
+//			String q_id = key;
+//			
+//			
+//			
+//						
+////			if (testData.get(key) instanceof JSONObject) {
+////		          // do something with jsonObject here    
+////					JSONObject question = testData.getJSONObject(key);
+////					String answer = question.getString("answer");
+////					boolean status = question.getBoolean("answered");
+////					String question_id = question.getString("id");
+////					if(status) {
+////						// finding the question in questions(object)
+////						for(Question q : questions) {
+////							String id
+////							if(String.toString.equals(question_id))
+////							{
+////								if(answer.equals(q.getQuestionAns()))
+////							}
+////						}
+////					}
+////		    }
+//		}
 		return result;
 	}
 

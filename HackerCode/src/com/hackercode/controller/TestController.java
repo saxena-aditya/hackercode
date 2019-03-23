@@ -16,6 +16,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -165,9 +166,9 @@ public class TestController extends AbstractController{
 				.addObject("userId", user.getEmail());
 	}
     
-	@RequestMapping(value = "/get-result", method = RequestMethod.POST, consumes = { "application/json" })
+	@RequestMapping(value = "/get-result", method = RequestMethod.POST)
 	@ResponseBody
-	public String setTestResult(String json) {
+	public String setTestResult(@RequestBody String json) {
 		TestDAO testDAO = ctx.getBean(TestDAO.class);
 		System.out.println("????" + json);
 		int result = testDAO.makeAnswerSheet(json);

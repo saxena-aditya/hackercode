@@ -18,7 +18,7 @@ $( function () {
         startTest(test);//function to initiate test and everything
     },
     error: function(a,b,c) {
-        console.log(c); //or whatever
+        console.log("error occured"); //or whatever
     }
 });
 
