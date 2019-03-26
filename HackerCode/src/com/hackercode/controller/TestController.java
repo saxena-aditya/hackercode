@@ -176,6 +176,19 @@ public class TestController extends AbstractController{
 		return Integer.toString(result);
 	}
 	
+	@RequestMapping(value = "/get-stored-test", method = RequestMethod.POST)
+	@ResponseBody
+	public String getStoredTestUserData(@RequestBody String json) {
+		TestDAO testDAO = ctx.getBean(TestDAO.class);
+		System.out.println("get stored test data" + json);
+		String result = testDAO.getStoredTestData(json);
+		//now we can show this to him
+		return result;
+	}
+	
+	
+	
+	
 	
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request,

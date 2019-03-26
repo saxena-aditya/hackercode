@@ -80,6 +80,18 @@ public class User {
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+	public String getUserType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void setUsername(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setPassword(String string) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

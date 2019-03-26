@@ -145,5 +145,11 @@ public class Question {
 		this.questionScope = questionScope;
 	}
 	
+	public String toString() {
+		return 	testId + " " +questionId + " "+questionSet + " " +questionTag+" "+ questionType + " " + questionContent + " "+questionMaxMarks+" "+questionNegMarks
+		 +" "+questionOptions
+		+" "+ questionAns
+		+ questionScope;
+	}
 	
 }

@@ -480,7 +480,7 @@ $( function () {
             /* if time is over */
             if(sec+min+hr===0)
             {
-                //window.location="/exam-over";
+                window.location="/test-submit";
                 return;
             }
             let clock = "";
@@ -507,14 +507,13 @@ $( function () {
         }
 
         /* Showing toast at last min */
-        function showToast()
-        {
-        const body =  $('body');
-            body.append(`<div id="toast">5 Min Remaining !! Hurry Up </div>`);
-        var x = document.getElementById("toast");
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-        changeTimeColor();
+        function showToast() {
+            const body =  $('body');
+                body.append(`<div id="toast">5 Min Remaining !! Hurry Up </div>`);
+            var x = document.getElementById("toast");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            changeTimeColor();
         }
 
         function changeTimeColor()
@@ -641,7 +640,7 @@ $( function () {
         const currentTime = newDate.getTime();
         if(total_time<=0 || currentTime === end_time)
         {
-            window.location.href = '/strictExamSubmit';
+            window.location.href = '/test-submit';
         }
         /* FOR SHOWING TOAST */
         if(total_time===300000 || (end_time - currentTime) === 500000)
@@ -654,7 +653,7 @@ $( function () {
     {
         if(total_time<=0)
         {
-            window.location.href = '/looseExamSubmit';
+            window.location.href = '/test-submit';
         }
         if(total_time===300000)
         {
@@ -686,8 +685,9 @@ $( function () {
    function testDataUpdate()
    {
     test_store.test_duration = total_exam_duration;
-    let updatedTest = JSON.stringify({'test':test_store});-
-    console.log(test_store);
+    let updatedTest = JSON.stringify({'test':test_store});
+    console.log("test-store",test_store);
+    console.log("TEST STATUS STORE ",answer_status_store);
     $.ajax({
         url:test_update_url,
         type:"POST",
@@ -722,7 +722,7 @@ $( function () {
             answer_status_store = data;
            }
           else{
-              ifAnswer_statusNotCreatedAlready();
+              ifAnswer_statusNotCreatedAlready(test_slides);
           }
        })
    }

@@ -18,4 +18,5 @@ public interface TestDAO {
 	boolean saveFile(int testId, MultipartFile file) throws IOException;
 	boolean isUser(String username, String password, HttpServletRequest request);
 	User getUser(String username, HttpServletRequest request);
+	public String getStoredTestData(String data);
 }

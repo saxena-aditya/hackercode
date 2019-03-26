@@ -43,6 +43,7 @@ import com.hackercode.structures.Test;
 import com.hackercode.structures.User;
 import com.hackercode.structures.TestData;
 import com.hackercode.structures.TestInfoFromClient;
+import com.hackercode.structures.TestUser;
 import com.google.gson.*;
 
 @Component
@@ -340,6 +341,56 @@ public class TestDAOImpl implements TestDAO{
 	}
 	
 	@Override
+	public String getStoredTestData(String data) {
+		System.out.println("GET STORED TEST DATA INVOKED");
+		jdbcTemplate.setDataSource(getDataSource());
+		String jsonData = "";
+		Gson gson = new GsonBuilder().create(); 
+		JsonObject job = gson.fromJson(data, JsonObject.class);
+		JsonObject ovl = job.getAsJsonObject("user");
+		 TestUser user = new TestUser();
+		 user = gson.fromJson(ovl, TestUser.class);;
+		System.out.println("USER DATA FROM SERVER" + user);
+		String user_id = user.getUserId();
+		int test_id = user.getTestId();
+		List<TestUser> users = jdbcTemplate.query("SELECT * from hc_temp_test WHERE tt_user_id = ? AND tt_test_id = ? ",new Object[]{user_id, test_id},
+			new ResultSetExtractor<List<TestUser>>() {
+			public List<TestUser>extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List<TestUser> list = new ArrayList<TestUser>();
+				while(rs.next())
+				{
+					TestUser u = new TestUser();
+					u.setData(rs.getString(2));
+					u.setTestId(rs.getInt(3));
+					u.setData(rs.getString(4));
+					list.add(u);
+				}
+				return list;
+			}
+		});
+		
+		for(TestUser u : users) {
+			if(u.getData().length() <= 0) {
+				System.out.println("FIRST TIMER USER IS AVAILABLE");
+				String sql = "INSERT INTO hc_temp_test(tt_user_id, tt_test_id, tt_ans_object) VALUES (?,?,?)";
+				try {
+					jdbcTemplate.update(sql, new Object[] {user.getUserId(), user.getTestId(), user.getData(),});
+				}
+				catch(Exception e){
+					System.out.println(e.getMessage());
+				}
+			}
+			else {
+				return u.getData();
+			}
+		}
+		return " ";
+	}
+	
+	
+	
+	
+	@Override
 	public int makeAnswerSheet(String data) {
 		jdbcTemplate.setDataSource(getDataSource());
 		
@@ -356,6 +407,7 @@ public class TestDAOImpl implements TestDAO{
 				Set<Map.Entry<String, JsonElement>> entries = ovl.entrySet();//will return members of your object
 				ArrayList <TestData> testStore = new ArrayList();
 				for (Map.Entry<String, JsonElement> entry: entries) {
+					System.out.println("KEY >>>>"+entry.getKey());
 				    JsonObject temp = ovl.getAsJsonObject(entry.getKey());
 				    TestData tmp = gson.fromJson(temp, TestData.class);
 				    testStore.add(tmp);
@@ -368,7 +420,7 @@ public class TestDAOImpl implements TestDAO{
 		String testIdentifier = testData.getId();
 		System.out.println("TESTID : >>" + testIdentifier);
 		List<Question> list = null;
-		List<Question> questions = jdbcTemplate.query("SELECT * FROM hc_tests WHERE t_id = ?", new Object[]{testIdentifier}, new ResultSetExtractor<List<Question>>(){
+		List<Question> questions = jdbcTemplate.query("SELECT * FROM hc_questions WHERE q_test_id = ?", new Object[]{testIdentifier}, new ResultSetExtractor<List<Question>>(){
 			public List<Question> extractData(ResultSet rs) throws SQLException, DataAccessException {
 			List<Question> list = new ArrayList<Question>();
 			while (rs.next()) {
@@ -388,33 +440,33 @@ public class TestDAOImpl implements TestDAO{
 			return list;
 		}
 	});
-		System.out.println("QUESTIONS :::::"+questions);
-
-//		while(keys.hasNext()) {
-//			String key = keys.next();
-//			String q_id = key;
-//			
-//			
-//			
-//						
-////			if (testData.get(key) instanceof JSONObject) {
-////		          // do something with jsonObject here    
-////					JSONObject question = testData.getJSONObject(key);
-////					String answer = question.getString("answer");
-////					boolean status = question.getBoolean("answered");
-////					String question_id = question.getString("id");
-////					if(status) {
-////						// finding the question in questions(object)
-////						for(Question q : questions) {
-////							String id
-////							if(String.toString.equals(question_id))
-////							{
-////								if(answer.equals(q.getQuestionAns()))
-////							}
-////						}
-////					}
-////		    }
-//		}
+		for(Question q : questions) {
+			System.out.println("WUESTION " + q);
+			for (Map.Entry<String, JsonElement> entry: entries) {
+			    JsonObject temp = ovl.getAsJsonObject(entry.getKey());
+			    System.out.println("ENTRY KEY"+entry.getKey());
+			    System.out.println("Q_ID"+q.getQuestionId());
+			    String k = entry.getKey().toString();
+			    if(k.equals(Integer.toString(q.getQuestionId()))) {
+			    	System.out.println("MATCHED CASE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			    	  TestData tmp = gson.fromJson(temp, TestData.class);
+			    	  if(tmp.getStatus().equals("skipped") || tmp.getAnswer().equals("")) {
+			    		  break;//not attempted
+			    	  }
+			    	  System.out.println("TMP"+tmp);
+			    	  if(tmp.getAnswer().equals(q.getQuestionAns()))
+			    			  {
+			    		  			System.out.println("RIGHT ANSWER");
+			    		  			result = result + q. getQuestionMaxMarks() ;
+			    			  }
+			    	  else {
+			    		  System.out.println("WRONG ASNSER");
+			    		  result = result+ - q.getQuestionNegMarks();
+			    	  }
+			    	break;//found the question no need to look ahead
+			    }
+			}
+		}
 		return result;
 	}
 
