@@ -668,11 +668,24 @@ $( function () {
     //this function will store the testdata to server
     function submitTest()
     {
+        let serverData = {
+            "test-info" : {
+                "id" : test_id,
+                "user_id" : user_id
+            },
+            "test-data":answer_status_store
+        }
+        let submitData = {
+            "test-info" : {
+
+            },
+            "test-data" : JSON.stringify(answer_status_store)
+        }
         console.log("SUBMITTE TEST",answer_status_store);
         $.ajax({
             url:test_submit_url,
             type:"POST",
-            data:answer_status_store,
+            data: serverData,
             contentType:"application/json; charset=utf-8",
             dataType:"json",
             success: function(data){
@@ -685,7 +698,13 @@ $( function () {
    function testDataUpdate()
    {
     test_store.test_duration = total_exam_duration;
-    let updatedTest = JSON.stringify({'test':test_store});
+    let updatedTest = {
+        "user" : {
+            "userId" : user_id,
+            "testId" : test_id,
+            "data" : JSON.stringify({test_store})
+        }
+    }
     console.log("test-store",test_store);
     console.log("TEST STATUS STORE ",answer_status_store);
     $.ajax({

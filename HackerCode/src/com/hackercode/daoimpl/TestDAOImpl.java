@@ -369,19 +369,29 @@ public class TestDAOImpl implements TestDAO{
 			}
 		});
 		
-		for(TestUser u : users) {
-			if(u.getData().length() <= 0) {
-				System.out.println("FIRST TIMER USER IS AVAILABLE");
-				String sql = "INSERT INTO hc_temp_test(tt_user_id, tt_test_id, tt_ans_object) VALUES (?,?,?)";
-				try {
-					jdbcTemplate.update(sql, new Object[] {user.getUserId(), user.getTestId(), user.getData(),});
-				}
-				catch(Exception e){
-					System.out.println(e.getMessage());
-				}
+		System.out.println("LENTH OF ARRAY KLIST IN USERS" + users.size());
+		//first time
+		if(users.size() == 0) {
+			String sql = "INSERT INTO hc_temp_test(tt_user_id, tt_test_id, tt_ans_object) VALUES (?,?,?)";
+			try {
+				jdbcTemplate.update(sql, new Object[] {user.getUserId(), user.getTestId(), user.getData(),});
 			}
-			else {
-				return u.getData();
+			catch(Exception e){
+				System.out.println(e.getMessage());
+			}
+		}
+		else {
+			for(TestUser u : users) {
+				System.out.println("DATA BEFORE ADDING TO DB"+user.getData().length());
+					System.out.println("FIRST TIMER USER IS AVAILABLE");
+					String sql = "UPDATE hc_temp_test SET tt_ans_object = ? WHERE tt_user_id = ? AND tt_test_id = ?";
+					try {
+						jdbcTemplate.update(sql, new Object[] {user.getData(), user.getUserId(), user.getTestId()});
+					}
+					catch(Exception e){
+						System.out.println(e.getMessage());
+					}
+					System.out.println("DATA AFter ADDING TO DB"+user.getData());
 			}
 		}
 		return " ";

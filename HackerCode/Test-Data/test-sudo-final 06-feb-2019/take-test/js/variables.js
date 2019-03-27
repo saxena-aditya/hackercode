@@ -17,6 +17,8 @@
  let questionNumber =   document.getElementById('question-number');//to access the question number
 
 /* main variables */
+let user_id                     =   undefined;// will contain info about user_id
+let test_id                     =   undefined;// will contain test_id
 let total_exam_duration         =   0 ;//stores the time of exams
 let currentSlide                =   0;//will store the currentSlide info
 let previousSlide               =   -1;//will store the previous slide info
@@ -30,7 +32,7 @@ let answer_status_store         =   {};//will store the object so that we can st
 let is_db_for_answer            =   false;//for checking if we have a answer database
 
 /* variables that will store the main ingredients of test */
-let test_slides              =   [];//will contain all the question slides
+let test_slides         =   [];//will contain all the question slides
 let sideview_buttons    =   [];//will contain the sideview buttons
 let question_sets       =   [];//will contain the question sets button
 
