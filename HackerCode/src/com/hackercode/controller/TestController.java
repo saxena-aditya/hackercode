@@ -167,13 +167,17 @@ public class TestController extends AbstractController{
 	}
     
 	@RequestMapping(value = "/get-result", method = RequestMethod.POST)
-	@ResponseBody
 	public ModelAndView setTestResult(@RequestBody String json) {
 		TestDAO testDAO = ctx.getBean(TestDAO.class);
 		System.out.println("????" + json);
 		int result = testDAO.makeAnswerSheet(json);
 		//now we can show this to him
 		return new ModelAndView("result-page").addObject("marks",Integer.toString(result));
+	}
+	
+	@RequestMapping(value = "/give-test", method=RequestMethod.GET)
+	public ModelAndView giveTest(HttpServletRequest req) {
+		return new ModelAndView("give-test").addObject("testName", new String("TAKE TEST PART"));
 	}
 	
 	@RequestMapping(value = "/get-stored-test", method = RequestMethod.POST)
