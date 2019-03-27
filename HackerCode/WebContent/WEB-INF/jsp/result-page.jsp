@@ -6,8 +6,6 @@
 <meta charset="ISO-8859-1">
 <title>Your Result</title>
 </head>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/login.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>

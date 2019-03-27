@@ -308,6 +308,8 @@ public class TestDAOImpl implements TestDAO{
 								ss.addProperty("max_marks",q.getQuestionMaxMarks());
 								ss.addProperty("neg_marks", q.getQuestionNegMarks());
 								ss.addProperty("question", q.getQuestionContent());
+								ss.addProperty("status", "normal");
+
 								String[] array = q.getQuestionOptions().split(",");
 								JsonArray xz = new JsonArray();
 								
@@ -410,6 +412,9 @@ public class TestDAOImpl implements TestDAO{
 		
 		//getting the json data from the client
 				Gson gson = new GsonBuilder().create(); 
+				JsonParser jsonParser = new JsonParser();
+				JsonObject res = jsonParser.parse(data).getAsJsonObject();
+				System.out.println("sd ((((((((((((((("+res.toString());
 				JsonObject job = gson.fromJson(data, JsonObject.class);
 				System.out.println("job"+job);
 				JsonObject ovl = job.getAsJsonObject("test-data");
@@ -460,23 +465,28 @@ public class TestDAOImpl implements TestDAO{
 			    if(k.equals(Integer.toString(q.getQuestionId()))) {
 			    	System.out.println("MATCHED CASE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			    	  TestData tmp = gson.fromJson(temp, TestData.class);
-			    	  if(tmp.getStatus().equals("skipped") || tmp.getAnswer().equals("")) {
-			    		  break;//not attempted
-			    	  }
-			    	  System.out.println("TMP"+tmp);
-			    	  if(tmp.getAnswer().equals(q.getQuestionAns()))
-			    			  {
-			    		  			System.out.println("RIGHT ANSWER");
-			    		  			result = result + q. getQuestionMaxMarks() ;
-			    			  }
-			    	  else {
-			    		  System.out.println("WRONG ASNSER");
-			    		  result = result+ - q.getQuestionNegMarks();
+			    	  
+			    	  if(tmp.getAnswer() != null){
+			    		  System.out.println("TEST_DATA OBJECT:"+tmp);
+				    	  if(tmp.getStatus().equals("skipped")) {
+				    		  break;//not attempted
+				    	  }
+				    	  System.out.println("TMP"+tmp);
+				    	  if(tmp.getAnswer().equals(q.getQuestionAns()))
+				    			  {
+				    		  			System.out.println("RIGHT ANSWER");
+				    		  			result = result + q. getQuestionMaxMarks() ;
+				    			  }
+				    	  else {
+				    		  System.out.println("WRONG ASNSER");
+				    		  result = result+ - q.getQuestionNegMarks();
+				    	  }
 			    	  }
 			    	break;//found the question no need to look ahead
 			    }
 			}
 		}
+		System.out.println("RESULT ::::><><><><>" + result);
 		return result;
 	}
 

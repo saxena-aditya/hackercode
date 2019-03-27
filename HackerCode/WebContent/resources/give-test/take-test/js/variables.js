@@ -30,6 +30,7 @@ let test_store                  =   undefined;//will store the whole test to its
 let test_started                =   undefined;//will store a boolean value 
 let answer_status_store         =   {};//will store the object so that we can store it
 let is_db_for_answer            =   false;//for checking if we have a answer database
+//let global_index				=   0;
 
 /* variables that will store the main ingredients of test */
 let test_slides         =   [];//will contain all the question slides

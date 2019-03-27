@@ -25,6 +25,7 @@ $( function () {
 
     //method that will be called to from ajax request to start and build the test
     function startTest(test) {
+    	console.log("START TEST CALLED");
         //initialize test_store variable so that a copy of test can be stored and retured to the server !
         test_store = {...test};//copying test to test_store
 
@@ -83,15 +84,17 @@ $( function () {
     //Function to make the test the real test 
     function testBuilder(question_set)
     {
+    	console.log("TEST BUILDER CALLED");
         let keysArray = Object.keys(question_set);//we will get the keys here such as set-1 , set-2 ,set-3
         keysArray.forEach(key=>{
 
         //key would be like set-1 set-2 set-3
-
+        	console.log("KEY >>>>>>>>>",key);
             question_sets.push(key);//[set-1,set-2,set-3]
             question_set[key].questions.forEach((question,index)=>
             {   //question [{} , {} ,{} ]
                 //{}
+            	console.log("question ",question);
                     answer = null;
                     if(question.answer)
                     {
@@ -110,6 +113,7 @@ $( function () {
                     
                     })
             })
+            console.log("TEST SLIDES MADE : >>> ",test_slides);
         })
 
             initDecleration();//declaring variables
@@ -205,7 +209,7 @@ $( function () {
     function showSets()
     {
         let temp_set_buttons = question_sets.map((key,index)=>{
-            return `<div class="tag bg-blue-light" id=${key}><p class="margin-0 tag-text fff">${key}</p></div>`;
+            return `<div class="tag bg-blue-light" id=${key} data-set=${index}><p class="margin-0 tag-text fff">${key}</p></div>`;
         });
 
         set_btns.innerHTML = temp_set_buttons.join("");
@@ -216,7 +220,7 @@ $( function () {
         for(let i=0;i<question_sets.length ;i++)
         {
             let key          =   question_sets[i];//set-1 set-2 set-3
-            $(`#${key}`)[0].addEventListener('click',function(){
+            $(`#${key}`)[0].addEventListener('click',function(e){
                 activeSet(i);//change the class for activeSet
                 loadSideButton(i);//will load the buttons at the side showing questions
             });
@@ -232,6 +236,7 @@ $( function () {
 
     
     function showSlide(n) {
+    	console.log("===================> SILDE NUM: ", n)
     slides[currentSlide].classList.remove("active-slide");
     slides[n].classList.add("active-slide");
 
@@ -306,6 +311,7 @@ $( function () {
        const key = question_sets[index];
        let sideViewButtons=[]//initialize a empty array to store sideview buttons
        let length = getLengthTillSetIndex(index);
+       console.log("&&&&&&&&&&&" + length + "===" + index);
        test_store.question_set[key].questions.forEach((question,index)=>{
             sideViewButtons.push(
                 `<button class="classic-btn  ${question.status}" id="sideview${length+index}" value="${index+length}">${index + 1}</button>`
@@ -315,19 +321,27 @@ $( function () {
        btns.innerHTML = sideViewButtons.join("");
        addEventListenerToSideButtons(index);
        showSlide(length);//will show the first slide of set
+       console.log("||||||||||| LENGTH: ", length);
+       
 
     }
 
     //will be returning the length(starting point)
     function getLengthTillSetIndex(index)
     {
-            const key = question_sets[index];
-            let length = 0;
-            for(let i =0; i<index ; i++)
-            {
-                const set_length = test_store.question_set[key].questions.length;
-                length = length+ set_length;
+    	let length = 0;
+
+            if (index > 0) {
+                for(let i =0; i<index ; i++)
+                {
+                    const set_length = test_store.question_set[question_sets[i]].questions.length;
+                    length = length+ set_length;
+                }
             }
+            else {
+            	length = 0;
+            }
+            
 
             return length;
     }
@@ -640,7 +654,7 @@ $( function () {
         const currentTime = newDate.getTime();
         if(total_time<=0 || currentTime === end_time)
         {
-            window.location.href = '/test-submit';
+            submitTest();
         }
         /* FOR SHOWING TOAST */
         if(total_time===300000 || (end_time - currentTime) === 500000)
@@ -653,7 +667,7 @@ $( function () {
     {
         if(total_time<=0)
         {
-            window.location.href = '/test-submit';
+           submitTest();
         }
         if(total_time===300000)
         {
@@ -670,27 +684,28 @@ $( function () {
     {
         let serverData = {
             "test-info" : {
-                "id" : test_id,
-                "user_id" : user_id
+                "id" : 30 
             },
-            "test-data":answer_status_store
+            "test-data": answer_status_store
         }
-        let submitData = {
-            "test-info" : {
-
-            },
-            "test-data" : JSON.stringify(answer_status_store)
-        }
+       
         console.log("SUBMITTE TEST",answer_status_store);
         $.ajax({
             url:test_submit_url,
             type:"POST",
-            data: serverData,
-            contentType:"application/json; charset=utf-8",
+            data: JSON.stringify(serverData),
+            contentType:"application/json",
             dataType:"json",
-            success: function(data){
-              alert("TEST SUBMITTED !");
-            }
+            success: function(response, status, xhr){ 
+                var ct = xhr.getResponseHeader("content-type") || "";
+                console.log("RESPONSE FOR TEST SUBMIT :",response);
+                if (ct.indexOf('html') > -1) {
+                  console.log("HTML PAGE" , response);
+                }
+                if (ct.indexOf('json') > -1) {
+                  // handle json here
+                } 
+              }
           })
         localStorage.removeItem(answer_status_store);
     }

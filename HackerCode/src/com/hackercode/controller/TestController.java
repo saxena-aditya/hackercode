@@ -172,6 +172,7 @@ public class TestController extends AbstractController{
 		System.out.println("????" + json);
 		int result = testDAO.makeAnswerSheet(json);
 		//now we can show this to him
+		System.out.println("RESULT ON MODEL AND VIEW"+result);
 		return new ModelAndView("result-page").addObject("marks",Integer.toString(result));
 	}
 	
