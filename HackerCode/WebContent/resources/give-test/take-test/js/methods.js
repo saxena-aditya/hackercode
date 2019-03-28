@@ -274,10 +274,18 @@ $(function() {
         console.log("===================> SILDE NUM: ", n)
         slides[currentSlide].classList.remove("active-slide");
         slides[n].classList.add("active-slide");
+        
+        console.log("BEFORE PREVIOUS SLIDE >>",previousSlide);
+        console.log("BEFORE Current SLIDE >>",currentSlide);
+        console.log("BEFORE SLIDE to show >>",n);
 
         previousSlide = currentSlide; //updating previous slide value
         currentSlide = n; //updating current slide value
-
+        
+        console.log("CURRENT PREVIOUS SLIDE >>",previousSlide);
+        console.log("CURRENT Current SLIDE >>",currentSlide);
+        console.log("CURRENT SLIDE to show >>",n);
+        
         let q_number = test_slides[n].q_id;
         questionNumber.innerHTML = q_number;
 
@@ -620,12 +628,20 @@ $(function() {
     //EVENT LISTENER BUTTON
     review.addEventListener('click', function(e) {
         e.preventDefault();
-        if (!(currentSlide === getSetLength(current_question_set) + getLengthTillSetIndex(current_question_set))) {
+        let l1 =getSetLength(current_question_set);
+        let l2 = getLengthTillSetIndex(current_question_set);
+        
+        console.log("L1:>>>",l1);
+        console.log("L2:>>>",l2);
+        
+        if (!(currentSlide === (l1 + l2 - 1) )) {
+        	console.log("@@@@@@@@@@@@@@@@@@@@@@@@SHOWIING NEXT SLIDE FOR REVIEW BUTTON@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             addReviewedOrNotReviewedClass(currentSlide);
             showNextSlide();
         } else {
 
             addReviewedOrNotReviewedClass(currentSlide);
+            showSlide(currentSlide - 1);
         }
 
     });
