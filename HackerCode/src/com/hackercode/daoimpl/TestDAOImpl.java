@@ -237,12 +237,38 @@ public class TestDAOImpl implements TestDAO{
 		return true;
 	}
 	@Override
-	public String getTestData(int testIdentifier) {
+	public String getTestData(int testIdentifier, String test_id, String user_id) {
 		jdbcTemplate.setDataSource(getDataSource());
 
 		String sqlQuestions = "SELECT * FROM hc_questions WHERE q_test_id = ?";
 		String sqlTest = "SELECT * FROM hc_tests WHERE t_id = ?";
+		Gson gson = new GsonBuilder().create(); 
 		
+		//for checking if there is any data for test already present
+		List<TestUser> users_test = jdbcTemplate.query("SELECT * from hc_temp_test WHERE tt_user_id = ? AND tt_test_id = ? ",new Object[]{user_id, test_id},
+				new ResultSetExtractor<List<TestUser>>() {
+				public List<TestUser>extractData(ResultSet rs) throws SQLException, DataAccessException {
+					List<TestUser> list = new ArrayList<TestUser>();
+					while(rs.next())
+					{
+						TestUser u = new TestUser();
+						u.setUserId(rs.getString("tt_user_id"));
+						u.setTestId(rs.getString("tt_test_id"));
+						u.setData(rs.getString("tt_ans_object"));
+						u.setTimeLeft(rs.getString("tt_time_remaining"));
+						list.add(u);
+					}
+					return list;
+				}
+			});
+			
+			System.out.println("LENTH OF ARRAY KLIST IN USERS" + users_test.size());
+			
+			
+			
+		
+		
+		//for creating the response json object for test
 		try {
 			@SuppressWarnings("unchecked")
 			Test test = (Test) jdbcTemplate.queryForObject(sqlTest, new Object[]{testIdentifier}, new TestMapper());
@@ -330,6 +356,17 @@ public class TestDAOImpl implements TestDAO{
 						xx.add(sets.get(i).toLowerCase(),setQuestions);
 					}
 					t.add("question_set",xx);
+					//if previous data was present
+					if(users_test.size() > 0) {
+						for(TestUser user : users_test) {
+							String s = gson.toJson(user);
+							JsonObject p = new JsonObject();
+							p.addProperty("timeLeft", user.getTimeLeft());
+							p.add("data", (new JsonParser()).parse(user.getData()).getAsJsonObject());
+							t.add("previous_data", p);
+							
+						}
+					}
 					return t.toString();
 				}
 				else  {
@@ -384,7 +421,7 @@ public class TestDAOImpl implements TestDAO{
 		if(users_test.size() == 0) {
 			String sql = "INSERT INTO hc_temp_test(tt_user_id, tt_test_id, tt_time_remaining ,tt_ans_object) VALUES (?,?,?,?)";
 			try {
-				jdbcTemplate.update(sql, new Object[] {user.getUserId(), user.getTestId(), user.getTimeLeft() ,user.getData(),});
+				jdbcTemplate.update(sql, new Object[] {user.getUserId().toString(), user.getTestId().toString(), user.getTimeLeft().toString() ,user.getData().toString(),});
 			}
 			catch(Exception e){
 				System.out.println(e.getMessage());
@@ -394,9 +431,9 @@ public class TestDAOImpl implements TestDAO{
 			for(TestUser u : users_test) {
 				System.out.println("DATA BEFORE ADDING TO DB"+user.getData().length());
 					System.out.println("FIRST TIMER USER IS AVAILABLE");
-					String sql = "UPDATE hc_temp_test SET tt_ans_object = ? AND tt_time_remaining = ? WHERE tt_user_id = ? AND tt_test_id = ?";
+					String sql = "UPDATE hc_temp_test SET tt_ans_object = ? , tt_time_remaining = ? WHERE tt_user_id = ? AND tt_test_id = ?";
 					try {
-						jdbcTemplate.update(sql, new Object[] {user.getData(), user.getTimeLeft() ,user.getUserId(), user.getTestId()});
+						jdbcTemplate.update(sql, new Object[] {user.getData().toString(), user.getTimeLeft().toString() ,user.getUserId().toString(), user.getTestId().toString()});
 					}
 					catch(Exception e){
 						System.out.println(e.getMessage());

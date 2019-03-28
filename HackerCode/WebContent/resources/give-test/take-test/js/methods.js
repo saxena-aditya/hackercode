@@ -4,26 +4,42 @@ $(function() {
 
     /* function for getting test data */
     let testInfo = {
-        "test_id": test_id,
-        "user_id": user_id
+        "test_id": "30",
+        "user_id": "123456"
     }
 
     $.ajax({
         url: test_start_url,
-        type: 'GET',
-        dataType: 'json',
+        type: 'POST',
+        contentType: "application/json",
+        dataType: "json",
         data: JSON.stringify(testInfo),
         success: function(data) {
             console.log("SERVER APPROACHED");
             console.log("data from server", data);
+            
+          //check for previous data to be received
+            let previousTest_duration = data.test_duration;
+            if(data.previous_data) {
+            	console.log("previous data of user is present");
+            	//update the existing object
+            	const previousData = data.previous_data;
+            	console.log("JSON PREVIOUS DATA ",previousData);
+            	previousTest_duration = previousData.timeLeft;
+            	answer_status_store =  Object.assign({},previousData.data);
+            	console.log("data after due to previous data ", data);
+            	console.log("TYPE OF ???" , typeof(answer_status_store))
+            	console.log("previousTESTDURATION ", previousTest_duration);
+            	console.log("answer status store due to previous data ", Object.keys(answer_status_store).length , answer_status_store);
+            }
+            
             //STORING THE RECEIVED DATA FROM SERVER TO VARIABLES
             const test = {
-                ...data
+                ...data,
+                "test_duration": previousTest_duration 
             };
-            test_store = {
-                ...data
-            };
-
+            
+            console.log("TEST ..........<><>" , test);
             startTest(test); //function to initiate test and everything
         },
         error: function(a, b, c) {
@@ -40,12 +56,19 @@ $(function() {
             ...test
         }; //copying test to test_store
 
+        if (! (Object.keys(answer_status_store).length === 0)) {
+        	console.log("@>@>@>@>@>CALLING UPDATE TEST STORE@>@>@>@>@>>@");
+        	//ie previous data is present
+        	updateTestStoreDueToPreviousData();
+        }
+        
         /* 
         now first thing to do is checking for eligibility of the user to take test or not ! 
         we need to pass the start_time , end_time , total duration of test & test_type
         */
 
-        total_exam_duration = new Date(test.test_duration).getTime();
+        total_exam_duration = test.test_duration;
+        console.log("@@@@@@@total exam duration@@@@@@@@@",total_exam_duration);
         start_time = new Date(test.start_time).getTime();
         end_time = new Date(test.end_time).getTime();
         test_type = test.test_type;
@@ -104,18 +127,33 @@ $(function() {
                 if (question.answer) {
                     answer = question.answer[0];
                 }
-                /* adding slide to [] */
-                test_slides.push({
-                    id: question.id, //id for database
-                    q_id: index + 1, //for question number
-                    status: question.status, //status 
-                    question: question.question, //Question
-                    answers: question.options, //Options 
-                    markedAnswer: answer, //answer will be a array 
-                    marks_for_question: question.max_marks, //storing marks
-                    negative_for_question: question.neg_marks //storing the negative marks 
+                if(Object.keys(answer_status_store).length === 0){
+                	 test_slides.push({
+                         id: question.id, //id for database
+                         q_id: index + 1, //for question number
+                         status: question.status, //status 
+                         question: question.question, //Question
+                         answers: question.options, //Options 
+                         markedAnswer: answer, //answer will be a array 
+                         marks_for_question: question.max_marks, //storing marks
+                         negative_for_question: question.neg_marks //storing the negative marks 
 
+                     })
+                }
+                else {
+                	 test_slides.push({
+                         id: question.id, //id for database
+                         q_id: index + 1, //for question number
+                         status: answer_status_store[question.id].status, //status 
+                         question: question.question, //Question
+                         answers: question.options, //Options 
+                         markedAnswer: answer_status_store[question.id].answer, //answer will be a array 
+                         marks_for_question: question.max_marks, //storing marks
+                         negative_for_question: question.neg_marks //storing the negative marks 
                 })
+                }
+                /* adding slide to [] */
+               
             })
             console.log("TEST SLIDES MADE : >>> ", test_slides);
         })
@@ -133,18 +171,25 @@ $(function() {
 
     function answer_statusStore() {
         //check for local storAge object
-        if (localStorage.answer_status_store) {
-            answer_status_store = localStorage.answer_status_store;
-        } else if (!(is_db_for_answer)) {
-            // if we have test_data stored in database
-            ifAnswer_statusNotCreatedAlready(test_slides); //will create the object for storing to database
-        } else {
-            alreadyCreatedAnswer_Status();
+        if (Object.keys(answer_status_store).length === 0) {
+        		console.log("$$$$$$$$$$$$$$$$$$$$EMPTY OBJECT PRESENT$$$$$$$$$$$$$");
+        	   ifAnswer_statusNotCreatedAlready(test_slides); //will create the object for storing to database
         }
-
     }
 
-
+    function updateTestStoreDueToPreviousData(){
+    	
+    	let keysArray = Object.keys(test_store.question_set);
+    	keysArray.forEach(key=>{
+    		test_store.question_set[key].questions.forEach((question, index) => {
+    			question.answer = answer_status_store[question.id].answer;
+    			question.status = answer_status_store[question.id].status;
+    		});
+    	});
+    	
+    	console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<update test storw" , test_store);
+    }
+    
 
     /* method for declaring values */
     function initDecleration() {
@@ -295,6 +340,7 @@ $(function() {
         let length = getLengthTillSetIndex(index);
         console.log("&&&&&&&&&&&" + length + "===" + index);
         test_store.question_set[key].questions.forEach((question, index) => {
+        	console.log("question.status",question.status);
             sideViewButtons.push(
                 `<button class="classic-btn  ${question.status}" id="sideview${length+index}" value="${index+length}">${index + 1}</button>`
             );
@@ -678,9 +724,9 @@ $(function() {
         console.log("@@@########", user_id, test_id);
         let updatedTest = {
             "user": {
-                "userId": "456782dfg",
+                "userId": "123456",
                 "testId": "30",
-                "timeLeft": `${total_exam_duration.toString()}`,
+                "timeLeft": total_exam_duration.toString(),
                 "data": JSON.stringify(answer_status_store)
                 
             }
@@ -702,6 +748,7 @@ $(function() {
 
     //method for creating object if not created to store object
     function ifAnswer_statusNotCreatedAlready(slides) {
+    	console.log("<><><>SLIDES FOR ANSWER STATUS STORE<><><>",slides);
         slides.map(slide => {
             answer_status_store[slide.id] = {
                 answer: slide.answer,

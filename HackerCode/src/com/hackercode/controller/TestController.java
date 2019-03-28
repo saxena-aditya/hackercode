@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.hackercode.dao.AdminDao;
@@ -114,11 +116,21 @@ public class TestController extends AbstractController{
 		return model;
 	}
 	
-	@RequestMapping(value = "/get-test-data/{testID}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/get-test-data/{testID}", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String testData(@PathVariable String testID) {
+	public String testData(@PathVariable String testID, @RequestBody String json) {
 		TestDAO testDAO = ctx.getBean(TestDAO.class);
+		System.out.println("RECEIVED JSON >>>>>>" + json);
+		//creating a json object for easiness will have test_id and user_id
+		Gson gson = new GsonBuilder().create(); 
+		JsonObject jsonData = gson.fromJson(json, JsonObject.class);
+		String test_id = jsonData.get("test_id").getAsString();
+		String user_id = jsonData.get("user_id").getAsString();
 		
+		System.out.println("RECEIVED TESTID AND USER ID" + test_id + " " + user_id);
+		
+		
+		//making a testidentifier
 		int testIdentifier = 0;
 		try {
 			testIdentifier = Integer.parseInt(testID);
@@ -128,7 +140,7 @@ public class TestController extends AbstractController{
 			return null;
 		}
 		
-		String testData = testDAO.getTestData(testIdentifier);
+		String testData = testDAO.getTestData(testIdentifier, test_id, user_id);
 		return testData;
 		//return new ModelAndView("test-data").addObject("data", testData);
 	}
