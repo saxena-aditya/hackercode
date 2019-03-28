@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.hackercode.dao.AdminDao;
 import com.hackercode.dao.TestDAO;
 import com.hackercode.structures.Question;
@@ -166,14 +168,16 @@ public class TestController extends AbstractController{
 				.addObject("userId", user.getEmail());
 	}
     
-	@RequestMapping(value = "/get-result", method = RequestMethod.POST)
-	public ModelAndView setTestResult(@RequestBody String json) {
+	@RequestMapping(value = "/get-result", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public JsonObject setTestResult(@RequestBody String json) {
 		TestDAO testDAO = ctx.getBean(TestDAO.class);
-		System.out.println("????" + json);
-		int result = testDAO.makeAnswerSheet(json);
+		//System.out.println("????" + json);
+		
+		JsonObject result = testDAO.makeAnswerSheet(json);	
 		//now we can show this to him
 		System.out.println("RESULT ON MODEL AND VIEW"+result);
-		return new ModelAndView("result-page").addObject("marks",Integer.toString(result));
+		return result;
 	}
 	
 	@RequestMapping(value = "/give-test", method=RequestMethod.GET)
@@ -183,15 +187,12 @@ public class TestController extends AbstractController{
 											.addObject("user_id", new String("34"));
 	}
 	
-	@RequestMapping(value = "/get-stored-test", method = RequestMethod.POST)
-	@ResponseBody
-	public String getStoredTestUserData(@RequestBody String json) {
+	@RequestMapping(value = "/update-test-data", method = RequestMethod.POST)
+	public void updateOrInsertTestData(@RequestBody String json) {
 		TestDAO testDAO = ctx.getBean(TestDAO.class);
-		System.out.println("get stored test data" + json);
-		String result = testDAO.getStoredTestData(json);
-		//now we can show this to him
-		return result;
+		testDAO.getStoredTestData(json);
 	}
+	
 	
 	
 	

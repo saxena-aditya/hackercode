@@ -1,34 +1,44 @@
 package com.hackercode.structures;
 
 public class TestUser {
-	String userId;
-	int testId;
-	String data;
 	
-	public void setUserId(String s) {
-		userId = s;
-	}
-	
-	public void setTestId(int s) {
-		testId = s;
-	}
-	
-	public void setData(String json) {
-		data = json;
-	}
+	private String userId;
+	private String testId;
+	private String data;
+	private String timeLeft;
 	
 	public String getUserId() {
 		return userId;
 	}
-	
-	public int getTestId() {
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getTestId() {
 		return testId;
 	}
-	
+
+	public void setTestId(String testId) {
+		this.testId = testId;
+	}
+
 	public String getData() {
 		return data;
 	}
-	
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public String getTimeLeft() {
+		return timeLeft;
+	}
+
+	public void setTimeLeft(String timeLeft) {
+		this.timeLeft = timeLeft;
+	}
+
 	public String toString() {
 		return "id : " + userId + " " + testId + " " + data;
 	}
