@@ -178,7 +178,9 @@ public class TestController extends AbstractController{
 	
 	@RequestMapping(value = "/give-test", method=RequestMethod.GET)
 	public ModelAndView giveTest(HttpServletRequest req) {
-		return new ModelAndView("give-test").addObject("testName", new String("TAKE TEST PART"));
+		return new ModelAndView("give-test").addObject("testName", new String("TAKE TEST PART"))
+											.addObject("test_id", new String("23"))
+											.addObject("user_id", new String("34"));
 	}
 	
 	@RequestMapping(value = "/get-stored-test", method = RequestMethod.POST)

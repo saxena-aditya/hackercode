@@ -15,10 +15,10 @@
  let set_btns       =   document.getElementById('question_type');//for showing the set
  let slides         =   undefined;//stores the slides
  let questionNumber =   document.getElementById('question-number');//to access the question number
+ let test_id                     =   document.getElementById("test_id").value;// will contain info about test_id
+ let user_id                     =   document.getElementById("user_id").value;// will contain user_id
 
 /* main variables */
-let user_id                     =   undefined;// will contain info about user_id
-let test_id                     =   undefined;// will contain test_id
 let total_exam_duration         =   0 ;//stores the time of exams
 let currentSlide                =   0;//will store the currentSlide info
 let previousSlide               =   -1;//will store the previous slide info

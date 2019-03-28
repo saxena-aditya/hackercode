@@ -3,11 +3,16 @@ console.log("METHODS.js");
 $( function () {
 
     /* function for getting test data */
+	let testInfo = {
+			"test_id" : test_id,
+			"user_id" : user_id
+	}
 
     $.ajax({
     url: test_start_url,
     type: 'GET',
     dataType: 'json',
+    data:JSON.stringify(testInfo),
     success: function(data) { 
         console.log("SERVER APPROACHED");
         console.log("data from server",data);
