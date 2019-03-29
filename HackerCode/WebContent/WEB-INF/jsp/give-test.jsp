@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/give-test/take-test/css/test-ui.css">
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" id="test-area">
         <button id="f-screen"><i class="fa fa-arrows-alt"></i>full screen</button>
         <div class="row bg-blue">
             <div class="col-md-12">
@@ -174,6 +174,24 @@
             </div>
         </div>
     </div>
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Test Submitted Successfully</h5>
+	     	      </div>
+	      <div class="modal-body">
+	        Click to End Test.
+	        <br>
+	        <span> Marks Obtained: <span id="marks-result"></span></span>
+	      </div>
+	      <div class="modal-footer">
+	        <a type="button" href="dashboard" class="btn btn-primary">End Test</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
     <footer class="bg-blue">
         <div class="text-center">
             <span class="fff">
