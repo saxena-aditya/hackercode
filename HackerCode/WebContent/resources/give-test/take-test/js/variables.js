@@ -16,7 +16,16 @@
  let slides         =   undefined;//stores the slides
  let questionNumber =   document.getElementById('question-number');//to access the question number
  let test_id                     =   document.getElementById("test_id").value;// will contain info about test_id
- let user_id                     =   document.getElementById("user_id").value;// will contain user_id
+ let user_id        =   document.getElementById("user___id").value;// will contain user_id
+ console.log("TEST_ID AND USER_ID",test_id , user_id)
+ let confirmSubmit  = 	document.getElementById("confirmSubmit");//for confirming submit
+ let instruction_button = document.getElementById("inst-btn");
+ 
+ instruction_button.addEventListener("click", function(e) {
+	 toggleFullScreen();
+	 $("#instructions").hide();
+	 
+ })
 
 /* main variables */
 let total_exam_duration         =   0 ;//stores the time of exams
@@ -42,3 +51,5 @@ let question_sets       =   [];//will contain the question sets button
 let test_type           =   undefined;//stores the type of test
 let start_time          =   undefined;//stores the start_time of test
 let end_time            =   undefined;//stores the end_time of test
+
+

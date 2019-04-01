@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset = UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
     <head>
         <title>Dashboad HackerCode</title>
@@ -259,18 +260,20 @@
                                     <th>Take Test</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <c:forEach items="${tests}" var="test">
+						     <tbody>
                                 <tr>
-                                    <td><p class="test-name">Co-Cubes Second PRE ASSESMENT TEST</p></td>
-                                    <td>3 Hours</td>
-                                    <td><p class="vaild-till-date">05/05/2018</p></td>
+                                    <td><p class="test-name">${test.getName().toString()}</p></td>
+                                    <td>${test.getTotalTime().toString()}</td>
+                                    <td><p class="vaild-till-date">${test.getEndTime().toString()}</p></td>
                                     <td>
-                                        <button class="take-test-btn btn btn-success"  id="test-1">
+                                        <a class="take-test-btn btn btn-success"  id="test-1" href="${pageContext.request.contextPath}/give-test/${test.getTestId().toString()}" >
                                             Take Test
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
+						</c:forEach>
                         </table>
                     </div>    
                    

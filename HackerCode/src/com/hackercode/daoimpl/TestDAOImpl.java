@@ -141,6 +141,9 @@ public class TestDAOImpl implements TestDAO{
 		
 		return null;
 	}
+	
+	
+	
 	@Override 
 	public boolean saveFile(int testId, MultipartFile file) throws IOException{
 		
@@ -236,6 +239,7 @@ public class TestDAOImpl implements TestDAO{
 		}
 		return true;
 	}
+	
 	@Override
 	public String getTestData(int testIdentifier, String test_id, String user_id) {
 		jdbcTemplate.setDataSource(getDataSource());
@@ -537,5 +541,33 @@ public class TestDAOImpl implements TestDAO{
 		
 		return res;
 	}
+	
+	//getting all test
+		@Override
+		public List<Test>  getAllTest(User u) {
+			jdbcTemplate.setDataSource(getDataSource());
+			
+			List<Test> tests = null;
+			tests = jdbcTemplate.query("SELECT * FROM hc_tests", new ResultSetExtractor<List<Test>>(){
+				public List<Test> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List<Test> list = new ArrayList<Test>();
+				while (rs.next()) {
+					Test t = new Test();
+					t.setTestId(rs.getString(1));
+					t.setName(rs.getString(2));
+					t.setTotalTime(rs.getInt(8));
+					t.setEndTime(rs.getString(7));
+					System.out.println("><><><><><><><><><><><<><><><><><?>?>?<?<?<?>?<>?<?>?<?<?><?<?<?<?<?<?<?</<?</,/<?<?<?<?><"+t.getTestId() + " " + t.getName() + " " + 
+					t.getEndTime());
+					list.add(t);
+				}	
+				return list;
+			}
+		});
+			
+			return tests;
+			
+		}
 
+	
 }

@@ -4,8 +4,8 @@ $(function() {
 
     /* function for getting test data */
     let testInfo = {
-        "test_id": "30",
-        "user_id": "123456"
+        "test_id": test_id,
+        "user_id": user_id
     }
 
     $.ajax({
@@ -662,7 +662,15 @@ $(function() {
 
     submit.addEventListener('click', function(e) {
         e.preventDefault();
-        submitTest();
+        $("#confirmSubmitModal").modal({
+            backdrop: "static"
+        });
+    });
+    
+    confirmSubmit.addEventListener('click', function(e) {
+    	e.preventDefault();
+    	 $("#confirmSubmitModal").hide();
+    	submitTest();
     });
 
     function showNextSlide() {
@@ -740,8 +748,8 @@ $(function() {
         console.log("@@@########", user_id, test_id);
         let updatedTest = {
             "user": {
-                "userId": "123456",
-                "testId": "30",
+                "userId": user_id,
+                "testId": test_id,
                 "timeLeft": total_exam_duration.toString(),
                 "data": JSON.stringify(answer_status_store)
                 
@@ -787,7 +795,30 @@ $(function() {
 
 })
 
-
+function toggleFullScreen() {
+  
+  if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+   (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+    if (document.documentElement.requestFullScreen) {  
+      document.documentElement.requestFullScreen();  
+    } else if (document.documentElement.mozRequestFullScreen) {  
+      document.documentElement.mozRequestFullScreen();  
+    } else if (document.documentElement.webkitRequestFullScreen) {  
+      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+    }  
+  } else {  
+    if (document.cancelFullScreen) {  
+      document.cancelFullScreen();  
+    } else if (document.mozCancelFullScreen) {  
+      document.mozCancelFullScreen();  
+    } else if (document.webkitCancelFullScreen) {  
+      document.webkitCancelFullScreen();  
+    }  
+  }
+  
+  $("#test-area").show();
+}
+$("#test-area").hide();
 /* will remove the local storage variable */
 //when browser closed - psedocode
 $(window).on("unload", function(e) {

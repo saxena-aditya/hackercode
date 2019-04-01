@@ -12,6 +12,9 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/give-test/take-test/css/test-ui.css">
 <body>
+<div id="instructions">
+	<button id="inst-btn">Go Full Screen</button>
+</div>
     <div class="container-fluid" id="test-area">
         <button id="f-screen"><i class="fa fa-arrows-alt"></i>full screen</button>
         <div class="row bg-blue">
@@ -187,7 +190,24 @@
 	        <span> Marks Obtained: <span id="marks-result"></span></span>
 	      </div>
 	      <div class="modal-footer">
-	        <a type="button" href="dashboard" class="btn btn-primary">End Test</a>
+	        <a type="button" href="/login" class="btn btn-primary">End Test</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- confirm submit modal -->
+	<div class="modal fade" id="confirmSubmitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Are You Sure to Submit</h5>
+	     	      </div>
+	      <div class="modal-body">
+	        Click to Submit Test
+	        <br>
+	      </div>
+	      <div class="modal-footer">
+	        <a type="button" href="dashboard" class="btn btn-primary" id="confirmSubmit">Submit Test</a>
 	      </div>
 	    </div>
 	  </div>
@@ -200,8 +220,8 @@
             </span>
         </div>
     </footer>
-   	<p style="display: none" value=${ test_id } id="test_id"></p>
-   	<p style="display: none" value=${ user_id } id="user_id"></p>
+   	<input style="display: none" value=${ test_id } id="test_id">
+   	<input style="display: none" value=${ user_id } id="user___id">
 </body>
 <!-- SCRIPT FILES FOR GIVING TEST -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

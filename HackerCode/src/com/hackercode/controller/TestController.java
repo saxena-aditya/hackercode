@@ -153,15 +153,22 @@ public class TestController extends AbstractController{
 		TestDAO testDao = ctx.getBean(TestDAO.class);
 		if (testDao.isUser(username, password, req)) {
 			User user = testDao.getUser(username, req);
+			
 			if (user.isAdmin()) {
 				return new ModelAndView("test-admin-dashboard");
 			}
 			else {
-				return new ModelAndView("admin-dashboard");
+				System.out.println("STUDENT DASHBOARD CALLED");
+				User u = (User)req.getSession().getAttribute("user");
+				System.out.println("USER FROM SESSION"+ u.getFirstName()+u.getEmail()+u.getLastName()+u.getU_id()+u.getU_id());
+				List<Test> tests = testDao.getAllTest(u);
+				return new ModelAndView("admin-dashboard").addObject("tests", tests);
 			}
 		}
 		return new ModelAndView("test-adim-login");
 	}
+	
+
 	
 	@RequestMapping(value="/admin-login", method=RequestMethod.GET)
 	public ModelAndView showAdminLogin() {
@@ -170,6 +177,7 @@ public class TestController extends AbstractController{
 	}
 	@RequestMapping(value="/admin-dashboard",	method=RequestMethod.GET)
 	public ModelAndView showAdminPanel(){
+		System.out.println("<><><><>><><><><><><><><><><>SHOWADMIN PANEL CALLED<><><><>><><><><><>>><><><><>");
 		return new ModelAndView("test-admin-dashboard");
 	}
 	@RequestMapping(value="/add-test",	method=RequestMethod.GET)
@@ -192,11 +200,13 @@ public class TestController extends AbstractController{
 		return result;
 	}
 	
-	@RequestMapping(value = "/give-test", method=RequestMethod.GET)
-	public ModelAndView giveTest(HttpServletRequest req) {
+	@RequestMapping(value = "/give-test/{testId}", method=RequestMethod.GET)
+	public ModelAndView giveTest(@PathVariable String testId ,HttpServletRequest req) {
+		
+		User u = (User)req.getSession().getAttribute("user");
 		return new ModelAndView("give-test").addObject("testName", new String("TAKE TEST PART"))
-											.addObject("test_id", new String("23"))
-											.addObject("user_id", new String("34"));
+											.addObject("test_id", testId)
+											.addObject("user_id", u.getU_id());
 	}
 	
 	@RequestMapping(value = "/update-test-data", method = RequestMethod.POST)
