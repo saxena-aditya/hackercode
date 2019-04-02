@@ -534,7 +534,6 @@ public class TestDAOImpl implements TestDAO{
 			    }
 			}
 		}
-		System.out.println("RESULT ::::><><><><>" + result);
 		res.addProperty("marks", result);
 		res.addProperty("test_id", testData.getId());
 		res.addProperty("error", 0);
@@ -543,7 +542,7 @@ public class TestDAOImpl implements TestDAO{
 	}
 	//getting all test
 		@Override
-		public List<Test>  getAllTest(User u) {
+		public List<Test> getAllTest(User u) {
 			jdbcTemplate.setDataSource(getDataSource());
 			
 			List<Test> tests = null;
@@ -556,8 +555,6 @@ public class TestDAOImpl implements TestDAO{
 					t.setName(rs.getString(2));
 					t.setTotalTime(rs.getInt(8));
 					t.setEndTime(rs.getString(7));
-					System.out.println("><><><><><><><><><><><<><><><><><?>?>?<?<?<?>?<>?<?>?<?<?><?<?<?<?<?<?<?</<?</,/<?<?<?<?><"+t.getTestId() + " " + t.getName() + " " + 
-					t.getEndTime());
 					list.add(t);
 				}	
 				return list;
@@ -575,24 +572,22 @@ public class TestDAOImpl implements TestDAO{
 		
 		List<TestUser> finishedTest = null;
 		
-		finishedTest = jdbcTemplate.query("SELECT * FROM hc_temp_test WHERE isFinished = 1 AND tt_user_id =" + u.getU_id(), new ResultSetExtractor<List<TestUser>>(){
+		finishedTest = jdbcTemplate.query("SELECT * FROM hc_temp_test WHERE isFinished = 1 AND tt_user_id = " + u.getU_id(), new ResultSetExtractor<List<TestUser>>(){
 			public List<TestUser> extractData(ResultSet rs) throws SQLException, DataAccessException {
-			List<TestUser> list = new ArrayList<TestUser>();
-			while (rs.next()) {
-				TestUser t = new TestUser();
-				t.setTestId(rs.getString(3));
-				t.setUserId(rs.getString(2));
-				//t.setTimeLeft(rs.getString(4));
-				t.setMarks(Integer.parseInt(rs.getString(6))); 
-				list.add(t);
-			}	
-			return list;
-		}
-	});
+				List<TestUser> list = new ArrayList<TestUser>();
+				while (rs.next()) {
+					TestUser t = new TestUser();
+					t.setTestId(rs.getString(3));
+					t.setUserId(rs.getString(2));
+					//t.setTimeLeft(rs.getString(4));
+					t.setMarks(Integer.parseInt(rs.getString(6))); 
+					list.add(t);
+				}	
+					return list;
+			}
+		});
 		
 		return finishedTest;
 	}
 
-	
->>>>>>> b305acba0fbd2af211dbc15dc77b0b8aba360603
 }

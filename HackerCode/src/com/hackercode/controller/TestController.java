@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -152,28 +153,56 @@ public class TestController extends AbstractController{
 								HttpServletRequest req){
 		req.getSession().setAttribute("isLoggedIn", false);
 		TestDAO testDao = ctx.getBean(TestDAO.class);
+		RedirectView view;
 		if (testDao.isUser(username, password, req)) {
 			User user = testDao.getUser(username, req);
 			req.getSession().setAttribute("user", user);
 			if (user.isAdmin()) {
 				// get details for admin and pass the details to
 				// the model.
-				return new ModelAndView("test-admin-dashboard");
+				view = new RedirectView("dashboard", true);
 			}
 			else {
 				// get user test detials here and pass it along with the 
 				// model.
 //				return new ModelAndView("admin-dashboard");
-				System.out.println("STUDENT DASHBOARD CALLED");
-				User u = (User)req.getSession().getAttribute("user");
-				List<Test> tests = testDao.getAllTest(u);
-				List<TestUser> finishedTest = testDao.getAllFinishedTest(u);
-				return new ModelAndView("admin-dashboard").addObject("tests", tests)
-														  .addObject("finishedTest", finishedTest);
+				//System.out.println("STUDENT DASHBOARD CALLED");
+				/*
+				
+				*/
+				view = new RedirectView("profile", true);
 			}
+			req.getSession().setAttribute("isLoggedIn", true);
+			// redirect user to appropriate screen.
+			view.setExposeModelAttributes(false);
+			return new ModelAndView(view);
+
 		}
 		return new ModelAndView("test-admin-login");
 	}
+	@RequestMapping(value="/dashboard" , method=RequestMethod.GET)
+	public ModelAndView showAdminDashBoard() {
+		
+		return new ModelAndView("test-admin-dashboard");
+	}
+	
+	@RequestMapping(value="/profile" , method=RequestMethod.GET)
+	public ModelAndView showStudentDashBoard(HttpServletRequest req) {
+		TestDAO testDao = ctx.getBean(TestDAO.class);
+		if (req.getSession().getAttribute("isLoggedIn")== null) {
+			RedirectView view = new RedirectView("admin-login", true);
+			return new ModelAndView(view);
+		}
+		
+		User u = (User)req.getSession().getAttribute("user");
+		
+		List<Test> tests = testDao.getAllTest(u);
+		List<TestUser> finishedTest = testDao.getAllFinishedTest(u);
+		return new ModelAndView("admin-dashboard").addObject("tests", tests)
+												  .addObject("finishedTest", finishedTest);
+		
+	}
+	
 	
 
 	
