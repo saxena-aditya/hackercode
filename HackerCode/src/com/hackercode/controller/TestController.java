@@ -153,14 +153,19 @@ public class TestController extends AbstractController{
 		TestDAO testDao = ctx.getBean(TestDAO.class);
 		if (testDao.isUser(username, password, req)) {
 			User user = testDao.getUser(username, req);
+			req.getSession().setAttribute("user", user);
 			if (user.isAdmin()) {
+				// get details for admin and pass the details to
+				// the model.
 				return new ModelAndView("test-admin-dashboard");
 			}
 			else {
+				// get user test detials here and pass it along with the 
+				// model.
 				return new ModelAndView("admin-dashboard");
 			}
 		}
-		return new ModelAndView("test-adim-login");
+		return new ModelAndView("test-admin-login");
 	}
 	
 	@RequestMapping(value="/admin-login", method=RequestMethod.GET)

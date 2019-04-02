@@ -67,4 +67,8 @@
       });
     }
   });
+  
+  
+  // AJAX calls for loading the tabs.
+  
 })(jQuery);

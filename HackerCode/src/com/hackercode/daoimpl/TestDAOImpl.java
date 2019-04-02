@@ -537,5 +537,10 @@ public class TestDAOImpl implements TestDAO{
 		
 		return res;
 	}
-
+	
+	@Override 
+	public List<Test> getAllTests(User user, HttpServletRequest req){
+		
+		return null;
+	}
 }

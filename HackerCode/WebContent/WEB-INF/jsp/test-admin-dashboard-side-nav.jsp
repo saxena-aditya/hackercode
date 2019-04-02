@@ -43,9 +43,9 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+            <a class="nav-link" href="#" id="tests-all">
               <i class="menu-icon mdi mdi-backup-restore"></i>
-              <span class="menu-title">Form elements</span>
+              <span class="menu-title">Your Tests</span>
             </a>
           </li>
           <li class="nav-item">

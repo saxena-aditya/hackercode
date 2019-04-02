@@ -1,6 +1,7 @@
 package com.hackercode.dao;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,4 +21,5 @@ public interface TestDAO {
 	boolean isUser(String username, String password, HttpServletRequest request);
 	User getUser(String username, HttpServletRequest request);
 	public String getStoredTestData(String data);
+	public List<Test> getAllTests(User user, HttpServletRequest request);
 }
