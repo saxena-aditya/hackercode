@@ -141,6 +141,9 @@ public class TestDAOImpl implements TestDAO{
 		
 		return null;
 	}
+	
+	
+	
 	@Override 
 	public boolean saveFile(int testId, MultipartFile file) throws IOException{
 		
@@ -236,6 +239,7 @@ public class TestDAOImpl implements TestDAO{
 		}
 		return true;
 	}
+	
 	@Override
 	public String getTestData(int testIdentifier, String test_id, String user_id) {
 		jdbcTemplate.setDataSource(getDataSource());
@@ -537,10 +541,58 @@ public class TestDAOImpl implements TestDAO{
 		
 		return res;
 	}
-	
-	@Override 
-	public List<Test> getAllTests(User user, HttpServletRequest req){
+	//getting all test
+		@Override
+		public List<Test>  getAllTest(User u) {
+			jdbcTemplate.setDataSource(getDataSource());
+			
+			List<Test> tests = null;
+			tests = jdbcTemplate.query("SELECT * FROM hc_tests", new ResultSetExtractor<List<Test>>(){
+				public List<Test> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List<Test> list = new ArrayList<Test>();
+				while (rs.next()) {
+					Test t = new Test();
+					t.setTestId(rs.getString(1));
+					t.setName(rs.getString(2));
+					t.setTotalTime(rs.getInt(8));
+					t.setEndTime(rs.getString(7));
+					System.out.println("><><><><><><><><><><><<><><><><><?>?>?<?<?<?>?<>?<?>?<?<?><?<?<?<?<?<?<?</<?</,/<?<?<?<?><"+t.getTestId() + " " + t.getName() + " " + 
+					t.getEndTime());
+					list.add(t);
+				}	
+				return list;
+			}
+		});
+			
+			return tests;
+			
+		}
 		
-		return null;
+	//getting all finished tests
+	@Override
+	public List<TestUser> getAllFinishedTest(User u) {
+		jdbcTemplate.setDataSource(getDataSource());
+		
+		List<TestUser> finishedTest = null;
+		
+		finishedTest = jdbcTemplate.query("SELECT * FROM hc_temp_test WHERE isFinished = 1 AND tt_user_id =" + u.getU_id(), new ResultSetExtractor<List<TestUser>>(){
+			public List<TestUser> extractData(ResultSet rs) throws SQLException, DataAccessException {
+			List<TestUser> list = new ArrayList<TestUser>();
+			while (rs.next()) {
+				TestUser t = new TestUser();
+				t.setTestId(rs.getString(3));
+				t.setUserId(rs.getString(2));
+				//t.setTimeLeft(rs.getString(4));
+				t.setMarks(Integer.parseInt(rs.getString(6))); 
+				list.add(t);
+			}	
+			return list;
+		}
+	});
+		
+		return finishedTest;
 	}
+
+	
+>>>>>>> b305acba0fbd2af211dbc15dc77b0b8aba360603
 }

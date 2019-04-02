@@ -33,6 +33,7 @@ import com.hackercode.dao.AdminDao;
 import com.hackercode.dao.TestDAO;
 import com.hackercode.structures.Question;
 import com.hackercode.structures.Test;
+import com.hackercode.structures.TestUser;
 import com.hackercode.structures.User;
 
 import net.sf.json.JSONObject;
@@ -162,11 +163,19 @@ public class TestController extends AbstractController{
 			else {
 				// get user test detials here and pass it along with the 
 				// model.
-				return new ModelAndView("admin-dashboard");
+//				return new ModelAndView("admin-dashboard");
+				System.out.println("STUDENT DASHBOARD CALLED");
+				User u = (User)req.getSession().getAttribute("user");
+				List<Test> tests = testDao.getAllTest(u);
+				List<TestUser> finishedTest = testDao.getAllFinishedTest(u);
+				return new ModelAndView("admin-dashboard").addObject("tests", tests)
+														  .addObject("finishedTest", finishedTest);
 			}
 		}
 		return new ModelAndView("test-admin-login");
 	}
+	
+
 	
 	@RequestMapping(value="/admin-login", method=RequestMethod.GET)
 	public ModelAndView showAdminLogin() {
@@ -175,6 +184,7 @@ public class TestController extends AbstractController{
 	}
 	@RequestMapping(value="/admin-dashboard",	method=RequestMethod.GET)
 	public ModelAndView showAdminPanel(){
+		System.out.println("<><><><>><><><><><><><><><><>SHOWADMIN PANEL CALLED<><><><>><><><><><>>><><><><>");
 		return new ModelAndView("test-admin-dashboard");
 	}
 	@RequestMapping(value="/add-test",	method=RequestMethod.GET)
@@ -197,11 +207,13 @@ public class TestController extends AbstractController{
 		return result;
 	}
 	
-	@RequestMapping(value = "/give-test", method=RequestMethod.GET)
-	public ModelAndView giveTest(HttpServletRequest req) {
+	@RequestMapping(value = "/give-test/{testId}", method=RequestMethod.GET)
+	public ModelAndView giveTest(@PathVariable String testId ,HttpServletRequest req) {
+		
+		User u = (User)req.getSession().getAttribute("user");
 		return new ModelAndView("give-test").addObject("testName", new String("TAKE TEST PART"))
-											.addObject("test_id", new String("23"))
-											.addObject("user_id", new String("34"));
+											.addObject("test_id", testId)
+											.addObject("user_id", u.getU_id());
 	}
 	
 	@RequestMapping(value = "/update-test-data", method = RequestMethod.POST)

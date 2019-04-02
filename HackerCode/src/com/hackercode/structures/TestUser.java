@@ -6,7 +6,25 @@ public class TestUser {
 	private String testId;
 	private String data;
 	private String timeLeft;
+	private int marks;
+	private boolean isTestFinished;
 	
+	public int getMarks() {
+		return marks;
+	}
+
+	public void setMarks(int marks) {
+		this.marks = marks;
+	}
+
+	public boolean isTestFinished() {
+		return isTestFinished;
+	}
+
+	public void setTestFinished(boolean isTestFinished) {
+		this.isTestFinished = isTestFinished;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

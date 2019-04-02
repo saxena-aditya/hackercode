@@ -15,9 +15,16 @@
  let set_btns       =   document.getElementById('question_type');//for showing the set
  let slides         =   undefined;//stores the slides
  let questionNumber =   document.getElementById('question-number');//to access the question number
- let test_id                     =   document.getElementById("test_id").value;// will contain info about test_id
- let user_id                     =   document.getElementById("user_id").value;// will contain user_id
-
+ let test_id        =   document.getElementById("test_id").value;// will contain info about test_id
+ let user_id        =   document.getElementById("user___id").value;// will contain user_id
+ let confirmSubmit  = 	document.getElementById("confirmSubmit");//for confirming submit
+ let instruction_button = document.getElementById("inst-btn");
+ let isSubmitButtionClicked = false;
+ let wasLastSlide  = false;
+ 
+ 
+ 
+ 
 /* main variables */
 let total_exam_duration         =   0 ;//stores the time of exams
 let currentSlide                =   0;//will store the currentSlide info
@@ -42,3 +49,5 @@ let question_sets       =   [];//will contain the question sets button
 let test_type           =   undefined;//stores the type of test
 let start_time          =   undefined;//stores the start_time of test
 let end_time            =   undefined;//stores the end_time of test
+
+
