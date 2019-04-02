@@ -568,6 +568,31 @@ public class TestDAOImpl implements TestDAO{
 			return tests;
 			
 		}
+		
+	//getting all finished tests
+	@Override
+	public List<TestUser> getAllFinishedTest(User u) {
+		jdbcTemplate.setDataSource(getDataSource());
+		
+		List<TestUser> finishedTest = null;
+		
+		finishedTest = jdbcTemplate.query("SELECT * FROM hc_temp_test WHERE isFinished = 1 AND tt_user_id =" + u.getU_id(), new ResultSetExtractor<List<TestUser>>(){
+			public List<TestUser> extractData(ResultSet rs) throws SQLException, DataAccessException {
+			List<TestUser> list = new ArrayList<TestUser>();
+			while (rs.next()) {
+				TestUser t = new TestUser();
+				t.setTestId(rs.getString(3));
+				t.setUserId(rs.getString(2));
+				//t.setTimeLeft(rs.getString(4));
+				t.setMarks(Integer.parseInt(rs.getString(6))); 
+				list.add(t);
+			}	
+			return list;
+		}
+	});
+		
+		return finishedTest;
+	}
 
 	
 }

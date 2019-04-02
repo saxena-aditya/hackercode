@@ -248,6 +248,24 @@
                     				</td>
                     			</tr>
                     		</tbody>
+                    		<c:forEach items="${finishedTest}" var="ftest">
+								<tbody>
+                    			<tr>
+                    				<td>${ ftest.getTestId() }</td>
+                    				<td>60 / 60 / 60</td>
+                    				<td>01-Mar-2018<br>Thursday<br>04:20 AM</td>
+                    				<td>5%</td>
+                    				<td>1</td>
+                    				<td>
+                    					<div class="result-badge-container">
+                    						<div class="result-badge">
+                    							<p>${ ftest.getMarks() }</p>
+                    						</div>
+                    					</div>
+                    				</td>
+                    			</tr>
+                    		</tbody>
+							</c:forEach>
                     	</table>
                     </div>
                     <div class="take-exam-table table-responsive">

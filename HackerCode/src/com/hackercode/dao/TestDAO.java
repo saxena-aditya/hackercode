@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.JsonObject;
 import com.hackercode.structures.Question;
 import com.hackercode.structures.Test;
+import com.hackercode.structures.TestUser;
 import com.hackercode.structures.User;
 
 
@@ -23,4 +24,5 @@ public interface TestDAO {
 	User getUser(String username, HttpServletRequest request);
 	public String getStoredTestData(String data);
 	public List<Test> getAllTest(User u);
+	public List<TestUser> getAllFinishedTest(User u);
 }

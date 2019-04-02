@@ -33,6 +33,7 @@ import com.hackercode.dao.AdminDao;
 import com.hackercode.dao.TestDAO;
 import com.hackercode.structures.Question;
 import com.hackercode.structures.Test;
+import com.hackercode.structures.TestUser;
 import com.hackercode.structures.User;
 
 import net.sf.json.JSONObject;
@@ -162,7 +163,8 @@ public class TestController extends AbstractController{
 				User u = (User)req.getSession().getAttribute("user");
 				System.out.println("USER FROM SESSION"+ u.getFirstName()+u.getEmail()+u.getLastName()+u.getU_id()+u.getU_id());
 				List<Test> tests = testDao.getAllTest(u);
-				return new ModelAndView("admin-dashboard").addObject("tests", tests);
+				List<TestUser> finishedTest = testDao.getAllFinishedTest(u);
+				return new ModelAndView("admin-dashboard").addObject("tests", tests).addObject("finishedTest", finishedTest);
 			}
 		}
 		return new ModelAndView("test-adim-login");
