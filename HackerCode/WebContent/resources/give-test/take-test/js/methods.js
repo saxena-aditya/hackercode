@@ -8,44 +8,47 @@ $(function() {
         "user_id": user_id
     }
 
-    $.ajax({
-        url: test_start_url,
-        type: 'POST',
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify(testInfo),
-        success: function(data) {
-            console.log("SERVER APPROACHED");
-            console.log("data from server", data);
-            
-          //check for previous data to be received
-            let previousTest_duration = data.test_duration;
-            if(data.previous_data) {
-            	console.log("previous data of user is present");
-            	//update the existing object
-            	const previousData = data.previous_data;
-            	console.log("JSON PREVIOUS DATA ",previousData);
-            	previousTest_duration = previousData.timeLeft;
-            	answer_status_store =  Object.assign({},previousData.data);
-            	console.log("data after due to previous data ", data);
-            	console.log("TYPE OF ???" , typeof(answer_status_store))
-            	console.log("previousTESTDURATION ", previousTest_duration);
-            	console.log("answer status store due to previous data ", Object.keys(answer_status_store).length , answer_status_store);
+   function getTestData(){
+        $.ajax({
+            url: test_start_url,
+            type: 'POST',
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(testInfo),
+            success: function(data) {
+                console.log("SERVER APPROACHED");
+                console.log("data from server", data);
+                
+              //check for previous data to be received
+                let previousTest_duration = data.test_duration;
+                if(data.previous_data) {
+                	console.log("previous data of user is present");
+                	//update the existing object
+                	const previousData = data.previous_data;
+                	console.log("JSON PREVIOUS DATA ",previousData);
+                	previousTest_duration = previousData.timeLeft;
+                	answer_status_store =  Object.assign({},previousData.data);
+                	console.log("data after due to previous data ", data);
+                	console.log("TYPE OF ???" , typeof(answer_status_store))
+                	console.log("previousTESTDURATION ", previousTest_duration);
+                	console.log("answer status store due to previous data ", Object.keys(answer_status_store).length , answer_status_store);
+                }
+                
+                //STORING THE RECEIVED DATA FROM SERVER TO VARIABLES
+                const test = {
+                    ...data,
+                    "test_duration": previousTest_duration 
+                };
+                
+                console.log("TEST ..........<><>" , test);
+                startTest(test); //function to initiate test and everything
+            },
+            error: function(a, b, c) {
+                console.log("error occured"); //or whatever
             }
-            
-            //STORING THE RECEIVED DATA FROM SERVER TO VARIABLES
-            const test = {
-                ...data,
-                "test_duration": previousTest_duration 
-            };
-            
-            console.log("TEST ..........<><>" , test);
-            startTest(test); //function to initiate test and everything
-        },
-        error: function(a, b, c) {
-            console.log("error occured"); //or whatever
-        }
-    });
+        });
+    }
+
 
 
     //method that will be called to from ajax request to start and build the test
@@ -305,14 +308,17 @@ $(function() {
         console.log(total_length, n);
 
         if (n === total_length) {
-            //ie the not at the last question of set
+            //ie the last question of set
+        	wasLastSlide = true;
             next.style.display = "none";
             prev.style.display = "inline-block";
         } else if (n === lower_limit_of_length) {
             //ie the first question of set
             next.style.display = "inline-block";
             prev.style.display = "none";
+            wasLastSlide = false;
         } else {
+        	wasLastSlide = false;
             next.style.display = "inline-block";
             prev.style.display = "inline-block";
         }
@@ -411,17 +417,21 @@ $(function() {
         const key = question_sets[current_question_set];
         const index = slideNumber - temp_length;
         //test_store.question_set[key].questions
-        if (isAnswered(tags)) {
-            button.setAttribute('class', 'classic-btn  visited');
-            test_store.question_set[key].questions[index].status = "visited"; //updating the status of button
-            answer_status_store[test_slides[slideNumber].id].status = "visited";
-            console.log("STORE : ", test_slides[slideNumber].id, answer_status_store[test_slides[slideNumber].id], answer_status_store)
-            console.log(answer_status_store);
-        } else {
-            button.setAttribute('class', 'classic-btn  not-answered');
-            test_store.question_set[key].questions[index].status = "not-answered"; //updating the status of button
-            answer_status_store[test_slides[slideNumber].id].status = "not-answered";
+        const temp_status_check = answer_status_store[test_slides[slideNumber].id].status;
+        if( (temp_status_check !== "not-answered" && temp_status_check !== "visited") && !(isSubmitButtionClicked) && !((isSubmitButtionClicked) || (wasLastSlide)) ) {
+        	 return;
         }
+        if (isAnswered(tags)) {
+                 button.setAttribute('class', 'classic-btn  visited');
+                 test_store.question_set[key].questions[index].status = "visited"; //updating the status of button
+                 answer_status_store[test_slides[slideNumber].id].status = "visited";
+                 isSubmitButtionClicked = false;
+        } else {
+                 button.setAttribute('class', 'classic-btn  not-answered');
+                 test_store.question_set[key].questions[index].status = "not-answered";
+                 answer_status_store[test_slides[slideNumber].id].status = "not-answered";
+                 isSubmitButtionClicked = false;
+             }
     }
 
     /* function for review button */
@@ -650,11 +660,14 @@ $(function() {
         addAnsweredOrSkippedClass(currentSlide);
         showPreviousSlide();
     });
+    
     next.addEventListener('click', function(e) {
         e.preventDefault();
+        isSubmitButtionClicked = true;
         addAnsweredOrSkippedClass(currentSlide);
         showNextSlide();
     });
+    
     clear.addEventListener('click', function(e) {
         e.preventDefault();
         clearResponse();
@@ -673,6 +686,14 @@ $(function() {
     	submitTest();
     });
 
+    instruction_button.addEventListener("click", function(e) {
+   	 toggleFullScreen();
+   	 getTestData();
+   	 $("#instructions").hide();
+   	 
+    });
+
+    
     function showNextSlide() {
         showSlide(currentSlide + 1);
     }

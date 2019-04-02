@@ -15,18 +15,16 @@
  let set_btns       =   document.getElementById('question_type');//for showing the set
  let slides         =   undefined;//stores the slides
  let questionNumber =   document.getElementById('question-number');//to access the question number
- let test_id                     =   document.getElementById("test_id").value;// will contain info about test_id
+ let test_id        =   document.getElementById("test_id").value;// will contain info about test_id
  let user_id        =   document.getElementById("user___id").value;// will contain user_id
- console.log("TEST_ID AND USER_ID",test_id , user_id)
  let confirmSubmit  = 	document.getElementById("confirmSubmit");//for confirming submit
  let instruction_button = document.getElementById("inst-btn");
+ let isSubmitButtionClicked = false;
+ let wasLastSlide  = false;
  
- instruction_button.addEventListener("click", function(e) {
-	 toggleFullScreen();
-	 $("#instructions").hide();
-	 
- })
-
+ 
+ 
+ 
 /* main variables */
 let total_exam_duration         =   0 ;//stores the time of exams
 let currentSlide                =   0;//will store the currentSlide info
