@@ -25,4 +25,6 @@ public interface TestDAO {
 	public String getStoredTestData(String data);
 	public List<Test> getAllTest(User u);
 	public List<TestUser> getAllFinishedTest(User u);
+	public Test getTest(int testId);
+	public User getUser(String username);
 }
