@@ -596,11 +596,7 @@ public class TestDAOImpl implements TestDAO{
 		jdbcTemplate.setDataSource(getDataSource());
 
 		String GET_TEST_DETAILS = "SELECT * FROM hc_tests WHERE t_id = ?";
-		Test test = (Test) jdbcTemplate.queryForObject(
-											GET_TEST_DETAILS, 
-											new Object[]{testId}, 
-											new TestMapper()
-										);
+		Test test = (Test) jdbcTemplate.queryForObject(GET_TEST_DETAILS, new Object[]{testId}, new TestMapper());
 		if (test == null)
 			return null;
 		
@@ -612,11 +608,7 @@ public class TestDAOImpl implements TestDAO{
 	public User getUser(String username) {
 		jdbcTemplate.setDataSource(getDataSource());
 		String GET_USER = "SELECT * FROM hc_user_details WHERE ud_username = ?";
-		User user = (User) jdbcTemplate.queryForObject(
-											GET_USER, 
-											new Object[]{username}, 
-											new UserMapper()
-										 );
+		User user = (User) jdbcTemplate.queryForObject(GET_USER, new Object[]{username}, new UserMapper());
 		if (user == null)
 			return null;
 		
