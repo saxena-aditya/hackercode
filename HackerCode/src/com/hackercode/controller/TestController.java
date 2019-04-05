@@ -135,6 +135,31 @@ public class TestController extends AbstractController {
   return testData;
   //return new ModelAndView("test-data").addObject("data", testData);
  }
+ @RequestMapping(value = "/signup", method = RequestMethod.GET)
+ public ModelAndView showSignup(HttpServletRequest req) {
+  return new ModelAndView("signup");
+ }
+
+ @RequestMapping(value = "/signup", method = RequestMethod.POST)
+ public ModelAndView signup(@ModelAttribute("firstName") String fname,
+  @ModelAttribute("lastName") String lname, @ModelAttribute("password") String password,
+  @ModelAttribute("email") String email, @ModelAttribute("username") String username, HttpServletRequest req) {
+  //for sign up
+
+  System.out.println(fname + " " + lname + " " + password + " " + email);
+  req.getSession().setAttribute("isLoggedIn", false);
+  TestDAO testDao = ctx.getBean(TestDAO.class);
+
+  //check if there is user with same name password 
+  if (testDao.getUserWithEmail(email, req).getEmail().equals(email)) {
+   return new ModelAndView("signup").addObject("error", "User Already exists !");
+  }
+
+  //add user to db
+  testDao.saveUser(fname, lname, email, password);
+
+  return new ModelAndView("admin");
+ }
 
  @RequestMapping(value = "/login", method = RequestMethod.POST)
  public ModelAndView login(@ModelAttribute("username") String username,

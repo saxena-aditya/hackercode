@@ -27,4 +27,6 @@ public interface TestDAO {
 	public List<TestUser> getAllFinishedTest(User u);
 	public Test getTest(int testId);
 	public User getUser(String username);
+	public User getUserWithEmail(String email, HttpServletRequest request);
+	public User saveUser(String fname, String lname, String email, String password);
 }

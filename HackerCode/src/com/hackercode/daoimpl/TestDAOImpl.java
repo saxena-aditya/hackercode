@@ -141,6 +141,25 @@ public class TestDAOImpl implements TestDAO {
   return null;
  }
 
+ @Override
+ public User getUserWithEmail(String email, HttpServletRequest request) {
+  jdbcTemplate.setDataSource(getDataSource());
+  String GET_USER = "SELECT * FROM hc_user_details WHERE BINARY ud_email = ?";
+  try {
+   User user = (User) jdbcTemplate.queryForObject(
+    GET_USER, new Object[] {
+     email
+    },
+    new UserMapper());
+   request.getSession().setAttribute("user", user);
+   return user;
+  } catch (Exception e) {
+   System.out.println(e.getMessage());
+  }
+
+  return null;
+ }
+
 
 
  @Override
@@ -615,5 +634,6 @@ public class TestDAOImpl implements TestDAO {
 
   return null;
  }
+
 
 }
