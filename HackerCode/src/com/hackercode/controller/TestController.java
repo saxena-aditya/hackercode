@@ -151,12 +151,14 @@ public class TestController extends AbstractController {
   TestDAO testDao = ctx.getBean(TestDAO.class);
 
   //check if there is user with same name password 
-  if (testDao.getUserWithEmail(email, req).getEmail().equals(email)) {
+  int i = testDao.getUserWithEmail(email, req);
+  if (i == 1) {
+	  System.out.println("<?<?<?<?</< ALREADY EXISTS BITCH<><><><><>");
    return new ModelAndView("signup").addObject("error", "User Already exists !");
   }
 
   //add user to db
-  testDao.saveUser(fname, lname, email, password);
+  testDao.saveUser(username, fname, lname, email, password);
 
   return new ModelAndView("admin");
  }

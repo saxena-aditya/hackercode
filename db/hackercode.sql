@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2019 at 09:26 PM
+-- Generation Time: Apr 07, 2019 at 07:38 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.2.15
 
@@ -321,7 +321,8 @@ CREATE TABLE `hc_user` (
 
 INSERT INTO `hc_user` (`u_id`, `u_username`, `u_password`, `u_role`) VALUES
 (1, 'student', 'cd73502828457d15655bbd7a63fb0bc8', '0'),
-(2, 'admin', '21232f297a57a5a743894a0e4a801fc3', '1');
+(2, 'admin', '21232f297a57a5a743894a0e4a801fc3', '1'),
+(3, 'sudo199', '8d3b82f990a1e59cc4ea3505d8ec0238', '0');
 
 -- --------------------------------------------------------
 
@@ -345,7 +346,8 @@ CREATE TABLE `hc_user_details` (
 
 INSERT INTO `hc_user_details` (`ud_id`, `ud_username`, `ud_firstname`, `ud_lastname`, `ud_institute`, `ud_email`, `ud_role`) VALUES
 (1, 'student', 'Aditya', 'Saxena', 'Graphic Era University', 't@t.com', '0'),
-(2, 'admin', 'Aman', 'Saxena', 'Graphic Era Hill University', 'admin', '1');
+(2, 'admin', 'Aman', 'Saxena', 'Graphic Era Hill University', 'admin', '1'),
+(4, 'sudo199', 'sudipt', 'dabral', NULL, 'sudipt@gmail.com', '0');
 
 -- --------------------------------------------------------
 
@@ -468,13 +470,13 @@ ALTER TABLE `hc_tests`
 -- AUTO_INCREMENT for table `hc_user`
 --
 ALTER TABLE `hc_user`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hc_user_details`
 --
 ALTER TABLE `hc_user_details`
-  MODIFY `ud_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ud_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

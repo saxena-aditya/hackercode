@@ -142,7 +142,7 @@ public class TestDAOImpl implements TestDAO {
  }
 
  @Override
- public User getUserWithEmail(String email, HttpServletRequest request) {
+ public int getUserWithEmail(String email, HttpServletRequest request) {
   jdbcTemplate.setDataSource(getDataSource());
   String GET_USER = "SELECT * FROM hc_user_details WHERE BINARY ud_email = ?";
   try {
@@ -152,12 +152,12 @@ public class TestDAOImpl implements TestDAO {
     },
     new UserMapper());
    request.getSession().setAttribute("user", user);
-   return user;
+   System.out.println("FOUND USER "+user);
+   return 1;
   } catch (Exception e) {
-   System.out.println(e.getMessage());
+   System.out.println("ERRRRRRRRRR"+e.getMessage());
+   return 0;
   }
-
-  return null;
  }
 
 
@@ -635,5 +635,25 @@ public class TestDAOImpl implements TestDAO {
   return null;
  }
 
+ @Override
+ public User saveUser(String username, String fname, String lname, String email, String password) {
+	 jdbcTemplate.setDataSource(getDataSource());
+	 password = getMd5(password);
+	 String SAVE_USER = "INSERT INTO hc_user_details (ud_username, ud_firstname, ud_lastname, ud_email, ud_role) VALUES (?,?,?,?,0)";
+	 String SAVE_USER_2 = "INSERT INTO hc_user (u_username, u_password, u_role) VALUES (?,?,0)";
+	 try {
+		    jdbcTemplate.update(SAVE_USER, new Object[] {
+		    username, fname, lname, email 
+		    });
+		    jdbcTemplate.update(SAVE_USER_2, new Object[] {
+				    username, password 
+				    });
+		    
+		   } catch (Exception e) {
+		    System.out.println(e.getMessage());
+		   }
+	 
+	 return null;
+ }
 
 }
