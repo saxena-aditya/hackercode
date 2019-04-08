@@ -137,28 +137,34 @@ public class TestController extends AbstractController {
  }
  @RequestMapping(value = "/signup", method = RequestMethod.GET)
  public ModelAndView showSignup(HttpServletRequest req) {
-  return new ModelAndView("signup");
+	 TestDAO testDAO = ctx.getBean(TestDAO.class);
+	 List<String> programs = testDAO.getAllPrograms();
+	 for(String p : programs) {
+		 System.out.println("><><>?????? PROGRAM "+p);
+	 }
+  return new ModelAndView("signup").addObject("programs", programs);
  }
 
  @RequestMapping(value = "/signup", method = RequestMethod.POST)
  public ModelAndView signup(@ModelAttribute("firstName") String fname,
   @ModelAttribute("lastName") String lname, @ModelAttribute("password") String password,
-  @ModelAttribute("email") String email, @ModelAttribute("username") String username, HttpServletRequest req) {
+  @ModelAttribute("email") String email, @ModelAttribute("username") String username, @ModelAttribute("course") String course, HttpServletRequest req) {
   //for sign up
 
-  System.out.println(fname + " " + lname + " " + password + " " + email);
+  System.out.println(fname + " " + lname + " " + password + " " + email + " " + course);
   req.getSession().setAttribute("isLoggedIn", false);
   TestDAO testDao = ctx.getBean(TestDAO.class);
 
   //check if there is user with same name password 
-  int i = testDao.getUserWithEmail(email, req);
-  if (i == 1) {
+  int i = testDao.getUserWithEmail(email,username, req);
+  if (i > 0) {
 	  System.out.println("<?<?<?<?</< ALREADY EXISTS BITCH<><><><><>");
-   return new ModelAndView("signup").addObject("error", "User Already exists !");
+	  List<String> programs = testDao.getAllPrograms();
+   return new ModelAndView("signup").addObject("error", "User Already exists !").addObject("programs", programs);
   }
 
   //add user to db
-  testDao.saveUser(username, fname, lname, email, password);
+  testDao.saveUser(username, fname, lname, email, password, course);
 
   return new ModelAndView("admin");
  }

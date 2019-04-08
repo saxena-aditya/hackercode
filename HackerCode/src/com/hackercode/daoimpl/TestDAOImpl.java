@@ -142,18 +142,15 @@ public class TestDAOImpl implements TestDAO {
  }
 
  @Override
- public int getUserWithEmail(String email, HttpServletRequest request) {
+ public int getUserWithEmail(String email,String username, HttpServletRequest request) {
   jdbcTemplate.setDataSource(getDataSource());
-  String GET_USER = "SELECT * FROM hc_user_details WHERE BINARY ud_email = ?";
+  String GET_USER = "SELECT COUNT(*) FROM hc_user_details WHERE BINARY ud_email = ? OR BINARY ud_username = ?";
+  Number count = 0;
   try {
-   User user = (User) jdbcTemplate.queryForObject(
-    GET_USER, new Object[] {
-     email
-    },
-    new UserMapper());
-   request.getSession().setAttribute("user", user);
-   System.out.println("FOUND USER "+user);
-   return 1;
+  count = jdbcTemplate.queryForObject(GET_USER, Integer.class, email, username);
+   System.out.println("FOUND USER "+count.intValue());
+   System.out.println("data: " + count.intValue());
+   return new Integer(count.intValue());
   } catch (Exception e) {
    System.out.println("ERRRRRRRRRR"+e.getMessage());
    return 0;
@@ -636,11 +633,13 @@ public class TestDAOImpl implements TestDAO {
  }
 
  @Override
- public User saveUser(String username, String fname, String lname, String email, String password) {
+ public User saveUser(String username, String fname, String lname, String email, String password, String course) {
 	 jdbcTemplate.setDataSource(getDataSource());
 	 password = getMd5(password);
 	 String SAVE_USER = "INSERT INTO hc_user_details (ud_username, ud_firstname, ud_lastname, ud_email, ud_role) VALUES (?,?,?,?,0)";
 	 String SAVE_USER_2 = "INSERT INTO hc_user (u_username, u_password, u_role) VALUES (?,?,0)";
+	 String GET_PID = "SELECT p_id AS p_id FROM hc_programs WHERE p_name = ?";
+	 String ADD_USER_WITH_PROGRAM = "INSERT INTO hc_user_program (u_email, p_id) VALUES (?,?)";
 	 try {
 		    jdbcTemplate.update(SAVE_USER, new Object[] {
 		    username, fname, lname, email 
@@ -648,6 +647,10 @@ public class TestDAOImpl implements TestDAO {
 		    jdbcTemplate.update(SAVE_USER_2, new Object[] {
 				    username, password 
 				    });
+		    Number p_id = jdbcTemplate.queryForObject(GET_PID, Integer.class, course);
+		    System.out.println("PID RECEIVED :>>>>>>> "+ p_id);
+		    
+		    jdbcTemplate.update(ADD_USER_WITH_PROGRAM, new Object[] { email , p_id});
 		    
 		   } catch (Exception e) {
 		    System.out.println(e.getMessage());
@@ -656,4 +659,26 @@ public class TestDAOImpl implements TestDAO {
 	 return null;
  }
 
+ @Override
+ public List<String> getAllPrograms(){
+	 jdbcTemplate.setDataSource(getDataSource());
+	 String GET_PROGRAMS = "SELECT * FROM  hc_programs";
+	 try {
+		 List<String> programs = jdbcTemplate.query(GET_PROGRAMS, new ResultSetExtractor < List < String >> () {
+			   public List < String > extractData(ResultSet rs) throws SQLException, DataAccessException {
+				    List < String > list = new ArrayList < String > ();
+				    while (rs.next()) {
+				     list.add(rs.getString("p_name"));
+				    }
+				    return list;
+				   }
+				  });
+		 return programs;
+	 }
+	 catch(Exception e) {
+		 e.printStackTrace();
+	 }
+	 return null;
+ }
+ 
 }

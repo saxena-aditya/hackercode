@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -17,7 +18,7 @@
         </div>
         <div class="row clearfix">
           <div class="">
-            <form onsubmit="return formvalidation()" action="/signup" method="post">
+            <form onsubmit="return formvalidation()" action="${pageContext.request.contextPath}/signup" method="post">
               <div class="row clearfix">
                 <div class="col_half">
                   <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
@@ -41,6 +42,19 @@
               </div>
               <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
                 <input type="password" id="cpassword" name="cpassword" placeholder="Re-type Password" required />
+              </div>
+              <div class="col_half">
+ 					<label><span>COURSE</span></label>             
+              </div>
+              
+              <div class="col_half">
+              	<div class="input_field">
+              		<select name="course">
+              			<c:forEach items="${programs}" var="program">
+						     <option value="${ program }">${ program }</option>
+						</c:forEach>
+              		</select> 
+              	</div>
               </div>
               <input class="button" type="submit" value="Register" />
             </form>
