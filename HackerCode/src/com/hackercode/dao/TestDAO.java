@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
+import com.hackercode.structures.Program;
+import com.hackercode.structures.ProgramSpecificTests;
 import com.hackercode.structures.Question;
 import com.hackercode.structures.Test;
 import com.hackercode.structures.TestUser;
@@ -23,11 +25,11 @@ public interface TestDAO {
 	boolean isUser(String username, String password, HttpServletRequest request);
 	User getUser(String username, HttpServletRequest request);
 	public String getStoredTestData(String data);
-	public List<Test> getAllTest(User u);
+	public List<ProgramSpecificTests> getAllTest(User u);
 	public List<TestUser> getAllFinishedTest(User u);
 	public Test getTest(int testId);
 	public User getUser(String username);
 	public int getUserWithEmail(String email,String username, HttpServletRequest request);
 	public User saveUser(String username, String fname, String lname, String email, String password, String course);
-	public List<String> getAllPrograms();
+	public List<Program> getAllPrograms();
 }

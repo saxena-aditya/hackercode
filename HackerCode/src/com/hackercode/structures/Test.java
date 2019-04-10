@@ -10,12 +10,27 @@ public class Test {
 	private String password;
 	private String startTime;
 	private String endTime;
+	private int totalTimeHours;
+	private int totalTimeMinutes;
 	private int totalTime;
 	private String isTimeStrict;
 	private String isAnsShuffle;
+	private String courseCode;
 	private  MultipartFile file;
 	private String filePath;
 	
+	/**
+	 * @return the courseCode
+	 */
+	public String getCourseCode() {
+		return courseCode;
+	}
+	/**
+	 * @param courseCode the courseCode to set
+	 */
+	public void setCourseCode(String courseCode) {
+		this.courseCode = courseCode;
+	}
 	/**
 	 * @return the filePath
 	 */
@@ -125,18 +140,7 @@ public class Test {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-	/**
-	 * @return the totalTime
-	 */
-	public int getTotalTime() {
-		return totalTime;
-	}
-	/**
-	 * @param totalTime the totalTime to set
-	 */
-	public void setTotalTime(int totalTime) {
-		this.totalTime = totalTime;
-	}
+	
 	/**
 	 * @return the isTimeStrict
 	 */
@@ -161,12 +165,35 @@ public class Test {
 	public void setIsAnsShuffle(String isAnsShuffle) {
 		this.isAnsShuffle = isAnsShuffle;
 	}
+
+	public int getTotalTimeHours() {
+		return totalTimeHours;
+	}
 	
+	public void setTotalTimeHours(int totalTimeHours) {
+		this.totalTimeHours = totalTimeHours;
+	}
+	
+	public int getTotalTimeMinutes() {
+		return totalTimeMinutes;
+	}
+	
+	public void setTotalTimeMinutes(int totalTimeMinutes) {
+		this.totalTimeMinutes = totalTimeMinutes;
+	}
+	
+	public int getTotalTime() {
+		return totalTime;
+	}
+	public void setTotalTime(int totalTime) {
+		this.totalTime = totalTime;
+	}
 	public String toString() {
 		return "Admin: " + this.getAdmin()+"\n Name: " + this.getName() + "\n Code: " + this.getCode() + 
 				"\n Start Time: " + this.getStartTime() + "\n End Time: " + this.getEndTime() +
 				"\n isAnsShuffle: " + this.getIsAnsShuffle() + "\n isTimeStrict: " +  
-				this.getIsTimeStrict()+ "\n File: " + this.getFile().getName();
+				this.getIsTimeStrict()+ "\n File: " + this.getFile().getName() + "\n Associated to :" + this.getCourseCode()
+				+ "\n Time(h): " + this.getTotalTimeHours() + "\n Time(min): " + this.getTotalTimeMinutes();
 	}
 	
 	

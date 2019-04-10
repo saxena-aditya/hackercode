@@ -13,6 +13,10 @@ $(document).ready(function() {
         formData.append("password", $("input[name='password']").val());
         formData.append("startTime", $("input[name='startTime']").val());
         formData.append("endTime", $("input[name='endTime']").val());
+        formData.append("totalTimeHours", $("input[name='totalTimeHours']").val());
+        formData.append("totalTimeMinutes", $("input[name='totalTimeMinutes']").val());
+        formData.append("courseCode", $("select[name='courseCode']").val());
+        
         formData.append("totalTime", $("input[name='totalTime']").val());
         formData.append("isTimeStrict", $("input[name='isTimeStrict']:checked").val());
         formData.append("isAnsShuffle", $("input[name='isAnsShuffle']:checked").val());

@@ -1,4 +1,5 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,15 +51,32 @@
                 <div class="card-body">
                   <h4 class="card-title">Test Details</h4>
                   
-                    <form method="post" id="test-form" class="forms-sample" >  
-                    <div class="form-group">
-                      <label for="exampleInputName1">Test Title</label>
-                      <input type="text" class="form-control" name="name" placeholder="Title..." required>
-                      <input type="text" class="form-control" name="testId" value="${ testId }" required style="display:none">
-                      <input type="text" class="form-control" name="admin" value="${ userId }" required style="display:none">
-                      <input type="text" class="form-control" name="filePath" value="filepath" required style="display:none">
-                      
-                    </div>
+                    <form method="post" id="test-form" class="forms-sample" > 
+                    <div class="row">
+                    	<div class="col-md-8">
+                    		 <div class="form-group">
+		                      <label for="exampleInputName1">Test Title</label>
+		                      <input type="text" class="form-control" name="name" placeholder="Title..." required>
+		                      <input type="text" class="form-control" name="testId" value="${ testId }" required style="display:none">
+		                      <input type="text" class="form-control" name="admin" value="${ userId }" required style="display:none">
+		                      <input type="number" class="form-control" name="totalTime" value="0" required style="display:none">
+		                      
+		                      <input type="text" class="form-control" name="filePath" value="filepath" required style="display:none">
+		                    </div>
+                    	</div>
+                    	<div class="col-md-4">
+                    		<div class="form-group">
+                    		<label for="program-name">Associated Program</label>
+	                    		<select name="courseCode" class="form-control" required>
+	                    			<option selected disabled>Choose a Program</option>
+			              			<c:forEach items="${programs}" var="program">
+									     <option value="${ program.programCode }">${ program.programName }</option>
+									</c:forEach>
+			              		</select> 
+		              		</div>
+                    	</div>
+                    </div> 
+                   
                     <div class="row">
                     	<div class="col-md-6">
 	                    	<div class="form-group">
@@ -89,7 +107,10 @@
                     	<div class="col-md-4">
                     		<div class="form-group">
 		                      <label for="exampleInputPassword4">Total Time</label>
-		                      <input type="number" class="form-control" name="totalTime" placeholder="in hours..." required>
+		                      <div class="d-flex">
+			                      <input type="number" class="form-control col-md-5" style="height:100%;" name="totalTimeHours" placeholder="in hours..." required>
+			                      <input type="number" class="form-control col-md-6" style="height:100%;margin-left: 10px !important;" name="totalTimeMinutes" placeholder="in minutes..." required>
+		                      </div>
 		                    </div>
                     	</div>
                     </div>
