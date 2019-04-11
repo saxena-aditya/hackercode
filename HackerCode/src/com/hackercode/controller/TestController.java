@@ -31,6 +31,7 @@ import com.hackercode.dao.TestDAO;
 import com.hackercode.structures.Program;
 import com.hackercode.structures.ProgramSpecificTests;
 import com.hackercode.structures.Question;
+import com.hackercode.structures.Register;
 import com.hackercode.structures.Test;
 import com.hackercode.structures.TestUser;
 import com.hackercode.structures.User;
@@ -148,23 +149,21 @@ public class TestController extends AbstractController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ModelAndView signup(@ModelAttribute("firstName") String fname,
-        @ModelAttribute("lastName") String lname, @ModelAttribute("password") String password,
-        @ModelAttribute("email") String email, @ModelAttribute("username") String username, @ModelAttribute("course") String course, HttpServletRequest req) {
+    public ModelAndView signup(@ModelAttribute("register") Register user, HttpServletRequest req) {
         //for sign up
-
+    	System.out.println("REGISTER CLASS>> "+user);
         req.getSession().setAttribute("isLoggedIn", false);
         TestDAO testDao = ctx.getBean(TestDAO.class);
 
         //check if there is user with same name password 
-        int i = testDao.getUserWithEmail(email, username, req);
+        int i = testDao.getUserWithEmail(user.getEmail(), user.getUsername(), req);
         if (i > 0) {
             List < Program > programs = testDao.getAllPrograms();
             return new ModelAndView("signup").addObject("error", "User Already exists !").addObject("programs", programs);
         }
 
         //add user to db
-        testDao.saveUser(username, fname, lname, email, password, course);
+        testDao.saveUser(user);
 
         return new ModelAndView("admin");
     }

@@ -22,12 +22,12 @@
               <div class="row clearfix">
                 <div class="col_half">
                   <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                    <input type="text" id="firstName" name="firstName" placeholder="First Name" />
+                    <input type="text" id="firstName" name="fName" placeholder="First Name" />
                   </div>
                 </div>
                 <div class="col_half">
                   <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                    <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+                    <input type="text" id="lastName" name="lName" placeholder="Last Name" required />
                   </div>
                 </div>
               </div>
@@ -47,11 +47,11 @@
  					<label><span>COURSE</span></label>             
               </div>
               
-              <div class="col_half">
+            <div class="col_half">
               	<div class="input_field">
-              		<select name="course">
+              		<select name="course" class="input_field">
               			<c:forEach items="${programs}" var="program">
-						     <option value="${ program }">${ program }</option>
+						     <option value="${ program.programCode }">${ program.programName }</option>
 						</c:forEach>
               		</select> 
               	</div>
