@@ -49,7 +49,7 @@
               
             <div class="col_half">
               	<div class="input_field">
-              		<select name="course" class="input_field">
+              		<select name="course" class="input_field" multiple>
               			<c:forEach items="${programs}" var="program">
 						     <option value="${ program.programCode }">${ program.programName }</option>
 						</c:forEach>

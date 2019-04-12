@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -152,6 +153,17 @@ public class TestController extends AbstractController {
     public ModelAndView signup(@ModelAttribute("register") Register user, HttpServletRequest req) {
         //for sign up
     	System.out.println("REGISTER CLASS>> "+user);
+    	if(user.getCourse().indexOf(',') >=0 ) {
+    		//ie multiple courses selected
+    		String strArray[] = user.getCourse().split(",");
+    		user.setPrograms(strArray);
+    		System.out.println("REGISTER CLASS AFTER THE MULTIPLE>> "+user);
+    	} else{
+    		String strArray[] = user.getCourse().split(" ");
+    		user.setPrograms(strArray);
+    		System.out.println("REGISTER CLASS AFTER THE SINGLE>> "+user);
+    	};
+  
         req.getSession().setAttribute("isLoggedIn", false);
         TestDAO testDao = ctx.getBean(TestDAO.class);
 
@@ -242,11 +254,11 @@ public class TestController extends AbstractController {
 
     @RequestMapping(value = "/get-result", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public JsonObject setTestResult(@RequestBody String json) {
+    public JsonObject setTestResult(@RequestBody String json,HttpServletRequest req) {
         TestDAO testDAO = ctx.getBean(TestDAO.class);
         //System.out.println("????" + json);
 
-        JsonObject result = testDAO.makeAnswerSheet(json);
+        JsonObject result = testDAO.makeAnswerSheet(json,req);
         //now we can show this to him
         System.out.println("RESULT ON MODEL AND VIEW" + result);
         return result;

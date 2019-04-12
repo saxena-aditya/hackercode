@@ -21,7 +21,7 @@ public interface TestDAO {
 	public boolean saveTest(Test test) throws IOException;
 	public boolean saveQuestions(int testId, Question q);
 	public String getTestData(int testIdentifier, String test_id, String user_id);
-	public JsonObject makeAnswerSheet(String data);
+	public JsonObject makeAnswerSheet(String data,HttpServletRequest request);
 	boolean saveFile(int testId, MultipartFile file) throws IOException;
 	boolean isUser(String username, String password, HttpServletRequest request);
 	User getUser(String username, HttpServletRequest request);

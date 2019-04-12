@@ -9,6 +9,14 @@ public class Register {
 	private String email; 
 	private String password;
 	private String course;
+	private String []programs;
+	
+	public String[] getPrograms() {
+		return programs;
+	}
+	public void setPrograms(String[] programs) {
+		this.programs = programs;
+	}
 	public String getfName() {
 		return fName;
 	}
@@ -48,7 +56,7 @@ public class Register {
 	@Override
 	public String toString() {
 		return "Register [fName=" + fName + ", lName=" + lName + ", username=" + username + ", email=" + email
-				+ ", password=" + password + ", course=" + course + "]";
+				+ ", password=" + password + ", course=" + course + ", programs=" + Arrays.toString(programs) + "]";
 	}
-	
+
 }
