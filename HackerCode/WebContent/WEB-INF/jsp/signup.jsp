@@ -49,9 +49,9 @@
               
               <div class="col_half">
               	<div class="input_field">
-              		<select name="course">
+              		<select name="course" class="input_field">
               			<c:forEach items="${programs}" var="program">
-						     <option value="${ program }">${ program }</option>
+						     <option value="${ program.programCode }">${ program.programName }</option>
 						</c:forEach>
               		</select> 
               	</div>

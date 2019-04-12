@@ -509,28 +509,8 @@ public class TestDAOImpl implements TestDAO {
         JsonObject testInfo = job.getAsJsonObject("test-info");
         TestInfoFromClient testData = gson.fromJson(testInfo, TestInfoFromClient.class);
         String testIdentifier = testData.getId();
-        List < Question > questions = jdbcTemplate.query("SELECT * FROM hc_questions WHERE q_test_id = ?", new Object[] {
-            testIdentifier
-        }, new ResultSetExtractor < List < Question >> () {
-            public List < Question > extractData(ResultSet rs) throws SQLException, DataAccessException {
-                List < Question > list = new ArrayList < Question > ();
-                while (rs.next()) {
-                    Question q = new Question();
-                    q.setQuestionId(rs.getInt(1));
-                    q.setTestId(rs.getInt(2));
-                    q.setQuestionSet(rs.getString(3));
-                    q.setQuestionTag(rs.getString(4));
-                    q.setQuestionType(rs.getString(5));
-                    q.setQuestionContent(rs.getString(6));
-                    q.setQuestionMaxMarks(rs.getInt(7));
-                    q.setQuestionNegMarks(rs.getInt(8));
-                    q.setQuestionOptions(rs.getString(9));
-                    q.setQuestionAns(rs.getString(10));
-                    list.add(q);
-                }
-                return list;
-            }
-        });
+        List < Question > questions = getQuestionsForTest(testIdentifier);
+        
         for (Question q: questions) {
             for (Map.Entry < String, JsonElement > entry: entries) {
                 JsonObject temp = ovl.getAsJsonObject(entry.getKey());
@@ -559,7 +539,34 @@ public class TestDAOImpl implements TestDAO {
 
         return res;
     }
-    //getting all test
+    @Override
+    public List<Question> getQuestionsForTest(String testIdentifier) {
+    	jdbcTemplate.setDataSource(getDataSource());
+    	List < Question > questions = jdbcTemplate.query("SELECT * FROM hc_questions WHERE q_test_id = ?", new Object[] {
+                testIdentifier
+            }, new ResultSetExtractor < List < Question >> () {
+                public List < Question > extractData(ResultSet rs) throws SQLException, DataAccessException {
+                    List < Question > list = new ArrayList < Question > ();
+                    while (rs.next()) {
+                        Question q = new Question();
+                        q.setQuestionId(rs.getInt(1));
+                        q.setTestId(rs.getInt(2));
+                        q.setQuestionSet(rs.getString(3));
+                        q.setQuestionTag(rs.getString(4));
+                        q.setQuestionType(rs.getString(5));
+                        q.setQuestionContent(rs.getString(6));
+                        q.setQuestionMaxMarks(rs.getInt(7));
+                        q.setQuestionNegMarks(rs.getInt(8));
+                        q.setQuestionOptions(rs.getString(9));
+                        q.setQuestionAns(rs.getString(10));
+                        list.add(q);
+                    }
+                    return list;
+                }
+            });
+    	return questions;
+	}
+	//getting all test
     @Override
     public List<ProgramSpecificTests> getAllTest(User user) {
         jdbcTemplate.setDataSource(getDataSource());
@@ -702,5 +709,38 @@ public class TestDAOImpl implements TestDAO {
         }
         return null;
     }
+    
+    // return all tests that were created by the Admin
+	@Override
+	public List<ProgramSpecificTests> getAllTestsByAdmin(User u) {
+		jdbcTemplate.setDataSource(getDataSource());
+		//String username = u.getEmail();
+		String username = "admin";
+		List< ProgramSpecificTests > tests = null;
+		String GET_TESTS_BY_ADMIN = "SELECT * FROM hc_tests WHERE t_user_id = ?";
+		
+		tests = jdbcTemplate.query(GET_TESTS_BY_ADMIN, new Object[] {username}, new ResultSetExtractor < List < ProgramSpecificTests >> () {
+	            public List < ProgramSpecificTests > extractData(ResultSet rs) throws SQLException, DataAccessException {
+	                List < ProgramSpecificTests > list = new ArrayList < ProgramSpecificTests > ();
+	                while (rs.next()) {
+	                	ProgramSpecificTests t = new ProgramSpecificTests();
+	                    t.setTestId(rs.getString("t_id"));
+	                    t.setName(rs.getString("t_name"));
+	                    t.setCode(rs.getString("t_test_code"));
+	                    t.setCourseCode(rs.getString("t_associated_program"));
+	                   // t.setCourseName(rs.getString("p_name"));
+	                    t.setStartTime(rs.getString("t_start_time"));
+	                    t.setEndTime(rs.getString("t_end_time"));
+	                    t.setTotalTime(rs.getInt("t_total_time"));
+	                    t.setIsTimeStrict(rs.getString("t_is_time_strict"));
+	                    
+	                    list.add(t);
+	                }
+	                return list;
+	            }
+	        });
+		// TODO Auto-generated method stub
+		return tests;
+	}
 
 }

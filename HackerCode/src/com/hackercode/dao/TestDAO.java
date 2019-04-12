@@ -32,4 +32,6 @@ public interface TestDAO {
 	public int getUserWithEmail(String email,String username, HttpServletRequest request);
 	public User saveUser(String username, String fname, String lname, String email, String password, String course);
 	public List<Program> getAllPrograms();
+	public List<ProgramSpecificTests> getAllTestsByAdmin(User u);
+	public List<Question> getQuestionsForTest(String testIdentifier); 
 }

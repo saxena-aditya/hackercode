@@ -11,9 +11,80 @@
 <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/give-test/take-test/css/test-ui.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/give-test/take-test/css/instruction-ui.css">
+
 <body>
 <div id="instructions">
-	<button id="inst-btn">Go Full Screen</button>
+	 <div class="layout-container">
+            <div class="gray-full-container challenge">
+                <div class="about-fold">
+                    <div class="about-container row">
+                        <div class="left-section col-md-8">
+                            <div class="section">
+                                <div class="head-container">
+                                    <h2 class="dark weight-700 regular caps head">Accessing your online Exam</h2>
+                                </div>
+                                <div class="section-desc regular dark">
+                                    <li>
+                                        This is a test of <span>2 hours</span>
+                                        duration.
+                                    </li>
+                                    <li>Total number of question is 50. You will get +3 for every right answer</li>
+                                    <li>Please read the insructions carefully</li>
+                                </div>
+                            </div>
+                            <div class="section">
+                                <div class="head-container">
+                                    <h2 class="dark weight-700 regular caps head">In Case of network Interuption</h2>
+                                </div>
+                                <div id="instructions-short-desc" class="section-desc regular dark">
+                                    <li>For the programming question, you can choose any language from the given list and attempt.</li>
+                                    <li>Reconnect to the Internet and log back into Blackboard.</li>
+                                    <li>Follow your original instructions to access the exam login page.</li>
+                                    <li>Ask your proctor to re-enter the Username and Password, then select the checkbox "Show list of unfinished exams, only select to re-enter an exam already in progress.;This will enable you to resume taking the exam, close to the point before the interruption occurred.</li>
+                                    <li>Have your Proctor enter the Username and Password provided in the email from The College and click enter.</li>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 left-section">
+                        	 <div class="section">
+                                <div class="head-container">
+                                    <h2 class="dark weight-700 regular caps head">Know your Buttons</h2>
+                                </div>
+                                
+                                <div class="row">
+                                	<div class="col-md-6">
+                                		<button class="btn-triangle">1</button>
+                                	</div>
+                                	<div class="col-md-6">
+                                		<button class="btn-penta">1</button>
+                                	</div>
+                                	<div class="col-md-6">4</div>
+                                	<div class="col-md-6">5</div>
+                                </div>
+                                
+                                
+                            </div>
+                        	<div class="top-banner">
+                        		<div class="policy-box">
+                        			<div class="d-flex policy-box">
+                        				<div class="box">
+                        					<input type="checkbox" name="policy-control">
+                        				</div>
+                        				<div class="policy">
+                        					I agree with the terms and conditions.
+                        				</div>
+                        			</div>
+                        		</div>
+                                <button class="btn btn-success btn-sm" id="inst-btn" >
+                                	Ready? Launch!
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
     <div class="container-fluid" id="test-area">
         <button id="f-screen"><i class="fa fa-arrows-alt"></i>full screen</button>

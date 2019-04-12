@@ -1,6 +1,7 @@
 package com.hackercode.controller;
 
 import java.io.File;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,9 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.hackercode.dao.TestDAO;
 import com.hackercode.structures.Program;
 import com.hackercode.structures.ProgramSpecificTests;
@@ -245,7 +244,6 @@ public class TestController extends AbstractController {
     @ResponseBody
     public JsonObject setTestResult(@RequestBody String json) {
         TestDAO testDAO = ctx.getBean(TestDAO.class);
-        //System.out.println("????" + json);
 
         JsonObject result = testDAO.makeAnswerSheet(json);
         //now we can show this to him
@@ -267,6 +265,32 @@ public class TestController extends AbstractController {
         TestDAO testDAO = ctx.getBean(TestDAO.class);
         testDAO.getStoredTestData(json);
     }
+    
+    @RequestMapping(value = "/tests", method = RequestMethod.GET)
+    public ModelAndView showTests(HttpServletRequest req) {
+    	TestDAO testDao = ctx.getBean(TestDAO.class);
+    	//User user = (User) req.getSession().getAttribute("user");
+    	User user = new User();
+    	List < ProgramSpecificTests > tests = testDao.getAllTestsByAdmin(user);
+    	
+    	return new ModelAndView("test-admin-dashboard-tests").addObject("tests", tests);
+    }
+    
+    @RequestMapping(value = "/get-questions-for-test/{testId}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public String getQuestions(@PathVariable String testId, HttpServletRequest req) {
+    	TestDAO testDao = ctx.getBean(TestDAO.class);
+    	List < Question > questions = null;
+    	String jsonStr = null;
+    	if (testId.length() > 0) {
+    		 questions = testDao.getQuestionsForTest(testId);
+    		 Gson gson = new Gson();
+    		 jsonStr = gson.toJson(questions);
+    	}
+    	return jsonStr;
+    }
+    
+    
 
     @Override
     public ModelAndView handleRequest(HttpServletRequest request,

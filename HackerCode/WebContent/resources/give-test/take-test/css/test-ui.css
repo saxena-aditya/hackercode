@@ -1,6 +1,7 @@
 body {
     font-family: 'Karla', sans-serif !important;
     height: 100vh;
+    background: #eaeaea;
 }
 
 .container-fluid{
@@ -53,7 +54,7 @@ footer{
 }
 
 .bg-grey {
-    background-color: #c3bcbc21 !important;
+    background-color: #eaeaea !important;
 }
 
 .tag {

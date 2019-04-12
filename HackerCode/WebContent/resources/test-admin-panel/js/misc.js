@@ -54,4 +54,45 @@
       $(".purchace-popup").slideToggle();
     });
   });
+  
+  $(document).on("click", "a", function(event) {
+	  var id = event.target.id.split("-");
+	  if (id[0] === "question" && id[1] === "get") {
+		  var testId = id[2];
+		  var preActiveId = 0;
+		  $.ajax({
+			  type: 'GET',
+			  url: 'get-questions-for-test/' + testId,
+			  beforeSend: function() {
+				 
+				  $("tr").each(function(){
+					  console.log($(this));
+					   if ($(this)[0].id === ("label-"+testId)) {
+						   $(this).addClass("table-success");
+					   }
+					   else {
+						   if ($(this).hasClass("table-success")) {
+							   $(this).removeClass("table-success");
+						   }
+					   }
+				  });
+				 
+			  },
+			  success: function(data) {
+				  console.log(data);
+				  var str = "";
+				  data.forEach(function(val, i) {
+					  str += "<tr><td>"+val.questionContent.substring(0, 45)+"..."+"</td>"+
+					  "<td>"+val.questionSet+"</td></tr>";
+				  })
+				  $("#test-questions").html(str);
+				  
+			  },
+			  error: function(a,b,c) {
+				  alert('error');
+			  }
+		  })
+	  }
+	  
+  })
 })(jQuery);

@@ -1,0 +1,1911 @@
+#gdpr-modal {
+    position: absolute;
+    bottom: 0;
+}
+
+#gdpr-modal-content {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#gdpr-modal-content .modal-header {
+    font-size: 23px;
+    font-weight: 400;
+}
+
+#gdpr-modal-content .modal-footer {
+}
+
+#gdpr-modal-content .modal-content {
+    font-size: 16px;
+    line-height: 22px;
+}
+
+#gdpr-modal-content .modal-footer .checkbox-row {
+    font-size: 16px;
+    display: inline-flex;
+}
+
+#gdpr-modal-content a {
+    color: #0099ff;
+}
+
+#gdpr-modal-content .button.disabled {
+    background: #f5f6f6 ;
+}
+
+.challenge .dropdown_icon_down:before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    transform: rotate(45deg);
+    display: block;
+    position: absolute;
+    bottom: -5px;
+    z-index: -1;
+    left: 22px
+}
+
+.challenge .dropdown_icon_up:before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    transform: rotate(45deg);
+    display: block;
+    position: absolute;
+    top: -5px;
+    z-index: -1;
+    left: 22px
+}
+
+.challenge .top-cover {
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+    position: relative
+}
+
+html.ie8 .challenge .top-cover,html.ie7 .challenge .top-cover,html.ie6 .challenge .top-cover {
+    border: 2px solid
+}
+
+.challenge .top-cover .banner-image {
+    height: auto;
+    padding-top: 22%;
+    background-size: cover!important;
+    background-position: center!important
+}
+
+.challenge .top-cover .banner-image #particle-js-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    top: 0
+}
+
+.challenge .top-cover .banner-image.default-cover {
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(0,0,0,0.3)),color-stop(60%,rgba(0,0,0,0.4)),color-stop(100%,#000)),url("images/coverTexture.png") repeat;
+    background: -webkit-linear-gradient(center top,rgba(0,0,0,0.3) 0,rgba(0,0,0,0.4) 60%,#000 100%),url("images/coverTexture.png") repeat;
+    background: -moz-linear-gradient(center top,rgba(0,0,0,0.3) 0,rgba(0,0,0,0.4) 60%,#000 100%),url("images/coverTexture.png") repeat;
+    background: -o-linear-gradient(center top,rgba(0,0,0,0.3) 0,rgba(0,0,0,0.4) 60%,#000 100%),url("images/coverTexture.png") repeat;
+    background: filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=rgba(0,0,0,0.3) 0,endColorstr=rgba(0,0,0,0.4) 60%);
+    ,url("images/coverTexture.png") repeat}
+
+.challenge .top-cover .banner-image.company-banner-image {
+    padding-top: 33%
+}
+
+.challenge .top-cover .banner-image.sponsored-banner {
+    padding-top: 0;
+    min-height: 360px;
+    overflow: hidden
+}
+
+.challenge .top-cover .banner-image.sponsored-banner:before {
+    content: "";
+    width: 0;
+    display: block;
+    padding-top: 45%;
+    float: left
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .top-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding-bottom: 60px;
+    box-sizing: border-box
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .top-container .helper {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .addthisevent_dropdown {
+    font-size: 12px;
+    width: 120px;
+    color: #4c9cdf
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .event-title {
+    margin: 0;
+    color: #fff;
+    font-size: 48px;
+    font-weight: 300
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .details-container {
+    font-size: 16px;
+    margin: 10px 0 20px
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .banner-buttons .reg-btn-sponsored {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0;
+    margin-right: 20px;
+    line-height: 50px;
+    font-size: 16px;
+    width: 250px;
+    height: 50px;
+    font-weight: 600;
+    font-family: 'Open Sans',sans-serif
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .banner-buttons .disabled {
+    background-color: rgba(229,231,232,0.7)
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .right-container {
+    float: right;
+    margin-top: 120px;
+    margin-bottom: 60px;
+    background: #fff;
+    padding: 0 10px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+    text-align: center;
+    width: 130px;
+    box-sizing: border-box;
+    position: relative;
+    right: -130px
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .right-container .prize {
+    margin: 20px 0
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .right-container .prize .prize-rank {
+    margin: 0;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .right-container .prize .prize-rank sup {
+    vertical-align: text-top;
+    font-size: 10px
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .right-container .prize .prize-description p,.challenge .top-cover .banner-image.sponsored-banner .right-container .prize .prize-value {
+    margin: 0;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .right-container .prize img {
+    max-width: 80px;
+    max-height: 80px;
+    margin-top: 5px
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .bottom-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-sizing: border-box
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .bottom-container .sponsored-by {
+    margin: 0;
+    padding: 0 0 20px
+}
+
+.challenge .top-cover .banner-image.sponsored-banner .bottom-container .sponsored-by img {
+    background: #fff;
+    height: 40px;
+    padding: 3px;
+    vertical-align: middle;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-left: 10px;
+    box-sizing: border-box
+}
+
+.challenge .top-cover .event-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative
+}
+
+.challenge .top-cover .event-container .add-calendar-event {
+    position: absolute
+}
+
+.challenge .top-cover .event-container .add-calendar-event .calendar-icon {
+    color: #4c9cdf;
+    font-size: 14px
+}
+
+.challenge .top-cover .event-container .add-calendar-event .calendar-plus-icon {
+    color: #f49020;
+    font-size: 10px;
+    left: 3px;
+    top: -6px
+}
+
+.challenge .top-cover .event-container .add-calendar-event .addthisevent_dropdown {
+    width: 120px;
+    font-size: 12px;
+    z-index: 2
+}
+
+.challenge .top-cover .event-container .add-calendar-event-helper {
+    padding: 0 20px
+}
+
+.challenge .top-cover .event-container .author-tester {
+    margin: 0;
+    color: #fff;
+    top: -25px;
+    position: absolute;
+    font-size: 12px;
+    padding-right: 15px;
+    right: 0
+}
+
+.challenge .top-cover .event-container .author-tester.author-tester-mob {
+    display: none
+}
+
+.challenge .top-cover .event-container .author-tester span b {
+    font-weight: 700
+}
+
+.challenge .top-cover .event-container .author-tester a {
+    color: #fff
+}
+
+.challenge .top-cover .event-container .company-img {
+    position: relative;
+    bottom: 35px;
+    width: 120px;
+    float: left;
+    height: 120px;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px;
+    box-sizing: border-box;
+    z-index: 99
+}
+
+html.ie8 .challenge .top-cover .event-container .company-img,html.ie7 .challenge .top-cover .event-container .company-img,html.ie6 .challenge .top-cover .event-container .company-img {
+    border: 2px solid
+}
+
+.challenge .top-cover .event-container .company-img .helper {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%
+}
+
+.challenge .top-cover .event-container .company-img img {
+    max-width: 110px;
+    max-height: 110px;
+    display: inline-block;
+    vertical-align: middle
+}
+
+.challenge .top-cover .event-container .event-timings-container,.challenge .top-cover .event-container .event-register-container {
+    float: right;
+    position: relative
+}
+
+.challenge .top-cover .event-container .event-timings-container.scrolling-enable .event-timings .challenge-app-right-block,.challenge .top-cover .event-container .event-register-container.scrolling-enable .event-timings .challenge-app-right-block {
+    opacity: 0;
+    height: 0;
+    transition: 500ms
+}
+
+.challenge .top-cover .event-container .event-timings-container.scrolling-enable .event-timings.scrolling,.challenge .top-cover .event-container .event-register-container.scrolling-enable .event-timings.scrolling,.challenge .top-cover .event-container .event-timings-container.scrolling-enable .event-timings.scrolled,.challenge .top-cover .event-container .event-register-container.scrolling-enable .event-timings.scrolled {
+    position: fixed;
+    top: 40px;
+    right: 0;
+    left: inherit;
+    bottom: inherit;
+    width: 280px;
+    z-index: 1
+}
+
+.challenge .top-cover .event-container .event-timings-container.scrolling-enable .event-timings.scrolling .challenge-app-right-block,.challenge .top-cover .event-container .event-register-container.scrolling-enable .event-timings.scrolling .challenge-app-right-block,.challenge .top-cover .event-container .event-timings-container.scrolling-enable .event-timings.scrolled .challenge-app-right-block,.challenge .top-cover .event-container .event-register-container.scrolling-enable .event-timings.scrolled .challenge-app-right-block {
+    opacity: 1;
+    height: auto
+}
+
+.challenge .top-cover .event-container .event-timings-container.scrolling-enable .event-timings.scrolled,.challenge .top-cover .event-container .event-register-container.scrolling-enable .event-timings.scrolled {
+    position: absolute
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .successfully-reg,.challenge .top-cover .event-container .event-register-container .event-buttons .successfully-reg,.challenge .top-cover .event-container .event-timings-container .event-timings .successfully-reg,.challenge .top-cover .event-container .event-register-container .event-timings .successfully-reg {
+    background: #73b369;
+    margin: 0;
+    padding: 10px 15px;
+    color: #fff;
+    font-size: 16px
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .successfully-reg .fa,.challenge .top-cover .event-container .event-register-container .event-buttons .successfully-reg .fa,.challenge .top-cover .event-container .event-timings-container .event-timings .successfully-reg .fa,.challenge .top-cover .event-container .event-register-container .event-timings .successfully-reg .fa {
+    font-size: 20px;
+    vertical-align: text-bottom
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .start-training,.challenge .top-cover .event-container .event-register-container .event-buttons .start-training,.challenge .top-cover .event-container .event-timings-container .event-timings .start-training,.challenge .top-cover .event-container .event-register-container .event-timings .start-training {
+    margin: 0;
+    padding: 10px 12px;
+    font-size: 14px
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .start-training-btn,.challenge .top-cover .event-container .event-register-container .event-buttons .start-training-btn,.challenge .top-cover .event-container .event-timings-container .event-timings .start-training-btn,.challenge .top-cover .event-container .event-register-container .event-timings .start-training-btn {
+    margin: 5px auto 20px;
+    display: block;
+    width: 140px;
+    padding: 7px
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .timing,.challenge .top-cover .event-container .event-register-container .event-buttons .timing,.challenge .top-cover .event-container .event-timings-container .event-timings .timing,.challenge .top-cover .event-container .event-register-container .event-timings .timing {
+    margin: 0;
+    padding: 16px 15px;
+    border-top: 1px dashed #e5e7e8;
+    text-transform: uppercase
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .timing.no-border,.challenge .top-cover .event-container .event-register-container .event-buttons .timing.no-border,.challenge .top-cover .event-container .event-timings-container .event-timings .timing.no-border,.challenge .top-cover .event-container .event-register-container .event-timings .timing.no-border {
+    border: 0
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .timing .timing-title,.challenge .top-cover .event-container .event-register-container .event-buttons .timing .timing-title,.challenge .top-cover .event-container .event-timings-container .event-timings .timing .timing-title,.challenge .top-cover .event-container .event-register-container .event-timings .timing .timing-title {
+    min-width: 80px;
+    display: inline-block
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .reg-btn,.challenge .top-cover .event-container .event-register-container .event-buttons .reg-btn,.challenge .top-cover .event-container .event-timings-container .event-timings .reg-btn,.challenge .top-cover .event-container .event-register-container .event-timings .reg-btn {
+    width: 90%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: block;
+    padding: 15px 20px;
+    margin-bottom: 20px
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .reg-btn.multiple-btn,.challenge .top-cover .event-container .event-register-container .event-buttons .reg-btn.multiple-btn,.challenge .top-cover .event-container .event-timings-container .event-timings .reg-btn.multiple-btn,.challenge .top-cover .event-container .event-register-container .event-timings .reg-btn.multiple-btn {
+    width: 120px;
+    float: left;
+    margin: 10px 10px 20px;
+    font-size: 14px;
+    padding: 10px 5px
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .btn-light-green,.challenge .top-cover .event-container .event-register-container .event-buttons .btn-light-green,.challenge .top-cover .event-container .event-timings-container .event-timings .btn-light-green,.challenge .top-cover .event-container .event-register-container .event-timings .btn-light-green {
+    background: #9c0
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .btn-light-green:hover,.challenge .top-cover .event-container .event-register-container .event-buttons .btn-light-green:hover,.challenge .top-cover .event-container .event-timings-container .event-timings .btn-light-green:hover,.challenge .top-cover .event-container .event-register-container .event-timings .btn-light-green:hover {
+    background: #9b0
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-timings,.challenge .top-cover .event-container .event-register-container .event-timings {
+    -webkit-box-shadow: 0 0 1px 0 #9ca3a8;
+    -moz-box-shadow: 0 0 1px 0 #9ca3a8;
+    box-shadow: 0 0 1px 0 #9ca3a8;
+    position: absolute;
+    bottom: 0;
+    background-color: #fff;
+    left: 0;
+    width: 100%
+}
+
+html.ie8 .challenge .top-cover .event-container .event-timings-container .event-timings,html.ie8 .challenge .top-cover .event-container .event-register-container .event-timings,html.ie7 .challenge .top-cover .event-container .event-timings-container .event-timings,html.ie7 .challenge .top-cover .event-container .event-register-container .event-timings,html.ie6 .challenge .top-cover .event-container .event-timings-container .event-timings,html.ie6 .challenge .top-cover .event-container .event-register-container .event-timings {
+    border: 2px solid
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-timings.finished-timings .timing,.challenge .top-cover .event-container .event-register-container .event-timings.finished-timings .timing {
+    height: 26px
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-timings.finished-timings .timing .timing-title,.challenge .top-cover .event-container .event-register-container .event-timings.finished-timings .timing .timing-title {
+    font-size: 13px;
+    min-width: 70px;
+    line-height: 26px;
+    color: #e5e7e8
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-timings.finished-timings .timing .timing-text,.challenge .top-cover .event-container .event-register-container .event-timings.finished-timings .timing .timing-text {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 26px;
+    color: #e5e7e8
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons,.challenge .top-cover .event-container .event-register-container .event-buttons {
+    width: 200px;
+    margin-right: 80px
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .reg-btn-non-hiring,.challenge .top-cover .event-container .event-register-container .event-buttons .reg-btn-non-hiring {
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: block;
+    padding: 0;
+    line-height: 50px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    width: 100%;
+    height: 50px;
+    font-weight: 600;
+    font-family: 'Open Sans',sans-serif
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .top-spacing-75,.challenge .top-cover .event-container .event-register-container .event-buttons .top-spacing-75 {
+    margin-top: 75px
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .top-spacing-40,.challenge .top-cover .event-container .event-register-container .event-buttons .top-spacing-40 {
+    margin-top: 40px
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons .successfully-registered,.challenge .top-cover .event-container .event-register-container .event-buttons .successfully-registered {
+    margin-top: 45px
+}
+
+.challenge .top-cover .event-container .event-timings-container .event-buttons-lang,.challenge .top-cover .event-container .event-register-container .event-buttons-lang {
+    width: 240px
+}
+
+.challenge .top-cover .event-container .event-timings-container {
+    width: 280px;
+    height: 176px
+}
+
+.challenge .top-cover .event-container .event-timings-container .challenge-block-background {
+    background: #f3f3f3;
+    -webkit-box-shadow: 0 3px 0 1px #f3f3f3;
+    -moz-box-shadow: 0 3px 0 1px #f3f3f3;
+    box-shadow: 0 3px 0 1px #f3f3f3
+}
+
+html.ie8 .challenge .top-cover .event-container .event-timings-container .challenge-block-background,html.ie7 .challenge .top-cover .event-container .event-timings-container .challenge-block-background,html.ie6 .challenge .top-cover .event-container .event-timings-container .challenge-block-background {
+    border: 2px solid
+}
+
+.challenge .top-cover .event-container .event-timings-container .challenge-app-right-block {
+    float: right;
+    width: 280px;
+    box-sizing: border-box;
+    border-top: 1px solid #e5e7e8
+}
+
+.challenge .top-cover .event-container .event-timings-container .challenge-app-right-block .title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 0;
+    border-bottom: 1px dashed rgba(156,163,168,0.4);
+    line-height: 27px;
+    text-transform: uppercase;
+    color: #9ca3a8;
+    padding: 5px 10px;
+    margin-bottom: -1px;
+    padding-top: 20px
+}
+
+.challenge .top-cover .event-container .event-timings-container .challenge-app-right-block .app-section {
+    padding: 0 10px;
+    margin-top: 15px
+}
+
+.challenge .top-cover .event-container .event-timings-container .challenge-app-right-block .app-section p {
+    margin: 0;
+    font-size: 13px
+}
+
+.challenge .top-cover .event-container .event-timings-container .challenge-app-right-block .app-section img {
+    max-width: 100px
+}
+
+.challenge .top-cover .event-container .event-details-container {
+    padding-left: 30px;
+    display: block;
+    overflow: hidden
+}
+
+.challenge .top-cover .event-container .event-details-container .event-title {
+    font-weight: 400;
+    font-size: 28px;
+    margin: 20px 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.challenge .top-cover .event-container .event-details-container .event-title .rated-event {
+    font-size: 10px;
+    font-weight: 600;
+    color: #f49020;
+    background: rgba(229,231,232,0.4);
+    padding: 2px 5px;
+    vertical-align: middle;
+    margin-left: 5px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-loc .fa,.challenge .top-cover .event-container .event-details-container .event-participation .fa {
+    font-size: 14px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-live {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 8px;
+    cursor: default
+}
+
+.challenge .top-cover .event-container .event-details-container .event-details {
+    margin-top: 13px;
+    border-top: 1px dashed #e5e7e8
+}
+
+.challenge .top-cover .event-container .event-details-container .event-details .details {
+    float: left;
+    width: 30%;
+    padding: 10px 5px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    display: table
+}
+
+.challenge .top-cover .event-container .event-details-container .event-details .details.small-details {
+    width: 20%
+}
+
+.challenge .top-cover .event-container .event-details-container .event-details .details .pad-right-5 {
+    padding-right: 5px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-details .details .fa {
+    color: #4d9cdf;
+    opacity: .5;
+    font-size: 30px;
+    display: table-cell;
+    width: 15px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-details .details img {
+    display: table-cell;
+    height: 30px;
+    margin-right: 0
+}
+
+.challenge .top-cover .event-container .event-details-container .event-details .details span {
+    padding-left: 10px;
+    line-height: 14px;
+    font-size: 12px;
+    vertical-align: middle;
+    display: table-cell
+}
+
+.challenge .top-cover .event-container .event-details-container .event-details .details .ctc-string {
+    padding-left: 0
+}
+
+.challenge .top-cover .event-container .event-details-container .event-ended-container .button {
+    font-size: 14px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-timings-non-hiring {
+    margin: 25px 0 30px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-timings-non-hiring.finished-timings .timing .timing-title,.challenge .top-cover .event-container .event-details-container .event-timings-non-hiring.finished-timings .timing .timing-text {
+    color: #e5e7e8
+}
+
+.challenge .top-cover .event-container .event-details-container .event-timings-non-hiring .timing-container {
+    border: 1px solid #e5e7e8
+}
+
+.challenge .top-cover .event-container .event-details-container .event-timings-non-hiring .timing-container .timing {
+    margin: 0;
+    padding: 10px 40px 10px 10px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-timings-non-hiring .timing-container .timing.border-right {
+    border-right: 1px solid #e5e7e8
+}
+
+.challenge .top-cover .event-container .event-details-container .event-prizes {
+    padding: 20px 0 15px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-prizes .prize {
+    width: 33%;
+    float: left
+}
+
+.challenge .top-cover .event-container .event-details-container .event-prizes .prize img {
+    max-width: 65px;
+    max-height: 50px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-prizes .prize .prize-details {
+    overflow: hidden;
+    padding-left: 10px;
+    padding-right: 5px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-prizes .prize .prize-details .prize-rank {
+    padding-top: 5px;
+    line-height: 12px
+}
+
+.challenge .top-cover .event-container .event-details-container .event-prizes .prize .prize-details .prize-description p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #46535e;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.challenge .top-cover .event-container.college-event-container .company-img {
+    width: 160px;
+    height: 160px;
+    bottom: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 0 0 2px 1px #e5e7e8;
+    -moz-box-shadow: 0 0 2px 1px #e5e7e8;
+    box-shadow: 0 0 2px 1px #e5e7e8
+}
+
+html.ie8 .challenge .top-cover .event-container.college-event-container .company-img,html.ie7 .challenge .top-cover .event-container.college-event-container .company-img,html.ie6 .challenge .top-cover .event-container.college-event-container .company-img {
+    border: 2px solid
+}
+
+.challenge .top-cover .event-container.college-event-container .company-img img {
+    max-width: 150px;
+    max-width: 150px
+}
+
+.challenge .top-cover .event-container.college-event-container .event-details-container .event-timings-non-hiring {
+    margin: 5px 0 0
+}
+
+.challenge .top-cover .event-container.college-event-container .event-details-container .event-title {
+    margin: 15px 0 10px
+}
+
+.challenge .top-cover .event-container.college-event-container .event-details-container .college-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%
+}
+
+.challenge .about-fold {
+    background-color: #ffffff
+}
+
+.challenge .about-fold .about-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 0 0
+}
+
+.challenge .about-fold .about-container .timeline-container {
+    border-top: 1px dotted #9ca3a8
+}
+
+.challenge .about-fold .about-container .timeline-container .timeline {
+    float: left;
+    width: 25%;
+    position: relative;
+    top: -8px
+}
+
+.challenge .about-fold .about-container .timeline-container .timeline.gray-out h4 {
+    opacity: .3
+}
+
+.challenge .about-fold .about-container .timeline-container .timeline.first:before {
+    content: "";
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 50%;
+    height: 8px;
+    background-color: #f3f3f3
+}
+
+.challenge .about-fold .about-container .timeline-container .timeline.last:before {
+    content: "";
+    top: 0;
+    right: 0;
+    position: absolute;
+    width: 50%;
+    height: 8px;
+    background-color: #f3f3f3
+}
+
+.challenge .about-fold .about-container .timeline-container .timeline .fa {
+    font-size: 16px;
+    color: rgba(156,163,168,0.6);
+    position: relative;
+    background-color: #fff
+}
+
+.challenge .about-fold .about-container .timeline-container .timeline .fa.green {
+    color: #73b369
+}
+
+.challenge .about-fold .about-container .timeline-container .timeline .fa.red {
+    color: #d33737
+}
+
+.challenge .about-fold .about-container .timeline-container .timeline .fa:after {
+    content: "";
+    -webkit-box-shadow: 0 0 1px 3px #e5e7e8,0 0 0 3px #9ca3a8;
+    -moz-box-shadow: 0 0 1px 3px #e5e7e8,0 0 0 3px #9ca3a8;
+    box-shadow: 0 0 1px 3px #e5e7e8,0 0 0 3px #9ca3a8;
+    width: 14px;
+    height: 14px;
+    display: block;
+    position: absolute;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    top: 0
+}
+
+html.ie8 .challenge .about-fold .about-container .timeline-container .timeline .fa:after,html.ie7 .challenge .about-fold .about-container .timeline-container .timeline .fa:after,html.ie6 .challenge .about-fold .about-container .timeline-container .timeline .fa:after {
+    border: 2px solid
+}
+
+.challenge .about-fold .about-container .timeline-container .timeline h4 {
+    margin: 0;
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: 600
+}
+
+.challenge .about-fold .about-container .timeline-container .timeline .timestamp {
+    margin: 0;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 18px
+}
+
+.challenge .about-fold .about-container .contact-us {
+    padding: 50px 0 60px
+}
+
+.challenge .about-fold .about-container .contact-us p {
+    margin: 0;
+    font-size: 13px
+}
+
+.challenge .about-fold .about-container .contact-us .text-area textarea {
+    margin: 10px auto 0
+}
+
+.challenge .about-fold .about-container .right-section {
+    width: 300px;
+    min-height: 20px;
+    padding-top: 40px
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section {
+    width: 300px
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section.enable-magic {
+    position: fixed;
+    display: none
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section.enable-magic.scrolled {
+    position: relative
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section.enable-magic .challenge-right-block {
+    display: none
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .register-hover-card {
+    background: #fff;
+    width: 280px;
+    float: right;
+    padding-top: 20px;
+    padding-bottom: 0;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7e8
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .register-hover-card .timing {
+    border-bottom: 1px solid #e5e7e8;
+    padding: 0 20px;
+    padding-bottom: 3px
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .register-hover-card .reg-btn-container {
+    padding: 0 20px
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .register-hover-card .reg-btn-container .reg-btn-non-hiring {
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: block;
+    padding: 0;
+    line-height: 50px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    width: 100%;
+    height: 50px;
+    font-weight: 600;
+    font-family: 'Open Sans',sans-serif
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .register-hover-card .open-tabs {
+    border-top: 1px solid #e5e7e8
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .register-hover-card .open-tabs p {
+    width: 50%;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 12px;
+    color: #9ca3a8;
+    cursor: pointer;
+    position: relative
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .register-hover-card .open-tabs p.border-right {
+    border-right: 1px solid #e5e7e8
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .register-hover-card .open-tabs p.dropdown-tab:after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: #fff;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transform: rotateZ(45deg);
+    border: 1px solid #e5e7e8;
+    border-top: 0;
+    border-left: 0
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-share-right-block,.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-invite-right-block,.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-app-right-block {
+    float: right;
+    background: #fff;
+    width: 280px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border: 1px solid #e5e7e8;
+    box-sizing: border-box
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-share-right-block .title,.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-invite-right-block .title,.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-app-right-block .title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed rgba(156,163,168,0.4);
+    line-height: 27px;
+    text-transform: uppercase;
+    color: #9ca3a8;
+    padding: 5px 10px
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-share-right-block .share-section {
+    text-align: center
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-share-right-block .share-section a {
+    width: 50px;
+    height: 30px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    display: inline-block;
+    margin: 0 8px;
+    text-align: center
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-share-right-block .share-section a .fa {
+    line-height: 30px;
+    color: #fff;
+    font-size: 16px
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-share-right-block .share-section a.fb-share {
+    background-color: #3b5998
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-share-right-block .share-section a.twitter-share {
+    background-color: #00aced
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-share-right-block .share-section a.in-share {
+    background-color: #007bb6
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-share-right-block .share-section a.gplus-share {
+    background-color: #dd4b39
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-invite-right-block .invite-section {
+    padding: 0 10px
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-app-right-block {
+    padding-bottom: 0;
+    background: 0;
+    border: 0
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-app-right-block .title {
+    margin-bottom: -1px
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-app-right-block .app-section {
+    padding: 0 10px;
+    margin-top: 15px
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-app-right-block .app-section p {
+    margin: 0;
+    font-size: 13px
+}
+
+.challenge .about-fold .about-container .right-section .challenge-right-section .challenge-app-right-block .app-section img {
+    max-width: 100px
+}
+
+.challenge .about-fold .about-container .right-section .winners {
+    margin-left: 20px;
+    background: #fff;
+    padding-bottom: 10px;
+    border: 1px solid #e5e7e8;
+    margin-bottom: 20px
+}
+
+.challenge .about-fold .about-container .right-section .winners h3 {
+    font-size: 12px;
+    font-weight: 400;
+    color: #46535e;
+    padding: 10px 15px;
+    border-bottom: 1px solid #e5e7e8;
+    margin: 0
+}
+
+.challenge .about-fold .about-container .right-section .winners h3 .fa {
+    color: #f49020;
+    font-size: 14px
+}
+
+.challenge .about-fold .about-container .right-section .winners .winner {
+    padding: 20px 20px 0
+}
+
+.challenge .about-fold .about-container .right-section .winners .winner img {
+    float: left;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px
+}
+
+.challenge .about-fold .about-container .right-section .winners .winner a {
+    text-decoration: none
+}
+
+.challenge .about-fold .about-container .right-section .winners .winner a p {
+    margin: 0
+}
+
+.challenge .about-fold .about-container .right-section .winners .winner a p.winner-name {
+    margin-bottom: 4px;
+    max-width: 140px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
+
+.challenge .about-fold .about-container .right-section .winners .winner .rank {
+    font-size: 14px;
+    font-weight: 700;
+    color: #46535e;
+    border: 1px solid #e5e7e8;
+    width: 32px;
+    text-align: center;
+    line-height: 26px;
+    height: 32px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    box-sizing: border-box
+}
+
+.challenge .about-fold .about-container .right-section .winners .view-leaderboard {
+    margin-top: 20px;
+    text-align: center
+}
+
+.challenge .about-fold .about-container .right-section .sponsors-block {
+    background: #fff;
+    margin-left: 20px;
+    border: 1px solid #e5e7e8;
+    margin-bottom: 20px
+}
+
+.challenge .about-fold .about-container .right-section .sponsors-block .sponsor-block-title {
+    font-size: 12px;
+    font-weight: 400;
+    color: #46535e;
+    padding: 10px 15px;
+    border-bottom: 1px solid #e5e7e8;
+    margin: 0
+}
+
+.challenge .about-fold .about-container .right-section .sponsors-block .sponsor-list {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    text-align: center
+}
+
+.challenge .about-fold .about-container .right-section .sponsors-block .sponsor-list li {
+    padding: 10px
+}
+
+.challenge .about-fold .about-container .right-section .sponsors-block .sponsor-list li img {
+    max-width: 150px;
+    max-height: 90px
+}
+
+.challenge .about-fold .about-container .left-section {
+    overflow: hidden;
+    padding-top: 40px
+}
+
+.challenge .about-fold .about-container .left-section .section {
+    margin-bottom: 60px;
+}
+
+.challenge .about-fold .about-container .left-section .section .head-container {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 15px
+}
+
+.challenge .about-fold .about-container .left-section .section .head-container:before {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 3px;
+    background-color: #e5e7e8;
+    width: 100%;
+    top: 8px;
+    z-index: -1
+}
+
+.challenge .about-fold .about-container .left-section .section .head-container h2 {
+    margin: 0;
+    background-color: #ffffff;
+    display: inline-block;
+    width: 160px;
+    font-size: 1rem;
+    text-transform: capitalize;
+}
+
+.challenge .about-fold .about-container .left-section .section .section-desc {
+    padding-left: 160px;
+    line-height: 21px
+}
+
+.challenge .about-fold .about-container .left-section .section .section-desc ol,.challenge .about-fold .about-container .left-section .section .section-desc ul {
+    padding-left: 15px
+}
+
+.challenge .about-fold .about-container .left-section .section .section-desc img {
+    max-width: 100%
+}
+
+.challenge .about-fold .about-container .left-section .section.company-section .company-img {
+    max-height: 100px;
+    margin: 0 20px 20px 0
+}
+
+.challenge .about-fold .about-container .left-section .section.faq-section .question {
+    font-weight: bold;
+    font-size: 15px
+}
+
+.challenge .about-fold .about-container .left-section .section.faq-section .faq-contact-box {
+    display: none
+}
+
+.challenge .about-fold .about-container .left-section .section.job-section .slide-toggle {
+    margin-top: 20px;
+    display: inline-block
+}
+
+.challenge .about-fold .about-container .left-section .section.job-section .slide-toggle.open {
+    color: #46535e
+}
+
+.challenge .about-fold .about-container .left-section .section.job-section .slide-toggle.open .fa:before {
+    content: "\f056"
+}
+
+.challenge .about-fold .about-container .left-section .section.job-section .job-listing {
+    min-width: 300px;
+    margin-top: 20px
+}
+
+.challenge .about-fold .about-container .left-section .section.job-section .job-listing tr td {
+    padding: 2px 10px 2px 0;
+    border-bottom: 1px solid #e5e7e8
+}
+
+.challenge .about-fold .about-container .left-section .section.prize-section .prize {
+    width: 190px;
+    height: 124px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: top;
+    margin: 0 10px 10px 0;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(159,167,194,0.6);
+    -moz-box-shadow: 0 1px 1px 0 rgba(159,167,194,0.6);
+    box-shadow: 0 1px 1px 0 rgba(159,167,194,0.6)
+}
+
+html.ie8 .challenge .about-fold .about-container .left-section .section.prize-section .prize,html.ie7 .challenge .about-fold .about-container .left-section .section.prize-section .prize,html.ie6 .challenge .about-fold .about-container .left-section .section.prize-section .prize {
+    border: 2px solid
+}
+
+.challenge .about-fold .about-container .left-section .section.prize-section .prize .prize-rank {
+    color: #fff;
+    font-size: 18px;
+    margin: 0;
+    padding: 5px
+}
+
+.challenge .about-fold .about-container .left-section .section.prize-section .prize .prize-rank sup {
+    font-size: 10px
+}
+
+.challenge .about-fold .about-container .left-section .section.prize-section .prize .prize-value {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    padding: 0 5px 5px 0;
+    color: #f49020;
+    font-size: 24px
+}
+
+.challenge .about-fold .about-container .left-section .section.prize-section .prize.normal-prize {
+    width: 170px;
+    height: auto;
+    background: #fff;
+    padding: 10px
+}
+
+.challenge .about-fold .about-container .left-section .section.prize-section .prize.normal-prize .prize-rank {
+    float: left;
+    color: #46535e;
+    padding: 0;
+    max-width: 60px
+}
+
+.challenge .about-fold .about-container .left-section .section.prize-section .prize.normal-prize img {
+    max-width: 110px;
+    max-height: 74px
+}
+
+.challenge .about-fold .about-container .left-section .section.prize-section .prize.normal-prize .prize-description {
+    height: 30px;
+    display: table
+}
+
+.challenge .about-fold .about-container .left-section .section.prize-section .prize.normal-prize .prize-description p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    padding-top: 0;
+    vertical-align: bottom;
+    line-height: 15px;
+    display: table-cell
+}
+
+.challenge .about-fold .about-container .left-section .section.sponsor-section {
+    display: none
+}
+
+.challenge .about-fold .about-container .left-section .section.sponsor-section .sponsors-block .sponsor-block-title {
+    font-size: 12px;
+    margin: 0
+}
+
+.challenge .about-fold .about-container .left-section .section.sponsor-section .sponsors-block .sponsor-list {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0
+}
+
+.challenge .about-fold .about-container .left-section .section.sponsor-section .sponsors-block .sponsor-list li {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    vertical-align: middle
+}
+
+.challenge .about-fold .about-container .left-section .section.sponsor-section .sponsors-block .sponsor-list li img {
+    max-width: 120px;
+    max-height: 60px
+}
+
+.challenge .recommended-challenges-container {
+    padding: 40px;
+    max-width: 1100px;
+    margin: auto
+}
+
+.challenge .recommended-challenges-container .card {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    min-width: 250px;
+    height: 225px;
+    font-size: 12px;
+    margin: 20px 20px 0 0
+}
+
+.challenge #recommended-challenges {
+    min-height: 50px
+}
+
+.challenge .recommended-challenges-container .challenge-image {
+    width: 100%;
+    height: 100px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat
+}
+
+.challenge .recommended-challenges-container .challenge-image.hiring-image {
+    background-image: url("../hackerearth/images/challenges/college-event-1.jpg")
+}
+
+.challenge .recommended-challenges-container .challenge-image.college-image {
+    background-image: url("../hackerearth/images/challenges/college-event-1.jpg")
+}
+
+.challenge .recommended-challenges-container .challenge-image.default-image {
+    background-image: url("../hackerearth/images/challenges/default-event.jpg")
+}
+
+.challenge .recommended-challenges-container .heading {
+    font-weight: 500;
+    color: #6f6f6f
+}
+
+.challenge .recommended-challenges-container .title {
+    font-weight: 800;
+    color: #464646;
+    font-size: medium
+}
+
+.challenge .recommended-challenges-container .content {
+    padding: 5px;
+    text-align: left
+}
+
+.challenge .recommended-challenges-container .details {
+    color: #aeaeaf;
+    font-weight: 600;
+    margin-top: 5px
+}
+
+.challenge .recommended-challenges-container .small-left-margin {
+    margin-left: 5px
+}
+
+@media only screen and (max-width: 540px) {
+    .challenge .recommended-challenges-container .card {
+        width:100%;
+        max-width: 250px
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .challenge .recommended-challenges-container .cards {
+        text-align:center
+    }
+}
+
+@media(max-width: 1366px) {
+    .challenge .top-cover .banner-image.sponsored-banner .top-container,.challenge .top-cover .banner-image.sponsored-banner .bottom-container {
+        max-width:1100px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .right-container {
+        margin-top: 50px
+    }
+
+    .challenge .top-cover .event-container {
+        width: 1100px
+    }
+
+    .challenge .top-cover .event-container .event-register-container .event-buttons {
+        margin-right: 30px
+    }
+
+    .challenge .about-fold .about-container {
+        max-width: 1100px
+    }
+}
+
+@media(max-width: 1279px) {
+    .challenge .top-cover .banner-image.sponsored-banner .top-container,.challenge .top-cover .banner-image.sponsored-banner .bottom-container {
+        max-width:1024px
+    }
+
+    .challenge .top-cover .event-container {
+        width: 1024px
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-timings-non-hiring .timing-container .timing {
+        padding: 10px
+    }
+
+    .challenge .about-fold .about-container {
+        max-width: 1024px
+    }
+}
+
+@media(max-width: 1023px) {
+    .challenge .top-cover .banner-image.sponsored-banner .top-container,.challenge .top-cover .banner-image.sponsored-banner .bottom-container {
+        padding-right:130px;
+        padding-left: 10px
+    }
+
+    .challenge .top-cover .event-container {
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+        display: table
+    }
+
+    .challenge .top-cover .event-container .author-tester {
+        list-style: none;
+        top: -40px
+    }
+
+    .challenge .top-cover .event-container .author-tester span {
+        display: list-item;
+        margin: 0
+    }
+
+    .challenge .top-cover .event-container .company-img {
+        float: none;
+        position: absolute;
+        top: -60px;
+        width: 90px;
+        height: 90px;
+        left: 0;
+        right: 0;
+        margin: 0 auto
+    }
+
+    .challenge .top-cover .event-container .company-img img {
+        max-width: 80px;
+        max-height: 80px
+    }
+
+    .challenge .top-cover .event-container .event-timings-container {
+        float: none;
+        width: 100%;
+        padding-bottom: 20px;
+        display: table-footer-group
+    }
+
+    .challenge .top-cover .event-container .event-timings-container .event-timings {
+        position: relative;
+        margin: 0 auto;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        text-align: center
+    }
+
+    html.ie8 .challenge .top-cover .event-container .event-timings-container .event-timings,html.ie7 .challenge .top-cover .event-container .event-timings-container .event-timings,html.ie6 .challenge .top-cover .event-container .event-timings-container .event-timings {
+        border: 2px solid
+    }
+
+    .challenge .top-cover .event-container .event-timings-container .event-timings .button {
+        width: 300px
+    }
+
+    .challenge .top-cover .event-container .event-details-container {
+        text-align: center;
+        padding-left: 0;
+        padding-top: 20px
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-title {
+        white-space: normal
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-details {
+        text-align: left
+    }
+
+    .challenge .top-cover .event-container .event-register-container {
+        display: table-footer-group;
+        float: none
+    }
+
+    .challenge .top-cover .event-container .event-register-container .event-buttons {
+        margin: 0 auto;
+        width: 300px
+    }
+
+    .challenge .top-cover .event-container .event-register-container .event-buttons .reg-btn-non-hiring {
+        margin-top: 0!important
+    }
+
+    .challenge .top-cover .event-container.college-event-container .company-img {
+        position: relative;
+        top: 0;
+        margin: 20px auto 0;
+        width: 90px;
+        height: 90px
+    }
+
+    .challenge .top-cover .event-container.college-event-container .company-img img {
+        max-width: 80px;
+        max-height: 80px
+    }
+
+    .challenge .top-cover .event-container.college-event-container .event-details-container {
+        padding-top: 10px
+    }
+
+    .challenge .top-cover .event-container.college-event-container .event-details-container .event-title {
+        margin: 0 0 5px
+    }
+
+    .challenge .top-cover .event-container.college-event-container .event-details-container .event-timings-non-hiring {
+        margin: 0 0 20px
+    }
+
+    .challenge .top-cover .event-container.college-event-container .event-details-container .college-name {
+        white-space: normal;
+        margin: 10px 0
+    }
+
+    .challenge .about-fold .about-container {
+        max-width: none;
+        padding: 40px 10px 0
+    }
+
+    .challenge .about-fold .about-container .right-section {
+        display: none
+    }
+
+    .challenge .about-fold .about-container .left-section .section.sponsor-section {
+        display: block
+    }
+}
+
+@media(max-width: 768px) {
+    .challenge .top-cover .banner-image.sponsored-banner {
+        text-align:center
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .top-container,.challenge .top-cover .banner-image.sponsored-banner .bottom-container {
+        padding: 0 10px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .top-container {
+        padding-bottom: 60px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .event-title {
+        font-size: 36px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .details-container {
+        font-size: 14px;
+        margin: 5px 0 15px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .banner-buttons .reg-btn-sponsored {
+        width: 200px;
+        margin: 0 10px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .bottom-container .sponsored-by {
+        padding-bottom: 10px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .bottom-container .sponsored-by img {
+        height: 30px;
+        margin: 0 5px 5px
+    }
+}
+
+@media(max-width: 540px) {
+    .challenge .top-cover .event-container .event-details-container .event-timings-non-hiring {
+        margin:15px 0 0
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-timings-non-hiring .timing-container {
+        border: 0;
+        display: block
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-timings-non-hiring .timing-container .timing {
+        display: block;
+        padding: 15px 5px
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-timings-non-hiring .timing-container .timing.border-right {
+        border: 0;
+        border-bottom: 1px dashed #e5e7e8
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-timings-non-hiring .timing-container .timing .timing-title {
+        display: inline-block;
+        font-size: 14px;
+        margin-right: 5px
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-details .details {
+        width: 50%
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-details .details.small-details {
+        width: 50%
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-details .details .fa {
+        font-size: 24px;
+        line-height: 30px
+    }
+
+    .challenge .top-cover .event-container .event-details-container .event-details .details img {
+        width: 24px
+    }
+
+    .challenge .top-cover .event-container .event-timings-container .event-timings .timing {
+        padding: 15px 0
+    }
+
+    .challenge .top-cover .event-container.college-event-container .event-details-container .event-timings-non-hiring {
+        margin: 0
+    }
+
+    .challenge .about-fold .about-container {
+        padding: 0 10px
+    }
+
+    .challenge .about-fold .about-container .timeline-container {
+        display: none
+    }
+
+    .challenge .about-fold .about-container .contact-us {
+        padding: 40px 0
+    }
+
+    .challenge .about-fold .about-container .left-section .section {
+        margin-bottom: 50px
+    }
+
+    .challenge .about-fold .about-container .left-section .section .head-container:before {
+        top: 10px
+    }
+
+    .challenge .about-fold .about-container .left-section .section .head-container h2 {
+        font-size: 18px;
+        width: auto;
+        padding-right: 20px
+    }
+
+    .challenge .about-fold .about-container .left-section .section .section-desc {
+        padding: 0
+    }
+
+    .challenge .about-fold .about-container .left-section .section.faq-section .question {
+        font-size: 14px
+    }
+}
+
+@media(max-width: 480px) {
+    .challenge .top-cover .banner-image.sponsored-banner {
+        min-height:320px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .top-container {
+        position: relative;
+        padding: 20px 10px 0
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .event-title {
+        font-size: 30px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .details-container {
+        margin: 10px 0 15px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .top-container .left-container .banner-buttons .reg-btn-sponsored {
+        width: 130px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .bottom-container {
+        position: relative;
+        padding: 10px;
+        margin-top: 10px;
+        padding-top: 5px
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .bottom-container .sponsored-by {
+        padding-bottom: 0
+    }
+
+    .challenge .top-cover .banner-image.sponsored-banner .bottom-container .sponsored-by .sponsored-by-title {
+        display: block;
+        margin-bottom: 5px
+    }
+
+    .challenge .top-cover .event-container .author-tester {
+        display: none
+    }
+
+    .challenge .top-cover .event-container .author-tester.author-tester-mob {
+        display: block;
+        position: relative;
+        top: 0;
+        color: #46535e;
+        margin-bottom: 15px;
+        text-align: center
+    }
+
+    .challenge .top-cover .event-container .author-tester.author-tester-mob span {
+        display: inline-block;
+        padding: 0 1px
+    }
+
+    .challenge .about-fold .about-container .left-section .section.prize-section .prize-container {
+        text-align: center
+    }
+
+    .challenge .about-fold .about-container .left-section .section.prize-section .prize {
+        margin: 0 5px 10px
+    }
+
+    .challenge .about-fold .about-container .left-section .section.sponsor-section .section-desc {
+        text-align: center
+    }
+
+    .challenge .about-fold .about-container .left-section .section.sponsor-section .section-desc .sponsors-block .sponsor-list li {
+        margin: 0 10px 10px
+    }
+
+    .auto-subscription-container {
+        display: none
+    }
+
+    .auto-subscription {
+        display: none
+    }
+
+    .event-buttons {
+        display: block
+    }
+}
+
+.auto-subscription h2 {
+    padding-left: 15px;
+    margin-top: 15px;
+    display: inline-block
+}
+
+.auto-subscription .message {
+    padding: 0 10px 0 15px;
+    font-size: 11px
+}
+
+.auto-subscription .onoffswitch {
+    position: relative;
+    width: 40px;
+    margin: 17px 15px 0 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none
+}
+
+.auto-subscription .onoffswitch-checkbox {
+    display: none
+}
+
+.auto-subscription .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+    margin-left: 0
+}
+
+.auto-subscription .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+    right: 0
+}
+
+.auto-subscription .onoffswitch-checkbox[disabled]+label {
+    opacity: .4
+}
+
+.auto-subscription .onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px
+}
+
+.auto-subscription .onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: all .5s ease
+}
+
+.auto-subscription .onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 4px;
+    background-color: #4c9cdf;
+    color: #fff
+}
+
+.auto-subscription .onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 3px;
+    background-color: #9ca3a8;
+    text-align: right
+}
+
+.auto-subscription .onoffswitch-inner:before,.auto-subscription .onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 16px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: 700;
+    box-sizing: border-box
+}
+
+.auto-subscription .onoffswitch-switch {
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 2px;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 23px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    transition: all .5s ease
+}
+
+.auto-subscription .save-message {
+    margin: 6px 7px 0 40px;
+    color: #73b369
+}
+
+.auto-subscription-container {
+    border-left: 1px solid #d9dde0;
+    border-right: 1px solid #d9dde0;
+    width: 278px;
+    height: 202px
+}
+
+.auto-subscription-container .successfully-registered {
+    margin-top: 0;
+    padding: 15px;
+    background: #73b369;
+    color: #fff
+}
+
+.auto-subscription-container .successfully-registered .fa-check-circle {
+    padding-right: 12px
+}
+
+.auto-subscription-container .btn-large {
+    padding-left: 75px;
+    padding-right: 75px
+}
+
+.auto-subscription-container .start-now {
+    padding: 27px 10px 20px 18px
+}
+
+.btn-triangle {
+}
+
+.btn-penta {
+}
+
+#inst-btn {
+    width: 100%;
+    height: 38px;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.policy-box {
+    padding: 5px;
+}
+
+.policy-box .box, .policy-box .policy {
+    padding : 5px;
+}
