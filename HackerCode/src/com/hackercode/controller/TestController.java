@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -30,6 +31,7 @@ import com.hackercode.dao.TestDAO;
 import com.hackercode.structures.Program;
 import com.hackercode.structures.ProgramSpecificTests;
 import com.hackercode.structures.Question;
+import com.hackercode.structures.Register;
 import com.hackercode.structures.Test;
 import com.hackercode.structures.TestUser;
 import com.hackercode.structures.User;
@@ -147,23 +149,32 @@ public class TestController extends AbstractController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ModelAndView signup(@ModelAttribute("firstName") String fname,
-        @ModelAttribute("lastName") String lname, @ModelAttribute("password") String password,
-        @ModelAttribute("email") String email, @ModelAttribute("username") String username, @ModelAttribute("course") String course, HttpServletRequest req) {
+    public ModelAndView signup(@ModelAttribute("register") Register user, HttpServletRequest req) {
         //for sign up
-
+    	System.out.println("REGISTER CLASS>> "+user);
+    	if(user.getCourse().indexOf(',') >=0 ) {
+    		//ie multiple courses selected
+    		String strArray[] = user.getCourse().split(",");
+    		user.setPrograms(strArray);
+    		System.out.println("REGISTER CLASS AFTER THE MULTIPLE>> "+user);
+    	} else{
+    		String strArray[] = user.getCourse().split(" ");
+    		user.setPrograms(strArray);
+    		System.out.println("REGISTER CLASS AFTER THE SINGLE>> "+user);
+    	};
+  
         req.getSession().setAttribute("isLoggedIn", false);
         TestDAO testDao = ctx.getBean(TestDAO.class);
 
         //check if there is user with same name password 
-        int i = testDao.getUserWithEmail(email, username, req);
+        int i = testDao.getUserWithEmail(user.getEmail(), user.getUsername(), req);
         if (i > 0) {
             List < Program > programs = testDao.getAllPrograms();
             return new ModelAndView("signup").addObject("error", "User Already exists !").addObject("programs", programs);
         }
 
         //add user to db
-        testDao.saveUser(username, fname, lname, email, password, course);
+        testDao.saveUser(user);
 
         return new ModelAndView("admin");
     }
@@ -242,10 +253,10 @@ public class TestController extends AbstractController {
 
     @RequestMapping(value = "/get-result", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public JsonObject setTestResult(@RequestBody String json) {
+    public JsonObject setTestResult(@RequestBody String json,HttpServletRequest req) {
         TestDAO testDAO = ctx.getBean(TestDAO.class);
 
-        JsonObject result = testDAO.makeAnswerSheet(json);
+        JsonObject result = testDAO.makeAnswerSheet(json,req);
         //now we can show this to him
         System.out.println("RESULT ON MODEL AND VIEW" + result);
         return result;

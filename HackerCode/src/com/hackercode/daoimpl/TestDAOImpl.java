@@ -42,6 +42,7 @@ import com.hackercode.structures.Admin;
 import com.hackercode.structures.Program;
 import com.hackercode.structures.ProgramSpecificTests;
 import com.hackercode.structures.Question;
+import com.hackercode.structures.Register;
 import com.hackercode.structures.Test;
 import com.hackercode.structures.User;
 import com.hackercode.structures.TestData;
@@ -486,7 +487,7 @@ public class TestDAOImpl implements TestDAO {
 
 
     @Override
-    public JsonObject makeAnswerSheet(String data) {
+    public JsonObject makeAnswerSheet(String data, HttpServletRequest req) {
         jdbcTemplate.setDataSource(getDataSource());
         JsonObject res = new JsonObject(); // result object 		
         int result = 0;
@@ -534,6 +535,19 @@ public class TestDAOImpl implements TestDAO {
             }
         }
         res.addProperty("marks", result);
+        try {
+        	//adding marks to the table
+        	String Update = "UPDATE hc_temp_test SET marks = ? WHERE tt_user_id = ? AND tt_test_id = ?";
+        	User user = (User) req.getSession().getAttribute("user");
+        	jdbcTemplate.update(Update, new Object[] { 
+        							result,
+        			                user.getU_id(),
+        			                testData.getId()
+        			            });
+
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }
         res.addProperty("test_id", testData.getId());
         res.addProperty("error", 0);
 
@@ -656,29 +670,30 @@ public class TestDAOImpl implements TestDAO {
     }
 
     @Override
-    public User saveUser(String username, String fname, String lname, String email, String password, String course) {
+    public User saveUser(Register ruser) {
         jdbcTemplate.setDataSource(getDataSource());
-        password = getMd5(password);
+        ruser.setPassword(getMd5(ruser.getPassword()));
         String SAVE_USER = "INSERT INTO hc_user_details (ud_username, ud_firstname, ud_lastname, ud_email, ud_role) VALUES (?,?,?,?,0)";
         String SAVE_USER_LOGIN_CREDENTIALS = "INSERT INTO hc_user (u_username, u_password) VALUES (?,?)";
-        String ADD_USER_WITH_PROGRAM = "INSERT INTO hc_user_program (up_username, up_p_id) VALUES (?,?)";
+        String ADD_USER_WITH_PROGRAM = "INSERT INTO hc_user_program (up_username, up_code) VALUES (?,?)";
         try {
             jdbcTemplate.update(SAVE_USER, new Object[] {
-                username,
-                fname,
-                lname,
-                email
+                ruser.getUsername(),
+                ruser.getfName(),
+                ruser.getlName(),
+                ruser.getEmail()
             });
             jdbcTemplate.update(SAVE_USER_LOGIN_CREDENTIALS, new Object[] {
-                username,
-                password
+                ruser.getUsername(),
+                ruser.getPassword()
             });
-       
-            jdbcTemplate.update(ADD_USER_WITH_PROGRAM, new Object[] {
-                email,
-                course
-            });
-
+            for(String s : ruser.getPrograms()) {
+            	 jdbcTemplate.update(ADD_USER_WITH_PROGRAM, new Object[] {
+                         ruser.getEmail(),
+                         s
+                     });
+            }
+           
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

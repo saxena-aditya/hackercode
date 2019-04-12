@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import com.hackercode.structures.Program;
 import com.hackercode.structures.ProgramSpecificTests;
 import com.hackercode.structures.Question;
+import com.hackercode.structures.Register;
 import com.hackercode.structures.Test;
 import com.hackercode.structures.TestUser;
 import com.hackercode.structures.User;
@@ -20,7 +21,7 @@ public interface TestDAO {
 	public boolean saveTest(Test test) throws IOException;
 	public boolean saveQuestions(int testId, Question q);
 	public String getTestData(int testIdentifier, String test_id, String user_id);
-	public JsonObject makeAnswerSheet(String data);
+	public JsonObject makeAnswerSheet(String data,HttpServletRequest request);
 	boolean saveFile(int testId, MultipartFile file) throws IOException;
 	boolean isUser(String username, String password, HttpServletRequest request);
 	User getUser(String username, HttpServletRequest request);
@@ -30,7 +31,7 @@ public interface TestDAO {
 	public Test getTest(int testId);
 	public User getUser(String username);
 	public int getUserWithEmail(String email,String username, HttpServletRequest request);
-	public User saveUser(String username, String fname, String lname, String email, String password, String course);
+	public User saveUser(Register user);
 	public List<Program> getAllPrograms();
 	public List<ProgramSpecificTests> getAllTestsByAdmin(User u);
 	public List<Question> getQuestionsForTest(String testIdentifier); 
