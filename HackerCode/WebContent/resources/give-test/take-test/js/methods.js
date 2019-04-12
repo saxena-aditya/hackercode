@@ -781,7 +781,7 @@ $(function() {
     function submitTest() {
         let serverData = {
             "test-info": {
-                "id": 30
+                "id": test_id
             },
             "test-data": answer_status_store
         }
@@ -822,7 +822,6 @@ $(function() {
                 "testId": test_id,
                 "timeLeft": total_exam_duration.toString(),
                 "data": JSON.stringify(answer_status_store)
-                
             }
         }
         console.log("test-store", test_store);

@@ -493,6 +493,7 @@ public class TestDAOImpl implements TestDAO {
         int result = 0;
 
         //getting the json data from the client
+        System.out.println("DJHASKDJHASKDJHAJDSHAKJDHSKAJSHDKJASHDKJADSHKASDHKJASHDKJAS");
         Gson gson = new GsonBuilder().create();
         JsonObject job = gson.fromJson(data, JsonObject.class);
         System.out.println("job" + job);
@@ -537,7 +538,7 @@ public class TestDAOImpl implements TestDAO {
         res.addProperty("marks", result);
         try {
         	//adding marks to the table
-        	String Update = "UPDATE hc_temp_test SET marks = ? WHERE tt_user_id = ? AND tt_test_id = ?";
+        	String Update = "UPDATE hc_temp_test SET marks = ?, isFinished = 1 WHERE tt_user_id = ? AND tt_test_id = ?";
         	User user = (User) req.getSession().getAttribute("user");
         	jdbcTemplate.update(Update, new Object[] { 
         							result,

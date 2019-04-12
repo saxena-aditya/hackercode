@@ -254,7 +254,8 @@
                     				<td>${ ftest.getTestId() }</td>
                     				<td>60 / 60 / 60</td>
                     				<td>01-Mar-2018<br>Thursday<br>04:20 AM</td>
-                    				<td>5%</td>
+                    				<td><p>${ ftest.getMarks() }</p></td>
+                    				<td>1</td>
                     				<td>1</td>
                     				<td>
                     					<div class="result-badge-container">

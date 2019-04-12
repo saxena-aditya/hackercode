@@ -258,10 +258,9 @@
 	      <div class="modal-body">
 	        Click to End Test.
 	        <br>
-	        <span> Marks Obtained: <span id="marks-result"></span></span>
 	      </div>
 	      <div class="modal-footer">
-	        <a type="button" href="/login" class="btn btn-primary">End Test</a>
+	        <a type="button" href="${pageContext.request.contextPath}/profile" class="btn btn-primary">End Test</a>
 	      </div>
 	    </div>
 	  </div>
