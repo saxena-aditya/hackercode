@@ -116,7 +116,7 @@ public class TestController extends AbstractController {
         return model;
     }
 
-    @RequestMapping(value = "/get-test-data/{testID}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/get-test-data/{testID}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String testData(@PathVariable String testID, @RequestBody String json) {
         TestDAO testDAO = ctx.getBean(TestDAO.class);
@@ -135,7 +135,7 @@ public class TestController extends AbstractController {
             // terminate code and show error msg.
             return null;
         }
-
+        
         String testData = testDAO.getTestData(testIdentifier, test_id, user_id);
         return testData;
         //return new ModelAndView("test-data").addObject("data", testData);

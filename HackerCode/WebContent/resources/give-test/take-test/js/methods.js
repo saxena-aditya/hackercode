@@ -26,9 +26,9 @@ $(function() {
         document.addEventListener("keydown", function(e) {
         //document.onkeydown = function(e) {
           // "I" key
-          if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+         /* if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
             disabledEvent(e);
-          }
+          }*/
           // "J" key
           if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
             disabledEvent(e);
@@ -46,6 +46,7 @@ $(function() {
             disabledEvent(e);
           }
         }, false);
+        
         function disabledEvent(e){
           if (e.stopPropagation){
             e.stopPropagation();

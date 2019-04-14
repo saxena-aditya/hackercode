@@ -284,7 +284,7 @@ public class TestDAOImpl implements TestDAO {
     public String getTestData(int testIdentifier, String test_id, String user_id) {
         jdbcTemplate.setDataSource(getDataSource());
 
-        String sqlQuestions = "SELECT * FROM hc_questions WHERE q_test_id = ?";
+        String sqlQuestions = "SELECT * FROM hc_test_questions JOIN hc_questions WHERE hc_test_questions.tq_question_id = hc_questions.q_question_id AND hc_test_questions.tq_test_id = ?";
         String sqlTest = "SELECT * FROM hc_tests WHERE t_id = ?";
         Gson gson = new GsonBuilder().create();
 
@@ -323,16 +323,16 @@ public class TestDAOImpl implements TestDAO {
                     List < Question > list = new ArrayList < Question > ();
                     while (rs.next()) {
                         Question q = new Question();
-                        q.setQuestionId(rs.getInt(1));
-                        q.setTestId(rs.getInt(2));
-                        q.setQuestionSet(rs.getString(3));
-                        q.setQuestionTag(rs.getString(4));
-                        q.setQuestionType(rs.getString(5));
-                        q.setQuestionContent(rs.getString(6));
-                        q.setQuestionMaxMarks(rs.getInt(7));
-                        q.setQuestionNegMarks(rs.getInt(8));
-                        q.setQuestionOptions(rs.getString(9));
-                        q.setQuestionAns(rs.getString(10));
+                        q.setQuestionId(rs.getInt("tq_question_id"));
+                        q.setTestId(rs.getInt("tq_test_id"));
+                        q.setQuestionSet(rs.getString("q_set_id"));
+                        q.setQuestionTag(rs.getString("q_tag"));
+                        q.setQuestionType(rs.getString("q_type"));
+                        q.setQuestionContent(rs.getString("q_content"));
+                        q.setQuestionMaxMarks(rs.getInt("q_max_marks"));
+                        q.setQuestionNegMarks(rs.getInt("q_negative_marks"));
+                        q.setQuestionOptions(rs.getString("q_options"));
+                        q.setQuestionAns(rs.getString("q_ans"));
                         list.add(q);
                     }
                     return list;
@@ -564,23 +564,24 @@ public class TestDAOImpl implements TestDAO {
     @Override
     public List<Question> getQuestionsForTest(String testIdentifier) {
     	jdbcTemplate.setDataSource(getDataSource());
-    	List < Question > questions = jdbcTemplate.query("SELECT * FROM hc_questions WHERE q_test_id = ?", new Object[] {
+    	String GET_TEST_QUESTIONS = "SELECT * FROM hc_questions JOIN hc_test_questions WHERE hc_questions.q_question_id = hc_test_questions.tq_question_id AND hc_test_questions.tq_test_id = ?";
+    	List < Question > questions = jdbcTemplate.query(GET_TEST_QUESTIONS, new Object[] {
                 testIdentifier
             }, new ResultSetExtractor < List < Question >> () {
                 public List < Question > extractData(ResultSet rs) throws SQLException, DataAccessException {
                     List < Question > list = new ArrayList < Question > ();
                     while (rs.next()) {
                         Question q = new Question();
-                        q.setQuestionId(rs.getInt(1));
-                        q.setTestId(rs.getInt(2));
-                        q.setQuestionSet(rs.getString(3));
-                        q.setQuestionTag(rs.getString(4));
-                        q.setQuestionType(rs.getString(5));
-                        q.setQuestionContent(rs.getString(6));
-                        q.setQuestionMaxMarks(rs.getInt(7));
-                        q.setQuestionNegMarks(rs.getInt(8));
-                        q.setQuestionOptions(rs.getString(9));
-                        q.setQuestionAns(rs.getString(10));
+                        q.setTestId(rs.getInt("tq_test_id"));
+                        q.setQuestionId(rs.getInt("q_question_id"));
+                        q.setQuestionSet(rs.getString("q_set_id"));
+                        q.setQuestionTag(rs.getString("q_tag"));
+                        q.setQuestionType(rs.getString("q_type"));
+                        q.setQuestionContent(rs.getString("q_content"));
+                        q.setQuestionMaxMarks(rs.getInt("q_max_marks"));
+                        q.setQuestionNegMarks(rs.getInt("q_negative_marks"));
+                        q.setQuestionOptions(rs.getString("q_options"));
+                        q.setQuestionAns(rs.getString("q_ans"));
                         list.add(q);
                     }
                     return list;
