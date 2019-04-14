@@ -240,7 +240,6 @@ public class TestDAOImpl implements TestDAO {
             });
             String GET_TEST_CODE = "SELECT t_id FROM hc_tests WHERE t_test_code = ?";
             Number testId = jdbcTemplate.queryForObject(GET_TEST_CODE, Integer.class, test.getCode());
-            System.out.println("About to return false 10XXD1.1");
 
             if (saveFile(testId.intValue(), test.getFile())) return true;
            
@@ -251,11 +250,13 @@ public class TestDAOImpl implements TestDAO {
     public boolean saveQuestions(int testId, Question q) {
         jdbcTemplate.setDataSource(getDataSource());
 
-        String sql = "INSERT INTO hc_questions (q_test_id, q_set_id, q_tag, q_type," +
-            "q_content,q_max_marks, q_negative_marks, q_options, q_ans, q_scope ) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String INSERT_QUESTION = "INSERT INTO hc_questions (q_set_id, q_tag, q_type," +
+            "q_content,q_max_marks, q_negative_marks, q_options, q_ans, q_scope ) VALUES (?,?,?,?,?,?,?,?,?)";
+        String GET_LAST_INSERTED_QUESTION = "SELECT q_question_id FROM hc_questions ORDER by q_question_id DESC LIMIT 1";
+        String ADD_QUESTION_TO_TEST = "INSERT INTO hc_test_questions (tq_test_id, tq_question_id) VALUES (?,?)";
+        
         try {
-            jdbcTemplate.update(sql, new Object[] {
-                testId,
+            jdbcTemplate.update(INSERT_QUESTION, new Object[] {
                 q.getQuestionSet(),
                 q.getQuestionTag(),
                 q.getQuestionType(),
@@ -266,6 +267,12 @@ public class TestDAOImpl implements TestDAO {
                 q.getQuestionAns(),
                 "PUBLIC"
             });
+            Number questionId = jdbcTemplate.queryForObject(GET_LAST_INSERTED_QUESTION, Integer.class);
+            jdbcTemplate.update(ADD_QUESTION_TO_TEST, new Object[] {
+            		testId,
+            		questionId
+            });
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;

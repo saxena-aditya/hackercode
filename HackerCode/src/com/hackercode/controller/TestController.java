@@ -116,7 +116,7 @@ public class TestController extends AbstractController {
         return model;
     }
 
-    @RequestMapping(value = "/get-test-data/{testID}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/get-test-data/{testID}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public String testData(@PathVariable String testID, @RequestBody String json) {
         TestDAO testDAO = ctx.getBean(TestDAO.class);

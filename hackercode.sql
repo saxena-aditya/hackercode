@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2019 at 05:13 PM
+-- Generation Time: Apr 14, 2019 at 10:36 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -51,16 +51,15 @@ INSERT INTO `hc_programs` (`p_id`, `p_name`, `p_code`, `p_student_count`) VALUES
 --
 
 CREATE TABLE `hc_questions` (
-  `q_id` int(11) NOT NULL,
-  `q_test_id` int(11) NOT NULL,
-  `q_set_id` varchar(11) NOT NULL,
-  `q_tag` varchar(100) NOT NULL,
-  `q_type` enum('TEXT','IMAGE','HYBRID') NOT NULL DEFAULT 'TEXT',
+  `q_question_id` int(11) NOT NULL,
+  `q_set_id` varchar(50) DEFAULT NULL,
+  `q_tag` varchar(100) DEFAULT NULL,
+  `q_type` varchar(100) DEFAULT NULL,
   `q_content` longtext NOT NULL,
-  `q_max_marks` int(11) NOT NULL DEFAULT '0',
-  `q_negative_marks` int(11) NOT NULL DEFAULT '0',
-  `q_options` text NOT NULL,
-  `q_ans` varchar(500) NOT NULL,
+  `q_max_marks` int(11) NOT NULL,
+  `q_negative_marks` int(11) NOT NULL,
+  `q_options` text,
+  `q_ans` text NOT NULL,
   `q_scope` enum('PUBLIC','PRIVATE','DEMO','PRACTICE') DEFAULT 'PUBLIC'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -68,31 +67,33 @@ CREATE TABLE `hc_questions` (
 -- Dumping data for table `hc_questions`
 --
 
-INSERT INTO `hc_questions` (`q_id`, `q_test_id`, `q_set_id`, `q_tag`, `q_type`, `q_content`, `q_max_marks`, `q_negative_marks`, `q_options`, `q_ans`, `q_scope`) VALUES
-(228, 55, 'Aptitude', 'Aptitude', 'TEXT', 'if A+B = 4 and B = 7 then A=?', 5, 1, '1,2,3,4', '3', 'PUBLIC'),
-(229, 55, 'Logical', 'Aptitude', 'TEXT', 'Excluding stoppages, the speed of a bus is 54 kmph and including stoppages, it is 45 kmph. For how many minutes does the bus stop per hour?\"', 5, 1, '9,10,12,20', '10', 'PUBLIC'),
-(230, 55, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
-(231, 55, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
-(232, 55, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
-(233, 55, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
-(234, 55, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
-(235, 55, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
-(236, 55, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
-(237, 55, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
-(238, 55, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
-(239, 55, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
-(240, 56, 'Aptitude', 'Aptitude', 'TEXT', 'if A+B = 4 and B = 7 then A=?', 5, 1, '1,2,3,4', '3', 'PUBLIC'),
-(241, 56, 'Logical', 'Aptitude', 'TEXT', 'Excluding stoppages, the speed of a bus is 54 kmph and including stoppages, it is 45 kmph. For how many minutes does the bus stop per hour?\"', 5, 1, '9,10,12,20', '10', 'PUBLIC'),
-(242, 56, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
-(243, 56, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
-(244, 56, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
-(245, 56, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
-(246, 56, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
-(247, 56, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
-(248, 56, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
-(249, 56, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
-(250, 56, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
-(251, 56, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC');
+INSERT INTO `hc_questions` (`q_question_id`, `q_set_id`, `q_tag`, `q_type`, `q_content`, `q_max_marks`, `q_negative_marks`, `q_options`, `q_ans`, `q_scope`) VALUES
+(1, 'Aptitude', 'Aptitude', 'TEXT', 'if A+B = 4 and B = 7 then A=?', 5, 1, '1,2,3,4', '3', 'PUBLIC'),
+(2, 'Logical', 'Aptitude', 'TEXT', 'Excluding stoppages, the speed of a bus is 54 kmph and including stoppages, it is 45 kmph. For how many minutes does the bus stop per hour?\"', 5, 1, '9,10,12,20', '10', 'PUBLIC'),
+(3, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
+(4, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
+(5, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
+(6, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
+(7, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
+(8, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
+(9, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
+(10, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
+(11, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
+(12, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
+(13, '', '', '', '', 0, 0, '', '', 'PUBLIC'),
+(14, 'Aptitude', 'Aptitude', 'TEXT', 'if A+B = 4 and B = 7 then A=?', 5, 1, '1,2,3,4', '3', 'PUBLIC'),
+(15, 'Logical', 'Aptitude', 'TEXT', 'Excluding stoppages, the speed of a bus is 54 kmph and including stoppages, it is 45 kmph. For how many minutes does the bus stop per hour?\"', 5, 1, '9,10,12,20', '10', 'PUBLIC'),
+(16, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
+(17, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
+(18, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
+(19, 'Aptitude', 'LOGIC', 'TEXT', 'The average speed of a train in the onward journey is 25% more than that in the return journey. The train halts for one hour on reaching the destination. The total time taken for the complete to and from journey is 17 hours, covering a distance of 800 km. The speed of the train in the onward journey is:', 4, 1, '2,56,7,2', '56', 'PUBLIC'),
+(20, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
+(21, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
+(22, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
+(23, 'Reasoning', 'REASONING', 'TEXT', 'Three persons are walking from a place A to another place B. Their speeds are in the ratio of 4 : 3 : 5. The time ratio to reach B by these persons will be :', 5, 2, '23,44,22,67,32', '44', 'PUBLIC'),
+(24, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
+(25, 'Logical', 'NUMERIC', 'TEXT', 'Walking (6/7) th of his usual speed, a man is 12 minutes too late. The usual time taken by him to cover that distance is:', 5, 3, '4,5,6,7', '5', 'PUBLIC'),
+(26, '', '', '', '', 0, 0, '', '', 'PUBLIC');
 
 -- --------------------------------------------------------
 
@@ -176,8 +177,43 @@ CREATE TABLE `hc_tests` (
 --
 
 INSERT INTO `hc_tests` (`t_id`, `t_name`, `t_associated_program`, `t_user_id`, `t_test_code`, `t_test_password`, `t_start_time`, `t_end_time`, `t_total_time`, `t_is_time_strict`, `t_is_ans_shuffle`, `t_file_path`) VALUES
-(55, 'MYNEWTEST', 'GTE101', 'admin', 'MYNEWTEST', 'AAS', '2019-02-01 19:30:00', '2019-02-02 21:31:00', 4500000, '1', '1', NULL),
-(56, 'DEMOTEST2', 'CO101', 'admin', 'DFGH', 'DFGHJ', '2018-12-31 18:30:00', '2019-01-01 18:30:00', 3660000, '1', '1', NULL);
+(55, 'Gate Test Set - 01', 'GTE101', 'admin', 'GATE01', 'AAS', '2019-04-11 19:45:23', '2019-02-02 21:31:00', 4500000, '1', '1', NULL),
+(56, 'CoCubes Sample Test', 'CO101', 'admin', 'COCUBE01', 'DFGHJ', '2019-04-11 19:45:30', '2019-01-01 18:30:00', 3660000, '1', '1', NULL),
+(57, 'Co-Cubes Practice Test Set - 01', 'CO101', 'admin', 'COCUBES-01', 'COCUBES-01', '2020-02-02 19:31:00', '2020-02-03 18:30:00', 3600000, '1', '1', NULL),
+(58, 'Co-Cubes Practice Test Set - 01', 'CO101', 'admin', 'COCUBES-01', 'COCUBES-01', '2020-02-02 19:31:00', '2020-02-03 18:30:00', 3600000, '1', '1', NULL),
+(59, 'Co-Cubes Practice Test Set - 01', 'CO101', 'admin', 'COCUBES-02', 'COCUBES-01', '2020-02-02 19:31:00', '2020-02-03 18:30:00', 3600000, '1', '1', NULL),
+(60, 'Co-Cubes Practice Test Set - 01', 'CO101', 'admin', 'COCUBES-03', 'COCUBES-01', '2020-02-02 19:31:00', '2020-02-03 18:30:00', 3600000, '1', '1', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hc_test_questions`
+--
+
+CREATE TABLE `hc_test_questions` (
+  `tq_id` int(11) NOT NULL,
+  `tq_test_id` varchar(100) NOT NULL,
+  `tq_question_id` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hc_test_questions`
+--
+
+INSERT INTO `hc_test_questions` (`tq_id`, `tq_test_id`, `tq_question_id`) VALUES
+(1, '60', '14'),
+(2, '60', '15'),
+(3, '60', '16'),
+(4, '60', '17'),
+(5, '60', '18'),
+(6, '60', '19'),
+(7, '60', '20'),
+(8, '60', '21'),
+(9, '60', '22'),
+(10, '60', '23'),
+(11, '60', '24'),
+(12, '60', '25'),
+(13, '60', '26');
 
 -- --------------------------------------------------------
 
@@ -272,10 +308,7 @@ ALTER TABLE `hc_programs`
 -- Indexes for table `hc_questions`
 --
 ALTER TABLE `hc_questions`
-  ADD PRIMARY KEY (`q_id`),
-  ADD KEY `q_test_id` (`q_test_id`),
-  ADD KEY `q_set_id` (`q_set_id`),
-  ADD KEY `q_tag` (`q_tag`);
+  ADD PRIMARY KEY (`q_question_id`);
 
 --
 -- Indexes for table `hc_sets`
@@ -301,6 +334,12 @@ ALTER TABLE `hc_temp_test`
 --
 ALTER TABLE `hc_tests`
   ADD PRIMARY KEY (`t_id`);
+
+--
+-- Indexes for table `hc_test_questions`
+--
+ALTER TABLE `hc_test_questions`
+  ADD PRIMARY KEY (`tq_id`);
 
 --
 -- Indexes for table `hc_user`
@@ -336,7 +375,7 @@ ALTER TABLE `hc_programs`
 -- AUTO_INCREMENT for table `hc_questions`
 --
 ALTER TABLE `hc_questions`
-  MODIFY `q_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
+  MODIFY `q_question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `hc_sets`
@@ -360,7 +399,13 @@ ALTER TABLE `hc_temp_test`
 -- AUTO_INCREMENT for table `hc_tests`
 --
 ALTER TABLE `hc_tests`
-  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT for table `hc_test_questions`
+--
+ALTER TABLE `hc_test_questions`
+  MODIFY `tq_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `hc_user`
@@ -383,12 +428,6 @@ ALTER TABLE `hc_user_program`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `hc_questions`
---
-ALTER TABLE `hc_questions`
-  ADD CONSTRAINT `hc_questions_ibfk_1` FOREIGN KEY (`q_test_id`) REFERENCES `hc_tests` (`t_id`);
 
 --
 -- Constraints for table `hc_sets`
