@@ -325,8 +325,6 @@ public class TestController extends AbstractController {
     	}
     	return jsonStr;
     }
-    
-    
 
     @Override
     public ModelAndView handleRequest(HttpServletRequest request,
