@@ -483,10 +483,6 @@ public class TestDAOImpl implements TestDAO {
         return " ";
     }
 
-
-
-
-    
     public JsonObject makeAnswerSheet(String data, HttpServletRequest req) {
         jdbcTemplate.setDataSource(getDataSource());
         JsonObject res = new JsonObject(); // result object 		
