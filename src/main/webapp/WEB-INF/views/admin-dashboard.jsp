@@ -223,26 +223,21 @@
                     		<thead>
                     			<tr>
                     				<th>Exam Name</th>
-                    				<th>Q/M/T</th>
-                    				<th>Exam Written Date<br>Exam Written Day<br>Exam Written Time</th>
-                    				<th>Your Score</th>
-                    				<th>Percentage</th>
-                    				<th>Rank</th>
+                    				<th>Test Date</th>
+                    				<th>Total Marks</th>
                     				<th>Result</th>
                     			</tr>
                     		</thead>
                     		<tbody>
                     			<tr>
                     				<td>10th Social Exam</td>
-                    				<td>60 / 60 / 60</td>
-                    				<td>01-Mar-2018<br>Thursday<br>04:20 AM</td>
-                    				<td>3 Marks</td>
-                    				<td>5%</td>
-                    				<td>1</td>
+                    				
+                    				<td>01-Mar-2018</td>
+                    				<td>100</td>
                     				<td>
                     					<div class="result-badge-container">
                     						<div class="result-badge">
-                    							<p>Not Qualified</p>
+                    							<p>78</p>
                     						</div>
                     					</div>
                     				</td>
@@ -252,11 +247,8 @@
 								<tbody>
                     			<tr>
                     				<td>${ ftest.getTestId() }</td>
-                    				<td>60 / 60 / 60</td>
-                    				<td>01-Mar-2018<br>Thursday<br>04:20 AM</td>
-                    				<td><p>${ ftest.getMarks() }</p></td>
-                    				<td>1</td>
-                    				<td>1</td>
+                    				<td>${ ftest.getDate() }</td>
+                    				<td>${ ftest.getMaxMarks() }</td>
                     				<td>
                     					<div class="result-badge-container">
                     						<div class="result-badge">

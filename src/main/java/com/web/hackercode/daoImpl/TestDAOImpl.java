@@ -1,6 +1,10 @@
 package com.web.hackercode.daoImpl;
 
 import java.io.File;
+import java.text.DateFormat;  
+import java.text.SimpleDateFormat;  
+import java.util.Date;  
+import java.util.Calendar; 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -509,7 +513,9 @@ public class TestDAOImpl implements TestDAO {
         String testIdentifier = testData.getId();
         List < Question > questions = getQuestionsForTest(testIdentifier);
         
+        int maxMarks = 0;
         for (Question q: questions) {
+        	maxMarks = maxMarks + q.getQuestionMaxMarks();
             for (Map.Entry < String, JsonElement > entry: entries) {
                 JsonObject temp = ovl.getAsJsonObject(entry.getKey());
                 String k = entry.getKey().toString();
@@ -532,12 +538,18 @@ public class TestDAOImpl implements TestDAO {
             }
         }
         res.addProperty("marks", result);
+        res.addProperty("maxMarks", maxMarks);
         try {
+        	  Date date = Calendar.getInstance().getTime();  
+              DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+              String strDate = dateFormat.format(date);  
         	//adding marks to the table
-        	String Update = "UPDATE hc_temp_test SET marks = ?, isFinished = 1 WHERE tt_user_id = ? AND tt_test_id = ?";
+        	String Update = "UPDATE hc_temp_test SET marks = ?, isFinished = 1,tt_date = ?, tt_maxMarks= ? WHERE tt_user_id = ? AND tt_test_id = ?";
         	User user = (User) req.getSession().getAttribute("user");
         	jdbcTemplate.update(Update, new Object[] { 
         							result,
+        							strDate,
+        							maxMarks,
         			                user.getU_id(),
         			                testData.getId()
         			            });

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2019 at 09:20 AM
+-- Generation Time: Apr 21, 2019 at 02:56 PM
 -- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- PHP Version: 7.2.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -153,26 +153,29 @@ CREATE TABLE `hc_temp_test` (
   `tt_test_id` varchar(100) NOT NULL,
   `tt_time_remaining` varchar(10) NOT NULL,
   `tt_ans_object` longtext NOT NULL,
-  `marks` int(11) NOT NULL,
-  `isFinished` tinyint(1) NOT NULL DEFAULT '0'
+  `marks` int(11) DEFAULT NULL,
+  `isFinished` tinyint(1) NOT NULL DEFAULT '0',
+  `tt_maxMarks` bigint(255) DEFAULT '0',
+  `tt_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `hc_temp_test`
 --
 
-INSERT INTO `hc_temp_test` (`id`, `tt_user_id`, `tt_test_id`, `tt_time_remaining`, `tt_ans_object`, `marks`, `isFinished`) VALUES
-(4, '1', '30', '236000', '{\"120\":{\"answer\":\"2\",\"status\":\"answered-to-review\",\"answered\":true},\"121\":{\"status\":\"not-answered\",\"answered\":false},\"122\":{\"status\":\"not-answered\",\"answered\":false},\"123\":{\"status\":\"normal\",\"answered\":false},\"124\":{\"status\":\"not-answered\",\"answered\":false},\"125\":{\"status\":\"to-review\",\"answered\":false},\"126\":{\"status\":\"to-review\",\"answered\":false},\"127\":{\"status\":\"not-answered\",\"answered\":false},\"128\":{\"status\":\"not-answered\",\"answered\":false},\"129\":{\"status\":\"not-answered\",\"answered\":false},\"130\":{\"status\":\"normal\",\"answered\":false},\"131\":{\"status\":\"normal\",\"answered\":false}}', 0, 0),
-(5, '1', '331', '', '{est:heello}', 1, 0),
-(6, '1', '331', '', '{est:heello}', 2, 1),
-(7, '1', '331', '', '{est:heello}', 3, 0),
-(8, '1', '331', '', '{est:heello}', 4, 1),
-(9, '1', '331', '', '{est:heello}', 5, 0),
-(10, '1', '331', '', '{est:heello}', 6, 1),
-(11, '1', '331', '', '{est:heello}', 7, 0),
-(12, '1', '331', '', '{est:heello}', 8, 1),
-(13, '1', '331', '', '{est:heello}', 9, 1),
-(14, '1', '331', '', '{est:heello}', 10, 1);
+INSERT INTO `hc_temp_test` (`id`, `tt_user_id`, `tt_test_id`, `tt_time_remaining`, `tt_ans_object`, `marks`, `isFinished`, `tt_maxMarks`, `tt_date`) VALUES
+(4, '1', '30', '236000', '{\"120\":{\"answer\":\"2\",\"status\":\"answered-to-review\",\"answered\":true},\"121\":{\"status\":\"not-answered\",\"answered\":false},\"122\":{\"status\":\"not-answered\",\"answered\":false},\"123\":{\"status\":\"normal\",\"answered\":false},\"124\":{\"status\":\"not-answered\",\"answered\":false},\"125\":{\"status\":\"to-review\",\"answered\":false},\"126\":{\"status\":\"to-review\",\"answered\":false},\"127\":{\"status\":\"not-answered\",\"answered\":false},\"128\":{\"status\":\"not-answered\",\"answered\":false},\"129\":{\"status\":\"not-answered\",\"answered\":false},\"130\":{\"status\":\"normal\",\"answered\":false},\"131\":{\"status\":\"normal\",\"answered\":false}}', 0, 0, 0, NULL),
+(5, '1', '331', '', '{est:heello}', 1, 0, 0, NULL),
+(6, '1', '331', '', '{est:heello}', 2, 1, 0, NULL),
+(7, '1', '331', '', '{est:heello}', 3, 0, 0, NULL),
+(8, '1', '331', '', '{est:heello}', 4, 1, 0, NULL),
+(9, '1', '331', '', '{est:heello}', 5, 0, 0, NULL),
+(10, '1', '331', '', '{est:heello}', 6, 1, 0, NULL),
+(11, '1', '331', '', '{est:heello}', 7, 0, 0, NULL),
+(13, '1', '331', '', '{est:heello}', 9, 1, 0, NULL),
+(14, '1', '331', '', '{est:heello}', 10, 1, 0, NULL),
+(17, '23', '62', '3507000', '{\"14\":{\"answer\":\"2\",\"status\":\"visited\",\"answered\":true},\"15\":{\"status\":\"normal\",\"answered\":false},\"16\":{\"status\":\"visited\",\"answered\":true,\"answer\":\"56\"},\"17\":{\"status\":\"normal\",\"answered\":false},\"18\":{\"status\":\"visited\",\"answered\":true,\"answer\":\"56\"},\"19\":{\"status\":\"not-answered\",\"answered\":false},\"20\":{\"status\":\"normal\",\"answered\":false},\"21\":{\"status\":\"normal\",\"answered\":false},\"22\":{\"status\":\"normal\",\"answered\":false},\"23\":{\"status\":\"normal\",\"answered\":false},\"24\":{\"status\":\"normal\",\"answered\":false},\"25\":{\"status\":\"normal\",\"answered\":false}}', 0, 1, 0, NULL),
+(18, '23', '61', '3592000', '{\"14\":{\"answer\":\"3\",\"status\":\"visited\",\"answered\":true},\"15\":{\"status\":\"normal\",\"answered\":false},\"16\":{\"answer\":\"56\",\"status\":\"visited\",\"answered\":true},\"17\":{\"status\":\"normal\",\"answered\":false},\"18\":{\"status\":\"normal\",\"answered\":false},\"19\":{\"status\":\"normal\",\"answered\":false},\"20\":{\"status\":\"normal\",\"answered\":false},\"21\":{\"status\":\"normal\",\"answered\":false},\"22\":{\"status\":\"normal\",\"answered\":false},\"23\":{\"status\":\"normal\",\"answered\":false},\"24\":{\"status\":\"normal\",\"answered\":false},\"25\":{\"status\":\"normal\",\"answered\":false}}', 0, 1, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -444,7 +447,7 @@ ALTER TABLE `hc_tags`
 -- AUTO_INCREMENT for table `hc_temp_test`
 --
 ALTER TABLE `hc_temp_test`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `hc_tests`

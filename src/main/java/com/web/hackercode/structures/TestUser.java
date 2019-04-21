@@ -8,7 +8,25 @@ public class TestUser {
 	private String timeLeft;
 	private int marks;
 	private boolean isTestFinished;
+	private int maxMarks;
+	private String date;
 	
+	public int getMaxMarks() {
+		return maxMarks;
+	}
+
+	public void setMaxMarks(int maxMarks) {
+		this.maxMarks = maxMarks;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	public int getMarks() {
 		return marks;
 	}
