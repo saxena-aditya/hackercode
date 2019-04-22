@@ -36,4 +36,5 @@ public interface TestDAO {
 	public List<ProgramSpecificTests> getAllTestsByAdmin(User u);
 	public List<Question> getQuestionsForTest(String testIdentifier); 
 	public boolean saveQuestion(Question q, int mode);
+	public void updateUserInfo(User u, User currentUser);
 }

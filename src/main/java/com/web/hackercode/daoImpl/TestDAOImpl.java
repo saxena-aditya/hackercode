@@ -794,5 +794,21 @@ public class TestDAOImpl implements TestDAO {
 		}
 		return true;
 	}
+	
+	public void updateUserInfo(User user, User currentUser) {
+		jdbcTemplate.setDataSource(getDataSource());
+		System.out.println("CURRENT USER"+currentUser);
+		
+		String UPDATE_USER_INFO = "UPDATE `hc_user_details` SET ud_username=?,ud_firstname=?,ud_lastname=?,ud_institute=?,ud_email=? WHERE ud_id = ?";
+		jdbcTemplate.update(UPDATE_USER_INFO, new Object[] {
+				user.getUsername(),
+				user.getFirstName(),
+				user.getLastName(),
+				user.getInstitute(),
+				user.getEmail(),
+				currentUser.getU_id()
+		});
+		
+	}
 
 }

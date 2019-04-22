@@ -30,12 +30,12 @@
                        </li> -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="${pageContext.request.contextPath}/resources/admin-panel/img/user-image.jpg" id="user-profile-small" alt="user">AdiUser77
-                
+                                <img src="${pageContext.request.contextPath}/resources/admin-panel/img/user-image.jpg" id="user-profile-small" alt="user">${ user.getUsername() }
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#">Action</a>
                                 <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editDetailsModal">Edit Details</button></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Logout</a>
                             </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="student-name">
                             <div class="std-name">
-                                <p id="#name">Aditya</p>
+                                <p id="#name">${ user.getUsername() }</p>
                             </div>
                         </div>
                         <div class="info-user">
@@ -294,5 +294,52 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
             <script src="${pageContext.request.contextPath}/resources/admin-panel/js/main.js"></script>
+            <div class="modal" id="editDetailsModal">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				
+				      <!-- Modal Header -->
+				      <div class="modal-header">
+				        <h4 class="modal-title">Edit Details</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				      </div>
+				
+				      <!-- Modal body -->
+				      <div class="modal-body">
+				       	<form id="role-form" action="${pageContext.request.contextPath}/update-user-info" method="POST">
+				     		 <div class="form-group">
+    							<label for="Email">Email address</label>
+    							<input type="email" class="form-control" name="email" id="Email" value=${ user.getEmail() } required>
+  							</div>
+  							<div class="form-group">
+    							<label for="fname">First Name</label>
+    							<input type="text" class="form-control" name="firstName" id="fname" value=${ user.getFirstName() } required>
+  							</div>
+  							<div class="form-group">
+    							<label for="lname">Last Name</label>
+    							<input type="text" class="form-control" id="lname" name="lastName" value=${ user.getLastName() } required>
+  							</div>
+  							<div class="form-group">
+    							<label for="username">UserName</label>
+    							<input type="text" class="form-control" id="username" name="username" value=${ user.getUsername() } required>
+  							</div>
+  							<div class="form-group">
+    							<label for="ins">Institute</label>
+    							<input type="text" class="form-control" id="ins" name="institute" value=${ user.getInstitute() } required>
+  							</div>
+  							 <div class="modal-footer">
+				      	<input type="submit" class="btn btn-success" value="Submit">
+				        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				      </div>
+				       	</form>
+				       	 <!-- Modal footer -->
+				     
+				      </div>
+				
+				     
+				
+				    </div>
+				  </div>
+			</div>
     </body>
 </html>

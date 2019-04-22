@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2019 at 02:56 PM
+-- Generation Time: Apr 22, 2019 at 07:59 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.2.15
 
@@ -316,7 +316,7 @@ CREATE TABLE `hc_user_details` (
 --
 
 INSERT INTO `hc_user_details` (`ud_id`, `ud_username`, `ud_firstname`, `ud_lastname`, `ud_institute`, `ud_email`, `ud_role`) VALUES
-(1, 'student', 'Aditya', 'Saxena', 'Graphic Era University', 't@t.com', '0'),
+(1, 'student', 'studentUpdatedasadas', 'studentUpdateasdasd', 'ksdjaljdlsajdalda', 'studentupdate122sadasda@gmail.com', '0'),
 (2, 'admin', 'Aman', 'Saxena', 'Graphic Era Hill University', 'admin', '1'),
 (4, 'sudo199', 'sudipt', 'dabral', NULL, 'sudipt@gmail.com', '0'),
 (10, 'sudo19933', 'sudipt', 'dabral', NULL, 'sudipt121@gmail.com', '0'),
