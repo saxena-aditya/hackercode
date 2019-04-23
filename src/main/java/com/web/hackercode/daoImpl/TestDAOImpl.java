@@ -723,7 +723,7 @@ public class TestDAOImpl implements TestDAO {
             	 jdbcTemplate.update(ADD_USER_WITH_PROGRAM, new Object[] {
                          ruser.getEmail(),
                          s
-                     });
+                 });
             }
            
         } catch (Exception e) {

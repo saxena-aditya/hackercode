@@ -14,6 +14,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/give-test/take-test/css/instruction-ui.css">
 
 <body>
+<div id="snackbar">
+	<div id="excl">!</div>
+    <div id="snackbar-text"></div>
+</div>
 <div id="instructions">
 	 <div class="layout-container">
             <div class="gray-full-container challenge">

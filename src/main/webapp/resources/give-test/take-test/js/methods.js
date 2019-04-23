@@ -7,6 +7,7 @@ $(function() {
         "test_id": test_id,
         "user_id": user_id
     }
+
     
     
     window.onload = function() {
@@ -895,3 +896,44 @@ $(window).on("unload", function(e) {
     localStorage.prev_time = localStorage.total_time;
     localStorage.removeItem(total_time);
 });
+
+var isTabActive = true;
+var totalPenalties = 5;
+var penalties = 0;
+var testCancle = false;
+      
+function showSnack() {
+  var num = totalPenalties - penalties;
+  var data = "Warning: Tab Switching is not allowed.<br>Penalties remaining: <span id='p-num'>"+ num +"/"+ totalPenalties +"</span>";
+  var x = document.getElementById("snackbar");
+  var y = document.getElementById("snackbar-text");
+  y.innerHTML = data;
+  x.className = "show";
+  
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+window.onfocus = function () {
+	
+
+    if (!isTabActive) {
+        if (penalties <= totalPenalties) {
+            showSnack(); 
+            isTabActive = true; 
+        }
+        else {
+            
+            testCancle = true;
+        }
+    }
+    return false;
+}; 
+
+window.onblur = function () { 
+  if (penalties >= totalPenalties) {
+	  alert("You have exceeded the allowed penalties. Canceling your test now!");
+     window.location.href = "/dashboard";
+     return false;
+  }
+  isTabActive = false; 
+  penalties++;
+}; 
