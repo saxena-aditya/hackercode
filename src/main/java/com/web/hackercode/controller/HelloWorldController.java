@@ -28,7 +28,7 @@ public class HelloWorldController {
 	  @RequestMapping(value = "/new-admin-login", method = RequestMethod.GET) 
 	  public ModelAndView showAdminLogin(HttpServletRequest req) {
 	  
-		  return new ModelAndView("test-admin-login"); 
+		  return new ModelAndView("index"); 
 	  }
 
 }
