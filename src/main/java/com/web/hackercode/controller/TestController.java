@@ -41,6 +41,7 @@ import org.springframework.validation.BindingResult;
 @Controller
 public class TestController extends AbstractController {
     ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
+    User loggedInUser = null;
 
     @RequestMapping(value = "/file-upload", method = RequestMethod.GET)
     public ModelAndView serverFileUpload(HttpServletRequest req, HttpServletResponse res) {
@@ -241,7 +242,8 @@ public class TestController extends AbstractController {
         TestDAO testDao = ctx.getBean(TestDAO.class);
         
         System.out.println("isLoggedIn: " + req.getSession().getAttribute("isLoggedIn").toString());
-        
+        System.out.println("LOGGED IN USER CURRENT USER"+(User)req.getSession().getAttribute("user") );
+        this.loggedInUser = (User)req.getSession().getAttribute("user");
         if (req.getSession().getAttribute("isLoggedIn").toString().equalsIgnoreCase("false")) {
             RedirectView view = new RedirectView("admin-login", true);
             return new ModelAndView(view);
@@ -252,7 +254,7 @@ public class TestController extends AbstractController {
         List<ProgramSpecificTests> tests = testDao.getAllTest(u);
         List < TestUser > finishedTest = testDao.getAllFinishedTest(u);
         return new ModelAndView("admin-dashboard").addObject("tests", tests)
-            .addObject("finishedTest", finishedTest);
+            .addObject("finishedTest", finishedTest).addObject("user",u);
 
     }
 
@@ -324,6 +326,21 @@ public class TestController extends AbstractController {
     		 jsonStr = gson.toJson(questions);
     	}
     	return jsonStr;
+    }
+    
+    @RequestMapping(value="/update-user-info", method=RequestMethod.POST)
+    public ModelAndView updateUserInfo(HttpServletRequest req,@ModelAttribute("user") User user) {
+    	TestDAO testDao = ctx.getBean(TestDAO.class);
+    	System.out.println("\n \n USER UPDATED now "+ user+"\n \n" + loggedInUser);
+    	User currentUser = loggedInUser;
+    	testDao.updateUserInfo(user, currentUser);
+    	user.setU_id(currentUser.getU_id());
+    	User u = user;
+
+        List<ProgramSpecificTests> tests = testDao.getAllTest(u);
+        List < TestUser > finishedTest = testDao.getAllFinishedTest(u);
+        return new ModelAndView("admin-dashboard").addObject("tests", tests)
+            .addObject("finishedTest", finishedTest).addObject("user",u);
     }
 
     @Override

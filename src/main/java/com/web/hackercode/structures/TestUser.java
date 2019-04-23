@@ -10,7 +10,26 @@ public class TestUser {
 	private boolean isTestFinished;
 	private int maxMarks;
 	private String date;
+	private String username;
+	private String institue;
 	
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getInstitue() {
+		return institue;
+	}
+
+	public void setInstitue(String institueName) {
+		this.institue = institueName;
+	}
+
 	public int getMaxMarks() {
 		return maxMarks;
 	}

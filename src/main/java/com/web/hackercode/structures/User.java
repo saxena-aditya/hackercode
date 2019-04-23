@@ -8,6 +8,16 @@ public class User {
 	private String email;
 	private String institute;
 	private boolean isAdmin;
+	private String username;
+	
+	
+	public String getUsername() {
+		return username;
+	}
+	
+	public void setUsername(String u) {
+		this.username = u;
+	}
 	/**
 	 * @return the u_id
 	 */
@@ -84,17 +94,17 @@ public class User {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public void setUsername(String string) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	public void setPassword(String string) {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	@Override
 	public String toString() {
-		return firstName + " "+lastName+" "+email;
+		return "User [u_id=" + u_id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", institute=" + institute + ", isAdmin=" + isAdmin + ", username=" + username + "]";
 	}
+	
+	
 	
 }
