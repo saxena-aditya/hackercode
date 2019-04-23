@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2019 at 07:59 PM
+-- Generation Time: Apr 23, 2019 at 07:53 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.2.15
 
@@ -308,22 +308,23 @@ CREATE TABLE `hc_user_details` (
   `ud_lastname` varchar(100) NOT NULL,
   `ud_institute` varchar(500) DEFAULT NULL,
   `ud_email` varchar(1000) NOT NULL,
-  `ud_role` varchar(5) NOT NULL DEFAULT '0'
+  `ud_role` varchar(5) NOT NULL DEFAULT '0',
+  `ud_img_path` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `hc_user_details`
 --
 
-INSERT INTO `hc_user_details` (`ud_id`, `ud_username`, `ud_firstname`, `ud_lastname`, `ud_institute`, `ud_email`, `ud_role`) VALUES
-(1, 'student', 'studentUpdatedasadas', 'studentUpdateasdasd', 'ksdjaljdlsajdalda', 'studentupdate122sadasda@gmail.com', '0'),
-(2, 'admin', 'Aman', 'Saxena', 'Graphic Era Hill University', 'admin', '1'),
-(4, 'sudo199', 'sudipt', 'dabral', NULL, 'sudipt@gmail.com', '0'),
-(10, 'sudo19933', 'sudipt', 'dabral', NULL, 'sudipt121@gmail.com', '0'),
-(13, 'test12', 'sudipt', 'dabral', NULL, 'sudipt122@gmail.com', '0'),
-(20, 'sudo2323232', 'Sudipt', 'Dabral', NULL, 'sudiptwork1999@gmail.com', '0'),
-(21, '123user', 'test', 'user', NULL, 'sakdjaklsj@gmail.com', '0'),
-(23, 'adityasaxena602@gmail.com', 'Aditya ', 'Saxena', NULL, 'adityasaxena602@gmail.com', '0');
+INSERT INTO `hc_user_details` (`ud_id`, `ud_username`, `ud_firstname`, `ud_lastname`, `ud_institute`, `ud_email`, `ud_role`, `ud_img_path`) VALUES
+(1, 'student', 'studentUpdatedasadas', 'studentUpdateasdasd', 'required', 'studentupdate122sadasda@gmail.com', '0', NULL),
+(2, 'admin', 'Aman', 'Saxena', 'Graphic Era Hill University', 'admin', '1', NULL),
+(4, 'sudo199', 'sudipt', 'dabral', NULL, 'sudipt@gmail.com', '0', NULL),
+(10, 'sudo19933', 'sudipt', 'dabral', NULL, 'sudipt121@gmail.com', '0', NULL),
+(13, 'test12', 'sudipt', 'dabral', NULL, 'sudipt122@gmail.com', '0', NULL),
+(20, 'sudo2323232', 'Sudipt', 'Dabral', NULL, 'sudiptwork1999@gmail.com', '0', NULL),
+(21, '123user', 'test', 'user', NULL, 'sakdjaklsj@gmail.com', '0', NULL),
+(23, 'adityasaxena602@gmail.com', 'Aditya ', 'Saxena', NULL, 'adityasaxena602@gmail.com', '0', NULL);
 
 -- --------------------------------------------------------
 

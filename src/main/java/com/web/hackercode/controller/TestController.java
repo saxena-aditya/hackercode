@@ -329,10 +329,19 @@ public class TestController extends AbstractController {
     }
     
     @RequestMapping(value="/update-user-info", method=RequestMethod.POST)
-    public ModelAndView updateUserInfo(HttpServletRequest req,@ModelAttribute("user") User user) {
+    public ModelAndView updateUserInfo(HttpServletRequest req, @ModelAttribute("user") User user ) {
+    	System.out.println("\n \n REQUEST FOR SERVER "+req);
+    	
     	TestDAO testDao = ctx.getBean(TestDAO.class);
     	System.out.println("\n \n USER UPDATED now "+ user+"\n \n" + loggedInUser);
     	User currentUser = loggedInUser;
+    	try {
+			currentUser.setFilePath(testDao.returnImagePath(user.getFile()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("\n \n \n ERROR UPLOADING FILE \n \n \n");
+			e.printStackTrace();
+		}
     	testDao.updateUserInfo(user, currentUser);
     	user.setU_id(currentUser.getU_id());
     	User u = user;

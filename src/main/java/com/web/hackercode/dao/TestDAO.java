@@ -37,4 +37,5 @@ public interface TestDAO {
 	public List<Question> getQuestionsForTest(String testIdentifier); 
 	public boolean saveQuestion(Question q, int mode);
 	public void updateUserInfo(User u, User currentUser);
+	public String returnImagePath(MultipartFile file) throws IOException;
 }

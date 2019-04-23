@@ -1,5 +1,7 @@
 package com.web.hackercode.structures;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class User {
 
 	private int u_id;
@@ -9,8 +11,27 @@ public class User {
 	private String institute;
 	private boolean isAdmin;
 	private String username;
+	private  MultipartFile file;
+	private String filePath;
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 	
 	
+
 	public String getUsername() {
 		return username;
 	}
@@ -99,11 +120,15 @@ public class User {
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
 	public String toString() {
 		return "User [u_id=" + u_id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", institute=" + institute + ", isAdmin=" + isAdmin + ", username=" + username + "]";
+				+ ", institute=" + institute + ", isAdmin=" + isAdmin + ", username=" + username 
+				+ ", file=" + file + ", filePath=" + filePath + "]";
 	}
+
+	
 	
 	
 	

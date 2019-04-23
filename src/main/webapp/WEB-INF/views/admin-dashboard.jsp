@@ -306,7 +306,7 @@
 				
 				      <!-- Modal body -->
 				      <div class="modal-body">
-				       	<form id="role-form" action="${pageContext.request.contextPath}/update-user-info" method="POST">
+				       	<form id="role-form" action="${pageContext.request.contextPath}/update-user-info" method="POST" enctype="multipart/form-data">
 				     		 <div class="form-group">
     							<label for="Email">Email address</label>
     							<input type="email" class="form-control" name="email" id="Email" value=${ user.getEmail() } required>
@@ -327,6 +327,12 @@
     							<label for="ins">Institute</label>
     							<input type="text" class="form-control" id="ins" name="institute" value=${ user.getInstitute() } required>
   							</div>
+  							<div class="form-group">
+    							<label for="ins">Profile Picture</label>
+    							<input type="file" class="form-control" id="pic-img" name="file">
+    							
+  							</div>
+  							<input name="filePath" style="display:none"/>
   							 <div class="modal-footer">
 				      	<input type="submit" class="btn btn-success" value="Submit">
 				        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

@@ -159,14 +159,36 @@ public class TestDAOImpl implements TestDAO {
         }
     }
 
+    public String returnImagePath(MultipartFile file) throws IOException{
+    	  
+    	System.out.println("\n \n RETURN IMAGE PATH FILE INVOKED \n \n"+file);
+    	  String LOCATION = "";
+          System.out.println(file.getName());
+          InputStream in = file.getInputStream();
+          System.out.println("\n \n BEFORE CURR DIR \n \n");
+          File currdir = new File("D:\\hackercode\\src\\main\\images");
+          String path = currdir.getAbsolutePath();
+          LOCATION = path.substring(0, path.length()) + "\\" + file.getOriginalFilename();
+          FileOutputStream f = new FileOutputStream(LOCATION);
+          int ch = 0;
+          // add try,catch and finally blocks to copy the file
+          while ((ch = in .read()) != -1) {
+              f.write(ch);
+          }
 
+          System.out.println(LOCATION);
+          f.flush();
+          f.close();
+          System.out.println("\n LOCATION FOR SAVED FILE PATH : "+LOCATION + "\n");
+          return LOCATION;
+    }
 
     public boolean saveFile(int testId, MultipartFile file) throws IOException {
 
         String LOCATION = "";
         System.out.println(file.getName());
         InputStream in = file.getInputStream();
-        File currdir = new File("A:\\hackercode\\HackerCode\\file-data");
+        File currdir = new File("D:\\hackercode\\HackerCode\\file-data");
         String path = currdir.getAbsolutePath();
         LOCATION = path.substring(0, path.length()) + "\\" + file.getOriginalFilename();
         FileOutputStream f = new FileOutputStream(LOCATION);
@@ -799,13 +821,14 @@ public class TestDAOImpl implements TestDAO {
 		jdbcTemplate.setDataSource(getDataSource());
 		System.out.println("CURRENT USER"+currentUser);
 		
-		String UPDATE_USER_INFO = "UPDATE `hc_user_details` SET ud_username=?,ud_firstname=?,ud_lastname=?,ud_institute=?,ud_email=? WHERE ud_id = ?";
+		String UPDATE_USER_INFO = "UPDATE `hc_user_details` SET ud_username=?,ud_firstname=?,ud_lastname=?,ud_institute=?,ud_email=?, ud_img_path = ? WHERE ud_id = ?";
 		jdbcTemplate.update(UPDATE_USER_INFO, new Object[] {
 				user.getUsername(),
 				user.getFirstName(),
 				user.getLastName(),
 				user.getInstitute(),
 				user.getEmail(),
+				user.getFilePath(),
 				currentUser.getU_id()
 		});
 		
