@@ -329,12 +329,12 @@ public class TestController extends AbstractController {
     }
     
     @RequestMapping(value="/update-user-info", method=RequestMethod.POST)
-    public ModelAndView updateUserInfo(HttpServletRequest req,@RequestBody String json ) {
+    public ModelAndView updateUserInfo(HttpServletRequest req,@ModelAttribute("user") User user) {
     	System.out.println("\n \n REQUEST FOR SERVER "+req);
  
-    	System.out.println("JSON"+json);
-    	Gson gson = new GsonBuilder().create();
-        User user = gson.fromJson(json, User.class);
+//    	System.out.println("JSON"+json);
+//    	Gson gson = new GsonBuilder().create();
+//        User user = gson.fromJson(json, User.class);
     	
     	System.out.println("USER FRoM 322"+user);
     	TestDAO testDao = ctx.getBean(TestDAO.class);
