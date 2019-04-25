@@ -35,7 +35,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#">Action</a>
                                 <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editDetailsModal">Edit Details</button></a>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editDetailsModal">Edit Details</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Logout</a>
                             </div>
@@ -311,22 +311,32 @@
     							<label for="Email">Email address</label>
     							<input type="email" class="form-control" name="email" id="Email" value=${ user.getEmail() } required>
   							</div>
+  							
   							<div class="form-group">
-    							<label for="fname">First Name</label>
-    							<input type="text" class="form-control" name="firstName" id="fname" value=${ user.getFirstName() } required>
-  							</div>
+	  							<div class="row">
+	  								<div class="col-md-6">
+		    							<label for="fname">First Name</label>
+		    							<input type="text" class="form-control" name="firstName" id="fname" value=${ user.getFirstName() } required>
+	  								</div>
+	  								<div class="col-md-6">
+		    							<label for="lname">Last Name</label>
+		    							<input type="text" class="form-control" id="lname" name="lastName" value=${ user.getLastName() } required>
+	  								</div>
+	  							</div>
+	  						</div>
   							<div class="form-group">
-    							<label for="lname">Last Name</label>
-    							<input type="text" class="form-control" id="lname" name="lastName" value=${ user.getLastName() } required>
+	  							<div class="row">
+	  								<div class="col-md-6">
+		    							<label for="fname">Institute</label>
+		    						<input type="text" class="form-control" id="ins" name="institute" value=${ user.getInstitute() } required>
+	  								</div>
+	  								<div class="col-md-6">
+		    							<label for="lname">Display Name</label>
+	    							<input type="text" class="form-control" id="username" name="username" value=${ user.getUsername() } required>
+	  								</div>
+	  							</div>
   							</div>
-  							<div class="form-group">
-    							<label for="username">UserName</label>
-    							<input type="text" class="form-control" id="username" name="username" value=${ user.getUsername() } required>
-  							</div>
-  							<div class="form-group">
-    							<label for="ins">Institute</label>
-    							<input type="text" class="form-control" id="ins" name="institute" value=${ user.getInstitute() } required>
-  							</div>
+  							
   							<div class="form-group">
     							<label for="ins">Profile Picture</label>
     							<input type="file" class="form-control" id="pic-img" name="file">
