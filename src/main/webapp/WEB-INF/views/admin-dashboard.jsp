@@ -306,7 +306,7 @@
 				
 				      <!-- Modal body -->
 				      <div class="modal-body">
-				       	<form id="role-form" action="${pageContext.request.contextPath}/update-user-info" method="POST" enctype="multipart/form-data">
+				       	<form id="submitform" method="POST">
 				     		 <div class="form-group">
     							<label for="Email">Email address</label>
     							<input type="email" class="form-control" name="email" id="Email" value=${ user.getEmail() } required>
@@ -344,7 +344,7 @@
   							</div>
   							<input name="filePath" style="display:none"/>
   							 <div class="modal-footer">
-				      	<input type="submit" class="btn btn-success" value="Submit">
+				      	<input type="submit" id="editSubmit" class="btn btn-success" value="Submit">
 				        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				      </div>
 				       	</form>
@@ -359,3 +359,68 @@
 			</div>
     </body>
 </html>
+<script
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
+
+<script>
+	
+	$('#editSubmit').click(function(e){
+		e.preventDefault();
+		console.log("Button Clicked");
+		var submitForm = $('#submitform');
+		var formData = new FormData(document.getElementById('submitform'));
+		console.log("submitForm")
+		
+		
+		formData.append('email',$('#Email').val());
+		console.log("FORM DATA",formData);
+		formData.append('firstName',$('#fname').val());
+		console.log("FORM DATA",formData);
+		formData.append('lastName',$('#lname').val());
+		console.log("FORM DATA",formData);
+		formData.append('username',$('#username').val());
+		formData.append('institute',$('#ins').val());
+		formData.append('file', $('input[type=file]')[0].files[0]); 
+		formData.append("TES","testdata");
+		
+		
+		var d = {
+				'email' : $('#Email').val(),
+				'firstName' : $('#fname').val(),
+				'lastName' : $('#lname').val(),
+				'username':$('#username').val(),
+				'institute':$('#ins').val(),
+				'file' : $('input[type=file]')[0].files[0]
+				
+		}
+		console.log("D",d);
+		
+		console.log("FORM DATA",formData);
+		
+		
+		
+		jQuery.ajax({
+		    url: "${pageContext.request.contextPath}/update-user-info",
+		    data: JSON.stringify(d),
+		    cache: false,
+		    contentType: false,
+		    processData: false,
+		    method: 'POST',
+		    type: 'POST', // For jQuery < 1.9
+		    success: function(data){
+		        console.log("DONE")
+		    }
+		});
+		
+		
+		
+		
+	
+	})
+	
+	
+	
+	
+</script>
