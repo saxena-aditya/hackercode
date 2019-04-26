@@ -35,7 +35,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#">Action</a>
                                 <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editDetailsModal">Edit Details</a>
+                                <a class="dropdown-item" href="#"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editDetailsModal">Edit Details</button></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Logout</a>
                             </div>
@@ -311,32 +311,22 @@
     							<label for="Email">Email address</label>
     							<input type="email" class="form-control" name="email" id="Email" value=${ user.getEmail() } required>
   							</div>
-  							
   							<div class="form-group">
-	  							<div class="row">
-	  								<div class="col-md-6">
-		    							<label for="fname">First Name</label>
-		    							<input type="text" class="form-control" name="firstName" id="fname" value=${ user.getFirstName() } required>
-	  								</div>
-	  								<div class="col-md-6">
-		    							<label for="lname">Last Name</label>
-		    							<input type="text" class="form-control" id="lname" name="lastName" value=${ user.getLastName() } required>
-	  								</div>
-	  							</div>
-	  						</div>
-  							<div class="form-group">
-	  							<div class="row">
-	  								<div class="col-md-6">
-		    							<label for="fname">Institute</label>
-		    						<input type="text" class="form-control" id="ins" name="institute" value=${ user.getInstitute() } required>
-	  								</div>
-	  								<div class="col-md-6">
-		    							<label for="lname">Display Name</label>
-	    							<input type="text" class="form-control" id="username" name="username" value=${ user.getUsername() } required>
-	  								</div>
-	  							</div>
+    							<label for="fname">First Name</label>
+    							<input type="text" class="form-control" name="firstName" id="fname" value=${ user.getFirstName() } required>
   							</div>
-  							
+  							<div class="form-group">
+    							<label for="lname">Last Name</label>
+    							<input type="text" class="form-control" id="lname" name="lastName" value=${ user.getLastName() } required>
+  							</div>
+  							<div class="form-group">
+    							<label for="username">UserName</label>
+    							<input type="text" class="form-control" id="username" name="username" value=${ user.getUsername() } required>
+  							</div>
+  							<div class="form-group">
+    							<label for="ins">Institute</label>
+    							<input type="text" class="form-control" id="ins" name="institute" value=${ user.getInstitute() } required>
+  							</div>
   							<div class="form-group">
     							<label for="ins">Profile Picture</label>
     							<input type="file" class="form-control" id="pic-img" name="file">
@@ -350,67 +340,37 @@
 				       	</form>
 				       	 <!-- Modal footer -->
 				     
-				      </div>	
+				      </div>
+				
+				     
+				
 				    </div>
 				  </div>
 			</div>
     </body>
 </html>
 <script
-  src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
 
 <script>
 	
 	$('#editSubmit').click(function(e){
 		e.preventDefault();
 		console.log("Button Clicked");
-		var submitForm = $('#submitform');
-		var formData = new FormData();
-		console.log("submitForm")
-		
-		formData.append('email',$('#Email').val());
-		console.log("FORM DATA",formData);
-		formData.append('firstName',$('#fname').val());
-		console.log("FORM DATA",formData);
-		formData.append('lastName',$('#lname').val());
-		console.log("FORM DATA",formData);
-		formData.append('username',$('#username').val());
-		formData.append('institute',$('#ins').val());
-		formData.append('file', $('input[type=file]')[0].files[0]); 
-		formData.append("TES","testdata");
-/* =======
 		var submitForm = $('#submitform')[0];
 		var formData = new FormData(submitForm);
-		//console.log("submitForm")
-		
-		
-		//formData.append('email',$('#Email').val());
-		//console.log("FORM DATA",formData);
-		//formData.append('firstName',$('#fname').val());
-		//console.log("FORM DATA",formData);
-		//formData.append('lastName',$('#lname').val());
-		//console.log("FORM DATA",formData);
-		//formData.append('username',$('#username').val());
-		//formData.append('institute',$('#ins').val());
-		//formData.append('file', $('input[type=file]')[0].files[0]); 
-		//formData.append("TES","testdata");
->>>>>>> e7514de9a301a33719ab3b196235d9cccccc4f3e
-		
- */		
 		var d = {
 				'email' : $('#Email').val(),
 				'firstName' : $('#fname').val(),
 				'lastName' : $('#lname').val(),
 				'username':$('#username').val(),
 				'institute':$('#ins').val(),
-				'file' : $('input[type=file]')[0].files[0]
-				
+				'file' : $('input[type=file]')[0].files[0]				
 		}
-		console.log("D",d);
 		
-		console.log("FORM DATA",formData);
-		
-		jQuery.ajax({
+		$.ajax({
 		    url: "${pageContext.request.contextPath}/update-user-info",
 		     type: "POST",
 	         enctype: 'multipart/form-data',
@@ -419,6 +379,7 @@
 	            contentType: false,
 	            cache: false,
 	            timeout: 600000,
-		});
+		});	
 	})
+
 </script>
