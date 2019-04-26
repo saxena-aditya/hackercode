@@ -350,19 +350,14 @@
 				       	</form>
 				       	 <!-- Modal footer -->
 				     
-				      </div>
-				
-				     
-				
+				      </div>	
 				    </div>
 				  </div>
 			</div>
     </body>
 </html>
 <script
-  src="https://code.jquery.com/jquery-3.4.0.min.js"
-  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
-  crossorigin="anonymous"></script>
+  src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
 
 <script>
 	
@@ -370,9 +365,8 @@
 		e.preventDefault();
 		console.log("Button Clicked");
 		var submitForm = $('#submitform');
-		var formData = new FormData(document.getElementById('submitform'));
+		var formData = new FormData();
 		console.log("submitForm")
-		
 		
 		formData.append('email',$('#Email').val());
 		console.log("FORM DATA",formData);
@@ -399,8 +393,6 @@
 		
 		console.log("FORM DATA",formData);
 		
-		
-		
 		jQuery.ajax({
 		    url: "${pageContext.request.contextPath}/update-user-info",
 		    data: JSON.stringify(d),
@@ -413,14 +405,5 @@
 		        console.log("DONE")
 		    }
 		});
-		
-		
-		
-		
-	
 	})
-	
-	
-	
-	
 </script>
