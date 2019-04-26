@@ -378,8 +378,25 @@
 		formData.append('institute',$('#ins').val());
 		formData.append('file', $('input[type=file]')[0].files[0]); 
 		formData.append("TES","testdata");
+/* =======
+		var submitForm = $('#submitform')[0];
+		var formData = new FormData(submitForm);
+		//console.log("submitForm")
 		
 		
+		//formData.append('email',$('#Email').val());
+		//console.log("FORM DATA",formData);
+		//formData.append('firstName',$('#fname').val());
+		//console.log("FORM DATA",formData);
+		//formData.append('lastName',$('#lname').val());
+		//console.log("FORM DATA",formData);
+		//formData.append('username',$('#username').val());
+		//formData.append('institute',$('#ins').val());
+		//formData.append('file', $('input[type=file]')[0].files[0]); 
+		//formData.append("TES","testdata");
+>>>>>>> e7514de9a301a33719ab3b196235d9cccccc4f3e
+		
+ */		
 		var d = {
 				'email' : $('#Email').val(),
 				'firstName' : $('#fname').val(),
@@ -395,15 +412,13 @@
 		
 		jQuery.ajax({
 		    url: "${pageContext.request.contextPath}/update-user-info",
-		    data: JSON.stringify(d),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST', // For jQuery < 1.9
-		    success: function(data){
-		        console.log("DONE")
-		    }
+		     type: "POST",
+	         enctype: 'multipart/form-data',
+	        	data: formData,
+	            processData: false,
+	            contentType: false,
+	            cache: false,
+	            timeout: 600000,
 		});
 	})
 </script>
