@@ -8,8 +8,6 @@ $(function() {
         "user_id": user_id
     }
 
-    
-    
     window.onload = function() {
     	
     	document.addEventListener("keydown", function(event) {
@@ -60,8 +58,10 @@ $(function() {
       };
 
    function getTestData(){
+	   let link = window.location.href;
+	   let testId = link.split("/").pop();
         $.ajax({
-            url: test_start_url,
+            url: test_start_url + testId,
             type: 'POST',
             contentType: "application/json",
             dataType: "json",

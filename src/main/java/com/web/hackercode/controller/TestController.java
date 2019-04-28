@@ -26,6 +26,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.*;
 import com.web.hackercode.dao.TestDAO;
+import com.web.hackercode.dao.TestUtilitiesDAO;
 import com.web.hackercode.structures.Program;
 import com.web.hackercode.structures.ProgramSpecificTests;
 import com.web.hackercode.structures.Question;
@@ -239,7 +240,7 @@ public class TestController extends AbstractController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView showStudentDashBoard(HttpServletRequest req) {
-        TestDAO testDao = ctx.getBean(TestDAO.class);
+        TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
         
         System.out.println("isLoggedIn: " + req.getSession().getAttribute("isLoggedIn").toString());
         System.out.println("LOGGED IN USER CURRENT USER"+(User)req.getSession().getAttribute("user") );
@@ -251,8 +252,8 @@ public class TestController extends AbstractController {
 
         User u = (User) req.getSession().getAttribute("user");
 
-        List<ProgramSpecificTests> tests = testDao.getAllTest(u);
-        List < TestUser > finishedTest = testDao.getAllFinishedTest(u);
+        List<ProgramSpecificTests> tests = tutils.getAllTest(u);
+        List < TestUser > finishedTest = tutils.getAllFinishedTest(u);
         return new ModelAndView("admin-dashboard").addObject("tests", tests)
             .addObject("finishedTest", finishedTest).addObject("user",u);
 
@@ -331,15 +332,13 @@ public class TestController extends AbstractController {
     @RequestMapping(value="/update-user-info", method=RequestMethod.POST)
     public ModelAndView updateUserInfo(HttpServletRequest req,@ModelAttribute("user") User user) {
     	System.out.println("\n \n REQUEST FOR SERVER "+req);
- 
-//    	System.out.println("JSON"+json);
-//    	Gson gson = new GsonBuilder().create();
-//        User user = gson.fromJson(json, User.class);
     	
     	System.out.println("USER FRoM 322"+user);
     	TestDAO testDao = ctx.getBean(TestDAO.class);
+    	TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
+    	
     	System.out.println("\n \n USER UPDATED now "+ user+"\n \n" + loggedInUser);
-    	User currentUser = loggedInUser;
+    	User currentUser = (User) req.getSession().getAttribute("user");
     	try {
 			currentUser.setFilePath(testDao.returnImagePath(user.getFile()));
 		} catch (IOException e) {
@@ -351,10 +350,47 @@ public class TestController extends AbstractController {
     	user.setU_id(currentUser.getU_id());
     	User u = user;
 
-        List<ProgramSpecificTests> tests = testDao.getAllTest(u);
-        List < TestUser > finishedTest = testDao.getAllFinishedTest(u);
+        List<ProgramSpecificTests> tests = tutils.getAllTest(u);
+        List < TestUser > finishedTest = tutils.getAllFinishedTest(u);
         return new ModelAndView("admin-dashboard").addObject("tests", tests)
             .addObject("finishedTest", finishedTest).addObject("user",u);
+    }
+    
+    public boolean isUserAuthenticated(HttpServletRequest req) {
+    	if (req.getSession().getAttribute("isLoggedIn").toString().equalsIgnoreCase("true")) {
+            
+    		User user = (User) req.getSession().getAttribute("user");
+    		if (!user.isAdmin())
+    			return true;
+        }
+        return false;
+    }
+    @RequestMapping(value = "/get-completed-tests", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView getCompletedTests(HttpServletRequest req) {
+    	if (isUserAuthenticated(req)) { 
+    		TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
+    		User user = (User) req.getSession().getAttribute("user");
+    		//return "something";
+    		return new ModelAndView("profile-test-history").addObject("tests", 
+    				tutils.getAllFinishedTest(user));
+    	}
+    	System.out.println("User not Authenticated");
+    	return null;
+    }
+    
+    @RequestMapping(value = "/get-live-tests", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView getLiveTests(HttpServletRequest req) {
+    	if (isUserAuthenticated(req)) { 
+    		TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
+    		User user = (User) req.getSession().getAttribute("user");
+    		//return "something";
+    		return new ModelAndView("profile-live-tests").addObject("tests", 
+    				tutils.getAllTest(user));
+    	}
+    	System.out.println("User not Authenticated");
+    	return null;
     }
 
     @Override

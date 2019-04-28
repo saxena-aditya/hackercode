@@ -329,8 +329,8 @@ ul.list-unstyled.components > li:hover:after {
 }
 
 .exam-table {
-    width: 100%;
-    margin: 20px 10px 0 10px;
+    /* width: 100%; */
+    padding: 10px;
 }
 
 .table.table-stripe thead {
@@ -437,4 +437,9 @@ ul.list-unstyled.components > li:hover:after {
     #sidebarCollapse.active span:last-of-type {
         transform: rotate(-45deg) translate(1px, -1px);
     }
+}
+
+
+.content-section {
+    width: 100%;
 }

@@ -26,8 +26,6 @@ public interface TestDAO {
 	boolean isUser(String username, String password, HttpServletRequest request);
 	User getUser(String username, HttpServletRequest request);
 	public String getStoredTestData(String json);
-	public List<ProgramSpecificTests> getAllTest(User u);
-	public List<TestUser> getAllFinishedTest(User u);
 	public Test getTest(int testId);
 	public User getUser(String username);
 	public int getUserWithEmail(String email,String username, HttpServletRequest request);
