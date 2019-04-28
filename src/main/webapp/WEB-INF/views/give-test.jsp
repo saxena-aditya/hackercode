@@ -57,15 +57,37 @@
                                 </div>
                                 
                                 <div class="row">
-                                	<div class="col-md-6">
-                                		<button class="btn-triangle">1</button>
-                                	</div>
-                                	<div class="col-md-6">
-                                		<button class="btn-penta">1</button>
-                                	</div>
-                                	<div class="col-md-6">4</div>
-                                	<div class="col-md-6">5</div>
+                                <div class="col-md-6 text-center">
+                                    <div class="d-flex">
+                                        <button class="normal classic-btn index-btn">1</button>
+                                        <p class="index-label">Not Visited</p>
+                                    </div>
                                 </div>
+                                <div class="col-md-6 text-center padding-0">
+                                    <div class="d-flex">
+                                        <button class="to-review classic-btn index-btn">1</button>
+                                        <p class="index-label">Review</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <div class="d-flex">
+                                        <button class="visited classic-btn index-btn">1</button>
+                                        <p class="index-label">Answered</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-center padding-0">
+                                    <div class="d-flex">
+                                        <button class="not-answered classic-btn index-btn">1</button>
+                                        <p class="index-label">Skipped</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <div class="d-flex">
+                                        <button class="answered-to-review classic-btn index-btn">1</button>
+                                        <p class="index-label">Answered but marked for review</p>
+                                    </div>
+                                </div>
+                            </div>
                                 
                                 
                             </div>

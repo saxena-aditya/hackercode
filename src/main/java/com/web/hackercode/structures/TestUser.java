@@ -3,6 +3,7 @@ package com.web.hackercode.structures;
 public class TestUser {
 	
 	private String userId;
+	private String testName;
 	private String testId;
 	private String data;
 	private String timeLeft;
@@ -14,6 +15,20 @@ public class TestUser {
 	private String institue;
 	
 	
+	/**
+	 * @return the testName
+	 */
+	public String getTestName() {
+		return testName;
+	}
+
+	/**
+	 * @param testName the testName to set
+	 */
+	public void setTestName(String testName) {
+		this.testName = testName;
+	}
+
 	public String getUsername() {
 		return username;
 	}

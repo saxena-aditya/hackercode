@@ -27,10 +27,10 @@
                     				</td>
                     			</tr>
                     		</tbody>
-                    		<c:forEach items="${finishedTest}" var="test">
+                    		<c:forEach items="${tests}" var="test">
 								<tbody>
                     			<tr>
-                    				<td>${ test.getTestId() }</td>
+                    				<td>${ test.getTestName() }</td>
                     				<td>${ test.getDate() }</td>
                     				<td>${ test.getMaxMarks() }</td>
                     				<td>

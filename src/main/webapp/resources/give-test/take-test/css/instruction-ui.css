@@ -1144,6 +1144,7 @@ html.ie8 .challenge .about-fold .about-container .timeline-container .timeline .
     display: inline-block;
     width: 160px;
     font-size: 1rem;
+    font-weight: bold;
     text-transform: capitalize;
 }
 

@@ -381,13 +381,15 @@ public class TestController extends AbstractController {
     
     @RequestMapping(value = "/get-live-tests", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView getLiveTests(HttpServletRequest req) {
+    public ModelAndView getLiveTests(HttpServletRequest req) throws InterruptedException {
     	if (isUserAuthenticated(req)) { 
     		TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
     		User user = (User) req.getSession().getAttribute("user");
     		//return "something";
-    		return new ModelAndView("profile-live-tests").addObject("tests", 
-    				tutils.getAllTest(user));
+    		Thread.sleep(2000);
+    		return new ModelAndView("profile-live-tests")
+    				.addObject("tests", tutils.getAllTest(user))
+    				.addObject("rTest", tutils.getResumableTests(user));
     	}
     	System.out.println("User not Authenticated");
     	return null;

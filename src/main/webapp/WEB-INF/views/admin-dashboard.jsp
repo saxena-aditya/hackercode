@@ -15,6 +15,12 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/admin-panel/css/main.css">
+	
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/loading-btn/loading.css">
+	
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/loading-btn/loading-btn.css">
 </head>
 <body>
 	<section id="header">
@@ -148,7 +154,8 @@
 					</a></li>
 				</ul>
 			</nav>
-			<div class="content">
+			<div class="content ld-over" id="status-arr">
+			<div class="ld ld-ring ld-spin"></div>
 				<div class="row" style="margin: 0">
 					<div class="col-12 grey" style="padding: 0;">
 						<div class="top-sec-nav flex">

@@ -9,6 +9,6 @@ import com.web.hackercode.structures.User;
 public interface TestUtilitiesDAO {
 	public List<TestUser> getAllFinishedTest(User u);
 	public List<ProgramSpecificTests> getAllTest(User u);
-
+	public List<ProgramSpecificTests> getResumableTests(User user);
 
 }
