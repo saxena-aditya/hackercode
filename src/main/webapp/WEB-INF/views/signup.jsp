@@ -31,9 +31,7 @@
                   </div>
                 </div>
               </div>
-              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                <input type="text" id="username" name="username" placeholder="Username" required />
-              </div>
+          
               <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
                 <input type="email" id="email" name="email" placeholder="Email" required />
               </div>
@@ -43,7 +41,7 @@
               <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
                 <input type="password" id="cpassword" name="cpassword" placeholder="Re-type Password" required />
               </div>
-              <div class="col_half">
+              <%-- <div class="col_half">
  					<label><span>COURSE</span></label>             
               </div>
               
@@ -55,7 +53,7 @@
 						</c:forEach>
               		</select> 
               	</div>
-              </div>
+              </div> --%>
               <input class="button" type="submit" value="Register" />
             </form>
           </div>

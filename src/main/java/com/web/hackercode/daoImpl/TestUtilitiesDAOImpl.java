@@ -57,6 +57,7 @@ public class TestUtilitiesDAOImpl implements TestUtilitiesDAO {
                     //t.setTimeLeft(rs.getString(4));
                     t.setMarks(Integer.parseInt(rs.getString("marks")));
                     t.setMaxMarks(Integer.parseInt(rs.getString("tt_maxMarks")));
+                    t.setDate(rs.getString("tt_date"));
                     t.setTestName(rs.getString("t_name"));
                     list.add(t);
                 }
@@ -75,7 +76,7 @@ public class TestUtilitiesDAOImpl implements TestUtilitiesDAO {
         List < ProgramSpecificTests > tests = null;
         // email is user-name.
         String username = user.getEmail();
-        String GET_PROGRAM_SPECIFIC_TESTS = "select * from hc_tests JOIN hc_user_program JOIN hc_programs LEFT JOIN hc_temp_test ON hc_tests.t_id = hc_temp_test.tt_test_id where hc_tests.t_associated_program = hc_user_program.up_code and hc_programs.p_code = hc_tests.t_associated_program and hc_user_program.up_username = ? AND t_is_active = 1";
+        String GET_PROGRAM_SPECIFIC_TESTS = "select * from hc_tests JOIN hc_user_program JOIN hc_programs LEFT JOIN hc_temp_test ON hc_tests.t_id = hc_temp_test.tt_test_id where hc_tests.t_associated_program = hc_user_program.up_code and hc_programs.p_code = hc_tests.t_associated_program and hc_user_program.up_username = ? AND t_is_active = 1 and not EXISTS (select * from hc_temp_test where hc_tests.t_id = hc_temp_test.tt_test_id)";
         
         tests = jdbcTemplate.query(GET_PROGRAM_SPECIFIC_TESTS, new Object[] {username}, new ResultSetExtractor < List < ProgramSpecificTests >> () {
             public List < ProgramSpecificTests > extractData(ResultSet rs) throws SQLException, DataAccessException {

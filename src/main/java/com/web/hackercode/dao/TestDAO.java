@@ -29,7 +29,7 @@ public interface TestDAO {
 	public Test getTest(int testId);
 	public User getUser(String username);
 	public int getUserWithEmail(String email,String username, HttpServletRequest request);
-	public User saveUser(Register user);
+	public User saveUser(HttpServletRequest req, Register user);
 	public List<Program> getAllPrograms();
 	public List<ProgramSpecificTests> getAllTestsByAdmin(User u);
 	public List<Question> getQuestionsForTest(String testIdentifier); 

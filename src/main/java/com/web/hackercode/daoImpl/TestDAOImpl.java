@@ -128,7 +128,7 @@ public class TestDAOImpl implements TestDAO {
 
 
 
-    public User getUser(String username, HttpServletRequest request) {
+    public User getUser(String username, HttpServletRequest req) {
         jdbcTemplate.setDataSource(getDataSource());
         String GET_USER = "SELECT * FROM hc_user_details WHERE BINARY ud_username = ?";
         try {
@@ -137,7 +137,7 @@ public class TestDAOImpl implements TestDAO {
                     username
                 },
                 new UserMapper());
-            request.getSession().setAttribute("user", user);
+            req.getSession().setAttribute("user", user);
             return user;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -646,35 +646,30 @@ public class TestDAOImpl implements TestDAO {
     }
 
     
-    public User saveUser(Register ruser) {
+    public User saveUser(HttpServletRequest req, Register ruser) {
         jdbcTemplate.setDataSource(getDataSource());
         ruser.setPassword(getMd5(ruser.getPassword()));
         String SAVE_USER = "INSERT INTO hc_user_details (ud_username, ud_firstname, ud_lastname, ud_email, ud_role) VALUES (?,?,?,?,0)";
         String SAVE_USER_LOGIN_CREDENTIALS = "INSERT INTO hc_user (u_username, u_password) VALUES (?,?)";
-        String ADD_USER_WITH_PROGRAM = "INSERT INTO hc_user_program (up_username, up_code) VALUES (?,?)";
+       // String ADD_USER_WITH_PROGRAM = "INSERT INTO hc_user_program (up_username, up_code) VALUES (?,?)";
         try {
             jdbcTemplate.update(SAVE_USER, new Object[] {
-                ruser.getUsername(),
+            	ruser.getEmail(),
                 ruser.getfName(),
                 ruser.getlName(),
                 ruser.getEmail()
             });
+            
             jdbcTemplate.update(SAVE_USER_LOGIN_CREDENTIALS, new Object[] {
-                ruser.getUsername(),
+                ruser.getEmail(),
                 ruser.getPassword()
             });
-            for(String s : ruser.getPrograms()) {
-            	 jdbcTemplate.update(ADD_USER_WITH_PROGRAM, new Object[] {
-                         ruser.getEmail(),
-                         s
-                 });
-            }
            
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
-        return null;
+        return getUser(ruser.getEmail(), req);
     }
 
     

@@ -10,7 +10,15 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     font: inherit;
     vertical-align: baseline;
 }
-
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999999;
+	background: url(../images/loading.gif) center no-repeat #fff;
+}
 ::selection {
     color: none;
     background: none;
@@ -83,18 +91,18 @@ body, html {
     position: absolute;
     float: left;
     left: 50%;
-    top: 50%;
+    top: 51%;
     transform: translate(-50%, -50%);
     cursor: default;
 }
 
 .head-area h1 {
-    font-size: 10vw;
+    font-size: 9.5vw;
     font-weight: bold;
     letter-spacing: 5px;
     display: inline-flex;
     flex-wrap: nowrap;
-    text-shadow: #545353 2px 4px 3px ;
+    text-shadow: #545353 2px 4px 3px;
 }
 
 .head-area h4 {
@@ -339,12 +347,19 @@ ul#pills-tab {
 .enroll-btn {
     background-color: #EC5252;
     border: none;
-    color: #fff;
+    color: #fff !important;
     padding: 5px 15px;
     font-weight: 100;
     font-size: 1.1em;
     cursor: pointer;
     margin-left: 5px;
+}
+.enroll-btn:hover {
+    text-decoration: none;
+    background-color: #ad3c3c;
+}
+.enroll-btn:focus {
+    outline: none;
 }
 
 #tooltip_content {
@@ -411,12 +426,17 @@ ul#pills-tab {
     padding: 10px;
     border: 1px solid #ddd;
     box-shadow: 1px 1px 10px #ddd;
+    height: 140px;
+    min-height: 140px;
 }
 
+.testinomial.d-flex {}
+
 .testinomial .img img {
-    margin: 15px 0 0 0;
-    height: 70px;
-    border-radius: 50%;
+    margin: 8px 0 0 0;
+    height: 92px;
+    width: 95px;
+    /* border-radius: 50%; */
 }
 
 .testinomial .name {
@@ -454,6 +474,7 @@ ul#pills-tab {
     margin-top: 15px;
     font-size: 1.1em;
     color: #534b4b;
+    text-align: justify;
 }
 
 .lms-features {
@@ -720,4 +741,53 @@ ul#pills-tab {
 
 .text-small {
     font-size: .8em;
+}
+.slick {
+    width: 99.99%;
+}
+.slick-list {margin: 0 -5px;}
+.slick-slide>div {padding: 0 5px;}
+.next-btn {
+  position: absolute;
+  top: 46%;
+  right: -20px;
+}
+.prev-btn {
+    position: absolute;
+    top: 46%;
+    left: -20px;
+    z-index: 1;
+}
+.n-btn {
+    hight: 40px;
+    width: 40px;
+    background-color: white;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 50%;
+    box-shadow: 1px 3px 10px #bebbbb;
+    cursor: pointer;
+}
+i.far.fa-heart {
+    color: #F44336;
+}
+
+i.fas.fa-sync-alt {
+    color: #03A9F4;
+}
+
+i.fas.fa-shield-alt {
+    color: #9C27B0;
+}
+
+i.fas.fa-chart-pie {
+    color: #FF9800;
+}
+a#home-alt {
+    margin: 0px 20px 0 0;
+}
+
+i.fab.fa-facebook.fb {
+    color: #3b5998;
 }

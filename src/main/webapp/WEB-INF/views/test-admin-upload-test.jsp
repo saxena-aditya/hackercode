@@ -149,7 +149,7 @@
                       <label>Questions File upload</label>
                       <input type="file" id="upload-btn-real" name="file" class="file-upload-default" required>
                       <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" id="file-name"  placeholder="Upload Image">
+                        <inp=]lbvdut type="text" class="form-control file-upload-info" id="file-name"  placeholder="Upload Image">
                         <span class="input-group-append">
                           <button class="file-upload-browse btn btn-info" id="upload-btn-fake" type="button">Upload</button>
                         </span>

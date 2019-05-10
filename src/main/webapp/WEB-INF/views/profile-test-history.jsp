@@ -31,7 +31,7 @@
 								<tbody>
                     			<tr>
                     				<td>${ test.getTestName() }</td>
-                    				<td>${ test.getDate() }</td>
+                    				<td class="date-convert">${ test.getDate() }</td>
                     				<td>${ test.getMaxMarks() }</td>
                     				<td>
                     					<div class="result-badge-container">

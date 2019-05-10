@@ -2,6 +2,8 @@ $(document).ready(function() {
 
     $('#fullpage').fullpage({
         //options here
+        anchors: ['sec-front', 'sec-courses-info', 'sec-info', 'sec-team' ,'last'],
+
         navigation: true,
         slidesNavigation: true,
         autoScrolling: true,

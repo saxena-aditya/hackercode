@@ -25,8 +25,10 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.*;
+import com.web.hackercode.dao.CourseDAO;
 import com.web.hackercode.dao.TestDAO;
 import com.web.hackercode.dao.TestUtilitiesDAO;
+import com.web.hackercode.structures.Course;
 import com.web.hackercode.structures.Program;
 import com.web.hackercode.structures.ProgramSpecificTests;
 import com.web.hackercode.structures.Question;
@@ -170,40 +172,40 @@ public class TestController extends AbstractController {
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public ModelAndView showSignup(HttpServletRequest req) {
         TestDAO testDAO = ctx.getBean(TestDAO.class);
-        List < Program > programs = testDAO.getAllPrograms();
-       
-        return new ModelAndView("signup").addObject("programs", programs);
+        //List < Program > programs = testDAO.getAllPrograms();
+        return new ModelAndView("signup");
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ModelAndView signup(@ModelAttribute("register") Register user, HttpServletRequest req) {
         //for sign up
     	System.out.println("REGISTER CLASS>> "+user);
-    	if(user.getCourse().indexOf(',') >=0 ) {
-    		//ie multiple courses selected
-    		String strArray[] = user.getCourse().split(",");
-    		user.setPrograms(strArray);
-    		System.out.println("REGISTER CLASS AFTER THE MULTIPLE>> "+user);
-    	} else{
-    		String strArray[] = user.getCourse().split(" ");
-    		user.setPrograms(strArray);
-    		System.out.println("REGISTER CLASS AFTER THE SINGLE>> "+user);
-    	};
+		/*
+		 * if (user.getCourse().length() > 0) { if(user.getCourse().indexOf(',') >= 0 )
+		 * { //ie multiple courses selected String strArray[] =
+		 * user.getCourse().split(","); user.setPrograms(strArray);
+		 * System.out.println("REGISTER CLASS AFTER THE MULTIPLE>> "+user); } else{
+		 * String strArray[] = user.getCourse().split(" "); user.setPrograms(strArray);
+		 * System.out.println("REGISTER CLASS AFTER THE SINGLE>> "+user); }; }
+		 */
   
         req.getSession().setAttribute("isLoggedIn", false);
         TestDAO testDao = ctx.getBean(TestDAO.class);
 
         //check if there is user with same name password 
-        int i = testDao.getUserWithEmail(user.getEmail(), user.getUsername(), req);
+        int i = testDao.getUserWithEmail(user.getEmail(), user.getEmail(), req);
         if (i > 0) {
-            List < Program > programs = testDao.getAllPrograms();
-            return new ModelAndView("signup").addObject("error", "User Already exists !").addObject("programs", programs);
+            //List < Program > programs = testDao.getAllPrograms();
+            return new ModelAndView("signup").addObject("error", "User Already exists !");
         }
 
         //add user to db
-        testDao.saveUser(user);
-
-        return new ModelAndView("admin");
+        User u = testDao.saveUser(req, user);
+        req.getSession().setAttribute("isLoggedIn", true);      
+        req.getSession().setAttribute("user", u);
+        RedirectView view = new RedirectView("profile", true);
+        view.setExposeModelAttributes(false);
+        return new ModelAndView(view);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -221,7 +223,14 @@ public class TestController extends AbstractController {
                 // the model.
                 view = new RedirectView("dashboard", true);
             } else {
-                view = new RedirectView("profile", true);
+            	String courseCode = req.getParameter("course");
+            	if (courseCode == null) {
+            		view = new RedirectView("profile" , true);
+            	}
+            	else {
+            		view = new RedirectView("profile?course=" + courseCode, true);
+            	}
+
             }
             req.getSession().setAttribute("isLoggedIn", true);
             // redirect user to appropriate screen.
@@ -238,13 +247,26 @@ public class TestController extends AbstractController {
         return new ModelAndView("test-admin-dashboard");
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    @RequestMapping(value = "/profile", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView showStudentDashBoard(HttpServletRequest req) {
         TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
         
         System.out.println("isLoggedIn: " + req.getSession().getAttribute("isLoggedIn").toString());
         System.out.println("LOGGED IN USER CURRENT USER"+(User)req.getSession().getAttribute("user") );
         this.loggedInUser = (User)req.getSession().getAttribute("user");
+        
+        String courseCode = req.getParameter("course");
+        
+        System.out.println("GOT INQUIRY FOR " + courseCode);
+        if (courseCode != null) {
+        
+	    	RedirectView v = new RedirectView(req.getContextPath() + "/courses/" + courseCode + "/payment/redirect");
+	    	v.setExposeModelAttributes(false);
+	
+	    	return new ModelAndView(v);
+            
+       }
+        
         if (req.getSession().getAttribute("isLoggedIn").toString().equalsIgnoreCase("false")) {
             RedirectView view = new RedirectView("admin-login", true);
             return new ModelAndView(view);
@@ -357,14 +379,19 @@ public class TestController extends AbstractController {
     }
     
     public boolean isUserAuthenticated(HttpServletRequest req) {
-    	if (req.getSession().getAttribute("isLoggedIn").toString().equalsIgnoreCase("true")) {
-            
-    		User user = (User) req.getSession().getAttribute("user");
-    		if (!user.isAdmin())
-    			return true;
+    		if (req.getSession() != null) {
+    			if(req.getSession().getAttribute("user") != null) {
+    		    	if (req.getSession().getAttribute("isLoggedIn").toString().equalsIgnoreCase("true")) {
+    		    		User user = (User) req.getSession().getAttribute("user");
+    		    		if (!user.isAdmin())
+    		    			return true;
+    			}
+    		}
         }
+    		
         return false;
     }
+    
     @RequestMapping(value = "/get-completed-tests", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView getCompletedTests(HttpServletRequest req) {
