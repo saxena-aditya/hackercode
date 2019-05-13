@@ -173,6 +173,11 @@ public class TestController extends AbstractController {
     public ModelAndView showSignup(HttpServletRequest req) {
         TestDAO testDAO = ctx.getBean(TestDAO.class);
         //List < Program > programs = testDAO.getAllPrograms();
+        String courseCode =  req.getParameter("course");
+        if (courseCode != null) {
+        	req.getSession().setAttribute("courseToProcess", courseCode);
+        }
+        req.setAttribute("course", req.getAttribute("course"));
         return new ModelAndView("signup");
     }
 
@@ -188,9 +193,9 @@ public class TestController extends AbstractController {
 		 * String strArray[] = user.getCourse().split(" "); user.setPrograms(strArray);
 		 * System.out.println("REGISTER CLASS AFTER THE SINGLE>> "+user); }; }
 		 */
-  
         req.getSession().setAttribute("isLoggedIn", false);
         TestDAO testDao = ctx.getBean(TestDAO.class);
+        RedirectView view = null;
 
         //check if there is user with same name password 
         int i = testDao.getUserWithEmail(user.getEmail(), user.getEmail(), req);
@@ -203,7 +208,15 @@ public class TestController extends AbstractController {
         User u = testDao.saveUser(req, user);
         req.getSession().setAttribute("isLoggedIn", true);      
         req.getSession().setAttribute("user", u);
-        RedirectView view = new RedirectView("profile", true);
+    
+        String courseCode = req.getParameter("course");
+    	if (courseCode != null) {
+    		view = new RedirectView("profile?course=" + courseCode, true);
+        }
+    	else {
+    		 view = new RedirectView("profile", true);	
+    	}
+    	
         view.setExposeModelAttributes(false);
         return new ModelAndView(view);
     }

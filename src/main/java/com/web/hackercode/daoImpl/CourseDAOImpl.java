@@ -42,6 +42,7 @@ import com.web.hackercode.structures.Course;
 import com.web.hackercode.structures.EntityChapter;
 import com.web.hackercode.structures.EntityCourse;
 import com.web.hackercode.structures.EntityLesson;
+import com.web.hackercode.structures.Resource;
 import com.web.hackercode.structures.TestUser;
 import com.web.hackercode.structures.User;
 
@@ -175,13 +176,13 @@ public class CourseDAOImpl implements CourseDAO {
 	
 	public String saveCourse(Course course) {
 		jdbcTemplate.setDataSource(getDataSource());
-		String SAVE_COURSE = "INSERT INTO hc_courses (c_name, c_code, c_desc, c_price, c_total_days) VALUES (?,?,?,?,?)";
+		String SAVE_COURSE = "INSERT INTO hc_courses (c_name, c_code, c_desc, c_price, c_total_days, c_tags, c_mrp, c_sub_desc) VALUES (?,?,?,?,?, ?,?,?)";
 		String GET_COURSE_CODE = "SELECT c_code FROM hc_courses WHERE c_name = ?";
 
 		try {
 			System.out.println("Saving course...: " + course.getName());
 			jdbcTemplate.update(SAVE_COURSE, course.getName(), randomAlphaNumeric(6), course.getDesc(),
-					course.getPrice(), course.getTotalDays());
+					course.getPrice(), course.getTotalDays(), course.getTags(), course.getMrp(), course.getSubDesc());
 			System.out.println("getting course code...: ");
 			String code = jdbcTemplate.queryForObject(GET_COURSE_CODE, new Object[] { course.getName() }, String.class);
 			return code;
@@ -218,7 +219,7 @@ public class CourseDAOImpl implements CourseDAO {
 			// just save lesson
 			try {
 				for (int i=0; i< course.getFiles().size(); i++) {
-					String location = uploadVideo(course.getFiles().get(i));
+					String location = course.getFiles().get(i);
 					jdbcTemplate.update(SAVE_LESSION,  randomAlphaNumeric(7), 
 							chCode, courseCode, course.getLesson(), location);
 					return true;
@@ -234,12 +235,7 @@ public class CourseDAOImpl implements CourseDAO {
 			jdbcTemplate.update(SAVE_CHAPTER, courseCode, course.getChapter(), chCode);
 			for (int i=0; i< course.getFiles().size(); i++) {
 				String location = null;
-				try {
-					location = uploadVideo(course.getFiles().get(i));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				location = course.getFiles().get(i);
 				jdbcTemplate.update(SAVE_LESSION,  randomAlphaNumeric(7), 
 						chCode, courseCode, course.getLesson(), location);
 			}
@@ -295,6 +291,10 @@ public class CourseDAOImpl implements CourseDAO {
 					                        EntityCourse ec = new EntityCourse();
 					                        ec.setName(rs.getString("c_name"));
 					                        ec.setCode(rs.getString("c_code"));
+					                        ec.setTags(rs.getString("c_tags"));
+					                        ec.setMrp(rs.getInt("c_mrp"));
+					                        ec.setSubDesc(rs.getString("c_sub_desc"));
+
 					                        ec.setPrice(rs.getInt("c_price"));
 					                        ec.setDesc(rs.getString("c_desc"));
 					                        ec.setDays(rs.getInt("c_total_days"));
@@ -322,6 +322,9 @@ public class CourseDAOImpl implements CourseDAO {
                         EntityCourse ec = new EntityCourse();
                         ec.setName(rs.getString("c_name"));
                         ec.setCode(rs.getString("c_code"));
+                        ec.setTags(rs.getString("c_tags"));
+                        ec.setMrp(rs.getInt("c_mrp"));
+                        ec.setSubDesc(rs.getString("c_sub_desc"));
                         ec.setPrice(rs.getInt("c_price"));
                         ec.setDesc(rs.getString("c_desc"));
                         ec.setDays(rs.getInt("c_total_days"));
@@ -539,6 +542,39 @@ public class CourseDAOImpl implements CourseDAO {
 
 		return root.toString();
 
+	}
+	public boolean addResource(String name, String source) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String ADD_COURSE = "INSERT INTO hc_resources (r_name, r_source) VALUES (?,?)";
+		try {
+			jdbcTemplate.update(ADD_COURSE, name, source);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public List<Resource> getResources() {
+		jdbcTemplate.setDataSource(getDataSource());
+		String GET_RESOURCE =  "SELECT * from hc_resources";
+		List < Resource > resources = jdbcTemplate.query(GET_RESOURCE,
+	            new ResultSetExtractor < List < Resource >> () {
+	                public List < Resource > extractData(ResultSet rs) throws SQLException, DataAccessException {
+	                    List < Resource > list = new ArrayList < Resource > ();
+	                    while (rs.next()) {
+	                    	Resource ec = new Resource();
+	                    	ec.setName(rs.getString("r_name"));
+	                    	ec.setSource(rs.getString("r_source"));
+	                        list.add(ec);
+	                    }
+	                    return list;
+	                }
+	            });
+		
+		return resources;
 	}
 	
 }

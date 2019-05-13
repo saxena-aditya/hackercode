@@ -10,16 +10,16 @@
                     <h5>Get started</h5>
                     <ul>
                         <li><a href="${ pageContext.request.contextPath }/">Home</a></li>
-                        <li><a href="${ pageContext.request.contextPath }/signup">Sign up</a></li>
+                        <li><a href="#" id="register-me">Register</a></li>
                         <li><a href="#">Resources</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">
                     <h5>About us</h5>
                     <ul>
-                        <li><a href="#">Our Team</a></li>
+                        <li><a href="${ pageContext.request.contextPath }/#sec-team">Our Team</a></li>
                         <!-- <li><a href="#">Contact us</a></li> -->
-                        <li><a href="#sec-courses-info">Reviews</a></li>
+                        <li><a href="${ pageContext.request.contextPath }/#sec-courses-info">Reviews</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">
@@ -47,6 +47,6 @@
             </div>
         </div>
         <div class="footer-copyright">
-            <p>HackerCode 2019</p>
+            <p><i class="far fa-copyright"></i>&nbsp; HackerCode, 2019</p>
         </div>
     </footer>

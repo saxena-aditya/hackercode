@@ -199,6 +199,8 @@
   <!-- plugins:js -->
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/js/vendor.bundle.base.js"></script>
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/js/vendor.bundle.addons.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"></script>
+  
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
@@ -206,6 +208,7 @@
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/js/off-canvas.js"></script>
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/js/misc.js"></script>
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/js/features.js"></script>
+  
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->

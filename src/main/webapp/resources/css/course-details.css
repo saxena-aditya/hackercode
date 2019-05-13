@@ -41,6 +41,7 @@
 }
 
 .course-desc {
+    /* position: relative; */
     margin-top: 180px;
     padding: 0 5%;
 }
@@ -71,7 +72,9 @@
     margin: 10px 0 0 0;
     font-size: 1.1em;
 }
-
+#menu-hac {
+  list-style: none;
+}
 .course-dd ul {
     list-style: none;
     padding: 5px 0px;
@@ -86,12 +89,13 @@
     text-align: center;
 }
 
-.buy-now-btn .buy-now {
+.buy-now {
     background: #dc3545;
     padding: 5% 30%;
-    color: #fff;
-    font-size: 1.3em;
+    color: #fff !important;
+    font-size: 1em;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .buy-now:hover {
@@ -104,10 +108,14 @@
     color: #2d2a2a;
 }
 
+#menu-hack {
+    display: block !important;
+}
+
 #sticky.stick {
     position: fixed;
     top: 0;
-    z-index: 10000;
+    z-index: 999;
     margin-top: 105px;
 }
 
@@ -115,8 +123,7 @@
     padding: 2% 5%;
 }
 
-ul, li {
-    list-style: none;
+ul.tree, li.tree-leaf {
     margin: 0;
     padding: 0;
 }
@@ -174,6 +181,12 @@ li.tree-leaf p i {
     cursor: pointer;
 }
 
+.price-info {
+    border: 1px solid #9b9595;
+    background: #eeeeee;
+    padding: 0 8px;
+}
+
 .price-info .was-price {
     color: #6b6868;
     font-size: 0.97em;
@@ -182,31 +195,37 @@ li.tree-leaf p i {
     height: 100%;
     vertical-align: baseline;
 }
+
 .price-info .is-price {
     color: #000;
     font-size: 1.6em;
 }
+
 .price-info .is-price i {
     font-size: 0.7em !important;
     padding: 0 3px;
 }
+
 #owl-graph {
     width: 8em;
     height: auto;
     margin: 3% 7%;
 }
-span#code {
-    font-size: 0.4em;
+
+span#code, #code-msg {
+    font-size: 13px;
 }
-span#code:before {
+
+span#code-msg:before {
     content: '(';
 }
+
 span#code:after {
     content: ')';
 }
 
 .sign-up-btn, .sign-in-btn {
-        margin: 0 15px 0 0;
+    margin: 0 7px 0 0;
     background-color: #00b29a;
     color: #fff !important;
     padding: 10px 20px !important;
@@ -219,21 +238,162 @@ span#code:after {
     box-shadow: #857979 1px 1px 3px;
 }
 
-
-
 a#home-alt {
     margin: 0px 20px 0 0;
 }
+
 nav {
-	height: 94px;
-	border-bottom: 1px solid #c7c3c3;
-	margin-bottom: 10px;
-	position: fixed !important;
-	width: 100%;
-	z-index: 999;
-	background: #fff;
-	box-shadow: 1px 1px 5px #b9b3b3;
+    height: 94px;
+    border-bottom: 1px solid #c7c3c3;
+    margin-bottom: 10px;
+    position: fixed !important;
+    width: 100%;
+    z-index: 999;
+    background: #fff;
+    box-shadow: 1px 1px 5px #b9b3b3;
 }
+
 #start-alt {
-	margin-top: 105px;
+    margin-top: 105px;
 }
+
+#resource-list {
+  margin-top: 0px;
+  box-shadow: 2px 0px 6px #ddd;
+  padding : 0 0 0 1px;
+  height: -webkit-fill-available;
+  overflow-y:auto;
+}
+.resource-tab {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  cursor: pointer;
+  color: #716b6b;
+}
+.resource-tab:hover {
+  font-size: 1.22em;
+  color: #000000;
+}
+
+#content-zone {
+  padding: 10px 20px;
+}
+
+
+
+
+
+
+
+
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+@media (min-width: 1281px) {
+    //CSS
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+@media (min-width: 1025px) and (max-width: 1280px) {
+    //CSS
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+    //CSS
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    //CSS
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 767px) {
+    //CSS
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+    #owl-graph {
+        width: 120px;
+    }
+
+    .tree {
+        margin: 0 0 30px 0;
+    }
+
+    .buy-now {
+        display: inherit;
+        z-index: 999999;
+    }
+
+    .course-img {
+        width: 100% !important;
+    }
+
+    .card-body .left {
+        width: 100%;
+    }
+
+    #sticky.stick {
+        position: relative;
+        z-index: 998;
+    }
+
+    .course {
+        height: fit-content;
+    }
+
+    .para {
+        padding: 10px 0 0 0 !important;
+    }
+
+    .price-info {
+        background: inherit;
+        border: none;
+        padding: 0;
+    }
+
+    .price-info .was-price {
+        padding-left: 0px;
+    }
+
+    .course-desc {
+        position: relative;
+        margin-top: 230px;
+        padding: 0 5%;
+    }
+
+    .main-nav ul {
+        position: relative !important;
+        display: flx !important;
+    }
+
+    .main-nav {
+        height : 0px;
+    }
+
+    .course .name {
+        height: 100px;
+        font-size: 1.6em !important;
+    }

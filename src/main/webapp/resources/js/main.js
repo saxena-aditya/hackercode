@@ -1,16 +1,21 @@
 $(document).ready(function() {
+	if (window.screen.width >= 1025 && window.screen.height >= 768) {
+		  // Resolution is 1024x768 or above
+		$('#fullpage').fullpage({
+	        //options here
+	        anchors: ['sec-front', 'sec-courses-info', 'sec-info', 'sec-team' ,'last'],
 
-    $('#fullpage').fullpage({
-        //options here
-        anchors: ['sec-front', 'sec-courses-info', 'sec-info', 'sec-team' ,'last'],
+	        navigation: true,
+	        slidesNavigation: true,
+	        autoScrolling: true,
+	        scrollHorizontally: true,
+	    	responsiveSlides: true,
 
-        navigation: true,
-        slidesNavigation: true,
-        autoScrolling: true,
-        scrollHorizontally: true,
-        menu: '#menu-hack'
+	        menu: '#menu-hack'
 
-    });
+	    });
+	}
+    
     $('.right-slide-x').slick({
         arrows: true,
         dots: true,
@@ -18,6 +23,7 @@ $(document).ready(function() {
         focusOnSelect: true,
         slidesToShow: 1,
         slidesToScroll: 1,
+        
         prevArrow: "<i class='fa fa-arrow-left slide-arrow arrow-prev'></i>",
         nextArrow: "<i class='fa fa-arrow-right slide-arrow arrow-next'></i>",
         asNavFor: '.left-slide-x'

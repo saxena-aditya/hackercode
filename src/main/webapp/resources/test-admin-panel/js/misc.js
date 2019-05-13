@@ -114,7 +114,9 @@
 	  }
 	  
   });
-
+let $modal = $("#model");
+console.log($modal.length);
+if ($modal.length) {
   $("#modal").iziModal({
 	  width: '70%',
 	  onClosing: function() {
@@ -123,6 +125,7 @@
 		  $("textarea[name='questionContent']").html("");
 	  }
   });
+}
  // $('#modal').iziModal('open');
   $(document).on('click', '.modal-init', function (event) {
 	    event.preventDefault();

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -74,28 +75,16 @@ public class CourseController {
     	CourseDAO cdao = ctx.getBean(CourseDAO.class);
     	String courseCode = cdao.isCoursePresent(course.getName());
     	
-    	if (courseCode != null) {
-    		// save chapters and lessons
-			if (cdao.saveChapterAndLessons(course, courseCode)) {
-				return true;
-			}
-			else {
-				return false;
-			}
-    	}
-    	else {
-    		// save course, chapter and lessons
+    	if (courseCode == null) {
     		courseCode = cdao.saveCourse(course);
-    		if (courseCode != null) {
-    			if (cdao.saveChapterAndLessons(course, courseCode)) {
-    				return true;
-    			}
-    		}
-    		else {
-    			return false;
-    		}
     	}
-    	return false;
+    	
+    	if (cdao.saveChapterAndLessons(course, courseCode)) {
+			return true;
+		}
+		else {
+			return false;
+		}
     } 
     
     @RequestMapping(value = "/api/get-course", method = RequestMethod.GET)
@@ -138,7 +127,7 @@ public class CourseController {
     			.addObject("doLogin", doLogin);
     }
     
-    @RequestMapping(value = "/courses/{courseCode}/payment/redirect", method = RequestMethod.GET)
+    @RequestMapping(value = "/courses/{courseCode}/payment/redirect", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView paytmentRedirect(HttpServletRequest req, 
     		@PathVariable String courseCode) throws Exception {
     	
@@ -244,6 +233,24 @@ public class CourseController {
     	}
     	RedirectView v = new RedirectView(req.getContextPath() + "/profile");
     	return new ModelAndView(v);
+    }
+    
+    @RequestMapping(value = "/api/add-resource", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean addResource(HttpServletRequest req, 
+    		@RequestParam String name, @RequestParam String key) {
+    	CourseDAO cdao  = ctx.getBean(CourseDAO.class);
+    	if (cdao.addResource(name, key)) {
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
+    @RequestMapping(value = "/admin/add-resources", method = RequestMethod.GET) 
+    public ModelAndView addResourcesAdmin(HttpServletRequest req) {
+    	
+    	return new ModelAndView("test-admin-add-resources");
     }
     
 }

@@ -84,161 +84,39 @@
 	  </div>
 	</nav>
 </section>
-<section id="start-alt">
-	<div class="row" style="margin: 0">
-		<div class="col-md-7">
-			<div class="course-heading">
-			
-				<div class="background-stage">
-					<div class="course ld-over" id="course-type--bar">
-					    <div class="ld ld-ring ld-spin"></div>
-					
-						<p class="name">
-							<c:out value="${course.getName() }" />
-							
-							<span id="code-msg">Code: <span id="code"><c:out value="${course.getCode()}" /></span></span>
-						</p>
-						
-						<div class="course-type-bar d-flex justify-content-start">
-                        	<div class="inf">${ course.getTags() }</div>
-	                     </div>
-						<div class="ratings">
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-						</div>
-						
-                        <div class="course-info-bar d-flex flex-wrap justify-content-between">
-                        
-	                        <div class="info d-flex">
-	                            <div class="time inf">
-	                                <i class="far fa-clock sm-icon"></i>
-	                                <c:out value="${course.getTotalDays()} days"/>
-	                    
-	                            
-	                            </div>
-	                            <div class="lectures inf">
-	                                <i class="far fa-play-circle sm-icon"></i>
-	                                <span id="top-lec-num"></span> lectures
-	                    
-	                            
-	                            </div>
-	                            <div class="level inf">
-	                                <i class="fas fa-level-up-alt"></i>
-	                                beginner
-	  							</div>
-	                      </div>
-	                      <div class="price-info d-flex">
-	                      	<div class="was-price">
-	                      		<i class="fas fa-rupee-sign"></i> ${course.getMrp()}
-	                      	</div>
-	                      	<div class="is-price">
-	                      		<i class="fas fa-rupee-sign"></i>${course.getPrice()}
-	                      	</div>
-	                      </div>
-                      </div>
-					</div>
-				</div>
-				
+<section style="margin-top: 100px;">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3" id="resource-list">
+				<c:forEach items="${res}" var="r">
+				   <div class="resource-tab" id="${ r.getSource() }">
+				   		<c:out value="${r.getName()}"/>
+				   	</div>       
+				</c:forEach>
 			</div>
-			<div class="course-desc">
-				<div class="desc-heading">
-					<h3>Description</h3>
-					<div class="bb-bar"></div>
-					
-				</div>
-				<div class="para" id="course-desc">
-				
-				</div>
-				<span id="course-desc-h" style="display:none">
-					<c:out value="${course.getDesc()}" />
-				</span>
-			</div>
-			<div class="course-desc-pad ld-over" id="status-arr">
-			<div class="ld ld-ring ld-spin"></div>
-			
-				<div class="desc-heading">
-						<h3>Course Route</h3>
-						<div class="bb-bar"></div>		
-				</div>
-				<div class="para">
-					<ul class="tree" id="lesson-tree">
-						<!-- <li class="container tree-leaf"><p>Introduction to Python </p>
-							<ul class="tree">
-								<li class="tree-leaf"><p class="tree-r d-flex justify-content-between"><span><i class="far fa-play-circle"></i> Python Basics</span><span>23 mins</span></p></li>
-								<li class="tree-leaf"><p class="tree-r d-flex justify-content-between"><span><i class="far fa-play-circle"></i> Indentation and Spaces</span><span>13 mins</span></p></li>
-								<li class="tree-leaf"><p class="tree-r d-flex justify-content-between"><span><i class="far fa-play-circle"></i> Python Basics</span><span>23 mins</span></p>
-									
-								</li>
-							</ul>
-						</li>
-						<li class="container tree-leaf"><p>Testing </p>
-							<ul class="tree">
-								<li class="tree-leaf"><p><i class="far fa-play-circle"></i> Testing 1</p></li>
-								<li class="tree-leaf"><p><i class="far fa-play-circle"></i> Testing 2</p></li>
-								<li class="tree-leaf"><p><i class="far fa-play-circle"></i> Testing 3</p></li>
-							</ul>
-						</li>
-						<li class="container tree-leaf"><p>Testing </p>
-							<ul class="tree">
-								<li class="empty tree-leaf"><p>empty</p></li>
-							</ul>
-						</li> -->
-					</ul>
-					
-				</div>
-			</div>
-		</div>
-		<div class="col-md-5">
-			<div class="intro-video">
-				<video class="plyr">
-					<source src="http://do4k6lnx3y4m9.cloudfront.net/SampleVideo_1280x720_2mb.mp4"></source>
-				</video>
-			</div>
-			<div id="sticky-anchor"></div>
-			<div class="catalogue" id="sticky">
-				<div class="card">
-					<div class="card-body d-flex flex-wrap">
-						<div class="course-img">
-							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNKM_kz1xIlkm3gZKl39n3-EKRg3jQtM-Q9u6qBBBafQ6tL2Jj9g" alt="" />
-						</div>
-						<div class="left">
-							<div class="buy-now-btn">
-							<c:choose>
-							    <c:when test="${ doLogin == 1}">
-							    <div class="main-nav">
-									<ul id="menu-hack" >
-							          
-							            <li data-menuanchor="secondPage">
-							                <a class="cd-signin buy-now href="#" id="open-tabs">Buy Now</a>
-							            </li>
-						        	</ul>
-								</div>
-							    </c:when>    
-							    <c:otherwise>
-							    	<a href="#" class="buy-now" id="order">Buy Now</a>
-							    </c:otherwise>
-							</c:choose>
-							
-							</div>
-							<div class="course-dd">
-								<div class="heading-small">This Course Includes</div>
-								<ul>
-									<li><i class="fas fa-play-circle"></i> <span id="lec-num">33</span> Lectures</li>
-									<li><i class="fas fa-clock"></i> <span id="lec-hrs"></span> Mins worth study material</li>
-									<li><i class="fas fa-calendar-day"></i> ${ course.getTotalDays() } Days for access</li>
-									<li><i class="fas fa-vial"></i> Practice Test Series</li>
-									<li><i class="fas fa-certificate"></i> Certificate on successful completion</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+			<div class="col-md-9">
+				<div id="content-zone">
+				<style>
+				  #pdf-viewer {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    overflow: auto;
+  }
+
+  .pdf-page-canvas {
+    display: block;
+    margin: 5px auto;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }</style>
+        </style>
+         <div id="viewer"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
 
 <div class="modal" id="login-modal">
   <div class="modal-dialog">
@@ -439,6 +317,10 @@
 		* - Mandatory Fields
 	</form>
 	</section>
+	<style>
+		#myFooter {
+		margin-top: 0 !important}
+	</style>
 	            <%@ include file="footer-all.jsp" %>  
 	 	<div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
 		<div class="cd-user-modal-container"> <!-- this is the container wrapper -->
@@ -557,8 +439,83 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cdn.plyr.io/3.5.3/plyr.polyfilled.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/course-details.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+	        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.452.0.min.js"></script>
+	        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+	              <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.min.js"></script>
+  
+	<script>
+
+    var albumBucketName = 'hcvideo212';
+    var bucketRegion = 'us-east-1';
+    var IdentityPoolId = 'us-east-1:bd02edbc-3f46-4c0e-9ebe-ea8f4f80c8b3';
+    var converter = new showdown.Converter();
+    converter.setFlavor('github');
+
+    AWS.config.update({
+        credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: IdentityPoolId
+        })
+    });
+    AWS.config.region = 'us-east-1';
+
+    var s3 = new AWS.S3({
+        apiVersion: '2006-03-01',
+        params: {
+            Bucket: albumBucketName
+        }
+    });
+    
+    $(".resource-tab").on('click', function(e) {
+    	if ($(this)[0].id.split(".").pop() !== 'pdf') {
+	    	s3.getObject({
+		        Bucket: albumBucketName,
+		        Key: $(this)[0].id
+		    }, function(err, data) {
+		        if (err) {
+		            console.log(err, err.stack);
+		        } else {
+		        	
+		        	text      = data.Body.toString('ascii'),
+		            html      = converter.makeHtml(text);
+		            $("#viewer").html(html);
+		        }
+		    });
+    	}
+    	else {
+    		// show the pdf file.
+    		$("#viewer").html("");
+    	    var url = 'https://do4k6lnx3y4m9.cloudfront.net/' + $(this)[0].id;
+    	    var thePdf = null;
+    	    var scale = 1.5;
+
+    	    pdfjsLib.getDocument(url).promise.then(function(pdf) {
+    	        thePdf = pdf;
+    	        viewer = document.getElementById('viewer');
+
+    	        for(page = 1; page <= pdf.numPages; page++) {
+    	          canvas = document.createElement("canvas");    
+    	          canvas.className = 'pdf-page-canvas';         
+    	          viewer.appendChild(canvas);            
+    	          renderPage(page, canvas);
+    	        }
+    	    });
+    	    
+    	    $("#viewer").on('contextmenu', event => event.preventDefault());
+
+
+    	    function renderPage(pageNumber, canvas) {
+    	        thePdf.getPage(pageNumber).then(function(page) {
+    	          viewport = page.getViewport(scale);
+    	          canvas.height = viewport.height;
+    	          canvas.width = viewport.width;          
+    	          page.render({canvasContext: canvas.getContext('2d'), viewport: viewport});
+    	    });
+    	    }
+    	}
+    })
+	</script>
 	
 	<script>
 	jQuery(document).ready(function($){

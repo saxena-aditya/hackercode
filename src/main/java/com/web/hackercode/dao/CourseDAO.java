@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.web.hackercode.structures.Course;
 import com.web.hackercode.structures.EntityCourse;
+import com.web.hackercode.structures.Resource;
 import com.web.hackercode.structures.User;
 
 public interface CourseDAO {
@@ -22,4 +23,6 @@ public interface CourseDAO {
 	public boolean addCourseToUser(HttpServletRequest req, String courseCode);
 	public List<Course> getUserCourses(String username);
 	public String getCourseJson(String courseCode);
+	public boolean addResource(String name, String source);
+	public List<Resource> getResources();
 }

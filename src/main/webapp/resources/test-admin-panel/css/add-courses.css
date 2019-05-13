@@ -1,6 +1,6 @@
 
 .form-control {
-    border: 1px solid #807b7b;
+    border: 1px solid #807b7b !important;
     font-family: "Poppins", sans-serif;
     font-size: 0.85rem;
     padding: 0.56rem 0.75rem;

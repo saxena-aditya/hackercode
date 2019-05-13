@@ -6,8 +6,48 @@ public class EntityCourse {
 	private int price;
 	private int days;
 	private String desc;
+	private String tags;
+	private int mrp;
 	private String creator;
+	private String subDesc;
 	
+	
+	/**
+	 * @return the subDesc
+	 */
+	public String getSubDesc() {
+		return subDesc;
+	}
+	/**
+	 * @param subDesc the subDesc to set
+	 */
+	public void setSubDesc(String subDesc) {
+		this.subDesc = subDesc;
+	}
+	/**
+	 * @return the tags
+	 */
+	public String getTags() {
+		return tags;
+	}
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+	/**
+	 * @return the mrp
+	 */
+	public int getMrp() {
+		return mrp;
+	}
+	/**
+	 * @param mrp the mrp to set
+	 */
+	public void setMrp(int mrp) {
+		this.mrp = mrp;
+	}
 	/**
 	 * @return the desc
 	 */

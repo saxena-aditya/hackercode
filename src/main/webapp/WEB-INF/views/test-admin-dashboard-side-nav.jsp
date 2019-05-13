@@ -55,9 +55,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">
+            <a class="nav-link" href="${ pageContext.request.contextPath }/admin/add-resources">
               <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Tables</span>
+              <span class="menu-title">Add Resources</span>
             </a>
           </li>
           <li class="nav-item">

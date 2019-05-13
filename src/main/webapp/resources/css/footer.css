@@ -37,6 +37,7 @@
     color: #2f2e2e;
     font-weight: bold;
     margin-top: 30px;
+    margin-bottom: 10px;
 }
 
 #myFooter h2 a{
@@ -140,6 +141,6 @@ img#owl-graph-big {
     margin: 0% 10%;
 }
 .contact-us {
-    padding: 0 0 10px 0;
+    /* padding: 0 0 10px 0; */
     font-weight: bold;
 }

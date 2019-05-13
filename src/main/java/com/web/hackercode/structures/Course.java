@@ -13,10 +13,69 @@ public class Course {
 	private String creator; 
 	private String lesson;
 	private String chapter;
-	private List<MultipartFile> files;
+	private String tags;
+	private int mrp;
+	private String subDesc;
+	private MultipartFile img;
+	private List<String> files;
 	
 	
 	
+	
+	/**
+	 * @param files the files to set
+	 */
+	public void setFiles(List<String> files) {
+		this.files = files;
+	}
+	/**
+	 * @return the img
+	 */
+	public MultipartFile getImg() {
+		return img;
+	}
+	/**
+	 * @param img the img to set
+	 */
+	public void setImg(MultipartFile img) {
+		this.img = img;
+	}
+	/**
+	 * @return the subDesc
+	 */
+	public String getSubDesc() {
+		return subDesc;
+	}
+	/**
+	 * @param subDesc the subDesc to set
+	 */
+	public void setSubDesc(String subDesc) {
+		this.subDesc = subDesc;
+	}
+	/**
+	 * @return the tags
+	 */
+	public String getTags() {
+		return tags;
+	}
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+	/**
+	 * @return the mrp
+	 */
+	public int getMrp() {
+		return mrp;
+	}
+	/**
+	 * @param mrp the mrp to set
+	 */
+	public void setMrp(int mrp) {
+		this.mrp = mrp;
+	}
 	/**
 	 * @return the desc
 	 */
@@ -113,19 +172,14 @@ public class Course {
 	public void setCreator(String creator) {
 		this.creator = creator;
 	}
+	
+	
 	/**
 	 * @return the files
 	 */
-	public List<MultipartFile> getFiles() {
+	public List<String> getFiles() {
 		return files;
 	}
-	/**
-	 * @param files the files to set
-	 */
-	public void setFiles(List<MultipartFile> files) {
-		this.files = files;
-	}
-	
 	public String toString() {
 		return "course name: " + getName() + "\nchapter name: " + getChapter() + 
 				"\nlesson name: " + getLesson() + "\nfile size: " + getFiles().size(); 
