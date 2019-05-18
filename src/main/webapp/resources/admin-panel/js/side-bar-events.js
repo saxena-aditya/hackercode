@@ -1,15 +1,18 @@
 const prod_test_history = "/get-completed-tests";
 const prod_test_all = "/get-live-tests";
 const prod_courses = "/get-live-courses";
-const prod_get_lession = "/get-course-lessions";
+const prod_get_lesson = "/get-course-lessons";
 const prod_upload_profile_pic = "/save-profile-pic";
 
-const dev_upload_profile_pic = "/WebHackerCode/save-profile-pic";
-const dev_get_lessions = "/WebHackerCode/get-course-lessions";
-const dev_courses = "/WebHackerCode/get-live-courses";
-const dev_test_history = "/WebHackerCode/get-completed-tests";
-const dev_test_all = "/WebHackerCode/get-live-tests";
+const dev_upload_profile_pic = "save-profile-pic";
+const dev_get_lessons = "get-course-lessons";
+const dev_courses = "get-live-courses";
+const dev_test_history = "get-completed-tests";
+const dev_test_all = "get-live-tests";
 
+
+var activeLesson = "";
+var activeChapter = "";
 function readURL(input) {
 
 	  if (input.files && input.files[0]) {
@@ -213,15 +216,16 @@ function formatTimestamp(node) {
     })
 }
 
-function getCourseLessions(courseId) {
-	const breadstep = "Courses Lessions";
+function getCourselessons(courseId) {
+	activeChapter = courseId;
+	const breadstep = "Courses lessons";
     /*
      * Note: use the `courseId` value to fetch appropriate results
      * 
      * */
 	$.ajax({
         type: "POST",
-        url: dev_get_lessions,
+        url: dev_get_lessons,
         data: {code: courseId},
         beforeSend: function() {
             $("#status-arr").addClass("running");
@@ -272,12 +276,40 @@ $(document).on("myCustomEvent", function() {
 		$("#video-container").removeClass("running");
 
 	});
+	player.on('ended', event => {
+	    const instance = event.detail.plyr;
+	    console.log("ended", event);
+	    console.log("activelesson", activeLesson);
+	    // make a ajax call to end the less
+	    $.ajax({
+	    	type: "GET",
+	    	url: "mark-lesson-complete",
+	    	data: {chapterCode:activeChapter , lessonCode: activeLesson},
+	    	beforeSend: function(){
+	    		console.log("marking lesson finish...");
+	    	},
+	    	success: function(data) {
+	    		if (data) {
+	    			console.log("marked lesson finished...");
+	    		}
+	    		else {
+	    			console.log(data);
+	    		}
+	    	},
+	    	error: function(a,c,v) {
+	    		alert("error");
+	    	}
+	    
+	    })
+
+	});
 
 });
 
 
-$(document).on("click", ".lession-title", function(e) {
+$(document).on("click", ".lesson-title", function(e) {
 	$("video-container").addClass("running");
+	activeLesson = e.target.id
 	player.source = {
 		    type: 'video',
 		    title: 'Example title',
@@ -300,6 +332,7 @@ function buildCourseUI(data, dest) {
 	let code = data.code;
 	let days = data.days;
 	let desc = data.desc;
+	console.log(data);
 	let output = '';
 	let lessonHTML = '';
 	data.chapters.forEach(function(chapter, i) {
@@ -320,14 +353,14 @@ function buildCourseUI(data, dest) {
 		
 		chapter.lessons.forEach(function(lesson, j) {
 			console.log(lesson)
-			lessonHTML += '<div class="lession-title">\
-						<i class="far fa-file-video"></i> &nbsp;<a href="#" class="lesson-title" data-src = "'+lesson.resourse+'">'+lesson.name+" "+ lesson.resourse.split(".").pop()+ 
+			lessonHTML += '<div class="lesson-title">\
+						<i class="far fa-file-video"></i> &nbsp;<a href="#" id="'+lesson.code+'" class="lesson-title" data-src = "'+lesson.resourse+'">'+lesson.name+" "+ lesson.resourse.split(".").pop()+ 
 						'</a>\
 					</div>';
 		})
 		lessonHTMLOOT = '<div id="collapse-'+i+'" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">\
 		      <div class="card-body">\
-				<div class="lession-links">' + lessonHTML + '</div></div></div>';
+				<div class="lesson-links">' + lessonHTML + '</div></div></div>';
 		 output += '<div class="card hc-card">' + chapterHTML + lessonHTMLOOT + '</div>';
 		lessonHTML = chapterHTML = "";
 	})
@@ -347,7 +380,7 @@ function buildCourseUI(data, dest) {
 (function() {
     const sideNavHandles = ['my-reports', 'my-exams', 'reports-alt', 'courses', 'init-usr-img-upload','back-to-courses'];
     const courseStartHandle = "course-start-btn";
-    const courseStartEvent = "getCourseLessions";
+    const courseStartEvent = "getCourselessons";
     const sideNavEvents = ['getCompletedTests', 'getLiveTests', 'getCompletedTests', 'getMyCourses', 'clickFileUpload','getMyCourses'];
     let container = document.getElementById("content");
     $(document).on("click", "a, button, i", function(e) {

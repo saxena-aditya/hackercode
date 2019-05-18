@@ -18,7 +18,7 @@ const dev_test_submit_url = 'http://localhost:8080/WebHackerCode/get-result';
 const dev_test_get_store_url = "localhost:3000/get";
 const dev_redirect_url = "http://localhost:8080/WebHackerCode/dashboard";
 
-const inProduction = true;
+const inProduction = false;
 
 if (!inProduction) {
 	test_start_url = dev_test_start_url;

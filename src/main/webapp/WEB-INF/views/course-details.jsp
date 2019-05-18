@@ -41,7 +41,8 @@
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-	    <ul class="navbar-nav ml-auto">
+	     <div class="main-nav" id="top-nav">
+			<ul id="menu-hac">
 	      <li class="nav-item">
 	        <a class="nav-link" href="${ pageContext.request.contextPath }" id="home-al">Home <span class="sr-only">(current)</span></a>
 	      </li>
@@ -49,19 +50,18 @@
 	    
 	      <c:choose>
 			    <c:when test="${ doLogin == 1}">
-			    <div class="main-nav">
-						<ul id="menu-hac">
+			   
 				             <li class="nav-item">
 						        <a class="nav-link sign-in-btn cd-signup" id="register-main" href="#">Register</a>
 						     </li>
 						     <li class="nav-item">
 						        <a class="nav-link sign-up-btn cd-signin" href="#">Login</a>
 						     </li>
-			        	</ul>
-					</div>
+			        	
 			        
 			    </c:when>    
 			    <c:otherwise>
+			    
 			    <li class="nav-item">
 			    	<a class="nav-link" href="${ pageContext.request.contextPath }/profile">View Dashboard</a>
 			    </li>
@@ -80,6 +80,7 @@
 				      </li> --%>
 			    </c:otherwise>
 			</c:choose>
+			
 	    </ul>
 	  </div>
 	</nav>
@@ -395,7 +396,7 @@
 	<h1>Merchant Check Out Page</h1>
 	<pre>
 	</pre>
-	<form method="post" action="/WebHackerCode/courses/${course.getCode()}/payment/redirect">
+	<form method="post" action="/courses/${course.getCode()}/payment/redirect">
 		<table border="1">
 			<tbody>
 				<tr>
@@ -576,8 +577,6 @@
     	//open modal
     	$main_nav.on('click', function(event){
     		var xx = $(this).find('#open-tabs');
-			console.log("secding data to view", xx);
-			console.log(xx.length);
 			if (xx.length == 0) {
 				$("#login-frm").attr("action", $("#login-uri-normal").html());
 				$("#signup-frm").attr("action", $("#signup-uri-normal").html());

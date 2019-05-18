@@ -2,24 +2,24 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3">
-                    <h2 class="logo"><a href="${pageContext.request.contextPath}"> 
-                    	<img src="${pageContext.request.contextPath}/resources/ff-ideas/logo.png" id="owl-graph-big" alt="">	
+                    <h2 class="logo"><a href="/"> 
+                    	<img src="/resources/ff-ideas/logo.png" id="owl-graph-big" alt="">	
                      </a></h2>
                 </div>
                 <div class="col-sm-2">
                     <h5>Get started</h5>
                     <ul>
-                        <li><a href="${ pageContext.request.contextPath }/">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li><a href="#" id="register-me">Register</a></li>
-                        <li><a href="#">Resources</a></li>
+                        <li><a href="/resources">Resources</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">
                     <h5>About us</h5>
                     <ul>
-                        <li><a href="${ pageContext.request.contextPath }/#sec-team">Our Team</a></li>
+                        <li><a href="/#sec-team">Our Team</a></li>
                         <!-- <li><a href="#">Contact us</a></li> -->
-                        <li><a href="${ pageContext.request.contextPath }/#sec-courses-info">Reviews</a></li>
+                        <li><a href="/#sec-courses-info">Reviews</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">

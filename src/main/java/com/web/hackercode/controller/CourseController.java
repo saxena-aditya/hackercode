@@ -22,11 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.paytm.merchant.CheckSumServiceHelper;
+import com.paytm.pg.merchant.CheckSumServiceHelper;
 import com.web.hackercode.constants.PaytmConstants;
 import com.web.hackercode.dao.CourseDAO;
 import com.web.hackercode.structures.Course;
 import com.web.hackercode.structures.User;
+
 
 @Controller
 public class CourseController {
@@ -41,9 +42,10 @@ public class CourseController {
     	return new ModelAndView("profile-courses")
     			.addObject("coursesMore", cdao.getEntityCourses(req))
     			.addObject("courses", cdao.getUserCourses(user.getUsername()));
+    			
     }
     
-    @RequestMapping(value = "/get-course-lessions", method = RequestMethod.POST) 
+    @RequestMapping(value = "/get-course-lessons", method = RequestMethod.POST) 
     @ResponseBody
     public String getCourseLessions(HttpServletRequest req) throws InterruptedException {
     	Thread.sleep(1000);
@@ -70,8 +72,7 @@ public class CourseController {
     public boolean uploadCourse(HttpServletRequest req, 
     		@ModelAttribute("course") Course course,
     		BindingResult result) {
-    	System.out.println(course.getFiles().size());
-    	System.out.println(course.toString());
+    	
     	CourseDAO cdao = ctx.getBean(CourseDAO.class);
     	String courseCode = cdao.isCoursePresent(course.getName());
     	
@@ -115,11 +116,9 @@ public class CourseController {
 
     			if (req.getSession().getAttribute("isLoggedIn").toString().equalsIgnoreCase("true")) {
     	    		System.out.println("Session Not Null false");
-
     				doLogin = 0;
     			}
-    		}
-    		
+    		}		
     	}
     	
     	return new ModelAndView("course-details")
@@ -159,7 +158,7 @@ public class CourseController {
         	parameters.put("WEBSITE",PaytmConstants.WEBSITE);
         	parameters.put("MOBILE_NO","9876543210");
         	parameters.put("EMAIL","test@gmail.com");
-        	parameters.put("CALLBACK_URL", "http://localhost:8080/WebHackerCode/courses/"+courseCode+"/payment/callback");
+        	parameters.put("CALLBACK_URL", "https://hackercode.in/courses/"+courseCode+"/payment/callback");
         	String checkSum =  CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum(PaytmConstants.MERCHANT_KEY, parameters);
         	outputHtml.append("<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>");
         	outputHtml.append("<html>");
@@ -251,6 +250,15 @@ public class CourseController {
     public ModelAndView addResourcesAdmin(HttpServletRequest req) {
     	
     	return new ModelAndView("test-admin-add-resources");
+    }
+    
+    @RequestMapping(value = "/mark-lesson-complete", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean makeLessonComplete(HttpServletRequest req,  @RequestParam String chapterCode, 
+    		@RequestParam String lessonCode) {
+    	CourseDAO cdao = ctx.getBean(CourseDAO.class);
+    	User user = (User) req.getSession().getAttribute("user");
+    	return cdao.markLessonComplete(user.getUsername(), chapterCode, lessonCode);
     }
     
 }

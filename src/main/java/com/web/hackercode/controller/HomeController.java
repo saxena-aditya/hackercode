@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.hackercode.dao.CourseDAO;
 
 @Controller
-public class HelloWorldController {
+public class HomeController {
 
 	String message = "Welcome to Spring MVC!";
     ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
@@ -92,12 +92,11 @@ public class HelloWorldController {
 
 	    				doLogin = 0;
 	    			}
-	    		}
-	    		
+	    		}	
 	    	}
+	    	
 		  return new ModelAndView("resources")
 				  .addObject("res", cdao.getResources())
 				  .addObject("doLogin", doLogin);
 	  }
-
 }

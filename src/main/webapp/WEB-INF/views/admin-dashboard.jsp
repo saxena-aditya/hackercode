@@ -134,9 +134,9 @@
 
 					</a></li>
 					
-					<li><a href="#"> <i class="fas fa-envelope ia"></i> Inbox
+					<!-- <li><a href="#"> <i class="fas fa-envelope ia"></i> Inbox
 
-					</a></li>
+					</a></li> -->
 					<li><a href="#reports" id="my-reports"> <i
 							class="far fa-chart-bar ia"></i> My Reports
 
@@ -160,15 +160,15 @@
 							Student Login History
 
 					</a></li> -->
-					<li><a href="#pageSubmenu" data-toggle="collapse"
+					<!-- <li><a href="#pageSubmenu" data-toggle="collapse"
 						aria-expanded="false" class="dropdown-toggle sidebar-a"> <i
 							class="fas fa-user ia"></i> My Profile
 					</a>
 						<ul class="collapse list-unstyled" id="pageSubmenu">
 							<li><a href="#">Edit Profile</a></li>
-							<!-- <li><a href="#">Page 2</a></li>
-							<li><a href="#">Page 3</a></li> -->
-						</ul></li>
+							<li><a href="#">Page 2</a></li>
+							<li><a href="#">Page 3</a></li>
+						</ul></li> -->
 					<li><a href="${ pageContext.request.contextPath }/logout"> <i class="fas fa-sign-out-alt ia"></i>
 							Logout
 

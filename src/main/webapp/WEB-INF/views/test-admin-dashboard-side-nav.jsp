@@ -25,7 +25,7 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="menu-icon mdi mdi-content-copy"></i>
               <span class="menu-title">Basic UI Elements</span>
@@ -41,7 +41,7 @@
                 </li>
               </ul>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/tests" id="tests-all">
               <i class="menu-icon mdi mdi-backup-restore"></i>
@@ -60,13 +60,13 @@
               <span class="menu-title">Add Resources</span>
             </a>
           </li>
-          <li class="nav-item">
+         <!--  <li class="nav-item">
             <a class="nav-link" href="pages/icons/font-awesome.html">
               <i class="menu-icon mdi mdi-sticker"></i>
               <span class="menu-title">Icons</span>
             </a>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="menu-icon mdi mdi-restart"></i>
               <span class="menu-title">User Pages</span>
@@ -91,6 +91,6 @@
                 </li>
               </ul>
             </div>
-          </li>
+          </li> -->
         </ul>
       </nav>

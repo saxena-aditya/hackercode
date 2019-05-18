@@ -31,20 +31,20 @@
 	}
 
 	
-  $(window).scroll(sticky_relocate);
-  sticky_relocate();
+  /*$(window).scroll(sticky_relocate);
+  sticky_relocate();*/
   
 	$("#order").on('click', function() {
 		$("#paytm-submit").click();
 	})
-	const prod_get_lession = "/get-course-lessions";
-	const dev_get_lession = "/WebHackerCode/get-course-lessions";
+	const prod_get_lession = "/get-course-lessons";
+	const dev_get_lession = "/get-course-lessons";
 	console.log("path", $("#path").html());
 	let totalLessons = 0;
 	$.ajax({
 		
 		type: "POST",
-		url: "/WebHackerCode/get-course-lessions",
+		url: "/get-course-lessons",
 		data: {code: $('#code').html()},
 		beforeSend: function() {
 			console.log('sending data...');

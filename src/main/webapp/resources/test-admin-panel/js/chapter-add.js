@@ -165,7 +165,7 @@
 
                         $.ajax({
 	         				type: "POST",
-	         				url: "/WebHackerCode/upload-course",
+	         				url: "/upload-course",
 	         				data: fd,
 	         				contentType: false,
 	         			    processData: false,

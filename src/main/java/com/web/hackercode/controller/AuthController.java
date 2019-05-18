@@ -19,7 +19,7 @@ public class AuthController {
     	req.getSession().setAttribute("isLoggedIn", false);
     	req.getSession().setAttribute("user", null);
     	// req.getSession().invalidate();
-    	RedirectView home = new RedirectView("/WebHackerCode/");
+    	RedirectView home = new RedirectView("/");
     	return new ModelAndView(home);
     }
 }

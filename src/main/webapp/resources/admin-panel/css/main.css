@@ -496,7 +496,7 @@ ul.list-unstyled.components > li:hover:after {
     border-radius: 0px;
 }
 
-.lession-title {
+.lession-title, .lesson-title {
     color: #605a5a;
     padding: 10px 5px;
     border-bottom: 1px solid #ddd;

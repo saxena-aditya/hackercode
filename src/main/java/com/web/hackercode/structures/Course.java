@@ -17,11 +17,37 @@ public class Course {
 	private int mrp;
 	private String subDesc;
 	private MultipartFile img;
+	private int totalLessons;
+	private int completedLessons;
 	private List<String> files;
 	
 	
 	
 	
+	/**
+	 * @return the totalLessons
+	 */
+	public int getTotalLessons() {
+		return totalLessons;
+	}
+	/**
+	 * @param totalLessons the totalLessons to set
+	 */
+	public void setTotalLessons(int totalLessons) {
+		this.totalLessons = totalLessons;
+	}
+	/**
+	 * @return the completedLessons
+	 */
+	public int getCompletedLessons() {
+		return completedLessons;
+	}
+	/**
+	 * @param completedLessons the completedLessons to set
+	 */
+	public void setCompletedLessons(int completedLessons) {
+		this.completedLessons = completedLessons;
+	}
 	/**
 	 * @param files the files to set
 	 */

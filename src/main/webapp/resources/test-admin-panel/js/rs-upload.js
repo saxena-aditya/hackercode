@@ -117,7 +117,7 @@
 				console.log(titles[data.Key]);
 				$.ajax({
 					type: "GET",
-					url: "http://localhost:8080/WebHackerCode/api/add-resource",
+					url: "/api/add-resource",
 					data: {name: titles[data.Key], key: data.Key},
 					beforeSend: function() {
 						console.log("saving resource....");

@@ -20,7 +20,7 @@
                    				Remaining
                    			</div>
                    			<div class="body">
-                   				67
+                   				${ c.getTotalLessons() - c.getCompletedLessons() }
                    			</div>
                    		</div>
                    		<div class="lec">
@@ -28,7 +28,7 @@
                    				Viewed
                    			</div>
                    			<div class="body">
-                   				43
+                   				${ c.getCompletedLessons() }
                    			</div>
                    		</div>
                    </div>

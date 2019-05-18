@@ -213,13 +213,14 @@ public class CourseDAOImpl implements CourseDAO {
 		jdbcTemplate.setDataSource(getDataSource());
 		String SAVE_CHAPTER = "INSERT INTO hc_chapters (ch_c_code, ch_name, ch_code) VALUES (?,?,?)";
 		String SAVE_LESSION = "INSERT INTO hc_lessons (l_code, l_ch_code, l_c_code, l_name, l_resource) VALUES (?,?,?,?,?)";
-		
+	     String domain = "https://do4k6lnx3y4m9.cloudfront.net/";
+
 		String chCode = isChapterPresent(course.getChapter(), courseCode);
 		if (chCode != null) {
 			// just save lesson
 			try {
 				for (int i=0; i< course.getFiles().size(); i++) {
-					String location = course.getFiles().get(i);
+					String location = domain + course.getFiles().get(i);
 					jdbcTemplate.update(SAVE_LESSION,  randomAlphaNumeric(7), 
 							chCode, courseCode, course.getLesson(), location);
 					return true;
@@ -235,7 +236,7 @@ public class CourseDAOImpl implements CourseDAO {
 			jdbcTemplate.update(SAVE_CHAPTER, courseCode, course.getChapter(), chCode);
 			for (int i=0; i< course.getFiles().size(); i++) {
 				String location = null;
-				location = course.getFiles().get(i);
+				location = domain + course.getFiles().get(i);
 				jdbcTemplate.update(SAVE_LESSION,  randomAlphaNumeric(7), 
 						chCode, courseCode, course.getLesson(), location);
 			}
@@ -485,6 +486,8 @@ public class CourseDAOImpl implements CourseDAO {
                         ec.setDesc(rs.getString("c_desc"));
                         ec.setPrice(rs.getInt("c_price"));
                         ec.setTotalDays(rs.getInt("c_total_days"));
+                        ec.setTotalLessons(getlLessonCount(rs.getString("c_code")));
+                        ec.setCompletedLessons(getCompletedLessonCount(rs.getString("c_code")));
                         
                         list.add(ec);
                     }
@@ -575,6 +578,57 @@ public class CourseDAOImpl implements CourseDAO {
 	            });
 		
 		return resources;
+	}
+	public boolean markLessonComplete(String username, String chapterCode, String lessonCode) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String IS_COMPLETE_LESSON = "SELECT COUNT(*) FROM hc_lesson_track WHERE lt_username = ? AND lt_ch_code = ? AND lt_ln_code = ?";
+		String COMPLETE_LESSON = "INSERT INTO hc_lesson_track (lt_username, lt_ch_code, lt_ln_code) VALUES (?,?,?)";
+		try {
+			int count = jdbcTemplate.queryForObject(IS_COMPLETE_LESSON, 
+					new Object[] { username, chapterCode, lessonCode },
+					Integer.class
+					);
+			
+			if (count == 0) {
+				jdbcTemplate.update(COMPLETE_LESSON, 
+						username, 
+						chapterCode,
+						lessonCode
+					);
+				return true;
+			}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	@Override
+	public int getlLessonCount(String courceCode) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String GET_LESSON_COUNT = "SELECT COUNT(*) FROM hc_lessons WHERE l_c_code = ?";
+		try {
+			int count = jdbcTemplate.queryForObject(GET_LESSON_COUNT, new Object[] {courceCode}, Integer.class);
+			return count;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	@Override
+	public int getCompletedLessonCount(String courceCode) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String GET_LESSON_COUNT = "SELECT COUNT(*) FROM hc_lesson_track WHERE lt_ch_code = ?";
+		try {
+			int count = jdbcTemplate.queryForObject(GET_LESSON_COUNT, new Object[] {courceCode}, Integer.class);
+			return count;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 }

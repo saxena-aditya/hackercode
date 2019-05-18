@@ -34,7 +34,7 @@
 <body>
 <section>
 	<nav class="navbar navbar-expand-lg navbar-light">
-	  <a class="navbar-brand" href="${pageContext.request.contextPath}">
+	  <a class="navbar-brand" href="/">
 	  	<img src="${pageContext.request.contextPath}/resources/ff-ideas/logo.png" id="owl-graph" alt="">
 	  </a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -440,13 +440,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cdn.plyr.io/3.5.3/plyr.polyfilled.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
-	        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.452.0.min.js"></script>
-	        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
-	              <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.min.js"></script>
-  
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.452.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.min.js"></script>
 	<script>
-
     var albumBucketName = 'hcvideo212';
     var bucketRegion = 'us-east-1';
     var IdentityPoolId = 'us-east-1:bd02edbc-3f46-4c0e-9ebe-ea8f4f80c8b3';
@@ -458,8 +456,8 @@
             IdentityPoolId: IdentityPoolId
         })
     });
+    
     AWS.config.region = 'us-east-1';
-
     var s3 = new AWS.S3({
         apiVersion: '2006-03-01',
         params: {
@@ -503,8 +501,6 @@
     	    });
     	    
     	    $("#viewer").on('contextmenu', event => event.preventDefault());
-
-
     	    function renderPage(pageNumber, canvas) {
     	        thePdf.getPage(pageNumber).then(function(page) {
     	          viewport = page.getViewport(scale);

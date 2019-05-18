@@ -30,6 +30,9 @@
 			         
 			        <nav class="main-nav">
 						<ul id="menu-hack">
+						<li>
+							<a href="${ pageContext.request.contextPath }/resources" id="res-btn">Resources</a>
+						</li>
 				            <li data-menuanchor="firstPage">
 				                <a class="cd-signup" href="#firstPage" id="register-main">Register</a>
 				            </li>
@@ -244,7 +247,7 @@
                         <i class="fas fa-angle-right"></i>
                         
                     </h1>
-                    <h3>Tomorrow starts here with Hacker Code. A platform for computer enthusiasts who imagine the impossible and make a difference. Be uniquely you and dive in the world of coding and learn what you require, push your limits, while(!(success==try()), test yourself. Code with ease and experience a greater measure of confidence with Hacker Code. 
+                    <h3>Tomorrow starts here with Hacker Code. A platform for computer enthusiasts who imagine the impossible and make a difference. Be uniquely you and dive in the world of coding and learn what you require, push your limits, while(!(success == try()), test yourself. Code with ease and experience a greater measure of confidence with Hacker Code. 
                     <br><br>First do it, then do it right, then do it better.
                 
                     </h3>
@@ -287,7 +290,7 @@
                                         <c:forEach items="${courses}" var="c">
 										    <div class="col-md-xxc">
                                                 <div class="card">
-                                                    <img src="${pageContext.request.contextPath}/resources/ff-ideas/hackwithinfy.png" alt="" class="card-img-top">
+                                                    <img src="https://coursearc-production-marketing.s3.amazonaws.com/uploads/2016/12/WebDesign.jpg" alt="" class="card-img-top">
                                                     <div class="card-body">
                                                         <div class="card-title"><c:out value="${c.getName()}"/>
                                                 </div>
@@ -897,18 +900,19 @@ efforts!</div>
 
             	//open modal
             	$main_nav.on('click', function(event){
-
-            		if( $(event.target).is($main_nav) ) {
-            			// on mobile open the submenu
-            			$(this).children('ul').toggleClass('is-visible');
-            		} else {
-            			// on mobile close submenu
-            			$main_nav.children('ul').removeClass('is-visible');
-            			//show modal layer
-            			$form_modal.addClass('is-visible');	
-            			//show the selected form
-            			( $(event.target).is('.cd-signup') ) ? signup_selected() : login_selected();
-            		}
+					if (event.target.id != "res-btn") {
+	            		if( $(event.target).is($main_nav) ) {
+	            			// on mobile open the submenu
+	            			$(this).children('ul').toggleClass('is-visible');
+	            		} else {
+	            			// on mobile close submenu
+	            			$main_nav.children('ul').removeClass('is-visible');
+	            			//show modal layer
+	            			$form_modal.addClass('is-visible');	
+	            			//show the selected form
+	            			( $(event.target).is('.cd-signup') ) ? signup_selected() : login_selected();
+	            		}
+					}
 
             	});
 
