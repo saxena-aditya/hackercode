@@ -7,6 +7,8 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 
 import com.web.hackercode.structures.Course;
+import com.web.hackercode.structures.EditChapter;
+import com.web.hackercode.structures.EditLesson;
 import com.web.hackercode.structures.EntityCourse;
 import com.web.hackercode.structures.Resource;
 import com.web.hackercode.structures.User;
@@ -28,4 +30,8 @@ public interface CourseDAO {
 	public boolean markLessonComplete(String username, String chapterCode, String lessoncode); 
 	public int getlLessonCount(String courceCode);
 	public int getCompletedLessonCount(String courceCode);
+	public boolean updateChapter(EditChapter chapter);
+	public boolean makeChapter(EditChapter chapter);
+	public boolean updateLesson(EditLesson lesson);
+	public boolean makeLesson(EditLesson lesson);
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,6 +24,8 @@ import com.paytm.pg.merchant.CheckSumServiceHelper;
 import com.web.hackercode.constants.PaytmConstants;
 import com.web.hackercode.dao.CourseDAO;
 import com.web.hackercode.structures.Course;
+import com.web.hackercode.structures.EditChapter;
+import com.web.hackercode.structures.EditLesson;
 import com.web.hackercode.structures.User;
 
 
@@ -269,6 +272,42 @@ public class CourseController {
     	CourseDAO cdao = ctx.getBean(CourseDAO.class);
     	User user = (User) req.getSession().getAttribute("user");
     	return cdao.markLessonComplete(user.getUsername(), chapterCode, lessonCode);
+    }
+    
+    @RequestMapping(value = "/admin/course/update/chapter", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean editChapter(HttpServletRequest req, 
+    		@ModelAttribute("EditChapter") EditChapter chapter) {
+    	
+    	CourseDAO cdao = ctx.getBean(CourseDAO.class);
+    	
+    	if (chapter.getUpdate()) {
+    		// update chapter	
+    		return cdao.updateChapter(chapter);
+    	}
+    	else {
+    		System.out.println("making new chapter" + chapter.toString());
+    		return cdao.makeChapter(chapter);
+    	}
+    	
+    }
+    
+    @RequestMapping(value = "/admin/course/update/lesson", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean editLesson(HttpServletRequest req, 
+    		@ModelAttribute("EditLesson") EditLesson lesson) {
+    	CourseDAO cdao = ctx.getBean(CourseDAO.class);
+    	if (lesson.getUpdate()) {
+    		// update lesson
+    		return cdao.updateLesson(lesson);
+    	}
+    	else {
+    		// make new lesson
+    		System.out.println("making new lesson" + lesson.toString());
+    		return cdao.makeLesson(lesson);
+    	}
+    	
+    	
     }
     
 }

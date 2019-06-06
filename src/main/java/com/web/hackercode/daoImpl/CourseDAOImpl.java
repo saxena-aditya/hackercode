@@ -39,6 +39,8 @@ import com.google.gson.JsonObject;
 import com.web.hackercode.dao.CourseDAO;
 import com.web.hackercode.mappers.CourseMapper;
 import com.web.hackercode.structures.Course;
+import com.web.hackercode.structures.EditChapter;
+import com.web.hackercode.structures.EditLesson;
 import com.web.hackercode.structures.EntityChapter;
 import com.web.hackercode.structures.EntityCourse;
 import com.web.hackercode.structures.EntityLesson;
@@ -631,6 +633,90 @@ public class CourseDAOImpl implements CourseDAO {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	public boolean updateChapter(EditChapter chapter) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String UPDATE_CHAPTER = "UPDATE hc_chapters SET ch_name = ? WHERE ch_c_code = ? AND ch_code = ?"; 
+    	
+		try {
+			jdbcTemplate.update(UPDATE_CHAPTER, new Object[] {
+					chapter.getName(),
+					chapter.getCourseCode(),
+					chapter.getCode()
+			});
+			
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public boolean makeChapter(EditChapter chapter) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String MAKE_CHAPTER = "INSERT INTO hc_chapters (ch_c_code, ch_code, ch_name) VALUE (?,?,?)"; 
+    	
+		try {
+			jdbcTemplate.update(MAKE_CHAPTER, new Object[] {
+					chapter.getCourseCode(),
+					chapter.getCode(),
+					chapter.getName()
+			});
+			
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public boolean updateLesson(EditLesson lesson) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String UPDATE_CHAPTER = "UPDATE hc_lessons SET l_name = ?, l_resource = ? WHERE l_c_code = ? AND l_ch_code = ? AND  l_code = ?"; 
+    	
+		try {
+			jdbcTemplate.update(UPDATE_CHAPTER, new Object[] {
+					lesson.getName(),
+					lesson.getFileUrl(),
+					lesson.getCourseCode(),
+					lesson.getChapterCode(),
+					lesson.getCode()
+			});
+			
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public boolean makeLesson(EditLesson lesson) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String MAKE_LESSON = "INSERT INTO hc_lessons (l_c_code, l_ch_code, l_code, l_name, l_resource, l_duration) VALUES (?,?,?,?,?,?)";
+    	
+		try {
+			jdbcTemplate.update(MAKE_LESSON, new Object[] {
+					lesson.getCourseCode(),
+					lesson.getChapterCode(),
+					lesson.getCode(),
+					lesson.getName(),
+					lesson.getFileUrl(),
+					lesson.getDuration()
+			});
+			
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 	
 }
