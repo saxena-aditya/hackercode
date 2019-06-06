@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	if (window.screen.width >= 1025 && window.screen.height >= 768) {
+	   if(window.innerWidth >= 800 && window.innerHeight >= 600) {
 		  // Resolution is 1024x768 or above
 		$('#fullpage').fullpage({
 	        //options here
@@ -10,7 +10,6 @@ $(document).ready(function() {
 	        autoScrolling: true,
 	        scrollHorizontally: true,
 	    	responsiveSlides: true,
-
 	        menu: '#menu-hack'
 
 	    });
@@ -49,7 +48,7 @@ $(document).ready(function() {
         focusOnSelect: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-          variableWidth: true,
+        variableWidth: true,
 
         prevArrow: "<i class='fa fa-arrow-left slide-arrow arrow-prev'></i>",
         nextArrow: "<i class='fa fa-arrow-right slide-arrow arrow-next'></i>",

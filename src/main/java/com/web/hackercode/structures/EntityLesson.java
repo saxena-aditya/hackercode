@@ -4,9 +4,22 @@ public class EntityLesson {
 	private String name;
 	private String code;
 	private String resourse;
+	private float duration;
 	
 	
 	
+	/**
+	 * @return the duration
+	 */
+	public float getDuration() {
+		return duration;
+	}
+	/**
+	 * @param duration the duration to set
+	 */
+	public void setDuration(float duration) {
+		this.duration = duration;
+	}
 	/**
 	 * @return the resourse
 	 */

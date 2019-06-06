@@ -15,6 +15,7 @@ public class UserMapper implements RowMapper<Object> {
 		user.setFirstName(rs.getString("ud_firstname"));
 		user.setLastName(rs.getString("ud_lastname"));
 		user.setUsername(rs.getString("ud_username"));
+		user.setInstitute(rs.getString("ud_institute"));
 		user.setEmail(rs.getString("ud_email"));
 		user.setFilePath(rs.getString("ud_img_path"));
 		if (rs.getString("ud_role").equals("1"))

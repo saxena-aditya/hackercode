@@ -1,6 +1,5 @@
 package com.web.hackercode.controller;
 
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.annotation.RequestScope;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -60,6 +57,19 @@ public class CourseController {
 		}
     	return null;
 	}
+    
+    @RequestMapping(value = "/admin/courses/edit/{courseCode}", method = RequestMethod.GET)
+    public ModelAndView editCourse(HttpServletRequest req, @PathVariable String courseCode) {
+    	// also add auth funtion here
+    	CourseDAO cdao = ctx.getBean(CourseDAO.class);
+    	if (courseCode != null) {
+        	return new ModelAndView("test-admin-course-edit")
+        			.addObject("courseData", cdao.getCourseJson(courseCode));
+    	}
+    	
+    	return null;
+    	// return error!
+    }
     
     @RequestMapping(value = "/admin/add-courses", method = RequestMethod.GET)
     public ModelAndView addCourses(HttpServletRequest req) {

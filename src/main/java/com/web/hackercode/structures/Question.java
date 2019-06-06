@@ -2,7 +2,9 @@ package com.web.hackercode.structures;
 
 public class Question {
 	
+	
 	private int testId;
+	private int questionId;
 	private String questionSet;
 	private String questionTag;
 	private String questionType;
@@ -15,7 +17,47 @@ public class Question {
 	private boolean isQuestionNew;
 	
 	
-	private int questionId;
+	// for reports and stuff.
+	private String status;
+	private boolean isAnswered;
+	private String userAns;
+	
+	/**
+	 * @return the userAns
+	 */
+	public String getUserAns() {
+		return userAns;
+	}
+	/**
+	 * @param userAns the userAns to set
+	 */
+	public void setUserAns(String userAns) {
+		this.userAns = userAns;
+	}
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	/**
+	 * @return the isAnswered
+	 */
+	public boolean isAnswered() {
+		return isAnswered;
+	}
+	/**
+	 * @param isAnswered the isAnswered to set
+	 */
+	public void setAnswered(boolean isAnswered) {
+		this.isAnswered = isAnswered;
+	}
 	/**
 	 * @return the isQuestionNew
 	 */

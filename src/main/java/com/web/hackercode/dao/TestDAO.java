@@ -27,13 +27,15 @@ public interface TestDAO {
 	User getUser(String username, HttpServletRequest request);
 	public String getStoredTestData(String json);
 	public Test getTest(int testId);
+	public Test getTest(String testCode);
 	public User getUser(String username);
 	public int getUserWithEmail(String email,String username, HttpServletRequest request);
 	public User saveUser(HttpServletRequest req, Register user);
-	public List<Program> getAllPrograms();
+	public List<Program> getAllCourses();
 	public List<ProgramSpecificTests> getAllTestsByAdmin(User u);
 	public List<Question> getQuestionsForTest(String testIdentifier); 
 	public boolean saveQuestion(Question q, int mode);
 	public void updateUserInfo(User u, User currentUser);
 	public String returnImagePath(MultipartFile file) throws IOException;
+	public List<TestUser> getTestTakers(Test test);
 }

@@ -27,6 +27,7 @@
 </head>
 
 <body>
+<div id="placeholder"></div>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <%@ include file="test-admin-dashboard-header.jsp" %>

@@ -192,7 +192,7 @@ public class Test {
 		return "Admin: " + this.getAdmin()+"\n Name: " + this.getName() + "\n Code: " + this.getCode() + 
 				"\n Start Time: " + this.getStartTime() + "\n End Time: " + this.getEndTime() +
 				"\n isAnsShuffle: " + this.getIsAnsShuffle() + "\n isTimeStrict: " +  
-				this.getIsTimeStrict()+ "\n File: " + this.getFile().getName() + "\n Associated to :" + this.getCourseCode()
+				this.getIsTimeStrict()+  "\n Associated to :" + this.getCourseCode()
 				+ "\n Time(h): " + this.getTotalTimeHours() + "\n Time(min): " + this.getTotalTimeMinutes();
 	}
 	

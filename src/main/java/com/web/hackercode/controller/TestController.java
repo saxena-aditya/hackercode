@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -98,7 +100,7 @@ public class TestController extends AbstractController {
     	return 0;
     }
     @RequestMapping(value = "/file-process", method = RequestMethod.POST)
-    public ModelAndView fileProcess(ModelAndView model, MultipartFile file) throws IOException {
+    public ModelAndView fileProcess(ModelAndView model, MultipartFile file) throws IOException, InvalidFormatException {
         TestDAO testDAO = ctx.getBean(TestDAO.class);
 
         String LOCATION = null;
@@ -231,6 +233,7 @@ public class TestController extends AbstractController {
         if (testDao.isUser(username, password, req)) {
             User user = testDao.getUser(username, req);
             req.getSession().setAttribute("user", user);
+            System.out.println(user.toString());
             if (user.isAdmin()) {
                 // get details for admin and pass the details to
                 // the model.
@@ -248,9 +251,12 @@ public class TestController extends AbstractController {
             req.getSession().setAttribute("isLoggedIn", true);
             // redirect user to appropriate screen.
             view.setExposeModelAttributes(false);
-            return new ModelAndView(view);
+            
+            if (isUserAuthenticated(req))
+            	return new ModelAndView(view);
 
         }
+        
         return new ModelAndView("test-admin-login");
     }
 
@@ -311,18 +317,18 @@ public class TestController extends AbstractController {
         return new ModelAndView("test-admin-upload-test")
             .addObject("testId", RandomStringUtils.randomAlphanumeric(17).toUpperCase())
             .addObject("userId", user.getEmail())
-            .addObject("programs", testDao.getAllPrograms());
+            .addObject("programs", testDao.getAllCourses());
     }
 
-    @RequestMapping(value = "/get-result", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/get-result", method = RequestMethod.GET)
     @ResponseBody
-    public JsonObject setTestResult(@RequestBody String json,HttpServletRequest req) {
+    public String setTestResult(@RequestParam String json,HttpServletRequest req) {
         TestDAO testDAO = ctx.getBean(TestDAO.class);
 
         JsonObject result = testDAO.makeAnswerSheet(json,req);
         //now we can show this to him
         System.out.println("RESULT ON MODEL AND VIEW" + result);
-        return result;
+        return result.toString();
     }
 
     @RequestMapping(value = "/give-test/{testId}", method = RequestMethod.GET)
@@ -343,11 +349,19 @@ public class TestController extends AbstractController {
     @RequestMapping(value = "/tests", method = RequestMethod.GET)
     public ModelAndView showTests(HttpServletRequest req) {
     	TestDAO testDao = ctx.getBean(TestDAO.class);
-    	//User user = (User) req.getSession().getAttribute("user");
-    	User user = new User();
-    	List < ProgramSpecificTests > tests = testDao.getAllTestsByAdmin(user);
+    	if (isUserAuthenticated(req)) {
+
+    		User user = (User) req.getSession().getAttribute("user");
+    		//User user = new User();
+    		List < ProgramSpecificTests > tests = testDao.getAllTestsByAdmin(user);
+    		
+    		return new ModelAndView("test-admin-dashboard-tests").addObject("tests", tests);
+        	
+    	}
     	
-    	return new ModelAndView("test-admin-dashboard-tests").addObject("tests", tests);
+    	// show login page
+    	return null;
+    	
     }
     
     @RequestMapping(value = "/get-questions-for-test/{testId}", method = RequestMethod.GET, produces = "application/json")
@@ -395,8 +409,7 @@ public class TestController extends AbstractController {
     		if (req.getSession() != null) {
     			if(req.getSession().getAttribute("user") != null) {
     		    	if (req.getSession().getAttribute("isLoggedIn").toString().equalsIgnoreCase("true")) {
-    		    		User user = (User) req.getSession().getAttribute("user");
-    		    		if (!user.isAdmin())
+    		    		
     		    			return true;
     			}
     		}
@@ -412,8 +425,9 @@ public class TestController extends AbstractController {
     		TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
     		User user = (User) req.getSession().getAttribute("user");
     		//return "something";
-    		return new ModelAndView("profile-test-history").addObject("tests", 
-    				tutils.getAllFinishedTest(user));
+    		return new ModelAndView("profile-test-history")
+    				.addObject("tests", tutils.getAllFinishedTest(user))
+    				.addObject("user", user);
     	}
     	System.out.println("User not Authenticated");
     	return null;
@@ -432,6 +446,42 @@ public class TestController extends AbstractController {
     				.addObject("rTest", tutils.getResumableTests(user));
     	}
     	System.out.println("User not Authenticated");
+    	return null;
+    }
+    
+    @RequestMapping(value = "/admin/test-details/{testCode}", method = RequestMethod.GET)
+    public ModelAndView showTestDetails(HttpServletRequest req, @PathVariable String testCode) {
+    	
+    	TestDAO tdao = ctx.getBean(TestDAO.class);
+		System.out.println("in the authetication session");
+
+    	if (isUserAuthenticated(req)) {
+    		User user = (User) req.getSession().getAttribute("user");
+    		Test test = tdao.getTest(testCode);
+    		System.out.println("in the authetication session " + test.getAdmin() + " - " + user.getUsername());
+    		if (test.getAdmin().equalsIgnoreCase(user.getUsername())) {
+    			List<TestUser> tusers = tdao.getTestTakers(test);
+    			JsonArray marks = new JsonArray();
+    			for(TestUser t: tusers) {
+    				JsonObject m = new JsonObject();
+    				m.addProperty("username", t.getFirstName());
+    				m.addProperty("marks", t.getMarks());
+    				m.addProperty("max_marks", t.getMaxMarks());
+    				marks.add(m);
+    			}
+    			System.out.println("size" + tusers.size());
+    			
+    			return new ModelAndView("test-admin-dashboard-test-details")
+    					.addObject("tusers", tusers)
+    					.addObject("data", marks);
+    		}
+    		else {
+    			// this test is not you test.
+    		}
+    	}
+    	else {
+    		// return login page.
+    	}
     	return null;
     }
 

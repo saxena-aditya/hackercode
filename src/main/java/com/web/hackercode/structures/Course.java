@@ -20,10 +20,24 @@ public class Course {
 	private int totalLessons;
 	private int completedLessons;
 	private List<String> files;
+	private List<Float> duration;
 	
 	
 	
 	
+	
+	/**
+	 * @return the duration
+	 */
+	public List<Float> getDuration() {
+		return duration;
+	}
+	/**
+	 * @param duration the duration to set
+	 */
+	public void setDuration(List<Float> duration) {
+		this.duration = duration;
+	}
 	/**
 	 * @return the totalLessons
 	 */

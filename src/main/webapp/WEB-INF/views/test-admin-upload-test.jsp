@@ -72,6 +72,7 @@
 			              			<c:forEach items="${programs}" var="program">
 									     <option value="${ program.programCode }">${ program.programName }</option>
 									</c:forEach>
+									<option value="COMMON">Common</option>
 			              		</select> 
 		              		</div>
                     	</div>

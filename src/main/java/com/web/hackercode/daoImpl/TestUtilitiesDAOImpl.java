@@ -54,6 +54,7 @@ public class TestUtilitiesDAOImpl implements TestUtilitiesDAO {
                     TestUser t = new TestUser();
                     t.setTestId(rs.getString("tt_test_id"));
                     t.setUserId(rs.getString("tt_user_id"));
+                    t.setTestCode(rs.getString("t_test_code"));
                     //t.setTimeLeft(rs.getString(4));
                     t.setMarks(Integer.parseInt(rs.getString("marks")));
                     t.setMaxMarks(Integer.parseInt(rs.getString("tt_maxMarks")));
@@ -75,10 +76,10 @@ public class TestUtilitiesDAOImpl implements TestUtilitiesDAO {
         
         List < ProgramSpecificTests > tests = null;
         // email is user-name.
-        String username = user.getEmail();
-        String GET_PROGRAM_SPECIFIC_TESTS = "select * from hc_tests JOIN hc_user_program JOIN hc_programs LEFT JOIN hc_temp_test ON hc_tests.t_id = hc_temp_test.tt_test_id where hc_tests.t_associated_program = hc_user_program.up_code and hc_programs.p_code = hc_tests.t_associated_program and hc_user_program.up_username = ? AND t_is_active = 1 and not EXISTS (select * from hc_temp_test where hc_tests.t_id = hc_temp_test.tt_test_id)";
+        String username = user.getUsername();
+        String GET_PROGRAM_SPECIFIC_TESTS = "select * from hc_tests t JOIN hc_user_program p JOIN hc_courses cp JOIN hc_user_details u where cp.c_code = p.up_code and t.t_associated_program = p.up_code and p.up_username = ? and u.ud_username=? and t.t_id NOT IN (SELECT tt_test_id FROM hc_temp_test WHERE hc_temp_test.tt_user_id = u.ud_id)";
         
-        tests = jdbcTemplate.query(GET_PROGRAM_SPECIFIC_TESTS, new Object[] {username}, new ResultSetExtractor < List < ProgramSpecificTests >> () {
+        tests = jdbcTemplate.query(GET_PROGRAM_SPECIFIC_TESTS, new Object[] {username, username}, new ResultSetExtractor < List < ProgramSpecificTests >> () {
             public List < ProgramSpecificTests > extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List < ProgramSpecificTests > list = new ArrayList < ProgramSpecificTests > ();
                 while (rs.next()) {
@@ -86,7 +87,7 @@ public class TestUtilitiesDAOImpl implements TestUtilitiesDAO {
                     t.setTestId(rs.getString("t_id"));
                     t.setName(rs.getString("t_name"));
                     t.setCourseCode(rs.getString("t_associated_program"));
-                    t.setCourseName(rs.getString("p_name"));
+                    t.setCourseName(rs.getString("c_name"));
                     t.setStartTime(rs.getString("t_start_time"));
                     t.setEndTime(rs.getString("t_end_time"));
                     t.setTotalTime(rs.getInt("t_total_time"));
@@ -109,7 +110,7 @@ public class TestUtilitiesDAOImpl implements TestUtilitiesDAO {
           List < ProgramSpecificTests > tests = null;
           // email is user-name.
           String username = user.getEmail();
-          String GET_PROGRAM_SPECIFIC_TESTS = "select * from hc_temp_test JOIN hc_tests JOIN hc_user_program JOIN hc_programs where hc_tests.t_id = hc_temp_test.tt_test_id AND hc_tests.t_associated_program = hc_user_program.up_code and hc_programs.p_code = hc_tests.t_associated_program and hc_user_program.up_username = ? AND hc_temp_test.isFinished = 0 and hc_tests.t_is_active = 1";
+          String GET_PROGRAM_SPECIFIC_TESTS = "select * from hc_temp_test JOIN hc_tests JOIN hc_user_program JOIN hc_courses where hc_tests.t_id = hc_temp_test.tt_test_id AND hc_tests.t_associated_program = hc_user_program.up_code and hc_courses.c_code = hc_tests.t_associated_program and hc_user_program.up_username = ? AND hc_temp_test.isFinished = 0 and hc_tests.t_is_active = 1";
           
           tests = jdbcTemplate.query(GET_PROGRAM_SPECIFIC_TESTS, new Object[] {username}, new ResultSetExtractor < List < ProgramSpecificTests >> () {
               public List < ProgramSpecificTests > extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -119,7 +120,7 @@ public class TestUtilitiesDAOImpl implements TestUtilitiesDAO {
                       t.setTestId(rs.getString("t_id"));
                       t.setName(rs.getString("t_name"));
                       t.setCourseCode(rs.getString("t_associated_program"));
-                      t.setCourseName(rs.getString("p_name"));
+                      t.setCourseName(rs.getString("c_name"));
                       t.setStartTime(rs.getString("t_start_time"));
                       t.setEndTime(rs.getString("t_end_time"));
                       t.setTotalTime(rs.getInt("tt_time_remaining"));

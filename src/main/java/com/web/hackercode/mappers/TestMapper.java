@@ -15,6 +15,7 @@ public class TestMapper implements RowMapper<Object> {
 		test.setName(rs.getString("t_name"));
 		test.setAdmin(rs.getString("t_user_id"));
 		test.setCode(rs.getString("t_test_code"));
+		test.setCourseCode(rs.getString("t_associated_program"));
 		test.setStartTime(rs.getString("t_start_time"));
 		test.setEndTime(rs.getString("t_end_time"));
 		test.setTotalTime(rs.getInt("t_total_time"));

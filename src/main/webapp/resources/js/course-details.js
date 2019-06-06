@@ -15,7 +15,6 @@
 		    'settings', // Settings menu
 		    'pip', // Picture-in-picture (currently Safari only)
 		    'airplay', // Airplay (currently Safari only)
-		    
 		    'fullscreen', // Toggle fullscreen
 		]
 
@@ -37,10 +36,12 @@
 	$("#order").on('click', function() {
 		$("#paytm-submit").click();
 	})
+	
 	const prod_get_lession = "/get-course-lessons";
 	const dev_get_lession = "/get-course-lessons";
 	console.log("path", $("#path").html());
 	let totalLessons = 0;
+	let totalDuration = 0;
 	$.ajax({
 		
 		type: "POST",
@@ -61,8 +62,9 @@
 			data.chapters.forEach(function(chapter, i) {
 				chapterHTML += '<li class="container tree-leaf"><p>'+ chapter.name +'</p>';
 				chapter.lessons.forEach(function(lesson, j) {
-					lessonHTML += '<li class="tree-leaf"><p class="tree-r d-flex justify-content-between"><span><i class="far fa-play-circle"></i>'+ lesson.name +'</span><span>8~12 mins</span></p></li>';
+					lessonHTML += '<li class="tree-leaf"><p class="tree-r d-flex justify-content-between"><span><i class="far fa-play-circle"></i>'+ lesson.name +'</span><span>' + lesson.duration + ' mins</span></p></li>';
 					totalLessons++;
+					totalDuration += lesson.duration;
 				});
 				
 				//lessonHTML += '<ul class="tree">' + lessonHTML + '</ul>';
@@ -73,7 +75,7 @@
 			$("#lesson-tree").html(op);
 			$("#lec-num").html(totalLessons);
 			$("#top-lec-num").html(totalLessons);
-			$("#lec-hrs").html(totalLessons*8 + "~"+ totalLessons*12);
+			$("#lec-hrs").html(totalDuration);
 			$("#course-desc").append($("#course-desc-h").text() );
 			console.log($("#course-desc-h").text());
 			console.log("led", totalLessons);

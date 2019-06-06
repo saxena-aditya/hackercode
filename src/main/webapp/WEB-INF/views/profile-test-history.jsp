@@ -10,38 +10,29 @@
                     				<th>Test Date</th>
                     				<th>Total Marks</th>
                     				<th>Result</th>
+                    				<th>Report</th>
                     			</tr>
                     		</thead>
                     		<tbody>
-                    			<tr>
-                    				<td>10th Social Exam</td>
-                    				
-                    				<td>01-Mar-2018</td>
-                    				<td>100</td>
-                    				<td>
-                    					<div class="result-badge-container">
-                    						<div class="result-badge">
-                    							<p>78</p>
-                    						</div>
-                    					</div>
-                    				</td>
-                    			</tr>
-                    		</tbody>
                     		<c:forEach items="${tests}" var="test">
-								<tbody>
+								
                     			<tr>
                     				<td>${ test.getTestName() }</td>
                     				<td class="date-convert">${ test.getDate() }</td>
                     				<td>${ test.getMaxMarks() }</td>
                     				<td>
                     					<div class="result-badge-container">
-                    						<div class="result-badge">
+                    						<div class="result">
                     							<p>${ test.getMarks() }</p>
                     						</div>
                     					</div>
                     				</td>
+                    				<td><a href="${ pageConext.request.contextPath }/reports/${test.getTestCode()}?username=${user.getUsername()}">
+                    					<i class="fas fa-cogs"></i>
+                    				</a></td>
                     			</tr>
-                    		</tbody>
 							</c:forEach>
+                    		</tbody>
+
                     	</table>
                     </div>

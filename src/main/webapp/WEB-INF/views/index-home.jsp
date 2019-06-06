@@ -9,7 +9,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Hackercode.in</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"/>
@@ -527,7 +527,7 @@ efforts!</div>
                     </div>
                 </div>
             </div>
-            <div class="section" data-anchor="sec-team">
+            <!-- <div class="section" data-anchor="sec-team">
                 <div class="row">
                     <div class="col-md-5">
                         <div class="team"></div>
@@ -587,9 +587,9 @@ efforts!</div>
                                         <div class="desc">B.Tech, M.Tech (IIT, Delhi)<br> Active Competitive Programmer, AIR-70, 4 times GATE Qualified <br> Ex-WorksApplications Singapore, Software Developer. </div>
                                         <div class="links">
                                             <ul>
-                                                <!-- <li>
+                                                 <li>
                                                 	<i class="fab fa-facebook fb"></i>
-                                                </li> -->
+                                                </li>
                                                 <li>
                                                 	<a href="https://github.com/akshayrajput">
                                                     	<i class="fab fa-github git"></i> 
@@ -611,7 +611,7 @@ efforts!</div>
                         <div class="col-md-4"></div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <%-- <div class="section" id="success-stories">
                 <div class="row" style="height: -webkit-fill-available;">
                     <div class="col-md-5">

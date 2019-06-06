@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.hackercode.dao.CourseDAO;
+import com.web.hackercode.dao.ReportsDAO;
 
 @Controller
 public class HomeController {
@@ -34,7 +35,12 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET) 
 	  public ModelAndView showIndex(HttpServletRequest req) {
+		
+		ReportsDAO rdao = ctx.getBean(ReportsDAO.class);
 		CourseDAO cdao = ctx.getBean(CourseDAO.class);
+		
+		// increment the visitor counter
+		int count = rdao.incrementCounter();
 		int doLogin = 1;
     	
     	if (req.getSession() == null) {
@@ -60,7 +66,8 @@ public class HomeController {
     	}
 		return new ModelAndView("index-home")
 				.addObject("courses", cdao.getEntityCourses(req))
-				.addObject("doLogin", doLogin); 
+				.addObject("doLogin", doLogin)
+				.addObject("visitorCount", count); 
 		  
 	  }
 	  @RequestMapping(value = "/new-admin-login", method = RequestMethod.GET) 
@@ -72,6 +79,8 @@ public class HomeController {
 	  @RequestMapping(value = "/resources", method = RequestMethod.GET)
 	  public ModelAndView showResources(HttpServletRequest req) {
 		  CourseDAO cdao = ctx.getBean(CourseDAO.class);
+		  ReportsDAO rdao = ctx.getBean(ReportsDAO.class);
+		  int count = rdao.incrementCounter();
 		  int doLogin = 1;
 	    	
 	    	if (req.getSession() == null) {

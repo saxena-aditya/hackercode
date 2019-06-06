@@ -210,38 +210,40 @@ public class CourseDAOImpl implements CourseDAO {
 		return null;
 	}
 	public boolean saveChapterAndLessons(Course course, String courseCode) {
+		
 		jdbcTemplate.setDataSource(getDataSource());
 		String SAVE_CHAPTER = "INSERT INTO hc_chapters (ch_c_code, ch_name, ch_code) VALUES (?,?,?)";
-		String SAVE_LESSION = "INSERT INTO hc_lessons (l_code, l_ch_code, l_c_code, l_name, l_resource) VALUES (?,?,?,?,?)";
+		String SAVE_LESSION = "INSERT INTO hc_lessons (l_code, l_ch_code, l_c_code, l_name, l_resource, l_duration) VALUES (?,?,?,?,?,?)";
 	     String domain = "https://do4k6lnx3y4m9.cloudfront.net/";
 
 		String chCode = isChapterPresent(course.getChapter(), courseCode);
-		if (chCode != null) {
-			// just save lesson
+		
+		if (chCode == null) {
+			// save chapter and lesson;
+			chCode = randomAlphaNumeric(7);
 			try {
-				for (int i=0; i< course.getFiles().size(); i++) {
-					String location = domain + course.getFiles().get(i);
-					jdbcTemplate.update(SAVE_LESSION,  randomAlphaNumeric(7), 
-							chCode, courseCode, course.getLesson(), location);
-					return true;
-				}
+				jdbcTemplate.update(SAVE_CHAPTER, courseCode, course.getChapter(), chCode);
+
 			}
 			catch(Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else {
-			// save chapter and lesson;
-			chCode = randomAlphaNumeric(7);
-			jdbcTemplate.update(SAVE_CHAPTER, courseCode, course.getChapter(), chCode);
+		} 
+		
+		try {
+			System.out.println("Size of video : " + course.getFiles().size());
 			for (int i=0; i< course.getFiles().size(); i++) {
-				String location = null;
-				location = domain + course.getFiles().get(i);
+				String location = domain + course.getFiles().get(i);
+				System.out.println(randomAlphaNumeric(7) + " | "  +
+						chCode + " | " + courseCode + " | " + course.getLesson() + " | " + location + " | " +  course.getDuration().get(i));
 				jdbcTemplate.update(SAVE_LESSION,  randomAlphaNumeric(7), 
-						chCode, courseCode, course.getLesson(), location);
+						chCode, courseCode, course.getLesson(), location, course.getDuration().get(i));
+				
+				return true;
 			}
-			
-			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 		
 		return false;
@@ -261,6 +263,7 @@ public class CourseDAOImpl implements CourseDAO {
 	                    	el.setName(rs.getString("l_name"));
 	                    	el.setCode(rs.getString("l_code"));
 	                    	el.setResourse(rs.getString("l_resource"));
+	                    	el.setDuration(rs.getFloat("l_duration"));
 	                        list.add(el);
 	                    }
 	                    return list;
@@ -380,6 +383,7 @@ public class CourseDAOImpl implements CourseDAO {
 					jj.addProperty("name", lessons.get(k).getName());
 					jj.addProperty("code", lessons.get(k).getCode());
 					jj.addProperty("resourse", lessons.get(k).getResourse());
+					jj.addProperty("duration", lessons.get(k).getDuration());
 					jLessons.add(jj);
 				}
 				JsonObject jcc = new JsonObject();
@@ -604,7 +608,6 @@ public class CourseDAOImpl implements CourseDAO {
 		
 		return false;
 	}
-	@Override
 	public int getlLessonCount(String courceCode) {
 		jdbcTemplate.setDataSource(getDataSource());
 		String GET_LESSON_COUNT = "SELECT COUNT(*) FROM hc_lessons WHERE l_c_code = ?";
@@ -617,7 +620,6 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return 0;
 	}
-	@Override
 	public int getCompletedLessonCount(String courceCode) {
 		jdbcTemplate.setDataSource(getDataSource());
 		String GET_LESSON_COUNT = "SELECT COUNT(*) FROM hc_lesson_track WHERE lt_ch_code = ?";

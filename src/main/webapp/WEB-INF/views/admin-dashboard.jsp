@@ -206,7 +206,7 @@
 								<p>Package Name</p>
 							</div>
 							<div class="disc">
-								<p>Group I Prelims & Main Exam</p>
+								<p>Placement Preparation</p>
 							</div>
 						</div>
 						<div class="col-4">
@@ -214,7 +214,7 @@
 								<p>Exam Name</p>
 							</div>
 							<div class="disc">
-								<p>10th Social Exam</p>
+								<p>HackWithInfy</p>
 							</div>
 
 						</div>
@@ -224,7 +224,7 @@
 							</div>
 							<div class="disc">
 								<p>
-									Group Exams <i class="fas fa-angle-right"></i> Group I Exam
+									Placements
 								</p>
 							</div>
 

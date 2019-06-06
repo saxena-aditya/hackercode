@@ -12,6 +12,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Star Admin Free Bootstrap-4 Admin Dashboard Template</title>
   <!-- plugins:css -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+  
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/css/vendor.bundle.addons.css">
@@ -50,6 +53,7 @@
 			        				<th>Test Code</th>
 			        				<th>Starting Date</th>
 			        				<th>Ending Date</th>
+			        				<th></th>
 		        				</tr>
 		        			</thead>
 		        			<tbody>
@@ -62,6 +66,7 @@
 								  	<td><a href="#" id="question-get-${ test.getTestId() }">${ test.getCode() }</a></td>
 								  	<td><fmt:formatDate value="${ startTime }" pattern="dd/MM/yyyy HH:mm" /></td>
 								  	<td><fmt:formatDate value="${ endTime }" pattern="dd/MM/yyyy HH:mm" /></td>
+								  	<td><a href="${ pageContext.request.contextPath }/admin/test-details/${ test.getCode() }"><i class="fas fa-info-circle"></i></a></td>
 								  </tr>
 							  </c:forEach>
 						  	</tbody>

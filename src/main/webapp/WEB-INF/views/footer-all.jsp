@@ -48,5 +48,8 @@
         </div>
         <div class="footer-copyright">
             <p><i class="far fa-copyright"></i>&nbsp; HackerCode, 2019</p>
+            <span id="v-counter" style="color: #eeeded;position: absolute;bottom: 15px;right: 15px;">Visitor Count: <c:out value="${ visitorCount }"></c:out></span>
+            
         </div>
+        
     </footer>

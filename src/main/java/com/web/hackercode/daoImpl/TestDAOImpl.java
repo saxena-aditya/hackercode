@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -188,7 +189,7 @@ public class TestDAOImpl implements TestDAO {
         String LOCATION = "";
         System.out.println(file.getName());
         InputStream in = file.getInputStream();
-        File currdir = new File("D:\\hackercode\\HackerCode\\file-data");
+        File currdir = new File("A:\\HackerCode\\src\\main\\webapp\\resources\\file-data");
         String path = currdir.getAbsolutePath();
         LOCATION = path.substring(0, path.length()) + "\\" + file.getOriginalFilename();
         FileOutputStream f = new FileOutputStream(LOCATION);
@@ -201,36 +202,44 @@ public class TestDAOImpl implements TestDAO {
         System.out.println(LOCATION);
         f.flush();
         f.close();
+        
+        Workbook workbook = null;
+		try {
+			workbook = WorkbookFactory.create(new File(LOCATION));
+			  for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+		            Sheet sheet = workbook.getSheetAt(i);
+		            DataFormatter dm = new DataFormatter();
+		            Iterator < Row > rowIterator = sheet.rowIterator();
+		            while (rowIterator.hasNext()) {
+		                Row row = rowIterator.next();
+		                if (row.getRowNum() == 0) continue;
+		                else {
+		                    Question q = new Question();
+		                    q.setQuestionSet(dm.formatCellValue(row.getCell(0)));
+		                    q.setQuestionTag(dm.formatCellValue(row.getCell(1)));
+		                    q.setQuestionType(dm.formatCellValue(row.getCell(2)));
+		                    q.setQuestionContent(dm.formatCellValue(row.getCell(3)));
+		                    if (dm.formatCellValue(row.getCell(4)).toString().length() > 0)
+		                    	q.setQuestionMaxMarks(Integer.parseInt(dm.formatCellValue(row.getCell(4))));
+		                    if (dm.formatCellValue(row.getCell(5)).toString().length() > 0)
+		                    	q.setQuestionNegMarks(Integer.parseInt(dm.formatCellValue(row.getCell(5))));
+		                    q.setQuestionOptions(dm.formatCellValue(row.getCell(6)));
+		                    q.setQuestionAns(dm.formatCellValue(row.getCell(7)));
+		                    if(q.getQuestionContent().length() > 0)
+		                    	saveQuestions(testId, q);
+		                }
+		            }
+		        }
 
-        Workbook workbook = WorkbookFactory.create(new File(LOCATION));
-        for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-            Sheet sheet = workbook.getSheetAt(i);
-            DataFormatter dm = new DataFormatter();
-            Iterator < Row > rowIterator = sheet.rowIterator();
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
-                if (row.getRowNum() == 0) continue;
-                else {
-                    Question q = new Question();
-                    q.setQuestionSet(dm.formatCellValue(row.getCell(0)));
-                    q.setQuestionTag(dm.formatCellValue(row.getCell(1)));
-                    q.setQuestionType(dm.formatCellValue(row.getCell(2)));
-                    q.setQuestionContent(dm.formatCellValue(row.getCell(3)));
-                    if (dm.formatCellValue(row.getCell(4)).toString().length() > 0)
-                    	q.setQuestionMaxMarks(Integer.parseInt(dm.formatCellValue(row.getCell(4))));
-                    if (dm.formatCellValue(row.getCell(5)).toString().length() > 0)
-                    	q.setQuestionNegMarks(Integer.parseInt(dm.formatCellValue(row.getCell(5))));
-                    q.setQuestionOptions(dm.formatCellValue(row.getCell(6)));
-                    q.setQuestionAns(dm.formatCellValue(row.getCell(7)));
-                    if(q.getQuestionContent().length() > 0)
-                    	saveQuestions(testId, q);
-                }
-            }
-        }
-
-        workbook.close();
-        System.out.println("About to return True");
-        return true;
+		        workbook.close();
+		        System.out.println("About to return True");
+		        return true;
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+      
     }
     public boolean saveTest(Test test) throws IOException {
         String startTime, endTime;
@@ -518,20 +527,20 @@ public class TestDAOImpl implements TestDAO {
         int result = 0;
 
         //getting the json data from the client
-        System.out.println("DJHASKDJHASKDJHAJDSHAKJDHSKAJSHDKJASHDKJADSHKASDHKJASHDKJAS");
         Gson gson = new GsonBuilder().create();
         JsonObject job = gson.fromJson(data, JsonObject.class);
-        System.out.println("job" + job);
         JsonObject ovl = job.getAsJsonObject("test-data");
-        System.out.println(ovl);
+        
         Set < Map.Entry < String, JsonElement >> entries = ovl.entrySet(); //will return members of your object
         ArrayList < TestData > testStore = new ArrayList<TestData>();
+        
         for (Map.Entry < String, JsonElement > entry: entries) {
             System.out.println("KEY >>>>" + entry.getKey());
             JsonObject temp = ovl.getAsJsonObject(entry.getKey());
             TestData tmp = gson.fromJson(temp, TestData.class);
             testStore.add(tmp);
         }
+        
         //test-info
         JsonObject testInfo = job.getAsJsonObject("test-info");
         TestInfoFromClient testData = gson.fromJson(testInfo, TestInfoFromClient.class);
@@ -539,6 +548,7 @@ public class TestDAOImpl implements TestDAO {
         List < Question > questions = getQuestionsForTest(testIdentifier);
         
         int maxMarks = 0;
+        
         for (Question q: questions) {
         	maxMarks = maxMarks + q.getQuestionMaxMarks();
             for (Map.Entry < String, JsonElement > entry: entries) {
@@ -569,7 +579,7 @@ public class TestDAOImpl implements TestDAO {
               DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
               String strDate = dateFormat.format(date);  
         	//adding marks to the table
-        	String Update = "UPDATE hc_temp_test SET marks = ?, isFinished = 1,tt_date = ?, tt_maxMarks= ? WHERE tt_user_id = ? AND tt_test_id = ?";
+        	String Update = "UPDATE hc_temp_test SET marks = ?, isFinished = 1, tt_date = ?, tt_maxMarks= ? WHERE tt_user_id = ? AND tt_test_id = ?";
         	User user = (User) req.getSession().getAttribute("user");
         	jdbcTemplate.update(Update, new Object[] { 
         							result,
@@ -578,6 +588,8 @@ public class TestDAOImpl implements TestDAO {
         			                user.getU_id(),
         			                testData.getId()
         			            });
+        	System.out.println("========================================================");
+        	System.out.println(testData.getId().toString() + " - " + user.getU_id());
 
         }catch(Exception e) {
         	e.printStackTrace();
@@ -630,8 +642,24 @@ public class TestDAOImpl implements TestDAO {
 
         return test;
     }
+    
+// utility function for getting test object.
+    
+    public Test getTest(String testCode) {
+        jdbcTemplate.setDataSource(getDataSource());
 
-    // utility funtion for get user details.
+        String GET_TEST_DETAILS = "SELECT * FROM hc_tests WHERE t_test_code = ?";
+        Test test = (Test) jdbcTemplate.queryForObject(GET_TEST_DETAILS, new Object[] {
+            testCode
+        }, new TestMapper());
+        if (test != null)
+            return test;
+
+        return null;
+    }
+
+
+    // utility function for get user details.
     
     public User getUser(String username) {
         jdbcTemplate.setDataSource(getDataSource());
@@ -639,8 +667,9 @@ public class TestDAOImpl implements TestDAO {
         User user = (User) jdbcTemplate.queryForObject(GET_USER, new Object[] {
             username
         }, new UserMapper());
-        if (user == null)
-            return null;
+        
+        if (user != null)
+            return user;
 
         return null;
     }
@@ -673,17 +702,17 @@ public class TestDAOImpl implements TestDAO {
     }
 
     
-    public List<Program> getAllPrograms() {
+    public List<Program> getAllCourses() {
         jdbcTemplate.setDataSource(getDataSource());
-        String GET_PROGRAMS = "SELECT * FROM  hc_programs WHERE p_is_active = 1";
+        String GET_PROGRAMS = "SELECT * FROM  hc_courses WHERE c_is_active = 1";
         try {
             List<Program> programs = jdbcTemplate.query(GET_PROGRAMS, new ResultSetExtractor < List < Program >> () {
                 public List < Program > extractData(ResultSet rs) throws SQLException, DataAccessException {
                     List < Program > list = new ArrayList < Program > ();
                     while (rs.next()) {
                     	Program program = new Program();
-                    	program.setProgramCode(rs.getString("p_code"));
-                    	program.setProgramName(rs.getString("p_name"));
+                    	program.setProgramCode(rs.getString("c_code"));
+                    	program.setProgramName(rs.getString("c_name"));
                     	list.add(program);
                     }
                     return list;
@@ -701,10 +730,10 @@ public class TestDAOImpl implements TestDAO {
 	public List<ProgramSpecificTests> getAllTestsByAdmin(User u) {
 		jdbcTemplate.setDataSource(getDataSource());
 		//String username = u.getEmail();
-		String username = "admin";
+		String username = u.getUsername();
 		List< ProgramSpecificTests > tests = null;
 		String GET_TESTS_BY_ADMIN = "SELECT * FROM hc_tests WHERE t_user_id = ? AND t_is_active = 1";
-		
+		System.out.println(u.getUsername());
 		tests = jdbcTemplate.query(GET_TESTS_BY_ADMIN, new Object[] {username}, new ResultSetExtractor < List < ProgramSpecificTests >> () {
 	            public List < ProgramSpecificTests > extractData(ResultSet rs) throws SQLException, DataAccessException {
 	                List < ProgramSpecificTests > list = new ArrayList < ProgramSpecificTests > ();
@@ -771,6 +800,34 @@ public class TestDAOImpl implements TestDAO {
 				currentUser.getU_id()
 		});
 		
+	}
+	public List<TestUser> getTestTakers(Test test) {
+		String GET_TEST_USER = "SELECT * FROM hc_temp_test ttest JOIN hc_user_details user JOIN hc_tests test WHERE ttest.tt_user_id = user.ud_id AND ttest.tt_test_id = test.t_id AND ttest.isFinished = 1";
+		
+		List<TestUser> tusers = jdbcTemplate.query(GET_TEST_USER, new ResultSetExtractor < List < TestUser >> () {
+            public List < TestUser > extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List < TestUser > list = new ArrayList < TestUser > ();
+                while (rs.next()) {
+                	TestUser t = new TestUser();
+                	t.setTestName(rs.getString("t_name"));
+                	t.setTestCode(rs.getString("t_test_code"));
+                	t.setData(rs.getString("tt_ans_object"));
+                	t.setMarks(rs.getInt("marks"));
+                	t.setMaxMarks(rs.getInt("tt_maxMarks"));
+                	t.setEndDate(rs.getString("tt_date"));
+                	t.setUsername(rs.getString("ud_username"));
+                	t.setTestCode(rs.getString("t_test_code"));
+                	t.setFirstName(rs.getString("ud_firstname"));
+                	t.setLastName(rs.getString("ud_lastname"));
+                	t.setPic(rs.getString("ud_img_path"));
+                	
+                    list.add(t);
+                }
+                return list;
+            }
+        });
+		
+		return tusers;
 	}
 
 }

@@ -791,14 +791,15 @@ $(function() {
         console.log("SUBMITTE TEST", answer_status_store);
         $.ajax({
             url: test_submit_url,
-            type: "POST",
-            data: JSON.stringify(serverData),
+            type: "GET",
+            data: {json: JSON.stringify(serverData)},
             contentType: "application/json",
-            dataType: "json",
             beforeSend: function() {
                 //alert("sending");
             },
             success: function(data) {
+            	data = JSON.parse(data);
+            	console.log("data is : ", data);
                 if (data.error == 0) {
                     $("#marks-result").html(data.marks);
                     $("#exampleModal").modal({
@@ -808,8 +809,9 @@ $(function() {
                     alert("Something went wrong!");
                 }
             },
-            error: function() {
+            error: function(a,b,c) {
                 alert("Error");
+                console.log(a,b,c);
             }
         })
         localStorage.removeItem(answer_status_store);
