@@ -90,7 +90,7 @@ $(function() {
                     ...data,
                     "test_duration": previousTest_duration 
                 };
-                
+            
                 console.log("TEST ..........<><>" , test);
                 startTest(test); //function to initiate test and everything
             },
@@ -301,7 +301,9 @@ $(function() {
 
     function showSets() {
         let temp_set_buttons = question_sets.map((key, index) => {
-            return `<div class="tag bg-blue-light" id=${key} data-set=${index}><p class="margin-0 tag-text fff">${key}</p></div>`;
+            let newKey = key.replace(/\s+/g, '-');
+            console.log("KEY FROM SHOWSETS ",newKey);
+            return `<div class="tag bg-blue-light" id=${newKey} data-set=${index}><p class="margin-0 tag-text fff">${key}</p></div>`;
         });
 
         set_btns.innerHTML = temp_set_buttons.join("");
@@ -311,8 +313,13 @@ $(function() {
         for (let i = 0; i < question_sets.length; i++) {
             let key = question_sets[i]; //set-1 set-2 set-3
             $(`#${key}`)[0].addEventListener('click', function(e) {
+                setChangeButtonClicked = true;
+                addAnsweredOrSkippedClass(currentSlide);
                 activeSet(i); //change the class for activeSet
                 loadSideButton(i); //will load the buttons at the side showing questions
+                console.log("PREVIOUS SLIDE AND CURRENT SLIDE HERE IN ACTION LISTENER >>", previousSlide, currentSlide);
+                addAnsweredOrSkippedClass(previousSlide);
+                setChangeButtonClicked = false;
             });
         }
     }
@@ -377,14 +384,20 @@ $(function() {
 
 
     function activeSet(index) {
-        let key = question_sets[index]; //will give set-1 set-2 set-3 
+        let key = question_sets[index]; //will give set-1 set-2 set-3
+        let newKey = key.replace(/\s+/g, '-');
+        key=newKey;
+       
         let prev_key = question_sets[current_question_set]; //will give set-1 set-2 set-3
+        prev_key = prev_key.replace(/\s+/g, '-');
+        console.log("PREVIOUS KEY 383", prev_key);
 
         const older_set_button = $(`#${prev_key}`)[0]; //will give button
         const new_set_button = $(`#${key}`)[0]; //will give the button 
         /*<div class="tag bg-blue-light" id=${key}><p class="margin-0 tag-text fff">${key}</p></div>*/
 
         //Now remove the class from the previous button and set the class of new button
+        console.log(older_set_button, "111111111111111111111111111111111");
         older_set_button.removeAttribute('class', 'bg-blue tag2'); //remove the older active class
         older_set_button.setAttribute('class', 'bg-blue-light tag'); //add the normal class
 
@@ -450,6 +463,7 @@ $(function() {
         let length = sideViewButtons.length;
         for (let i = 0; i < length; i++) {
             const button = sideViewButtons[i];
+            // adding event to button listener
             button.addEventListener('click', function() {
                 showSlide(true_length + i); //will update the slide
                 addAnsweredOrSkippedClass(previousSlide); //will add class to buttons
@@ -469,7 +483,7 @@ $(function() {
         const index = slideNumber - temp_length;
         //test_store.question_set[key].questions
         const temp_status_check = answer_status_store[test_slides[slideNumber].id].status;
-        if( (temp_status_check !== "not-answered" && temp_status_check !== "visited") && !(isSubmitButtionClicked) && !((isSubmitButtionClicked) || (wasLastSlide)) ) {
+        if( (temp_status_check !== "not-answered" && temp_status_check !== "visited") && (!setChangeButtonClicked) && !(isSubmitButtionClicked) && !((isSubmitButtionClicked) || (wasLastSlide)) ) {
         	 return;
         }
         if (isAnswered(tags)) {

@@ -29,7 +29,7 @@
 let total_exam_duration         =   0 ;//stores the time of exams
 let currentSlide                =   0;//will store the currentSlide info
 let previousSlide               =   -1;//will store the previous slide info
-let current_question_set        =   undefined;//will store the question set active
+let current_question_set        =   0;//will store the question set active
 let previous_question_set       =   undefined;//will store the question set which was active previously
 let current_question_number     =   undefined;//stores the question number of active set
 let previous_question_number    =   undefined;//stores the previous question number of active set
@@ -49,5 +49,6 @@ let question_sets       =   [];//will contain the question sets button
 let test_type           =   undefined;//stores the type of test
 let start_time          =   undefined;//stores the start_time of test
 let end_time            =   undefined;//stores the end_time of test
+let setChangeButtonClicked = false; //for checking if change set button was clicked or not
 
 
