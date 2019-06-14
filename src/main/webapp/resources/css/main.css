@@ -1397,3 +1397,12 @@ i.fab.fa-facebook.fb {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+::-moz-selection { /* Code for Firefox */
+  color: white !important;
+  background: blue !important;
+}
+
+::selection {
+  color: white !important;
+  background: blue !important;
+}
