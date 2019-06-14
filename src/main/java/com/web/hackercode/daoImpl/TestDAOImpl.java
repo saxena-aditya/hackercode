@@ -89,7 +89,7 @@ public class TestDAOImpl implements TestDAO {
         String LOCATION = "";
         System.out.println(file.getName());
         InputStream in = file.getInputStream();
-        File currdir = new File("A:\\HackerCode\\src\\main\\webapp\\resources\\file-data");
+        File currdir = new File("B:\\Working Dirctory\\hackercode\\src\\main\\webapp\\resources\\file-data");
         String path = currdir.getAbsolutePath();
         LOCATION = path.substring(0, path.length()) + "\\" + file.getOriginalFilename();
         FileOutputStream f = new FileOutputStream(LOCATION);
