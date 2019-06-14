@@ -21,11 +21,36 @@ public class Course {
 	private int completedLessons;
 	private List<String> files;
 	private List<Float> duration;
+	private String cover;
+	private String intro;
 	
 	
 	
 	
-	
+	/**
+	 * @return the cover
+	 */
+	public String getCover() {
+		return cover;
+	}
+	/**
+	 * @param cover the cover to set
+	 */
+	public void setCover(String cover) {
+		this.cover = cover;
+	}
+	/**
+	 * @return the intro
+	 */
+	public String getIntro() {
+		return intro;
+	}
+	/**
+	 * @param intro the intro to set
+	 */
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
 	/**
 	 * @return the duration
 	 */

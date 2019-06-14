@@ -10,10 +10,25 @@ public class User {
 	private String email;
 	private String institute;
 	private boolean isAdmin;
+	private boolean isDrafter;
 	private String username;
 	private  MultipartFile file;
 	private String filePath;
 	
+	/**
+	 * @return the isDrafter
+	 */
+	public boolean isDrafter() {
+		return isDrafter;
+	}
+
+	/**
+	 * @param isDrafter the isDrafter to set
+	 */
+	public void setDrafter(boolean isDrafter) {
+		this.isDrafter = isDrafter;
+	}
+
 	public MultipartFile getFile() {
 		return file;
 	}
@@ -124,12 +139,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [u_id=" + u_id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", institute=" + institute + ", isAdmin=" + isAdmin + ", username=" + username 
-				+ ", file=" + file + ", filePath=" + filePath + "]";
+				+ ", institute=" + institute + ", isAdmin=" + isAdmin + ", isDrafter=" + isDrafter + ", username="
+				+ username + ", file=" + file + ", filePath=" + filePath + "]";
 	}
-
-	
-	
-	
 	
 }

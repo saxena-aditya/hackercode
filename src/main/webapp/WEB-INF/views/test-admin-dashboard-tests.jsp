@@ -29,6 +29,17 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/test-admin-panel/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/test-admin-panel/images/favicon.png" />
+<style>
+	.form-control {
+    border: 1px solid #f2f2f2;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.85rem;
+    padding: 0.56rem 0.75rem;
+    line-height: 14px;
+    font-weight: 300;
+    color: #000;
+}
+</style>
 </head>
 
 <body>
@@ -172,6 +183,7 @@
   <!-- plugins:js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+  <script src="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/js/vendor.bundle.base.js"></script>
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"></script>

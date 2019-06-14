@@ -90,6 +90,7 @@
 			  },
 			  success: function(data) {
 				  var str = "";
+				  console.log("data", data);
 				  data.forEach(function(val, i) {
 					  console.log(val.questionContent);
 					  if (!testSets.includes(val.questionSet)) { 
@@ -132,7 +133,7 @@
 	    		set: $("#question-set-"+questionId).text(),
 	    		tag: $("#question-tag-"+questionId).text()
 	    };
-	    $("input[name='questionTag']").val(question.set);
+	    $("input[name='questionTag']").val(question.tag);
 	    $("input[name='questionOptions']").val(question.options);
 	    $("input[name='questionAns']").val(question.answer);
 	    $("input[name='questionMaxMarks']").val(question.maxMarks);
@@ -170,7 +171,7 @@
 	  data.append("questionContent", $('#summernote').summernote('code'));
 	  data.append("questionAns", $("input[name='questionAns']").val());
 	  data.append("questionMaxMarks", $("input[name='questionMaxMarks']").val());
-	  data.append("questionNegeMarks", $("input[name='questionNegMarks']").val());
+	  data.append("questionNegMarks", $("input[name='questionNegMarks']").val());
 	  data.append("questionOptions", $("input[name='questionOptions']").val());
 	  data.append("questionSet", $("select[name='questionSet']").val());
 	  data.append("questionTag", $("input[name='questionTag']").val());
@@ -195,6 +196,13 @@
 			  // set back all the question parameters to give an updated results feel.
 
 			  $("#question-set-"+questionId).html($("select[name='questionSet']").val());
+			  
+			  $("#question-options-"+questionId).text($("input[name='questionOptions']").val()),
+	    	  $("#question-ans-"+questionId).text($("input[name='questionAns']").val()),
+	    	  $("#max-marks-"+questionId).text($("input[name='questionMaxMarks']").val()),
+	    	  $("#neg-marks-"+questionId).text($("input[name='questionNegMarks']").val()),
+	    	  $("#question-tag-"+questionId).text($("input[name='questionTag']").val());
+	    		
 		  },
 		  error: function(z,b,c) {
 			  alert("error");

@@ -77,6 +77,22 @@
           <div class="col-md-5">
           	<div class="card">
           		<div class="card-body">
+          		<div class="row">
+          			<div class="col-md-6">
+	          			<div class="form-group">
+	          				<label for="">Cover Image</label>
+	          				<input type="file" class="from-control" id="course-cover" accept="image/*"/>
+	          				<img src="" alt="" id="cover-prev" style="max-width: 100px;"/>
+	          			</div>
+          			</div>
+          			<div class="col-md-6">
+	          			<div class="form-group">
+	          				<label for="">Intro Video</label>
+	          				<input type="file" class="from-control" id="course-intro" accept="video/*"/>
+	          			</div>
+	          		</div>
+          		</div>
+          		
           			<div class="form-group">
 	          			<label for="">Course Description</label>
 	          			<textarea name="" id="c-desc" cols="30" rows="10" class="form-control" name="desc"></textarea>

@@ -180,7 +180,7 @@
 		                        <div class="q-options">
 		                            <span class="sub-head">options</span>
 		                            <c:set var = "opStr" value = "${ q.getQuestionOptions() }"/>
-							      	<c:set var = "options" value = "${fn:split(opStr, ',')}" />
+							      	<c:set var = "options" value = "${fn:split(opStr, '@')}" />
 		                            <ul class="op-list">
 		                            <c:forEach items="${ options }" var="op">
 		                            	<c:choose>

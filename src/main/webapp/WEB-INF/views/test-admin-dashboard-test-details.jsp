@@ -102,7 +102,6 @@
 
   <!-- plugins:js -->
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/js/vendor.bundle.base.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/js/vendor.bundle.addons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/js/dashboard.js"></script>

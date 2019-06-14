@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.web.hackercode.structures.Course;
 import com.web.hackercode.structures.EditChapter;
+import com.web.hackercode.structures.EditCourse;
 import com.web.hackercode.structures.EditLesson;
 import com.web.hackercode.structures.EntityCourse;
 import com.web.hackercode.structures.Resource;
@@ -34,4 +35,7 @@ public interface CourseDAO {
 	public boolean makeChapter(EditChapter chapter);
 	public boolean updateLesson(EditLesson lesson);
 	public boolean makeLesson(EditLesson lesson);
+	public boolean deleteEntity(String code, String tableName, String columnName, String codeColumn);
+	public boolean updateCourse(EditCourse course);
+	public List<EntityCourse> getSimilarCourse(String articleCode);
 }

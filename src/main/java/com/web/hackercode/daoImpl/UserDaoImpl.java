@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
@@ -21,12 +26,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.web.hackercode.dao.UserDAO;
 import com.web.hackercode.mappers.StudentMapper;
+import com.web.hackercode.mappers.UserMapper;
+import com.web.hackercode.structures.EntityLesson;
+import com.web.hackercode.structures.InternshipForm;
+import com.web.hackercode.structures.Register;
 import com.web.hackercode.structures.Student;
 import com.web.hackercode.structures.User;
+import com.web.hackercode.utility.Utility;
 
 @Component
 public class UserDaoImpl implements UserDAO {
-
+	Utility utils = new Utility();
 	@Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
@@ -103,5 +113,270 @@ public class UserDaoImpl implements UserDAO {
 		}
 		return "";
 	}
+	
+	public boolean isUser(String username, String password, HttpServletRequest request) {
+        //if (!(boolean) request.getSession().getAttribute("isLoggedIn")) {
+        jdbcTemplate.setDataSource(getDataSource());
+        String IS_USER = "SELECT COUNT(*) FROM hc_user WHERE BINARY u_username = ? AND BINARY u_password = ?";
+        System.out.println(IS_USER);
+        System.out.println(username + "  " + utils.getMd5(password));
+
+        try {
+            Number count = jdbcTemplate.queryForObject(IS_USER, Integer.class, username, utils.getMd5(password));
+            System.out.println("data: " + count.intValue());
+            if (count.intValue() != 1) return false;
+            else {
+                request.getSession().setAttribute("isLoggedIn", true);
+                return true;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("done!");
+        //}
+        //else {
+        // login with saved user.
+        //}
+        return false;
+    }
+
+
+	public User getUser(String username, HttpServletRequest req) {
+        jdbcTemplate.setDataSource(getDataSource());
+        String GET_USER = "SELECT * FROM hc_user_details WHERE BINARY ud_username = ?";
+        try {
+            User user = (User) jdbcTemplate.queryForObject(
+                GET_USER, new Object[] {
+                    username
+                },
+                new UserMapper());
+            req.getSession().setAttribute("user", user);
+            return user;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public int getUserWithEmail(String email, String username, HttpServletRequest req) {
+        jdbcTemplate.setDataSource(getDataSource());
+        String GET_USER = "SELECT COUNT(*) FROM hc_user_details WHERE BINARY ud_email = ? OR BINARY ud_username = ?";
+        Number count = 0;
+        try {
+            count = jdbcTemplate.queryForObject(GET_USER, Integer.class, email, username);
+            return new Integer(count.intValue());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public String returnImagePath(MultipartFile file) throws IOException{
+    	  
+    	System.out.println("\n \n RETURN IMAGE PATH FILE INVOKED \n \n"+file);
+    	  String LOCATION = "";
+          System.out.println(file.getName());
+          InputStream in = file.getInputStream();
+          System.out.println("\n \n BEFORE CURR DIR \n \n");
+          File currdir = new File("D:\\hackercode\\src\\main\\images");
+          String path = currdir.getAbsolutePath();
+          LOCATION = path.substring(0, path.length()) + "\\" + file.getOriginalFilename();
+          FileOutputStream f = new FileOutputStream(LOCATION);
+          int ch = 0;
+          // add try,catch and finally blocks to copy the file
+          while ((ch = in .read()) != -1) {
+              f.write(ch);
+          }
+
+          System.out.println(LOCATION);
+          f.flush();
+          f.close();
+          System.out.println("\n LOCATION FOR SAVED FILE PATH : "+LOCATION + "\n");
+          return LOCATION;
+    }
+    
+
+    public User saveUser(HttpServletRequest req, Register ruser) {
+        jdbcTemplate.setDataSource(getDataSource());
+        ruser.setPassword(utils.getMd5(ruser.getPassword()));
+        String SAVE_USER = "INSERT INTO hc_user_details (ud_username, ud_firstname, ud_lastname, ud_email, ud_role, ud_phone) VALUES (?,?,?,?,0,?)";
+        String SAVE_USER_LOGIN_CREDENTIALS = "INSERT INTO hc_user (u_username, u_password) VALUES (?,?)";
+       // String ADD_USER_WITH_PROGRAM = "INSERT INTO hc_user_program (up_username, up_code) VALUES (?,?)";
+        try {
+            jdbcTemplate.update(SAVE_USER, new Object[] {
+            	ruser.getEmail(),
+                ruser.getfName(),
+                ruser.getlName(),
+                ruser.getEmail(),
+                ruser.getPhone()
+            });
+            
+            jdbcTemplate.update(SAVE_USER_LOGIN_CREDENTIALS, new Object[] {
+                ruser.getEmail(),
+                ruser.getPassword()
+            });
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return getUser(ruser.getEmail(), req);
+    }
+    
+    public User getUser(String username) {
+        jdbcTemplate.setDataSource(getDataSource());
+        String COUNT_USER = "SELECT COUNT(*) FROM hc_user_details WHERE ud_username = ?";
+        String GET_USER = "SELECT * FROM hc_user_details WHERE ud_username = ?";
+        
+        int count = jdbcTemplate.queryForObject(COUNT_USER, new Object[] {username}, Integer.class);
+        
+        if (count != 0) {
+	        User user = (User) jdbcTemplate.queryForObject(GET_USER, new Object[] {
+	                username
+	            }, new UserMapper());
+	            
+	        if (user != null)
+	           return user;
+        } 
+   
+        return null;
+    }
+    
+    public void updateUserInfo(User user, User currentUser) {
+		jdbcTemplate.setDataSource(getDataSource());
+		System.out.println("CURRENT USER"+currentUser);
+		
+		String UPDATE_USER_INFO = "UPDATE `hc_user_details` SET ud_username=?,ud_firstname=?,ud_lastname=?,ud_institute=?,ud_email=?, ud_img_path = ? WHERE ud_id = ?";
+		jdbcTemplate.update(UPDATE_USER_INFO, new Object[] {
+				user.getUsername(),
+				user.getFirstName(),
+				user.getLastName(),
+				user.getInstitute(),
+				user.getEmail(),
+				user.getFilePath(),
+				currentUser.getU_id()
+		});
+		
+	}
+    
+	public boolean saveResetLink(String username, String resetLink) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String SAVE_KEY = "INSERT INTO hc_password_reset (username, reset_key) VALUES (?,?)";
+		
+		try {
+			jdbcTemplate.update(SAVE_KEY, username, resetLink);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean isGoodKey(String resetLink) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String IS_GOOD_KEY = "SELECT COUNT(*) FROM hc_password_reset WHERE reset_key = ? AND is_active > 0";
+		try {
+			int count = jdbcTemplate.queryForObject(IS_GOOD_KEY, new Object[] {resetLink}, Integer.class);
+			
+			if (count == 1) return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public boolean dropKey(String resetLink) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String GET_COUNTER = "SELECT is_active FROM hc_password_reset WHERE reset_key = ?";
+		String DROP_KEY = "UPDATE hc_password_reset SET is_active = ? WHERE reset_key = ?";
+		try {
+			
+			int count = jdbcTemplate.queryForObject(GET_COUNTER, new Object[] {resetLink}, Integer.class); 
+			System.out.println("Count is " + count);
+			count = count - 1;
+			jdbcTemplate.update(DROP_KEY, count, resetLink);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	public boolean updatePassword(String password, String resetKey) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String GET_USERNAME = "SELECT username FROM hc_password_reset WHERE reset_key = ?";
+		String UPDATE_PASSWORD = "UPDATE hc_user SET u_password = md5(?) WHERE u_username = ?";
+		
+		String username = jdbcTemplate.queryForObject(GET_USERNAME, new Object[] {resetKey}, String.class);
+		
+		if (!username.isEmpty()) {
+			try {
+				jdbcTemplate.update(UPDATE_PASSWORD, password, username);
+				return true;
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	public boolean applyForInternship(InternshipForm itn) {
+		jdbcTemplate.setDataSource(getDataSource());
+		
+		String APPLY_FOR_INTERN = "INSERT INTO hc_internships (f_name, l_name, ph_num, email, university, city, course, semester) VALUES (?,?,?,?,?,?,?,?)";
+		try {
+			jdbcTemplate.update(APPLY_FOR_INTERN, itn.getFirstName(), itn.getLastName(), itn.getPhnNum(), itn.getEmail(),
+					itn.getUniversity(), itn.getCity(), itn.getCourse(), itn.getSemester());
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	public List<InternshipForm> getInternshipApplications() {
+		jdbcTemplate.setDataSource(getDataSource());
+
+		String GET_APPLICATIONS = "SELECT * FROM hc_internships";
+		try {
+			List < InternshipForm > itn = jdbcTemplate.query(GET_APPLICATIONS,
+		            new ResultSetExtractor < List < InternshipForm >> () {
+		                public List < InternshipForm > extractData(ResultSet rs) throws SQLException, DataAccessException {
+		                    List < InternshipForm > list = new ArrayList < InternshipForm > ();
+		                    while (rs.next()) {
+		                    	InternshipForm el = new InternshipForm();
+		                    	el.setFirstName(rs.getString("f_name"));
+		                    	el.setLastName(rs.getString("l_name"));
+		                    	el.setUniversity(rs.getString("university"));
+		                    	el.setCourse(rs.getString("course"));
+		                    	el.setSemester(rs.getInt("semester"));
+		                    	el.setCity(rs.getString("city"));
+		                    	el.setEmail(rs.getString("email"));
+		                    	el.setPhnNum(rs.getLong("ph_num"));
+		                    	el.setAppliedAt(rs.getTimestamp("applied_at"));
+		                        list.add(el);
+		                    }
+		                    return list;
+		                }
+		            });
+			
+			return itn;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+
 	
 }

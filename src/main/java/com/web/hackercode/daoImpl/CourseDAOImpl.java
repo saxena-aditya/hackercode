@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
@@ -40,6 +41,7 @@ import com.web.hackercode.dao.CourseDAO;
 import com.web.hackercode.mappers.CourseMapper;
 import com.web.hackercode.structures.Course;
 import com.web.hackercode.structures.EditChapter;
+import com.web.hackercode.structures.EditCourse;
 import com.web.hackercode.structures.EditLesson;
 import com.web.hackercode.structures.EntityChapter;
 import com.web.hackercode.structures.EntityCourse;
@@ -161,8 +163,8 @@ public class CourseDAOImpl implements CourseDAO {
 	}
 	public String isCoursePresent(String name) {
 		jdbcTemplate.setDataSource(getDataSource());
-		String IS_COURSE_PRESENT = "SELECT count(*) FROM hc_courses WHERE c_name = ?";
-		String GET_COURSE_CODE = "SELECT c_code FROM hc_courses WHERE c_name = ?";
+		String IS_COURSE_PRESENT = "SELECT count(*) FROM hc_courses WHERE c_name = ? AND c_is_active = 1";
+		String GET_COURSE_CODE = "SELECT c_code FROM hc_courses WHERE c_name = ? AND c_is_active = 1";
 	    System.out.println("getting course code..." + name);
 		int count = jdbcTemplate.queryForObject(IS_COURSE_PRESENT, new Object[] { name }, Integer.class);
 	    System.out.println("got course count..." + name + " - -" + count);
@@ -178,15 +180,17 @@ public class CourseDAOImpl implements CourseDAO {
 	
 	public String saveCourse(Course course) {
 		jdbcTemplate.setDataSource(getDataSource());
-		String SAVE_COURSE = "INSERT INTO hc_courses (c_name, c_code, c_desc, c_price, c_total_days, c_tags, c_mrp, c_sub_desc) VALUES (?,?,?,?,?, ?,?,?)";
-		String GET_COURSE_CODE = "SELECT c_code FROM hc_courses WHERE c_name = ?";
-
+		String SAVE_COURSE = "INSERT INTO hc_courses (c_name, c_code, c_desc, c_price, c_total_days, c_tags, c_mrp, c_sub_desc, c_cover, c_intro) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	
 		try {
 			System.out.println("Saving course...: " + course.getName());
-			jdbcTemplate.update(SAVE_COURSE, course.getName(), randomAlphaNumeric(6), course.getDesc(),
-					course.getPrice(), course.getTotalDays(), course.getTags(), course.getMrp(), course.getSubDesc());
+			String code = randomAlphaNumeric(6);
+			
+			jdbcTemplate.update(SAVE_COURSE, course.getName(), code, course.getDesc(),
+					course.getPrice(), course.getTotalDays(), course.getTags(), course.getMrp(), 
+					course.getSubDesc(), course.getCover(), course.getIntro());
+			
 			System.out.println("getting course code...: ");
-			String code = jdbcTemplate.queryForObject(GET_COURSE_CODE, new Object[] { course.getName() }, String.class);
 			return code;
 		}
 		catch(Exception e) {
@@ -199,8 +203,8 @@ public class CourseDAOImpl implements CourseDAO {
 	
 	public String isChapterPresent(String name, String courseCode) {
 		jdbcTemplate.setDataSource(getDataSource());
-		String IS_COURSE_PRESENT = "SELECT count(*) FROM hc_chapters WHERE ch_name = ? AND ch_c_code = ?";
-		String GET_COURSE_CODE = "SELECT ch_code FROM hc_chapters WHERE ch_name = ?";
+		String IS_COURSE_PRESENT = "SELECT count(*) FROM hc_chapters WHERE ch_name = ? AND ch_c_code = ? AND ch_is_active = 1";
+		String GET_COURSE_CODE = "SELECT ch_code FROM hc_chapters WHERE ch_name = ? AND ch_is_active = ?";
 	    
 		int count = jdbcTemplate.queryForObject(IS_COURSE_PRESENT, new Object[] { name, courseCode }, Integer.class);
 		
@@ -255,7 +259,7 @@ public class CourseDAOImpl implements CourseDAO {
 		
 		jdbcTemplate.setDataSource(getDataSource());
 
-		String GET_CHAPTER = "SELECT * FROM hc_lessons WHERE l_ch_code = ?";
+		String GET_CHAPTER = "SELECT * FROM hc_lessons WHERE l_ch_code = ? AND l_is_active = 1";
 		List < EntityLesson > lessons = jdbcTemplate.query(GET_CHAPTER, new Object[] {chCode},
 	            new ResultSetExtractor < List < EntityLesson >> () {
 	                public List < EntityLesson > extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -278,14 +282,14 @@ public class CourseDAOImpl implements CourseDAO {
 	public  List<EntityCourse> getEntityCourses(HttpServletRequest req) {
 		
 		jdbcTemplate.setDataSource(getDataSource());
-		String GET_COURSES = "SELECT * FROM hc_courses";
+		String GET_COURSES = "SELECT * FROM hc_courses WHERE c_is_active = 1";
 
 		if (req != null) {
 			if (req.getSession() != null) {
 				if (req.getSession().getAttribute("user") != null) {
 					User user = (User) req.getSession().getAttribute("user");
 					GET_COURSES = "SELECT * FROM hc_courses AS c WHERE NOT EXISTS ( SELECT * "
-							+ "FROM hc_user_program as pg WHERE pg.up_code = c.c_code and pg.up_username = ? )";
+							+ "FROM hc_user_program as pg WHERE pg.up_code = c.c_code AND pg.up_username = ? AND c.c_is_active = 1)";
 					try {
 						List < EntityCourse > courses = jdbcTemplate.query(
 								GET_COURSES, 
@@ -304,6 +308,8 @@ public class CourseDAOImpl implements CourseDAO {
 					                        ec.setPrice(rs.getInt("c_price"));
 					                        ec.setDesc(rs.getString("c_desc"));
 					                        ec.setDays(rs.getInt("c_total_days"));
+					                        ec.setIntro(rs.getString("c_intro"));
+					                        ec.setCover(rs.getString("c_cover"));
 					                        
 					                        list.add(ec);
 					                    }
@@ -334,6 +340,8 @@ public class CourseDAOImpl implements CourseDAO {
                         ec.setPrice(rs.getInt("c_price"));
                         ec.setDesc(rs.getString("c_desc"));
                         ec.setDays(rs.getInt("c_total_days"));
+                        ec.setIntro(rs.getString("c_intro"));
+                        ec.setCover(rs.getString("c_cover"));
                         
                         list.add(ec);
                     }
@@ -346,22 +354,30 @@ public class CourseDAOImpl implements CourseDAO {
 	
 	private List<EntityChapter> getEntityChapters(String cCode) {
 		
-		String GET_CHAPTER = "SELECT * FROM hc_chapters WHERE ch_c_code = ?";
-		List < EntityChapter > chapters = jdbcTemplate.query(GET_CHAPTER, new Object[] {cCode},
-	            new ResultSetExtractor < List < EntityChapter >> () {
-	                public List < EntityChapter > extractData(ResultSet rs) throws SQLException, DataAccessException {
-	                    List < EntityChapter > list = new ArrayList < EntityChapter > ();
-	                    while (rs.next()) {
-	                        EntityChapter ec = new EntityChapter();
-	                        ec.setName(rs.getString("ch_name"));
-	                        ec.setCode(rs.getString("ch_code"));
-	                        ec.setCourseCode(rs.getString("ch_c_code"));
-	                        
-	                        list.add(ec);
-	                    }
-	                    return list;
-	                }
-	            });
+		String GET_CHAPTER = "SELECT * FROM hc_chapters WHERE ch_c_code = ? AND ch_is_active = 1";
+		List < EntityChapter > chapters = null;
+		try {
+
+			chapters = jdbcTemplate.query(GET_CHAPTER, new Object[] {cCode},
+		            new ResultSetExtractor < List < EntityChapter >> () {
+		                public List < EntityChapter > extractData(ResultSet rs) throws SQLException, DataAccessException, EmptyResultDataAccessException {
+		                    List < EntityChapter > list = new ArrayList < EntityChapter > ();
+		                    while (rs.next()) {
+		                        EntityChapter ec = new EntityChapter();
+		                        ec.setName(rs.getString("ch_name"));
+		                        ec.setCode(rs.getString("ch_code"));
+		                        ec.setCourseCode(rs.getString("ch_c_code"));
+		                        
+		                        list.add(ec);
+		                    }
+		                    return list;
+		                }
+		            });
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		
 		return chapters;
 	}
@@ -371,45 +387,60 @@ public class CourseDAOImpl implements CourseDAO {
 		JsonArray root = new JsonArray();
 
 			JsonObject coursesJ = new JsonObject();
-			JsonArray jc = new JsonArray(); // chapter arrayobj
+			JsonArray jc = new JsonArray(); // chapter array obj
+			
+			if (ecourse != null) {
+			
+				List<EntityChapter> chapters = getEntityChapters(ecourse.getCode());
+				if (chapters != null) {
+					for(int j=0; j<chapters.size(); j++) {
+						EntityChapter echapter = chapters.get(j);
+						List<EntityLesson> lessons = getEntityLesson(echapter.getCode());
+						JsonArray jLessons = new JsonArray();
 
-			List<EntityChapter> chapters = getEntityChapters(ecourse.getCode());
+						for(int k=0; k<lessons.size(); k++) {
+							JsonObject jj = new JsonObject();
+							jj.addProperty("name", lessons.get(k).getName());
+							jj.addProperty("code", lessons.get(k).getCode());
+							jj.addProperty("resourse", lessons.get(k).getResourse());
+							jj.addProperty("duration", lessons.get(k).getDuration());
+							jLessons.add(jj);
+						}
+						JsonObject jcc = new JsonObject();
 
-			for(int j=0; j<chapters.size(); j++) {
-				EntityChapter echapter = chapters.get(j);
-				List<EntityLesson> lessons = getEntityLesson(echapter.getCode());
-				JsonArray jLessons = new JsonArray();
-
-				for(int k=0; k<lessons.size(); k++) {
-					JsonObject jj = new JsonObject();
-					jj.addProperty("name", lessons.get(k).getName());
-					jj.addProperty("code", lessons.get(k).getCode());
-					jj.addProperty("resourse", lessons.get(k).getResourse());
-					jj.addProperty("duration", lessons.get(k).getDuration());
-					jLessons.add(jj);
+						jcc.addProperty("name", echapter.getName());
+						jcc.addProperty("code", echapter.getCode());
+						jcc.add("lessons", jLessons);
+						jc.add(jcc);
+					}
+					coursesJ.addProperty("name", ecourse.getName());
+					coursesJ.addProperty("code", ecourse.getCode());
+					coursesJ.addProperty("creator", ecourse.getCreator());
+					coursesJ.addProperty("total_days", ecourse.getTotalDays());
+					coursesJ.addProperty("price", ecourse.getPrice());
+					coursesJ.addProperty("desc", ecourse.getDesc());
+					coursesJ.addProperty("quick_desc", ecourse.getSubDesc());
+					coursesJ.addProperty("tags", ecourse.getTags());
+					coursesJ.addProperty("mrp", ecourse.getMrp());
+					coursesJ.addProperty("days", ecourse.getTotalDays());
+					
+					
+					
+					coursesJ.addProperty("intro", ecourse.getIntro());
+					coursesJ.addProperty("cover", ecourse.getCover());
+					coursesJ.add("chapters", jc);
+					root.add(coursesJ);
 				}
-				JsonObject jcc = new JsonObject();
-
-				jcc.addProperty("name", echapter.getName());
-				jcc.addProperty("code", echapter.getCode());
-				jcc.add("lessons", jLessons);
-				jc.add(jcc);
 			}
-			coursesJ.addProperty("name", ecourse.getName());
-			coursesJ.addProperty("code", ecourse.getCode());
-			coursesJ.addProperty("creator", ecourse.getCreator());
-			coursesJ.addProperty("total_days", ecourse.getTotalDays());
-			coursesJ.addProperty("price", ecourse.getPrice());
-			coursesJ.addProperty("desc", ecourse.getDesc());
-			coursesJ.add("chapters", jc);
-			root.add(coursesJ);
+			
+			
 
 		return root.toString();
 	}
 	
 	public Course getCourse(String courseCode) {
 		jdbcTemplate.setDataSource(getDataSource());
-		String GET_COURSE = "SELECT * FROM hc_courses WHERE c_code = ?";
+		String GET_COURSE = "SELECT * FROM hc_courses WHERE c_code = ? AND c_is_active = 1";
 		try {
 			Course course = jdbcTemplate.queryForObject(GET_COURSE, new CourseMapper(), courseCode);
 			return course;
@@ -478,7 +509,7 @@ public class CourseDAOImpl implements CourseDAO {
 	
 	public List<Course> getUserCourses(String username) {
 		jdbcTemplate.setDataSource(getDataSource());
-		String GET_USER_COURSES = "SELECT * FROM hc_user_program pg JOIN hc_courses c WHERE pg.up_code = c.c_code AND pg.up_username = ? ";
+		String GET_USER_COURSES = "SELECT * FROM hc_user_program pg JOIN hc_courses c WHERE pg.up_code = c.c_code AND pg.up_username = ? AND c.c_is_active = 1";
 		List<Course> courses = null;
 		try {
 			courses = jdbcTemplate.query(GET_USER_COURSES, new Object[] {username},
@@ -612,7 +643,7 @@ public class CourseDAOImpl implements CourseDAO {
 	}
 	public int getlLessonCount(String courceCode) {
 		jdbcTemplate.setDataSource(getDataSource());
-		String GET_LESSON_COUNT = "SELECT COUNT(*) FROM hc_lessons WHERE l_c_code = ?";
+		String GET_LESSON_COUNT = "SELECT COUNT(*) FROM hc_lessons WHERE l_c_code = ? AND l_is_active = 1";
 		try {
 			int count = jdbcTemplate.queryForObject(GET_LESSON_COUNT, new Object[] {courceCode}, Integer.class);
 			return count;
@@ -622,6 +653,7 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return 0;
 	}
+	
 	public int getCompletedLessonCount(String courceCode) {
 		jdbcTemplate.setDataSource(getDataSource());
 		String GET_LESSON_COUNT = "SELECT COUNT(*) FROM hc_lesson_track WHERE lt_ch_code = ?";
@@ -634,6 +666,33 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return 0;
 	}
+	
+	public boolean updateCourse(EditCourse course) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String UPDATE_COURSE = "UPDATE hc_courses SET c_name = ?, c_desc = ?, c_sub_desc = ?, c_mrp = ?, c_price = ?, "+
+		" c_total_days = ?, c_tags = ? WHERE c_code = ?"; 
+		System.out.println(course.toString());
+
+		try {
+			jdbcTemplate.update(UPDATE_COURSE, new Object[] {
+					course.getName(),
+					course.getDesc(),
+					course.getQuickDesc(),
+					course.getMrp(),
+					course.getPrice(),
+					course.getDays(),
+					course.getTags(),
+					course.getCode()
+			});
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	public boolean updateChapter(EditChapter chapter) {
 		jdbcTemplate.setDataSource(getDataSource());
 		String UPDATE_CHAPTER = "UPDATE hc_chapters SET ch_name = ? WHERE ch_c_code = ? AND ch_code = ?"; 
@@ -717,6 +776,63 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		
 		return false;
+	}
+	
+	public boolean deleteEntity(String code, String tableName, String columnName, String codeCol) {
+		jdbcTemplate.setDataSource(getDataSource());
+
+		String DELETE_ENTITY = "UPDATE " + tableName + " SET " + columnName + "= 0 WHERE " + codeCol + " = ?";
+		System.out.println(DELETE_ENTITY);
+		
+		try {
+			jdbcTemplate.update(DELETE_ENTITY, new Object[] {
+					code
+			});
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public List<EntityCourse> getSimilarCourse(String tags) {
+		jdbcTemplate.setDataSource(getDataSource());
+
+		String GET_SIMILAR_COURSES = "SELECT * FROM hc_courses WHERE c_tags REGEXP ? LIMIT 2";
+		try {
+			List < EntityCourse > courses = jdbcTemplate.query(
+					GET_SIMILAR_COURSES, 
+					new Object[] {tags},
+		            new ResultSetExtractor < List < EntityCourse >> () {
+		                public List < EntityCourse > extractData(ResultSet rs) throws SQLException, DataAccessException {
+		                    List < EntityCourse > list = new ArrayList < EntityCourse > ();
+		                    while (rs.next()) {
+		                        EntityCourse ec = new EntityCourse();
+		                        ec.setName(rs.getString("c_name"));
+		                        ec.setCode(rs.getString("c_code"));
+		                        ec.setTags(rs.getString("c_tags"));
+		                        ec.setMrp(rs.getInt("c_mrp"));
+		                        ec.setSubDesc(rs.getString("c_sub_desc"));
+
+		                        ec.setPrice(rs.getInt("c_price"));
+		                        ec.setDesc(rs.getString("c_desc"));
+		                        ec.setDays(rs.getInt("c_total_days"));
+		                        ec.setIntro(rs.getString("c_intro"));
+		                        ec.setCover(rs.getString("c_cover"));
+		                        ec.setLessonCount(getlLessonCount(rs.getString("c_code")));
+		                        
+		                        list.add(ec);
+		                    }
+		                    return list;
+		                }
+		            });
+				
+				return courses;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

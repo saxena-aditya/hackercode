@@ -43,7 +43,7 @@
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	    <ul class="navbar-nav ml-auto">
 	      <li class="nav-item">
-	        <a class="nav-link" href="${ pageContext.request.contextPath }" id="home-al">Home <span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/" id="home-al">Home <span class="sr-only">(current)</span></a>
 	      </li>
 	      
 	    
@@ -63,7 +63,7 @@
 			    </c:when>    
 			    <c:otherwise>
 			    <li class="nav-item">
-			    	<a class="nav-link" href="${ pageContext.request.contextPath }/profile">View Dashboard</a>
+			    	<a class="nav-link" href="/${ url }">View Dashboard</a>
 			    </li>
 			    <li class="nav-item">
 			    	<a class="nav-link" href="${ pageContext.request.contextPath }/logout">logout</a>
@@ -128,6 +128,7 @@
         <div style="width: 100%;">
           <div class="mx-auto">
             <div class="auto-form-wrapper">
+            
               <form action="${pageContext.request.contextPath}/login?course=${course.getCode()}" method="POST">
                 <div class="form-group">
                   <label class="label">Username</label>
@@ -332,6 +333,8 @@
 			<div id="cd-login"> <!-- log in form -->
 			<span id="login-uri" style="display: none;">${pageContext.request.contextPath}/login?course=${course.getCode()}</span>
 			<span id="login-uri-normal" style="display: none;">${pageContext.request.contextPath}/login</span>
+			    <div class="error-msg" style="display: none;text-align: center;padding: 20px 0 0 0;color: #E91E63;font-size: 1.2em;">Opps! No User Found. Please Try again!</div>
+			
 				<form class="cd-form" id="login-frm" method="POST">
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="signin-email">E-mail</label>
@@ -352,7 +355,7 @@
 					</p>
 
 					<p class="fieldset">
-						<input class="full-width" type="submit" value="Login">
+						<input class="full-width sub-inp" type="submit" value="Login">
 					</p>
 				</form>
 				
@@ -361,57 +364,59 @@
 			</div> <!-- cd-login -->
 
 			<div id="cd-signup"> <!-- sign up form -->
-			<span style="display:none" id="signup-uri">${pageContext.request.contextPath}/signup?course=${course.getCode()}</span>
-			<span style="display:none" id="signup-uri-normal">${pageContext.request.contextPath}/signup</span>
-			
-				<form class="cd-form" id="signup-frm" method="post">
+				<form class="cd-form" action="${pageContext.request.contextPath}/signup" method="post">
 				<div class="row">
+				<p id="r-error-msg" style="display: none;text-align: center;width: 100%;padding: 0 0 20px 0;color: #F44336;">Oops! Seems like this E-Mail is already taken. Please Try Again.</p>
 					<div class="col-md-6">
 						<p class="fieldset">
 							<label class="image-replace cd-username" for="signup-username">First Name</label>
-							<input class="full-width has-padding has-border" name="fName" id="signup-username" type="text" placeholder="First Name">
-							<span class="cd-error-message">Error message here!</span>
+							<input class="full-width has-padding has-border" name="fName" id="flName" type="text" placeholder="First Name">
+							<span class="cd-error-message">Please use a valid value</span>
 						</p>
 					</div>
 					<div class="col-md-6">
 						<p class="fieldset">
 							<label class="image-replace cd-username" for="signup-username">Last Name</label>
-							<input class="full-width has-padding has-border" name="lName" id="signup-username" type="text" placeholder="Last Name">
-							<span class="cd-error-message">Error message here!</span>
+							<input class="full-width has-padding has-border" name="lName" id="llName" type="text" placeholder="Last Name">
+							<span class="cd-error-message">Please use a valid value</span>
 						</p>
 					</div>
 				</div>
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="signup-username">E-mail</label>
-						<input class="full-width has-padding has-border" name="email" id="signup-username" type="text" placeholder="E-mail">
-						<span class="cd-error-message">Error message here!</span>
+						<input class="full-width has-padding has-border" name="email" id="emaill" type="text" placeholder="E-mail">
+						<span class="cd-error-message">Please use a valid value</span>
 					</p>
 
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="signup-email">Phone Number</label>
-						<input class="full-width has-padding has-border" name="phoneNum" id="signup-email" type="number" placeholder="Phone Number">
-						<span class="cd-error-message">Error message here!</span>
+						<input class="full-width has-padding has-border" name="phoneNum" id="phonel" type="text" placeholder="Phone Number">
+						<span class="cd-error-message">Please use a valid value</span>
 					</p>
 
 					<p class="fieldset">
 						<label class="image-replace cd-password" for="signup-password">Password</label>
-						<input class="full-width has-padding has-border" name="password" id="signup-password" type="text"  placeholder="Password">
+						<input class="full-width has-padding has-border" name="password" id="passwordl" type="text"  placeholder="Password">
 						<a href="#" class="hide-password">Hide</a>
-						<span class="cd-error-message">Error message here!</span>
+						<span class="cd-error-message">Please use a valid value</span>
 					</p>
 
 					<p class="fieldset">
 						<input type="checkbox" id="accept-terms">
 						<label for="accept-terms">I agree to the <a href="#">Terms</a></label>
 					</p>
-
+					<p id="policy-c">
+						<span style="padding: 0 0 5px 0;"><strong>Note: </strong><span>Please accept the terms and conditions before proceeding</span></span>
+					</p>
 					<p class="fieldset">
-						<input class="full-width has-padding" type="submit" value="Create account">
+						
+						<input class="full-width has-padding acc-init" type="submit" value="Create account" disabled>
 					</p>
 				</form>
 
 				<!-- <a href="#" class="cd-close-form">Close</a> -->
 			</div> <!-- cd-signup -->
+
 
 			<div id="cd-reset-password"> <!-- reset password form -->
 				<p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
@@ -628,7 +633,140 @@
     		event.preventDefault();
     		$form_signup.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
     	}); */
+    	$form_login.find('input[type="submit"]').on('click', function(event){
+    		event.preventDefault();
+    		$.ajax({
+    			method: "POST",
+    			url: "/login",
+    			data: {
+    				username: $("#signin-email").val(), 
+    				password: $("#signin-password").val()
+    			},
+    			beforeSend: function() {
+    				console.log("sending login");
+    				$(".sub-inp").val("Checking...");
+    			},
+    			success: function(data) {
+    				if (data) {
+    					let login = JSON.parse(data);
+						if (login.isUser) {
+							window.location.href = login.view;
+            				$(".sub-inp").val("Logging In...");
 
+						}
+						else {
+							$(".error-msg").show();
+            				$(".sub-inp").val("Login");
+
+						}
+    				}
+    			},
+    			error: function(a, xhr, b) {
+    				console.log(a, xhr, b);
+    			}
+    			
+    		})
+    		//$form_login.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
+    	});
+    	function validateEmail(email) {
+    		if (email.length === 0) return false;
+    		  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    		  return re.test(email);
+    	}
+    	$("#accept-terms").on("click", function(e) {
+    		if($(this).prop("checked") == true){
+    			$form_signup.find('input[type="submit"]').removeAttr("disabled");
+    			$("#policy-c").hide();
+    		}
+            else if($(this).prop("checked") == false){
+    			$("#policy-c").show();
+    			$form_signup.find('input[type="submit"]').attr("disabled", "disabled");
+            }
+    	}) 
+    	$form_signup.find('input[type="submit"]').on('click', function(event){
+    		event.preventDefault();
+    		let r = {
+    				flName: $("#flName").val(),
+    				llName: $("#llName").val(),
+    				phonel: $("#phonel").val(),
+    				emaill: $("#emaill").val(),
+    				passwordl: $("#passwordl").val()
+    		};
+    		console.log("regester", r );
+    		let error = false;
+    		Object.keys(r).forEach(e => {
+    			console.log("key", r[e].length);
+    			if (r[e].length === 0) {
+    				$form_signup.find('#' + e).addClass('has-error').next('span').addClass('is-visible');
+    				error = true;
+    			}else {
+    				$form_signup.find('#' + e).removeClass('has-error').next('span').removeClass('is-visible');
+    			}
+    			
+    			if (e === "emaill") {
+    				if (!validateEmail(r[e])) {
+        				$form_signup.find('#' + e).addClass('has-error').next('span').addClass('is-visible');
+        				error = true;
+
+    				}
+    				else {
+        				$form_signup.find('#' + e).removeClass('has-error').next('span').removeClass('is-visible');
+    				}
+    			}
+    			
+    			if (e === "phonel") {
+    				if (r[e].length !== 10) {
+        				$form_signup.find('#' + e).addClass('has-error').next('span').addClass('is-visible');
+        				error = true;
+
+    				}
+    				else {
+        				$form_signup.find('#' + e).removeClass('has-error').next('span').removeClass('is-visible');
+    				}
+    			}
+    		});
+    		
+    		if (!error) {
+    			// save data
+    			$.ajax({
+    				method: "POST",
+    				url: "/signup",
+    				data: {
+    					fName: r.flName,
+    					lName: r.llName,
+    					email: r.emaill,
+    					password: r.passwordl,
+    					phone: r.phonel,
+    				},
+    				beforeSend:function() {
+    					$(".acc-init").val("Registering...");
+    				},
+    				success: function(data) {
+    					if (data) {
+    						let reg = JSON.parse(data);
+    						console.log(reg);
+    						if (reg.error) {
+    							$("#r-error-msg").show();
+            					$(".acc-init").val("Create Account");
+
+    						}
+    						else {
+    							window.location.href = reg.view;
+            					$(".acc-init").val("Logging In...")
+
+    						}
+    					}
+    				},
+    				error: function(a, xhr, b) {
+    					console.log(a, xhr, b);
+    				}
+    				
+    			})
+    		}
+
+    		
+    		return false;
+    	}); 
 
     	//IE9 placeholder fallback
     	//credits http://www.hagenburger.net/BLOG/HTML5-Input-Placeholder-Fix-With-jQuery.html

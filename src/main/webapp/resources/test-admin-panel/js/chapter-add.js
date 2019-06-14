@@ -1,14 +1,15 @@
 (function() {
   var albumBucketName = "hcvideo212";
-  var bucketRegion = "us-east-1";
-  var IdentityPoolId = "us-east-1:bd02edbc-3f46-4c0e-9ebe-ea8f4f80c8b3";
+  var bucketRegion = "ap-south-1";
+  var IdentityPoolId = "ap-south-1:8ab0020b-b609-4377-899b-bd39c4aa120b";
+  var obj = {};
 
   AWS.config.update({
     credentials: new AWS.CognitoIdentityCredentials({
       IdentityPoolId: IdentityPoolId
     })
   });
-  AWS.config.region = "us-east-1";
+  AWS.config.region = bucketRegion;
 
   var s3 = new AWS.S3({
     apiVersion: "2006-03-01",
@@ -16,11 +17,40 @@
       Bucket: albumBucketName
     }
   });
+  
+  function readURL(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    
+	    reader.onload = function(e) {
+	      $('#cover-prev').attr('src', e.target.result);
+	    }
+	    
+	    reader.readAsDataURL(input.files[0]);
+	  }
+  }
+  
+
+	$("#course-cover").change(function() {
+		  readURL(this);
+		  let file = this.files[0];
+		  let fileKey = Date.now() + "_" + file.name.replace(/\s/g, "_");
+		  
+		  uploadCourseStatics(file, fileKey);
+		  obj.cover = "https://do4k6lnx3y4m9.cloudfront.net/" + fileKey;
+		  
+	});
+	$("#course-intro").on("change", function(e) {
+		let file = e.target.files[0];
+		let fileKey = Date.now() + "_" + file.name.replace(/\s/g, "_");
+		
+		uploadCourseStatics(file, fileKey);
+		obj.intro = "https://do4k6lnx3y4m9.cloudfront.net/" + fileKey;
+	});
+	
   var totalSize = 0;
   var loaded = [];
-  var obj = {};
   $(document).on("click", ".save-course", function(e) {
-    obj = {};
     obj.course_name = $("#c-title").val();
     obj.course_desc = $("#c-desc").val();
     obj.days = $("#d-days").val();
@@ -28,6 +58,10 @@
     obj.mrp = $("#mrp").val();
     obj.tags = $("#tags").val();
     obj.quickDesc = $("#quick-desc").val();
+    
+    /*obj.cover = $("#course-cover").prop("files")[0]?$("#course-cover").prop("files")[0]:null;
+    obj.intro = $("#course-intro").prop("files")[0]?$("#course-intro").prop("files")[0]:null;*/
+    
     //obj.img = $("#course-img").files[0];
     obj.chapters = [];
     $(".ch-inp").each(function(e) {
@@ -110,7 +144,53 @@
 
     video.src = URL.createObjectURL(file);
   }
+  
+  function uploadCourseStatics(file, key) {
+	  const options = {
+		      partSize: 5 * 1024 * 1024,
+		      queueSize: 1
+	  };
+	  s3.upload(
+		      {
+		        Key: key,
+		        Body: file,
+		        ContentType: file.type,
+		        ACL: "public-read"
+		      },
+		      options
+		    ).on("httpUploadProgress", function(evt) {
+		    	console.log(evt.loaded);
+		       /* var loadedTotal = 0;
+		        loaded[this.body.name] = evt.loaded;
+		        
+		        console.log(loaded);
 
+		        var xx = Math.round((loadedTotal / totalSize) * 100);
+		        let totalSizeInMBs = (totalSize / (1024 * 1024)).toFixed(2);
+		        let totalLoadedInMBs = (loadedTotal / (1024 * 1024)).toFixed(2);*/
+
+		        /*$(".progress-container").show();
+		        $("#bar-progress").attr("style", "width: " + xx + "%");
+		        $("#percent-progress").html(xx);
+		        $("#status").html(
+		          'Uploaded: <span id="done-mb">' +
+		            totalLoadedInMBs +
+		            "</span> of <span id='total-mb'>" +
+		            totalSizeInMBs +
+		            "</span> <span id='per'></span>(" +
+		            xx +
+		            "%)</span>"
+		        );*/
+		        
+		      }).send(function(err, data) {
+		        if (!err) {
+		          console.log("course statics done");
+		          console.log(obj);
+		        } else {
+		          console.log(err);
+		        }
+		      });
+  }
   function uploadFile(rs) {
     $(".save-course").attr("disabled", "disabled");
     const options = {
@@ -169,6 +249,9 @@
           let mrp = obj.mrp;
           let img = obj.img;
           let quickDesc = obj.quickDesc;
+          let cover = obj.cover;
+          let intro = obj.intro;
+          
           obj.chapters.forEach(function(chapter) {
             let chName = chapter.title;
             console.log("in chapter");
@@ -185,6 +268,9 @@
               fd.append("tags", tags);
               fd.append("mrp", mrp);
               fd.append("subDesc", quickDesc);
+              fd.append("cover", cover);
+              fd.append("intro", intro);
+
               //fd.append("img", img);
 
               let i = 0;
@@ -207,6 +293,7 @@
                 success: function(data) {
                   if (data === true) {
                     $("#status").html("Course Saved!");
+                    obj = {};
                   }
 
                   $(".save-course").removeAttr("disabled");

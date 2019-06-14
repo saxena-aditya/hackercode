@@ -308,6 +308,18 @@
 			</div>
 		</div>
 	</div>
+	<footer style="
+    background: black;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0 15px 0px;
+">
+		<span><i class="far fa-copyright"></i> Copyright, 2019</span>
+		<span style="
+    position: absolute;
+    right: 60px;
+"><i class="fas fa-envelope"></i> &nbsp;hackercode.19@gmail.com</span>
+	</footer>
 </body>
 </html>
 

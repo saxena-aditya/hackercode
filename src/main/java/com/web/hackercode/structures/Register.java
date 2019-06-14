@@ -10,7 +10,20 @@ public class Register {
 	private String password;
 	private String course;
 	private String []programs;
+	private String phone;
 	
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+	/**
+	 * @param phone the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	public String[] getPrograms() {
 		return programs;
 	}

@@ -49,6 +49,7 @@ import com.web.hackercode.structures.Question;
 import com.web.hackercode.structures.Register;
 import com.web.hackercode.structures.Test;
 import com.web.hackercode.structures.User;
+import com.web.hackercode.utility.Utility;
 import com.web.hackercode.structures.TestData;
 import com.web.hackercode.structures.TestInfoFromClient;
 import com.web.hackercode.structures.TestUser;
@@ -59,6 +60,7 @@ public class TestDAOImpl implements TestDAO {
     @Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    Utility utils = new Utility();
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -72,118 +74,8 @@ public class TestDAOImpl implements TestDAO {
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    public static String getMd5(String input) {
-        try {
-
-            // Static getInstance method is called with hashing MD5 
-            MessageDigest md = MessageDigest.getInstance("MD5");
-
-            // digest() method is called to calculate message digest 
-            //  of an input digest() return array of byte 
-            byte[] messageDigest = md.digest(input.getBytes());
-
-            // Convert byte array into signum representation 
-            BigInteger no = new BigInteger(1, messageDigest);
-
-            // Convert message digest into hex value 
-            String hashtext = no.toString(16);
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
-            return hashtext;
-        }
-
-        // For specifying wrong message digest algorithms 
-        catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    public boolean isUser(String username, String password, HttpServletRequest request) {
-        //if (!(boolean) request.getSession().getAttribute("isLoggedIn")) {
-        jdbcTemplate.setDataSource(getDataSource());
-        String IS_USER = "SELECT COUNT(*) FROM hc_user WHERE BINARY u_username = ? AND BINARY u_password = ?";
-        System.out.println(IS_USER);
-        System.out.println(username + "  " + getMd5(password));
-
-        try {
-            Number count = jdbcTemplate.queryForObject(IS_USER, Integer.class, username, getMd5(password));
-            System.out.println("data: " + count.intValue());
-            if (count.intValue() != 1) return false;
-            else {
-                request.getSession().setAttribute("isLoggedIn", true);
-                return true;
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("done!");
-        //}
-        //else {
-        // login with saved user.
-        //}
-        return false;
-    }
-
-
-
-    public User getUser(String username, HttpServletRequest req) {
-        jdbcTemplate.setDataSource(getDataSource());
-        String GET_USER = "SELECT * FROM hc_user_details WHERE BINARY ud_username = ?";
-        try {
-            User user = (User) jdbcTemplate.queryForObject(
-                GET_USER, new Object[] {
-                    username
-                },
-                new UserMapper());
-            req.getSession().setAttribute("user", user);
-            return user;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return null;
-    }
-
-    public int getUserWithEmail(String email, String username, HttpServletRequest req) {
-        jdbcTemplate.setDataSource(getDataSource());
-        String GET_USER = "SELECT COUNT(*) FROM hc_user_details WHERE BINARY ud_email = ? OR BINARY ud_username = ?";
-        Number count = 0;
-        try {
-            count = jdbcTemplate.queryForObject(GET_USER, Integer.class, email, username);
-            return new Integer(count.intValue());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public String returnImagePath(MultipartFile file) throws IOException{
-    	  
-    	System.out.println("\n \n RETURN IMAGE PATH FILE INVOKED \n \n"+file);
-    	  String LOCATION = "";
-          System.out.println(file.getName());
-          InputStream in = file.getInputStream();
-          System.out.println("\n \n BEFORE CURR DIR \n \n");
-          File currdir = new File("D:\\hackercode\\src\\main\\images");
-          String path = currdir.getAbsolutePath();
-          LOCATION = path.substring(0, path.length()) + "\\" + file.getOriginalFilename();
-          FileOutputStream f = new FileOutputStream(LOCATION);
-          int ch = 0;
-          // add try,catch and finally blocks to copy the file
-          while ((ch = in .read()) != -1) {
-              f.write(ch);
-          }
-
-          System.out.println(LOCATION);
-          f.flush();
-          f.close();
-          System.out.println("\n LOCATION FOR SAVED FILE PATH : "+LOCATION + "\n");
-          return LOCATION;
-    }
-
+   
+    
     public boolean saveFile(int testId, MultipartFile file) throws IOException {
 
         String LOCATION = "";
@@ -286,7 +178,7 @@ public class TestDAOImpl implements TestDAO {
         
         try {
             jdbcTemplate.update(INSERT_QUESTION, new Object[] {
-                q.getQuestionSet(),
+                q.getQuestionSet().replaceAll(" ", "-"),
                 q.getQuestionTag(),
                 q.getQuestionType(),
                 q.getQuestionContent(),
@@ -412,7 +304,8 @@ public class TestDAOImpl implements TestDAO {
                             
                             ss.addProperty("status", "normal");
 
-                            String[] array = q.getQuestionOptions().split(",");
+                            // @ is the delimiter for separating question options  
+                            String[] array = q.getQuestionOptions().split("@");
                             JsonArray xz = new JsonArray();
 
                             for (int i1 = 0; i1 < array.length; i1++)
@@ -661,46 +554,9 @@ public class TestDAOImpl implements TestDAO {
 
     // utility function for get user details.
     
-    public User getUser(String username) {
-        jdbcTemplate.setDataSource(getDataSource());
-        String GET_USER = "SELECT * FROM hc_user_details WHERE ud_username = ?";
-        User user = (User) jdbcTemplate.queryForObject(GET_USER, new Object[] {
-            username
-        }, new UserMapper());
-        
-        if (user != null)
-            return user;
-
-        return null;
-    }
+    
 
     
-    public User saveUser(HttpServletRequest req, Register ruser) {
-        jdbcTemplate.setDataSource(getDataSource());
-        ruser.setPassword(getMd5(ruser.getPassword()));
-        String SAVE_USER = "INSERT INTO hc_user_details (ud_username, ud_firstname, ud_lastname, ud_email, ud_role) VALUES (?,?,?,?,0)";
-        String SAVE_USER_LOGIN_CREDENTIALS = "INSERT INTO hc_user (u_username, u_password) VALUES (?,?)";
-       // String ADD_USER_WITH_PROGRAM = "INSERT INTO hc_user_program (up_username, up_code) VALUES (?,?)";
-        try {
-            jdbcTemplate.update(SAVE_USER, new Object[] {
-            	ruser.getEmail(),
-                ruser.getfName(),
-                ruser.getlName(),
-                ruser.getEmail()
-            });
-            
-            jdbcTemplate.update(SAVE_USER_LOGIN_CREDENTIALS, new Object[] {
-                ruser.getEmail(),
-                ruser.getPassword()
-            });
-           
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return getUser(ruser.getEmail(), req);
-    }
-
     
     public List<Program> getAllCourses() {
         jdbcTemplate.setDataSource(getDataSource());
@@ -779,28 +635,13 @@ public class TestDAOImpl implements TestDAO {
 				"PUBLIC",
 				question.getQuestionId()
 			});
-			System.out.println("question id :" + question.getQuestionId());
+			System.out.println("question :" + question.toString());
 			return true;
 		}
 		return true;
 	}
 	
-	public void updateUserInfo(User user, User currentUser) {
-		jdbcTemplate.setDataSource(getDataSource());
-		System.out.println("CURRENT USER"+currentUser);
-		
-		String UPDATE_USER_INFO = "UPDATE `hc_user_details` SET ud_username=?,ud_firstname=?,ud_lastname=?,ud_institute=?,ud_email=?, ud_img_path = ? WHERE ud_id = ?";
-		jdbcTemplate.update(UPDATE_USER_INFO, new Object[] {
-				user.getUsername(),
-				user.getFirstName(),
-				user.getLastName(),
-				user.getInstitute(),
-				user.getEmail(),
-				user.getFilePath(),
-				currentUser.getU_id()
-		});
-		
-	}
+	
 	public List<TestUser> getTestTakers(Test test) {
 		String GET_TEST_USER = "SELECT * FROM hc_temp_test ttest JOIN hc_user_details user JOIN hc_tests test WHERE ttest.tt_user_id = user.ud_id AND ttest.tt_test_id = test.t_id AND ttest.isFinished = 1";
 		

@@ -95,16 +95,17 @@
                         		<div class="policy-box">
                         			<div class="d-flex policy-box">
                         				<div class="box">
-                        					<input type="checkbox" name="policy-control">
+                        					<input type="checkbox" name="policy-control" id="policy">
                         				</div>
                         				<div class="policy">
                         					I agree with the terms and conditions.
                         				</div>
                         			</div>
                         		</div>
-                                <button class="btn btn-success btn-sm" id="inst-btn" >
+                                <button class="btn btn-success btn-sm" id="inst-btn" disabled>
                                 	Ready? Launch!
                                 </button>
+                                
                             </div>
                         </div>
                     </div>
@@ -279,7 +280,9 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
+	      
 	        <h5 class="modal-title" id="exampleModalLabel">Test Submitted Successfully</h5>
+	        
 	     	      </div>
 	      <div class="modal-body">
 	        Click to End Test.
@@ -297,6 +300,8 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="exampleModalLabel">Are You Sure to Submit</h5>
+	                <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        
 	     	      </div>
 	      <div class="modal-body">
 	        Click to Submit Test
@@ -325,4 +330,18 @@
 <script src="${pageContext.request.contextPath}/resources/give-test/take-test/js/config.js"></script>
 <script src="${pageContext.request.contextPath}/resources/give-test/take-test/js/variables.js"></script>
 <script src="${pageContext.request.contextPath}/resources/give-test/take-test/js/methods.js"></script>
+<script>
+	let btn = $("#inst-btn");
+	
+	 const policy = document.getElementById("policy");
+	    policy.addEventListener('click', function() {
+	      if(policy.checked){
+	       btn.removeAttr("disabled");
+	      } 
+	      else {
+	    	  btn.attr("disabled", "disabled");
+	      }
+	    });
+
+</script>
 </html>

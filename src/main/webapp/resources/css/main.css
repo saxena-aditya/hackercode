@@ -75,7 +75,7 @@ body, html {
 #owl-graph {
     position: absolute;
     top: 4%;
-    width: 15vw;
+    height: 7vw;
     left: 5%;
 }
 
@@ -84,6 +84,7 @@ body, html {
     height: 48%;
     bottom: -8%;
     right: 5%;
+    z-index: 5;
 }
 
 #celeb {
@@ -98,7 +99,8 @@ body, html {
     position: absolute;
     float: left;
     left: 50%;
-    top: 51%;
+    top: 55%;
+    z-index: -1;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -150,7 +152,7 @@ body, html {
 
 /*=========== MENU ==============*/
 #menu-hack {
-    z-index: 9999;
+    z-index: 999;
     position: absolute;
     display : -webkit-inline-box;
     display : -ms-inline-flexbox;
@@ -321,6 +323,7 @@ ul#pills-tab {
     height: 40px;
     min-height: 40px;
     margin-bottom: 0;
+    font-size: 1.1em;
 }
 
 .inf {
@@ -1168,9 +1171,10 @@ i.fab.fa-facebook.fb {
     }
 
     #menu-hack {
-        z-index: 9999;
+        z-index: 999;
         position: absolute;
         display: flex !important;
+        flex-wrap: wrap;
         float: right;
         display: -webkit-inline-box;
         display: -ms-inline-flexbox;
@@ -1178,8 +1182,8 @@ i.fab.fa-facebook.fb {
         -ms-flex-wrap: nowrap;
         /* flex-wrap: nowrap; */
         right: 0;
-        margin: 20% 4% 0 0;
-        /* width: 58%; */
+        margin: 40% 4% 0 0;
+        width: 58%;
     }
 
     #bulb-front {
@@ -1188,7 +1192,7 @@ i.fab.fa-facebook.fb {
 
     #owl-graph {
         position: relative;
-        width: 110px;
+        height: 62px;
         margin: 35px 0 0 0;
     }
 
@@ -1226,6 +1230,7 @@ i.fab.fa-facebook.fb {
         font-size: 0.9em;
         -webkit-box-shadow: #857979a3 1px 1px 6px;
         box-shadow: #857979a3 1px 1px 6px;
+        line-height: 3em;
     }
 
     .lms-img {
@@ -1351,4 +1356,44 @@ i.fab.fa-facebook.fb {
     .is-price {
         font-size: 1.2em;
     }
+}
+
+.modal-content, .form-control, .btn {
+    border-radius: 0px;
+}
+.internship-form {
+    padding: 0 15px 0 15px;
+}
+.modal-dialog {
+    max-width: 540px !important;
+}
+.saved-msg {
+    text-align: center;
+    padding: 30px 0 60px 0;
+}
+.saved-msg i {
+    font-size: 4em;
+    color: #4CAF50;
+}
+.saved-msg h1 {
+    padding: 10px 0 5px 0;
+    font-size: 1.4em;
+}
+.saved-msg h6 {
+    font-size: 1.2em;
+}
+.slick-slide img {
+    display: block;
+    /* height: -webkit-fill-available; */
+    width: 100%;
+    max-height: 160px;
+    height: 160px;
+}
+.sec-nav {
+    width: 100%;
+    position: absolute;
+    top: 22%;
+    margin: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

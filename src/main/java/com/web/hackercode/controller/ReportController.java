@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import com.web.hackercode.dao.CourseDAO;
 import com.web.hackercode.dao.ReportsDAO;
 import com.web.hackercode.dao.TestDAO;
+import com.web.hackercode.dao.UserDAO;
 import com.web.hackercode.structures.Course;
 import com.web.hackercode.structures.FinishedTest;
 import com.web.hackercode.structures.Question;
@@ -31,12 +32,12 @@ public class ReportController {
 		System.out.println(testCode + " | " + username);
 		TestDAO tdao = ctx.getBean(TestDAO.class);
 		CourseDAO cdao = ctx.getBean(CourseDAO.class);
-		User user = tdao.getUser(username);
-		Test test = tdao.getTest(testCode);
+		UserDAO userdao = ctx.getBean(UserDAO.class);
 		ReportsDAO rdao = ctx.getBean(ReportsDAO.class);
-		System.out.println(test.toString());
-		System.out.println(user.toString());
-
+		
+		User user = userdao.getUser(username);
+		Test test = tdao.getTest(testCode);
+		
 		if (test != null & user != null) {
 			FinishedTest ft = rdao.getFinishedTestData(test.getTestId(), Integer.toString(user.getU_id()));
 

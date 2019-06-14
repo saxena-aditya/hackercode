@@ -103,6 +103,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.452.0.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/js/vendor.bundle.base.js"></script>
+  
       
   <!-- endinject -->
   <!-- Plugin js for this page-->

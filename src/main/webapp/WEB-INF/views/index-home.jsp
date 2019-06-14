@@ -21,35 +21,130 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login-register.css">
-          
     </head>
     <body>
+    <input type="hidden" value='${nav}' id="nav">
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+	    		<h1>Apply For Internship</h1>
+	    		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	    		
+	    	</div>
+	    	<div class="modal-body">
+	    		<div class="info-internship">
+	    			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis excepturi nesciunt placeat quaerat mollitia ducimus corrupti aspernatur dolorem tenetur beatae reiciendis eos eum explicabo pariatur natus saepe omnis totam repudiandae?
+	    		</div>
+	    		<hr />
+	    		<div class="saved-msg" style="display:none;">
+	    			<i class="fas fa-clipboard-check"></i>
+	    			<h1>Thank You for showing your interest</h1>
+	    			<h6>We will contact you soon</h6>
+	    		</div>
+	    		<div class="internship-form">
+	    			<div class="row">
+	    				<div class="col-md-6">
+	    					<div class="form-group">
+	    						<label for="">First Name:</label>
+	    						<input type="text" class="form-control" id="f-name" placeholder="First Name" />
+	    					</div>
+	    				</div>
+	    				<div class="col-md-6">
+	    					<div class="form-group">
+	    						<label for="">Last Name:</label>
+	    						<input type="text" class="form-control" id="l-name" placeholder="Last Name" />
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="row">
+	    				<div class="col-md-6">
+	    					<div class="form-group">
+	    						<label for="">Contact Number:</label>
+	    						<input type="number" class="form-control" id="ph-num" placeholder="Contact Number"/>
+	    					</div>
+	    				</div>
+	    				<div class="col-md-6">
+	    					<div class="form-group">
+	    						<label for="">E-Mail:</label>
+	    						<input type="email" class="form-control" id="email" placeholder="Email Id" />
+	    						
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="row">
+	    				<div class="col-md-6">
+	    					<div class="form-group">
+	    						<label for="">University:</label>
+	    						<input type="text" class="form-control" id="university" placeholder="University Name"/>
+	    					</div>
+	    				</div>
+	    				<div class="col-md-6">
+	    					<div class="form-group">
+	    						<label for="">Course:</label>
+	    						<input type="text" class="form-control" id="course" placeholder="Course" />
+	    						
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="row">
+	    				<div class="col-md-6">
+	    					<div class="form-group">
+	    						<label for="">Semester</label>
+	    						<input type="number" class="form-control" id="semester" placeholder="Semester"/>
+	    					</div>
+	    				</div>
+	    				<div class="col-md-6">
+	    					<div class="form-group">
+	    						<label for="">City:</label>
+	    						<input type="text" class="form-control" id="city" placeholder="City" />
+	    						
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="row">
+	    				<div class="col-md-12">
+	    					<button class="btn btn-success" id="s-app" style="width: 100%;">Submit Application</button>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    
+	    </div>
+	  </div>
+</div>
     <div class="se-pre-con"></div>
-    		<c:choose>
-			    <c:when test="${ doLogin == 1}">
-			         
-			        <nav class="main-nav">
-						<ul id="menu-hack">
-						<li>
-							<a href="${ pageContext.request.contextPath }/resources" id="res-btn">Resources</a>
-						</li>
+            <nav class="main-nav">
+				<ul id="menu-hack">
+					<li>
+						<a id="itn-btn" class="cd-signin" href="" data-toggle="modal" data-target=".bd-example-modal-lg">Appy for Internship</a>
+					</li>
+					<li>
+						<a id="resc-btn" class="cd-signin" href="${ pageContext.request.contextPath }/resources">Exercises</a>
+					</li>
+    
+	    			<c:choose>
+				    	<c:when test="${ doLogin == 1}">
+				         
+							
 				            <li data-menuanchor="firstPage">
-				                <a class="cd-signup" href="#firstPage" id="register-main">Register</a>
+				                <a id="r-btn" class="cd-signup" href="#firstPage" id="register-main">Register</a>
 				            </li>
 				            <li data-menuanchor="secondPage">
-				                <a class="cd-signin" href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+				                <a id="l-btn" class="cd-signin" href="#" data-toggle="modal" data-target="#login-modal">Login</a>
 				            </li>
-			        	</ul>
-					</nav>
-			    </c:when>    
-			    <c:otherwise>
-			    	<ul id="menu-hack">
+				    	</c:when>    
+				    <c:otherwise>
+			    
 			    		<li>
-			    			<a x href="${ pageContext.request.contextPath }/profile">Return to Dashboard</a>
+			    			<a class="cd-signin" href="${ pageContext.request.contextPath }/${ url }">Return to Dashboard</a>
 			    		</li>
-			    	</ul>
+			    	
 			    </c:otherwise>
 			</c:choose>
+			</ul>
+			</nav>
+			    	
         
         <!-- The Modal -->
 <%-- <div class="modal" id="login-modal">
@@ -135,6 +230,7 @@
 			</ul>
 
 			<div id="cd-login"> <!-- log in form -->
+			<div class="error-msg" style="display: none;text-align: center;padding: 20px 0 0 0;color: #E91E63;font-size: 1.2em;">Opps! Username or Password do not match. Please Try again..!</div>
 				<form class="cd-form" action="${pageContext.request.contextPath}/login" method="POST">
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="signin-email">E-mail</label>
@@ -144,8 +240,8 @@
 
 					<p class="fieldset">
 						<label class="image-replace cd-password" for="signin-password">Password</label>
-						<input class="full-width has-padding has-border" name="password" id="signin-password" type="text"  placeholder="Password">
-						<a href="#" class="hide-password">Hide</a>
+						<input class="full-width has-padding has-border" name="password" id="signin-password" type="password"  placeholder="Password here">
+						<a href="#" class="hide-password">Show</a>
 						<span class="cd-error-message">Error message here!</span>
 					</p>
 
@@ -155,7 +251,7 @@
 					</p>
 
 					<p class="fieldset">
-						<input class="full-width" type="submit" value="Login">
+						<input class="full-width sub-inp" type="submit" value="Login">
 					</p>
 				</form>
 				
@@ -166,47 +262,51 @@
 			<div id="cd-signup"> <!-- sign up form -->
 				<form class="cd-form" action="${pageContext.request.contextPath}/signup" method="post">
 				<div class="row">
+				<p id="r-error-msg" style="display: none;text-align: center;width: 100%;padding: 0 0 20px 0;color: #F44336;">Oops! Seems like this E-Mail is already taken. Please Try Again.</p>
 					<div class="col-md-6">
 						<p class="fieldset">
 							<label class="image-replace cd-username" for="signup-username">First Name</label>
-							<input class="full-width has-padding has-border" name="fName" id="signup-username" type="text" placeholder="First Name">
-							<span class="cd-error-message">Error message here!</span>
+							<input class="full-width has-padding has-border" name="fName" id="flName" type="text" placeholder="First Name">
+							<span class="cd-error-message">Please use a valid value</span>
 						</p>
 					</div>
 					<div class="col-md-6">
 						<p class="fieldset">
 							<label class="image-replace cd-username" for="signup-username">Last Name</label>
-							<input class="full-width has-padding has-border" name="lName" id="signup-username" type="text" placeholder="Last Name">
-							<span class="cd-error-message">Error message here!</span>
+							<input class="full-width has-padding has-border" name="lName" id="llName" type="text" placeholder="Last Name">
+							<span class="cd-error-message">Please use a valid value</span>
 						</p>
 					</div>
 				</div>
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="signup-username">E-mail</label>
-						<input class="full-width has-padding has-border" name="email" id="signup-username" type="text" placeholder="E-mail">
-						<span class="cd-error-message">Error message here!</span>
+						<input class="full-width has-padding has-border" name="email" id="emaill" type="text" placeholder="E-mail">
+						<span class="cd-error-message">Please use a valid value</span>
 					</p>
 
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="signup-email">Phone Number</label>
-						<input class="full-width has-padding has-border" name="phoneNum" id="signup-email" type="number" placeholder="Phone Number">
-						<span class="cd-error-message">Error message here!</span>
+						<input class="full-width has-padding has-border" name="phoneNum" id="phonel" type="text" placeholder="Phone Number">
+						<span class="cd-error-message">Please use a valid value</span>
 					</p>
 
 					<p class="fieldset">
 						<label class="image-replace cd-password" for="signup-password">Password</label>
-						<input class="full-width has-padding has-border" name="password" id="signup-password" type="text"  placeholder="Password">
+						<input class="full-width has-padding has-border" name="password" id="passwordl" type="text"  placeholder="Password">
 						<a href="#" class="hide-password">Hide</a>
-						<span class="cd-error-message">Error message here!</span>
+						<span class="cd-error-message">Please use a valid value</span>
 					</p>
 
 					<p class="fieldset">
 						<input type="checkbox" id="accept-terms">
 						<label for="accept-terms">I agree to the <a href="#">Terms</a></label>
 					</p>
-
+					<p id="policy-c">
+						<span style="padding: 0 0 5px 0;"><strong>Note: </strong><span>Please accept the terms and conditions before proceeding</span></span>
+					</p>
 					<p class="fieldset">
-						<input class="full-width has-padding" type="submit" value="Create account">
+						
+						<input class="full-width has-padding acc-init" type="submit" value="Create account" disabled>
 					</p>
 				</form>
 
@@ -215,16 +315,16 @@
 
 			<div id="cd-reset-password"> <!-- reset password form -->
 				<p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
-
+				<p id="reset-error" style="text-align: center;color: #F44336;padding-top: 20px;display: none;">No user with this email found. Please register.</p>
 				<form class="cd-form">
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="reset-email">E-mail</label>
 						<input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
-						<span class="cd-error-message">Error message here!</span>
+						<span class="cd-error-message">Please Enter a Valid E-Mail</span>
 					</p>
 
 					<p class="fieldset">
-						<input class="full-width has-padding" type="submit" value="Reset password">
+						<input class="full-width has-padding" id="password-reset-btn" type="submit" value="Reset password">
 					</p>
 				</form>
 
@@ -238,6 +338,29 @@
             <div class="section" data-anchor="sec-front">
                 <img src="${pageContext.request.contextPath}/resources/ff-ideas/logo.png" id="owl-graph" alt="">
                 <img src="${pageContext.request.contextPath}/resources/ff-ideas/bulb-front.png" alt="" id="bulb-front">
+                <div class="sec-nav container">
+                	<nav class="navbar navbar-expand-lg navbar-light">
+					  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					    <span class="navbar-toggler-icon"></span>
+					  </button>
+					  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+					    <ul class="navbar-nav ml-auto" id="categories">
+					     
+					     
+					      <li class="nav-item dropdown active">
+					        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					          Dropdown link
+					        </a>
+					        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+					          <a class="dropdown-item" href="#">Action</a>
+					          <a class="dropdown-item" href="#">Another action</a>
+					          <a class="dropdown-item" href="#">Something else here</a>
+					        </div>
+					      </li>
+					    </ul>
+					  </div>
+					</nav>
+                </div>
                 <div class="head-area">
                     <h4>welcome to,
                 </h4>
@@ -290,9 +413,9 @@
                                         <c:forEach items="${courses}" var="c">
 										    <div class="col-md-xxc">
                                                 <div class="card">
-                                                    <img src="https://coursearc-production-marketing.s3.amazonaws.com/uploads/2016/12/WebDesign.jpg" alt="" class="card-img-top">
+                                                    <img src="${ c.getCover() }">
                                                     <div class="card-body">
-                                                        <div class="card-title"><c:out value="${c.getName()}"/>
+                                                        <div class="card-title"><c:out value="${c.getName()} "/>
                                                 </div>
                                                         <div class="card-text">
                                                             <div class="course-type-bar d-flex flex-wrap justify-content-start">
@@ -832,6 +955,50 @@ efforts!</div>
 	    		console.log("stop");
 	    	});
             $(function() {
+				
+            	/********* SET ARTICLE MENU *********/
+            	let nav = $("#nav").val();
+            	console.log(nav);
+            	if (nav.length > 0) {
+            		nav = JSON.parse(nav);
+            		console.log(nav);
+            		nav.forEach((cat) => {
+            			let li = $("<li>", {
+            				class: "nav-item dropdown active"
+            			}).appendTo($("#categories"));
+            			
+            			let a = $("<a>", {
+            				class: "nav-link dropdown-toggle",
+            				//href: "/articles/" + cat.value,
+            				id: cat.value,
+            				"data-toggle":"dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false"
+            			}).appendTo(li);
+            			a.text(cat.name);
+            			
+            			let div = $("<div>", {
+            				 class: "dropdown-menu dropdown-menu-right",
+            				 "aria-labelledby": cat.value
+            			}).appendTo(li);
+            			
+            			if (cat.sub_category.length > 0) {
+            				cat.sub_category.forEach((sub_cat) => {
+            					let a = $("<a>", {
+            						class: "dropdown-item",
+            						href: "/articles/" + cat.value + "/" + sub_cat.value
+            					}).appendTo(div);
+            					a.text(sub_cat.name);
+            				})
+            			}
+            			
+            			
+            		});
+            	}
+            	/********* SET ARTICLE MENU *********/
+
+            	
+            	
                 $('.tooltipp').tooltipster({
                    
                     contentAsHTML: true,
@@ -900,7 +1067,7 @@ efforts!</div>
 
             	//open modal
             	$main_nav.on('click', function(event){
-					if (event.target.id != "res-btn") {
+					if (event.target.id === "l-btn" || event.target.id === "r-btn") {
 	            		if( $(event.target).is($main_nav) ) {
 	            			// on mobile open the submenu
 	            			$(this).children('ul').toggleClass('is-visible');
@@ -980,16 +1147,189 @@ efforts!</div>
             		$form_forgot_password.addClass('is-selected');
             	}
 
-            	/* //REMOVE THIS - it's just to show error messages 
+            	 //REMOVE THIS - it's just to show error messages 
             	$form_login.find('input[type="submit"]').on('click', function(event){
             		event.preventDefault();
-            		$form_login.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
+            		$.ajax({
+            			method: "POST",
+            			url: "/login",
+            			data: {
+            				username: $("#signin-email").val(), 
+            				password: $("#signin-password").val()
+            			},
+            			beforeSend: function() {
+            				console.log("sending login");
+            				$(".sub-inp").val("Checking...");
+            			},
+            			success: function(data) {
+            				if (data) {
+            					let login = JSON.parse(data);
+								if (login.isUser) {
+									window.location.href = login.view;
+		            				$(".sub-inp").val("Logging In...");
+
+								}
+								else {
+									$(".error-msg").show();
+		            				$(".sub-inp").val("Login");
+
+								}
+            				}
+            			},
+            			error: function(a, xhr, b) {
+            				console.log(a, xhr, b);
+            			}
+            			
+            		})
+            		//$form_login.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
             	});
+            	 
+            	$(document).on("click", "#password-reset-btn", function(e) {
+            		e.preventDefault();
+    				$("#reset-error").hide();
+
+            		let email = $("#reset-email").val();
+            		console.log(email.length);
+            		if (email.length === 0) {
+            			$form_forgot_password.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
+            		} else {
+            			$.ajax({
+            				method: "POST",
+            				url: "/user/api/reset-password",
+            				data: {email: email},
+            				beforeSend: function() {
+            					console.log("sending reset pass");
+            					$("#password-reset-btn").val("Checking User...");
+            				},
+            				success: function(data) {
+            					console.log(data);
+            					let reset = JSON.parse(data);
+            					
+            					if (reset.isUser) {
+            						if (reset.isMailSent) {
+                    					$("#password-reset-btn").val("Passowrd Reset Mail Send. Please Check your Inbox");
+                				
+            						}
+            						else {
+                    					$("#password-reset-btn").val("Opps! Please Reloading and Try Again");
+
+            						}
+            					}
+            					else {
+            						$("#reset-error").show();
+                					$("#password-reset-btn").val("Reset Password");
+
+            					}
+            					
+            				},
+            				error: function(a, xhr, b) {
+            					console.log(a, xhr, b);
+            				}
+            				
+            			})
+            		}
+            	});
+            	
+            	function validateEmail(email) {
+            		if (email.length === 0) return false;
+            		  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            		  return re.test(email);
+            	}
+            	$("#accept-terms").on("click", function(e) {
+            		if($(this).prop("checked") == true){
+            			$form_signup.find('input[type="submit"]').removeAttr("disabled");
+            			$("#policy-c").hide();
+            		}
+                    else if($(this).prop("checked") == false){
+            			$("#policy-c").show();
+            			$form_signup.find('input[type="submit"]').attr("disabled", "disabled");
+                    }
+            	}) 
             	$form_signup.find('input[type="submit"]').on('click', function(event){
             		event.preventDefault();
-            		$form_signup.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
-            	}); */
+            		let r = {
+            				flName: $("#flName").val(),
+            				llName: $("#llName").val(),
+            				phonel: $("#phonel").val(),
+            				emaill: $("#emaill").val(),
+            				passwordl: $("#passwordl").val()
+            		};
+            		console.log("regester", r );
+            		let error = false;
+            		Object.keys(r).forEach(e => {
+            			console.log("key", r[e].length);
+            			if (r[e].length === 0) {
+            				$form_signup.find('#' + e).addClass('has-error').next('span').addClass('is-visible');
+            				error = true;
+            			}else {
+            				$form_signup.find('#' + e).removeClass('has-error').next('span').removeClass('is-visible');
+            			}
+            			
+            			if (e === "emaill") {
+            				if (!validateEmail(r[e])) {
+                				$form_signup.find('#' + e).addClass('has-error').next('span').addClass('is-visible');
+                				error = true;
 
+            				}
+            				else {
+                				$form_signup.find('#' + e).removeClass('has-error').next('span').removeClass('is-visible');
+            				}
+            			}
+            			
+            			if (e === "phonel") {
+            				if (r[e].length !== 10) {
+                				$form_signup.find('#' + e).addClass('has-error').next('span').addClass('is-visible');
+                				error = true;
+
+            				}
+            				else {
+                				$form_signup.find('#' + e).removeClass('has-error').next('span').removeClass('is-visible');
+            				}
+            			}
+            		});
+            		
+            		if (!error) {
+            			// save data
+            			$.ajax({
+            				method: "POST",
+            				url: "/signup",
+            				data: {
+            					fName: r.flName,
+            					lName: r.llName,
+            					email: r.emaill,
+            					password: r.passwordl,
+            					phone: r.phonel,
+            				},
+            				beforeSend:function() {
+            					$(".acc-init").val("Registering...");
+            				},
+            				success: function(data) {
+            					if (data) {
+            						let reg = JSON.parse(data);
+            						console.log(reg);
+            						if (reg.error) {
+            							$("#r-error-msg").show();
+                    					$(".acc-init").val("Create Account");
+
+            						}
+            						else {
+            							window.location.href = reg.view;
+                    					$(".acc-init").val("Logging In...")
+
+            						}
+            					}
+            				},
+            				error: function(a, xhr, b) {
+            					console.log(a, xhr, b);
+            				}
+            				
+            			})
+            		}
+
+            		
+            		return false;
+            	}); 
+ 
 
             	//IE9 placeholder fallback
             	//credits http://www.hagenburger.net/BLOG/HTML5-Input-Placeholder-Fix-With-jQuery.html
@@ -1045,6 +1385,69 @@ efforts!</div>
             	$("#register-main").click();
             	return false;
             })
+            
+            $("#s-app").on("click", function(e) {
+            	e.preventDefault();
+            	let itn = {};
+	           	itn.fName = $("#f-name").val();
+	           	itn.lName = $("#l-name").val();
+	           	itn.phone = $("#ph-num").val();
+	           	itn.email = $("#email").val();
+	           	itn.university = $("#university").val();
+	           	itn.course = $("#course").val();
+	           	itn.semester = $("#semester").val();
+	            itn.city = $("#city").val();
+	            
+	            let error = false;
+	            
+	            Object.keys(itn).forEach(e => {
+	            	if (itn[e].length === 0 ) error = true;
+	            });
+	            
+	            if (error) {
+	            	alert("Please Fill All The Fields.")
+	            }
+	            else {
+	            	// make the ajax call
+	            	$.ajax({
+	            		method: "POST",
+	            		url: "/user/apply-internship/api/save",
+	            		data: {
+	            			firstName: itn.fName,
+	            			lastName: itn.lName,
+	            			phnNum: itn.phone,
+	            			university: itn.university,
+	            			course: itn.course,
+	            			semester: itn.semester,
+	            			email: itn.email,
+	            			city: itn.city
+	            		},
+	            		beforeSend: function() {
+	            			$("#s-app").text("Saving Application...")
+	            		},
+	            		success: function(data) {
+	            			if (data) {
+	            				let intern = JSON.parse(data);
+	            				console.log(data);
+	            				if (intern.error) {
+	            					$("#s-app").text("Could Not Save Application, Try Again!");
+	            				}
+	            				else {
+	            					$(".internship-form").hide();
+	            					$(".saved-msg").show();
+	            					$(".saved-msg").slideDown();
+	            				}
+	            			}
+	            		},
+	            		error: function(a, xhr, b) {
+	            			console.log(a, xhr, b);
+	            		}
+	            	});
+	            }
+
+            });
+            
+            
         </script>
     </body>
 </html>

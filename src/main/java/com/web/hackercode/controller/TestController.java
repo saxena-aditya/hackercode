@@ -30,6 +30,7 @@ import com.google.gson.*;
 import com.web.hackercode.dao.CourseDAO;
 import com.web.hackercode.dao.TestDAO;
 import com.web.hackercode.dao.TestUtilitiesDAO;
+import com.web.hackercode.dao.UserDAO;
 import com.web.hackercode.structures.Course;
 import com.web.hackercode.structures.Program;
 import com.web.hackercode.structures.ProgramSpecificTests;
@@ -38,6 +39,7 @@ import com.web.hackercode.structures.Register;
 import com.web.hackercode.structures.Test;
 import com.web.hackercode.structures.TestUser;
 import com.web.hackercode.structures.User;
+import com.web.hackercode.utility.Utility;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -46,6 +48,7 @@ import org.springframework.validation.BindingResult;
 @Controller
 public class TestController extends AbstractController {
     ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
+    Utility utils = new Utility();
     User loggedInUser = null;
 
     @RequestMapping(value = "/file-upload", method = RequestMethod.GET)
@@ -171,98 +174,16 @@ public class TestController extends AbstractController {
         return testData;
         //return new ModelAndView("test-data").addObject("data", testData);
     }
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public ModelAndView showSignup(HttpServletRequest req) {
-        TestDAO testDAO = ctx.getBean(TestDAO.class);
-        //List < Program > programs = testDAO.getAllPrograms();
-        String courseCode =  req.getParameter("course");
-        if (courseCode != null) {
-        	req.getSession().setAttribute("courseToProcess", courseCode);
-        }
-        req.setAttribute("course", req.getAttribute("course"));
-        return new ModelAndView("signup");
-    }
-
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ModelAndView signup(@ModelAttribute("register") Register user, HttpServletRequest req) {
-        //for sign up
-    	System.out.println("REGISTER CLASS>> "+user);
-		/*
-		 * if (user.getCourse().length() > 0) { if(user.getCourse().indexOf(',') >= 0 )
-		 * { //ie multiple courses selected String strArray[] =
-		 * user.getCourse().split(","); user.setPrograms(strArray);
-		 * System.out.println("REGISTER CLASS AFTER THE MULTIPLE>> "+user); } else{
-		 * String strArray[] = user.getCourse().split(" "); user.setPrograms(strArray);
-		 * System.out.println("REGISTER CLASS AFTER THE SINGLE>> "+user); }; }
-		 */
-        req.getSession().setAttribute("isLoggedIn", false);
-        TestDAO testDao = ctx.getBean(TestDAO.class);
-        RedirectView view = null;
-
-        //check if there is user with same name password 
-        int i = testDao.getUserWithEmail(user.getEmail(), user.getEmail(), req);
-        if (i > 0) {
-            //List < Program > programs = testDao.getAllPrograms();
-            return new ModelAndView("signup").addObject("error", "User Already exists !");
-        }
-
-        //add user to db
-        User u = testDao.saveUser(req, user);
-        req.getSession().setAttribute("isLoggedIn", true);      
-        req.getSession().setAttribute("user", u);
+   
     
-        String courseCode = req.getParameter("course");
-    	if (courseCode != null) {
-    		view = new RedirectView("profile?course=" + courseCode, true);
-        }
-    	else {
-    		 view = new RedirectView("profile", true);	
-    	}
-    	
-        view.setExposeModelAttributes(false);
-        return new ModelAndView(view);
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@ModelAttribute("username") String username,
-        @ModelAttribute("password") String password,
-        HttpServletRequest req) {
-        req.getSession().setAttribute("isLoggedIn", false);
-        TestDAO testDao = ctx.getBean(TestDAO.class);
-        RedirectView view;
-        if (testDao.isUser(username, password, req)) {
-            User user = testDao.getUser(username, req);
-            req.getSession().setAttribute("user", user);
-            System.out.println(user.toString());
-            if (user.isAdmin()) {
-                // get details for admin and pass the details to
-                // the model.
-                view = new RedirectView("dashboard", true);
-            } else {
-            	String courseCode = req.getParameter("course");
-            	if (courseCode == null) {
-            		view = new RedirectView("profile" , true);
-            	}
-            	else {
-            		view = new RedirectView("profile?course=" + courseCode, true);
-            	}
-
-            }
-            req.getSession().setAttribute("isLoggedIn", true);
-            // redirect user to appropriate screen.
-            view.setExposeModelAttributes(false);
-            
-            if (isUserAuthenticated(req))
-            	return new ModelAndView(view);
-
-        }
-        
-        return new ModelAndView("test-admin-login");
-    }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public ModelAndView showAdminDashBoard() {
-
+    public ModelAndView showAdminDashBoard(HttpServletRequest req) {
+    	 
+        if (!utils.isUserAuthenticated(req)) {
+            return new ModelAndView(new RedirectView("/", true));
+        }
+        
         return new ModelAndView("test-admin-dashboard");
     }
 
@@ -284,13 +205,12 @@ public class TestController extends AbstractController {
 	
 	    	return new ModelAndView(v);
             
-       }
-        
-        if (req.getSession().getAttribute("isLoggedIn").toString().equalsIgnoreCase("false")) {
-            RedirectView view = new RedirectView("admin-login", true);
-            return new ModelAndView(view);
         }
-
+        
+        if (!utils.isUserAuthenticated(req)) {
+            return new ModelAndView(new RedirectView("/", true));
+        }
+        
         User u = (User) req.getSession().getAttribute("user");
 
         List<ProgramSpecificTests> tests = tutils.getAllTest(u);
@@ -300,16 +220,19 @@ public class TestController extends AbstractController {
 
     }
 
-    @RequestMapping(value = "/admin-login", method = RequestMethod.GET)
-    public ModelAndView showAdminLogin(HttpServletRequest req) {
-        req.getSession().setAttribute("isLoggedIn", false);
-
-        return new ModelAndView("test-admin-login");
-    }
+	/*
+	 * @RequestMapping(value = "/admin-login", method = RequestMethod.GET) public
+	 * ModelAndView showAdminLogin(HttpServletRequest req) {
+	 * req.getSession().setAttribute("isLoggedIn", false);
+	 * 
+	 * return new ModelAndView("test-admin-login"); }
+	 */
+    
     @RequestMapping(value = "/admin-dashboard", method = RequestMethod.GET)
     public ModelAndView showAdminPanel() {
         return new ModelAndView("test-admin-dashboard");
     }
+    
     @RequestMapping(value = "/add-test", method = RequestMethod.GET)
     public ModelAndView showAddTestPanel(HttpServletRequest req) {
         User user = (User) req.getSession().getAttribute("user");
@@ -349,10 +272,11 @@ public class TestController extends AbstractController {
     @RequestMapping(value = "/tests", method = RequestMethod.GET)
     public ModelAndView showTests(HttpServletRequest req) {
     	TestDAO testDao = ctx.getBean(TestDAO.class);
-    	if (isUserAuthenticated(req)) {
+    	if (utils.isUserAuthenticated(req)) {
 
     		User user = (User) req.getSession().getAttribute("user");
     		//User user = new User();
+   
     		List < ProgramSpecificTests > tests = testDao.getAllTestsByAdmin(user);
     		
     		return new ModelAndView("test-admin-dashboard-tests").addObject("tests", tests);
@@ -384,18 +308,19 @@ public class TestController extends AbstractController {
     	
     	System.out.println("USER FRoM 322"+user);
     	TestDAO testDao = ctx.getBean(TestDAO.class);
+		UserDAO userdao = ctx.getBean(UserDAO.class);
     	TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
     	
     	System.out.println("\n \n USER UPDATED now "+ user+"\n \n" + loggedInUser);
     	User currentUser = (User) req.getSession().getAttribute("user");
     	try {
-			currentUser.setFilePath(testDao.returnImagePath(user.getFile()));
+			currentUser.setFilePath(userdao.returnImagePath(user.getFile()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("\n \n \n ERROR UPLOADING FILE \n \n \n");
 			e.printStackTrace();
 		}
-    	testDao.updateUserInfo(user, currentUser);
+    	userdao.updateUserInfo(user, currentUser);
     	user.setU_id(currentUser.getU_id());
     	User u = user;
 
@@ -405,23 +330,12 @@ public class TestController extends AbstractController {
             .addObject("finishedTest", finishedTest).addObject("user",u);
     }
     
-    public boolean isUserAuthenticated(HttpServletRequest req) {
-    		if (req.getSession() != null) {
-    			if(req.getSession().getAttribute("user") != null) {
-    		    	if (req.getSession().getAttribute("isLoggedIn").toString().equalsIgnoreCase("true")) {
-    		    		
-    		    			return true;
-    			}
-    		}
-        }
-    		
-        return false;
-    }
+   
     
     @RequestMapping(value = "/get-completed-tests", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView getCompletedTests(HttpServletRequest req) {
-    	if (isUserAuthenticated(req)) { 
+    	if (utils.isUserAuthenticated(req)) { 
     		TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
     		User user = (User) req.getSession().getAttribute("user");
     		//return "something";
@@ -436,7 +350,7 @@ public class TestController extends AbstractController {
     @RequestMapping(value = "/get-live-tests", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView getLiveTests(HttpServletRequest req) throws InterruptedException {
-    	if (isUserAuthenticated(req)) { 
+    	if (utils.isUserAuthenticated(req)) { 
     		TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
     		User user = (User) req.getSession().getAttribute("user");
     		//return "something";
@@ -455,7 +369,7 @@ public class TestController extends AbstractController {
     	TestDAO tdao = ctx.getBean(TestDAO.class);
 		System.out.println("in the authetication session");
 
-    	if (isUserAuthenticated(req)) {
+    	if (utils.isUserAuthenticated(req)) {
     		User user = (User) req.getSession().getAttribute("user");
     		Test test = tdao.getTest(testCode);
     		System.out.println("in the authetication session " + test.getAdmin() + " - " + user.getUsername());

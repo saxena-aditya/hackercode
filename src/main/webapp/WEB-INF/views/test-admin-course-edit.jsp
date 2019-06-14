@@ -24,6 +24,7 @@
   
   <!-- endinject -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/test-admin-panel/images/favicon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" />
 </head>
 
 <body>
@@ -49,13 +50,34 @@
         <div class="content-wrapper row">
           
           <div class="card col-md-7">
-          		<div class="card-header">
+          		<div class="card-header edit-header">
           			Edit Course:
           			<button id="save-course" class="btn btn-success">Update</button>
+          			<button class="btn btn-danger cr-del" id="${ courseCode }">Delete Course</button>
           		</div>
-          		<div class="card-body">
+          		<div class="card-body edit-body">
+          		<div class="progress-container" style="display: none;">
+          	<div id="status">
+                      
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped active" role="progressbar"
+                  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" id="bar-progress">
+                    <span id="percent-progress"></span>%
+                  </div>
+                </div>
+          </div>
           			<div id="course-container"></div>
           		</div>
+          </div>
+          <div class="col-md-5">
+          	<div class="card-header">
+          		Course Details
+          	</div>
+          	<div class="card-body">
+          		<div id="course-details-container" class="row"  >
+          		</div>
+          	</div>
           </div>
         </div>
         <!-- content-wrapper ends -->
@@ -81,6 +103,7 @@
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/js/vendor.bundle.base.js"></script>
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/js/vendor.bundle.addons.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->

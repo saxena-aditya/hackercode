@@ -25,6 +25,7 @@ import com.web.hackercode.constants.PaytmConstants;
 import com.web.hackercode.dao.CourseDAO;
 import com.web.hackercode.structures.Course;
 import com.web.hackercode.structures.EditChapter;
+import com.web.hackercode.structures.EditCourse;
 import com.web.hackercode.structures.EditLesson;
 import com.web.hackercode.structures.User;
 
@@ -67,7 +68,8 @@ public class CourseController {
     	CourseDAO cdao = ctx.getBean(CourseDAO.class);
     	if (courseCode != null) {
         	return new ModelAndView("test-admin-course-edit")
-        			.addObject("courseData", cdao.getCourseJson(courseCode));
+        			.addObject("courseData", cdao.getCourseJson(courseCode))
+        			.addObject("courseCode", courseCode);
     	}
     	
     	return null;
@@ -274,6 +276,21 @@ public class CourseController {
     	return cdao.markLessonComplete(user.getUsername(), chapterCode, lessonCode);
     }
     
+    @RequestMapping(value = "/admin/course/update/course", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean editCourse(HttpServletRequest req, 
+    		@ModelAttribute("EditCourse") EditCourse course) {
+    	
+    	CourseDAO cdao = ctx.getBean(CourseDAO.class);
+    	
+    	if (course.isUpdate()) {
+    		// update chapter	
+    		return cdao.updateCourse(course);
+    	}
+    	
+		return false;
+    }
+    
     @RequestMapping(value = "/admin/course/update/chapter", method = RequestMethod.POST)
     @ResponseBody
     public boolean editChapter(HttpServletRequest req, 
@@ -306,8 +323,45 @@ public class CourseController {
     		System.out.println("making new lesson" + lesson.toString());
     		return cdao.makeLesson(lesson);
     	}
-    	
-    	
     }
+    
+    @RequestMapping(value = "/admin/course/delete/entity", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean deleteEntity(HttpServletRequest req, @RequestParam String code,
+    		@RequestParam boolean isCourse,@RequestParam boolean isChapter,
+    		@RequestParam boolean isLesson) {
+    	
+    	System.out.println("Code to Delete" + code);
+    	CourseDAO cdao = ctx.getBean(CourseDAO.class);
+    	String tableName = null;
+    	String columnName = null;
+    	String codeColumn = null;
+    	
+    	if (isCourse) {
+    		if (cdao.deleteEntity(code, "hc_courses", "c_is_active", "c_code")) {
+    			if (cdao.deleteEntity(code, "hc_chapters", "ch_is_active", "ch_code")) {
+        			return cdao.deleteEntity(code, "hc_lessons", "l_is_active", "l_ch_code");
+        		}
+    		}
+    	}
+    	else if (isChapter) {
+    		
+    		System.out.println("Deleting Chapter");
+    		if (cdao.deleteEntity(code, "hc_chapters", "ch_is_active", "ch_code")) {
+    			return cdao.deleteEntity(code, "hc_lessons", "l_is_active", "l_ch_code");
+    		}
+    		
+    	}
+    	else if (isLesson) {
+    		System.out.println("Deleting Lesson");
+    		tableName = "hc_lessons";
+    		columnName = "l_is_active";
+    		codeColumn = "l_code";
+    		return cdao.deleteEntity(code, tableName, columnName, codeColumn);
+    	}
+    	
+    	return false;
+    }
+    
     
 }

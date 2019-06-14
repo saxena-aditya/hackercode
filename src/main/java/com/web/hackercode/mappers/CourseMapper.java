@@ -17,7 +17,9 @@ public class CourseMapper implements RowMapper<Course> {
        course.setTags(rs.getString("c_tags"));
        course.setMrp(rs.getInt("c_mrp"));
        course.setTotalDays(rs.getInt("c_total_days"));
-       
+       course.setIntro(rs.getString("c_intro"));
+       course.setCover(rs.getString("c_cover"));
+       course.setSubDesc(rs.getString("c_sub_desc"));
 	   return course;
    }
 }

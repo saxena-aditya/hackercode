@@ -1,0 +1,28 @@
+package com.web.hackercode.dao;
+
+import java.util.List;
+
+import com.web.hackercode.structures.Article;
+import com.web.hackercode.structures.ArticleCategory;
+import com.web.hackercode.structures.ArticleSubCategory;
+import com.web.hackercode.structures.User;
+
+public interface ArticleDAO {
+
+	public List<ArticleCategory> getCategories();
+	public List<ArticleSubCategory> getSubCategories(String categoryCode);
+	public boolean saveArticle(Article article, User user);
+	public boolean isArticlePresent(String id);
+	public boolean isArticlePresent(Article article);
+	public Article getArticle(String id);
+	public Article getArticle(Article a);
+	public List<Article> getAllApprovedArticles();
+	public List<Article> getAllNotApprovedArticles();
+	public boolean approveArticle(String id);
+	public boolean disapproveArticle(String id);
+	public String getNavJSON();
+	public List<Article> getSimilarArticles(String id,String tagStr);
+	public Article getCategoryArticle(String category, String subCategory);
+	public List<Article> getSameCatArticles(String category, String subCategory);
+
+}

@@ -60,6 +60,25 @@
               <span class="menu-title">Add Resources</span>
             </a>
           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="${ pageContext.request.contextPath }/admin/articles">
+              <i class="menu-icon mdi mdi-chart-line"></i>
+              <span class="menu-title">Articles</span>
+            </a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="${ pageContext.request.contextPath }/admin/intern-letters">
+              <i class="menu-icon mdi mdi-chart-line"></i>
+              <span class="menu-title">Internship Leads</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${ pageContext.request.contextPath }/resources/file-data/demo-data.xlsx">
+              <i class="menu-icon mdi mdi-table"></i>
+              <span class="menu-title">Demo Test File</span>
+            </a>
+          </li>
+         
          <!--  <li class="nav-item">
             <a class="nav-link" href="pages/icons/font-awesome.html">
               <i class="menu-icon mdi mdi-sticker"></i>

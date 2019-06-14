@@ -204,11 +204,16 @@ public class Question {
 		this.questionScope = questionScope;
 	}
 	
+	@Override
 	public String toString() {
-		return 	this.testId + " " + this.questionId + " "+ this.questionSet + " " + this.questionTag+" "+ this.questionType + " " + this.questionContent + " "+ this.questionMaxMarks+" "+ this.questionNegMarks
-		 +" "+ this.questionOptions
-		+" "+ this.questionAns
-		+ this.questionScope;
+		return "Question [testId=" + testId + ", questionId=" + questionId + ", questionSet=" + questionSet
+				+ ", questionTag=" + questionTag + ", questionType=" + questionType + ", questionContent="
+				+ questionContent + ", questionMaxMarks=" + questionMaxMarks + ", questionNegMarks=" + questionNegMarks
+				+ ", questionOptions=" + questionOptions + ", questionAns=" + questionAns + ", questionScope="
+				+ questionScope + ", isQuestionNew=" + isQuestionNew + ", status=" + status + ", isAnswered="
+				+ isAnswered + ", userAns=" + userAns + "]";
 	}
+	
+	
 	
 }

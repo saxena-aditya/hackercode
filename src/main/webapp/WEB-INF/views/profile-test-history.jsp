@@ -27,8 +27,8 @@
                     						</div>
                     					</div>
                     				</td>
-                    				<td><a href="${ pageConext.request.contextPath }/reports/${test.getTestCode()}?username=${user.getUsername()}">
-                    					<i class="fas fa-cogs"></i>
+                    				<td><a class="r-btn" href="${ pageConext.request.contextPath }/reports/${test.getTestCode()}?username=${user.getUsername()}">
+                    					View Report
                     				</a></td>
                     			</tr>
 							</c:forEach>

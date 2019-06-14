@@ -34,7 +34,7 @@
 <body>
 <section>
 	<nav class="navbar navbar-expand-lg navbar-light">
-	  <a class="navbar-brand" href="${pageContext.request.contextPath}">
+	  <a class="navbar-brand" href="${pageContext.request.contextPath}/">
 	  	<img src="${pageContext.request.contextPath}/resources/ff-ideas/logo.png" id="owl-graph" alt="">
 	  </a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@
 	     <div class="main-nav" id="top-nav">
 			<ul id="menu-hac">
 	      <li class="nav-item">
-	        <a class="nav-link" href="${ pageContext.request.contextPath }" id="home-al">Home <span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/" id="home-al">Home <span class="sr-only">(current)</span></a>
 	      </li>
 	      
 	    
@@ -194,7 +194,7 @@
 		<div class="col-md-5">
 			<div class="intro-video">
 				<video class="plyr">
-					<source src="https://do4k6lnx3y4m9.cloudfront.net/HackWithInfy_Intro2.mp4"></source>
+					<source src="${ course.getIntro() }"></source>
 				</video>
 			</div>
 			<div id="sticky-anchor"></div>
@@ -202,7 +202,7 @@
 				<div class="card">
 					<div class="card-body d-flex flex-wrap">
 						<div class="course-img">
-							<img src="data:image/png;base64,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" alt="" />
+							<img src="${ course.getCover() }" alt="" />
 						</div>
 						<div class="left">
 							<div class="buy-now-btn">
@@ -451,6 +451,8 @@
 			<div id="cd-login"> <!-- log in form -->
 			<span id="login-uri" style="display: none;">${pageContext.request.contextPath}/login?course=${course.getCode()}</span>
 			<span id="login-uri-normal" style="display: none;">${pageContext.request.contextPath}/login</span>
+						<div class="error-msg" style="display: none;text-align: center;padding: 20px 0 0 0;color: #E91E63;font-size: 1.2em;">Opps! Username or Password do not match. Please Try again..!</div>
+			
 				<form class="cd-form" id="login-frm" method="POST">
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="signin-email">E-mail</label>
@@ -471,7 +473,7 @@
 					</p>
 
 					<p class="fieldset">
-						<input class="full-width" type="submit" value="Login">
+						<input class="full-width sub-inp" type="submit" value="Login">
 					</p>
 				</form>
 				
@@ -480,57 +482,59 @@
 			</div> <!-- cd-login -->
 
 			<div id="cd-signup"> <!-- sign up form -->
-			<span style="display:none" id="signup-uri">${pageContext.request.contextPath}/signup?course=${course.getCode()}</span>
-			<span style="display:none" id="signup-uri-normal">${pageContext.request.contextPath}/signup</span>
-			
-				<form class="cd-form" id="signup-frm" method="post">
+				<form class="cd-form" action="${pageContext.request.contextPath}/signup" method="post">
 				<div class="row">
+				<p id="r-error-msg" style="display: none;text-align: center;width: 100%;padding: 0 0 20px 0;color: #F44336;">Oops! Seems like this E-Mail is already taken. Please Try Again.</p>
 					<div class="col-md-6">
 						<p class="fieldset">
 							<label class="image-replace cd-username" for="signup-username">First Name</label>
-							<input class="full-width has-padding has-border" name="fName" id="signup-username" type="text" placeholder="First Name">
-							<span class="cd-error-message">Error message here!</span>
+							<input class="full-width has-padding has-border" name="fName" id="flName" type="text" placeholder="First Name">
+							<span class="cd-error-message">Please use a valid value</span>
 						</p>
 					</div>
 					<div class="col-md-6">
 						<p class="fieldset">
 							<label class="image-replace cd-username" for="signup-username">Last Name</label>
-							<input class="full-width has-padding has-border" name="lName" id="signup-username" type="text" placeholder="Last Name">
-							<span class="cd-error-message">Error message here!</span>
+							<input class="full-width has-padding has-border" name="lName" id="llName" type="text" placeholder="Last Name">
+							<span class="cd-error-message">Please use a valid value</span>
 						</p>
 					</div>
 				</div>
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="signup-username">E-mail</label>
-						<input class="full-width has-padding has-border" name="email" id="signup-username" type="text" placeholder="E-mail">
-						<span class="cd-error-message">Error message here!</span>
+						<input class="full-width has-padding has-border" name="email" id="emaill" type="text" placeholder="E-mail">
+						<span class="cd-error-message">Please use a valid value</span>
 					</p>
 
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="signup-email">Phone Number</label>
-						<input class="full-width has-padding has-border" name="phoneNum" id="signup-email" type="number" placeholder="Phone Number">
-						<span class="cd-error-message">Error message here!</span>
+						<input class="full-width has-padding has-border" name="phoneNum" id="phonel" type="text" placeholder="Phone Number">
+						<span class="cd-error-message">Please use a valid value</span>
 					</p>
 
 					<p class="fieldset">
 						<label class="image-replace cd-password" for="signup-password">Password</label>
-						<input class="full-width has-padding has-border" name="password" id="signup-password" type="text"  placeholder="Password">
+						<input class="full-width has-padding has-border" name="password" id="passwordl" type="text"  placeholder="Password">
 						<a href="#" class="hide-password">Hide</a>
-						<span class="cd-error-message">Error message here!</span>
+						<span class="cd-error-message">Please use a valid value</span>
 					</p>
 
 					<p class="fieldset">
 						<input type="checkbox" id="accept-terms">
 						<label for="accept-terms">I agree to the <a href="#">Terms</a></label>
 					</p>
-
+					<p id="policy-c">
+						<span style="padding: 0 0 5px 0;"><strong>Note: </strong><span>Please accept the terms and conditions before proceeding</span></span>
+					</p>
 					<p class="fieldset">
-						<input class="full-width has-padding" type="submit" value="Create account">
+						
+						<input class="full-width has-padding acc-init" type="submit" value="Create account" disabled>
 					</p>
 				</form>
 
 				<!-- <a href="#" class="cd-close-form">Close</a> -->
 			</div> <!-- cd-signup -->
+
 
 			<div id="cd-reset-password"> <!-- reset password form -->
 				<p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
@@ -674,7 +678,141 @@
     		event.preventDefault();
     		$form_signup.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
     	}); */
+    	$form_login.find('input[type="submit"]').on('click', function(event){
+    		event.preventDefault();
+    		$.ajax({
+    			method: "POST",
+    			url: $("#login-frm").attr("action"),
+    			data: {
+    				username: $("#signin-email").val(), 
+    				password: $("#signin-password").val()
+    			},
+    			beforeSend: function() {
+    				console.log("sending login");
+    				$(".sub-inp").val("Checking...");
+    			},
+    			success: function(data) {
+    				if (data) {
+    					let login = JSON.parse(data);
+						if (login.isUser) {
+							window.location.href = "/" + login.view;
+            				$(".sub-inp").val("Logging In...");
 
+						}
+						else {
+							$(".error-msg").show();
+            				$(".sub-inp").val("Login");
+
+						}
+    				}
+    			},
+    			error: function(a, xhr, b) {
+    				console.log(a, xhr, b);
+    			}
+    			
+    		})
+    		//$form_login.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
+    	});
+    	
+    	function validateEmail(email) {
+    		if (email.length === 0) return false;
+    		  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    		  return re.test(email);
+    	}
+    	$("#accept-terms").on("click", function(e) {
+    		if($(this).prop("checked") == true){
+    			$form_signup.find('input[type="submit"]').removeAttr("disabled");
+    			$("#policy-c").hide();
+    		}
+            else if($(this).prop("checked") == false){
+    			$("#policy-c").show();
+    			$form_signup.find('input[type="submit"]').attr("disabled", "disabled");
+            }
+    	}) 
+    	$form_signup.find('input[type="submit"]').on('click', function(event){
+    		event.preventDefault();
+    		let r = {
+    				flName: $("#flName").val(),
+    				llName: $("#llName").val(),
+    				phonel: $("#phonel").val(),
+    				emaill: $("#emaill").val(),
+    				passwordl: $("#passwordl").val()
+    		};
+    		console.log("regester", r );
+    		let error = false;
+    		Object.keys(r).forEach(e => {
+    			console.log("key", r[e].length);
+    			if (r[e].length === 0) {
+    				$form_signup.find('#' + e).addClass('has-error').next('span').addClass('is-visible');
+    				error = true;
+    			}else {
+    				$form_signup.find('#' + e).removeClass('has-error').next('span').removeClass('is-visible');
+    			}
+    			
+    			if (e === "emaill") {
+    				if (!validateEmail(r[e])) {
+        				$form_signup.find('#' + e).addClass('has-error').next('span').addClass('is-visible');
+        				error = true;
+
+    				}
+    				else {
+        				$form_signup.find('#' + e).removeClass('has-error').next('span').removeClass('is-visible');
+    				}
+    			}
+    			
+    			if (e === "phonel") {
+    				if (r[e].length !== 10) {
+        				$form_signup.find('#' + e).addClass('has-error').next('span').addClass('is-visible');
+        				error = true;
+
+    				}
+    				else {
+        				$form_signup.find('#' + e).removeClass('has-error').next('span').removeClass('is-visible');
+    				}
+    			}
+    		});
+    		
+    		if (!error) {
+    			// save data
+    			$.ajax({
+    				method: "POST",
+    				url: "/signup",
+    				data: {
+    					fName: r.flName,
+    					lName: r.llName,
+    					email: r.emaill,
+    					password: r.passwordl,
+    					phone: r.phonel,
+    				},
+    				beforeSend:function() {
+    					$(".acc-init").val("Registering...");
+    				},
+    				success: function(data) {
+    					if (data) {
+    						let reg = JSON.parse(data);
+    						console.log(reg);
+    						if (reg.error) {
+    							$("#r-error-msg").show();
+            					$(".acc-init").val("Create Account");
+
+    						}
+    						else {
+    							window.location.href = reg.view;
+            					$(".acc-init").val("Logging In...")
+
+    						}
+    					}
+    				},
+    				error: function(a, xhr, b) {
+    					console.log(a, xhr, b);
+    				}
+    				
+    			})
+    		}
+
+    		
+    		return false;
+    	}); 
 
     	//IE9 placeholder fallback
     	//credits http://www.hagenburger.net/BLOG/HTML5-Input-Placeholder-Fix-With-jQuery.html

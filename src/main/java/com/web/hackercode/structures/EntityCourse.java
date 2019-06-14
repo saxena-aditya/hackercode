@@ -10,8 +10,48 @@ public class EntityCourse {
 	private int mrp;
 	private String creator;
 	private String subDesc;
+	private String intro;
+	private String cover;
+	private int lessonCount;
 	
 	
+	
+	/**
+	 * @return the lessonCount
+	 */
+	public int getLessonCount() {
+		return lessonCount;
+	}
+	/**
+	 * @param lessonCount the lessonCount to set
+	 */
+	public void setLessonCount(int lessonCount) {
+		this.lessonCount = lessonCount;
+	}
+	/**
+	 * @return the intro
+	 */
+	public String getIntro() {
+		return intro;
+	}
+	/**
+	 * @param intro the intro to set
+	 */
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+	/**
+	 * @return the cover
+	 */
+	public String getCover() {
+		return cover;
+	}
+	/**
+	 * @param cover the cover to set
+	 */
+	public void setCover(String cover) {
+		this.cover = cover;
+	}
 	/**
 	 * @return the subDesc
 	 */

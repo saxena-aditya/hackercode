@@ -34,7 +34,7 @@
                  <h5 class="contact-us">Contact</h5>
                    <ul>
                    		<li><i class="fas fa-envelope"></i> &nbsp;hackercode.19@gmail.com</li>
-                   		<li><i class="fas fa-phone"></i>&nbsp; +91 7017214308</li>
+                   		<li><i class="fas fa-phone"></i>&nbsp; +91 8181813626</li>
                    		<li><i class="fas fa-map-marker"></i>&nbsp; Society Area, Clementown, Dehradun 248002</li>
                    </ul>
                     <div class="social-networks">
