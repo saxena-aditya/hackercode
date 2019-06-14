@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.tomcat.dbcp.dbcp2.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +23,7 @@ import com.web.hackercode.structures.ArticleCategory;
 import com.web.hackercode.structures.ArticleSubCategory;
 import com.web.hackercode.structures.Program;
 import com.web.hackercode.structures.User;
+import com.web.hackercode.utility.Utility;
 import com.web.hackercode.structures.Article;
 
 @Component
@@ -30,7 +32,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	@Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
+    Utility utils = new Utility();
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -117,7 +119,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 						article.getTags(),
 						article.getCategoryCode(),
 						article.getSubCategoryCode(),
-						article.getContent()
+						utils.getHTMLCompatContent(article.getContent()) 
 				});
 				
 				// for getting inserted article ID

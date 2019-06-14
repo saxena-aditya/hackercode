@@ -383,6 +383,7 @@ function buildCourseUI(data, dest) {
     const courseStartEvent = "getCourselessons";
     const sideNavEvents = ['getCompletedTests', 'getLiveTests', 'getCompletedTests', 'getMyCourses', 'clickFileUpload','getMyCourses'];
     let container = document.getElementById("content");
+    window['getLiveTests']();
     $(document).on("click", "a, button, i", function(e) {
         if (sideNavHandles.includes(e.target.id)) {
             let index = sideNavHandles.indexOf(e.target.id);

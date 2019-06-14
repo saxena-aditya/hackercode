@@ -5,6 +5,7 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import com.web.hackercode.structures.InternshipForm;
 import com.web.hackercode.structures.Register;
 import com.web.hackercode.structures.User;
 import com.web.hackercode.utility.Utility;
+import org.apache.commons.lang.StringUtils;
 
 @Controller
 public class HomeController {
@@ -47,6 +49,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET) 
 	  public ModelAndView showIndex(HttpServletRequest req) {
+		
+		
 		String url = "";
 		ReportsDAO rdao = ctx.getBean(ReportsDAO.class);
 		CourseDAO cdao = ctx.getBean(CourseDAO.class);

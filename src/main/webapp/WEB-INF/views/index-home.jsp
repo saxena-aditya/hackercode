@@ -347,7 +347,7 @@
 					    <ul class="navbar-nav ml-auto" id="categories">
 					     
 					     
-					      <li class="nav-item dropdown active">
+					      <!-- <li class="nav-item dropdown active">
 					        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					          Dropdown link
 					        </a>
@@ -356,7 +356,7 @@
 					          <a class="dropdown-item" href="#">Another action</a>
 					          <a class="dropdown-item" href="#">Something else here</a>
 					        </div>
-					      </li>
+					      </li> -->
 					    </ul>
 					  </div>
 					</nav>

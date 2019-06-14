@@ -135,6 +135,7 @@ public class TestController extends AbstractController {
                     q.setQuestionSet(dm.formatCellValue(row.getCell(0)));
                     q.setQuestionTag(dm.formatCellValue(row.getCell(1)));
                     q.setQuestionType(dm.formatCellValue(row.getCell(2)));
+                    
                     q.setQuestionContent(dm.formatCellValue(row.getCell(3)));
                     q.setQuestionMaxMarks(Integer.parseInt(dm.formatCellValue(row.getCell(4))));
                     q.setQuestionNegMarks(Integer.parseInt(dm.formatCellValue(row.getCell(5))));

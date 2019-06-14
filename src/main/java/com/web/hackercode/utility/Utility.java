@@ -6,6 +6,9 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
+
 public class Utility {
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -57,6 +60,28 @@ public class Utility {
 		    
 		    return builder.toString();
 	    }
+
+	public String getHTMLCompatContent(String content) {
+		
+		try {
+			String[] bts = StringUtils.substringsBetween(content, "<pre><code>", "</code></pre>");
+			
+			if (bts.length > 0) {
+				System.out.println("Found code");
+				for (String bt : bts) {
+					String escaped = StringEscapeUtils.escapeHtml4(bt);
+					content = StringUtils.replace(content, bt, escaped);
+					 
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();	
+		}
+		
+		
+		return content; 
+	}
 
 
 }

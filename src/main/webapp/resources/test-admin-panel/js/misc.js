@@ -157,7 +157,10 @@
                 ["font", ["bold", "underline", "clear"]],
                 ["view", ["codeview", "help"]]
 	    	],
-	    	height: 300
+	    	height: 300,
+	    	 codemirror: { // code mirror options
+	             theme: 'monokai'
+	         }
 	    });
 	    console.log(question, testSets);
 	    // $('#modal').iziModal('setZindex', 99999);

@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -77,7 +78,14 @@ public class TestDAOImpl implements TestDAO {
    
     
     public boolean saveFile(int testId, MultipartFile file) throws IOException {
-
+    		
+    	
+    	
+    	String unEscapedString = "<java>public static void main(String[] args) { ... }</java>";
+        
+        String escapedHTML = StringEscapeUtils.escapeHtml4(unEscapedString);
+        		
+        		
         String LOCATION = "";
         System.out.println(file.getName());
         InputStream in = file.getInputStream();
@@ -615,6 +623,7 @@ public class TestDAOImpl implements TestDAO {
 	}
 	
 	
+	
 	public boolean saveQuestion(Question question, int mode) {
 		String SAVE_QUESTION = "INSERT INTO hc_questions () VALUES ()";
 		String ADD_QUESTION_TO_TEST = "INSERT INTO hc_test_questions (tq_test_id, tq_question_id) VALUES (?,?)";
@@ -622,12 +631,14 @@ public class TestDAOImpl implements TestDAO {
 		jdbcTemplate.setDataSource(getDataSource());
 		// mode: 0 => Update Question
 		// mode: 1 => Insert New Question
+		
+		
 		if (mode == 0) {
 			jdbcTemplate.update(UPDATE_QUESTION, new Object[] {
 				question.getQuestionSet(),
 				question.getQuestionTag(),
 				question.getQuestionType(),
-				question.getQuestionContent(),
+				utils.getHTMLCompatContent(question.getQuestionContent()),
 				question.getQuestionMaxMarks(),
 				question.getQuestionNegMarks(),
 				question.getQuestionOptions(),

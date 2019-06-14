@@ -306,7 +306,21 @@
 	      <div class="modal-body">
 	        Click to Submit Test
 	        <br>
-	      </div>
+          </div>
+          <div class="container">
+            <table class="table">
+                    <thead class="thead-dark">
+                            <tr>
+                              <th scope="col">Section</th>
+                              <th scope="col">Total Questions</th>
+                              <th scope="col">Questions Attempted</th>
+                            </tr>
+                  </thead>
+                  <tbody id="table-body">
+
+                  </tbody>
+            </table>
+          </div>
 	      <div class="modal-footer">
 	        <a type="button" href="dashboard" class="btn btn-primary" id="confirmSubmit">Submit Test</a>
 	      </div>

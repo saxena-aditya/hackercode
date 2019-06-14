@@ -483,7 +483,8 @@ $(function() {
         const index = slideNumber - temp_length;
         //test_store.question_set[key].questions
         const temp_status_check = answer_status_store[test_slides[slideNumber].id].status;
-        if( (temp_status_check !== "not-answered" && temp_status_check !== "visited") && (!setChangeButtonClicked) && !(isSubmitButtionClicked) && !((isSubmitButtionClicked) || (wasLastSlide)) ) {
+        if( (temp_status_check !== "not-answered" && temp_status_check !== "visited") && !(temp_status_check === "normal") && (!setChangeButtonClicked) && !(isSubmitButtionClicked) && !((isSubmitButtionClicked) || (wasLastSlide)) ) {
+            alert(`SORRY NO CLASS CAN BE ADDED, ${temp_status_check} , ${currentSlide}, ${index} , ${slideNumber}`)
         	 return;
         }
         if (isAnswered(tags)) {
@@ -690,6 +691,7 @@ $(function() {
                 inputTags[i].checked = false;
             }
         });
+        console.log("CLEAR RESPONSE CALLED !!!")
         let temp_length = getLengthTillSetIndex(current_question_set);
         const key = question_sets[current_question_set];
         const index = currentSlide - temp_length;
@@ -697,6 +699,7 @@ $(function() {
         test_store.question_set[key].questions[index].answer = undefined; //updating the answer
         answer_status_store[test_slides[currentSlide].id].answer = undefined;
         answer_status_store[test_slides[currentSlide].id].answered = false;
+        alert(answer_status_store[test_slides[currentSlide].id]);
     }
 
 
@@ -735,11 +738,16 @@ $(function() {
     
     clear.addEventListener('click', function(e) {
         e.preventDefault();
+        alert("CLEAR RESPONSE BUTTON CLICKED")
         clearResponse();
     });
 
     submit.addEventListener('click', function(e) {
         e.preventDefault();
+        // Adding table to the modal
+        const testAttemptDataString = testAttemptData();
+        //alert(testAttemptDataString)
+        $("#table-body").html(testAttemptDataString);
         $("#confirmSubmitModal").modal({
             backdrop: "static"
         });
@@ -928,6 +936,49 @@ function showSnack() {
   
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 }
+
+// function for caclulating how many questions are there and how many someone attempted
+function testAttemptData() {
+    let attemptData = [];
+    console.log("TEST ATTEMPT DATA STORE CALLED");
+    let keysArray = Object.keys(test_store.question_set); //we will get the keys here such as set-1 , set-2 ,set-3
+        keysArray.forEach(key => {
+
+        //key would be like set-1 set-2 set-3
+        console.log("KEY >>>>>>>>>", key);
+        
+        let setName = key;
+        let setLength =  test_store.question_set[key].questions.length;
+        let attemptedQuestion = 0;
+
+
+        test_store.question_set[key].questions.forEach((question, index) => { //question [{} , {} ,{} ]
+            //{}
+            console.log("question ", question);
+            const id = question.id;
+            const fromQuestionStatusStore = answer_status_store[id];
+            if (fromQuestionStatusStore.answer) {
+                attemptedQuestion += 1;
+            }
+        })
+
+        let htmlString  = `<tr>
+                           <th scope="row">${setName}</th>
+                           <td>${setLength}</td>
+                           <td>${attemptedQuestion}</td>
+                           </tr>`
+                       
+        attemptData.push(htmlString);
+
+
+    })
+
+
+    return attemptData.join('');
+}
+
+
+
 window.onfocus = function () {
 	
 
@@ -937,7 +988,6 @@ window.onfocus = function () {
             isTabActive = true; 
         }
         else {
-            
             testCancle = true;
         }
     }
