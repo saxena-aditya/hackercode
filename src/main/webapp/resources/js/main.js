@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	   if(window.innerWidth >= 800 && window.innerHeight >= 600) {
+	   if(window.innerWidth >= 800 && window.innerHeight >= 560) {
 		  // Resolution is 1024x768 or above
 		$('#fullpage').fullpage({
 	        //options here
