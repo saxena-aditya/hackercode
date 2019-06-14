@@ -483,7 +483,8 @@ $(function() {
         const index = slideNumber - temp_length;
         //test_store.question_set[key].questions
         const temp_status_check = answer_status_store[test_slides[slideNumber].id].status;
-        if( (temp_status_check !== "not-answered" && temp_status_check !== "visited") && (!setChangeButtonClicked) && !(isSubmitButtionClicked) && !((isSubmitButtionClicked) || (wasLastSlide)) ) {
+        if( (temp_status_check !== "not-answered" && temp_status_check !== "visited") && !(temp_status_check === "normal") && (!setChangeButtonClicked) && !(isSubmitButtionClicked) && !((isSubmitButtionClicked) || (wasLastSlide)) ) {
+            alert(`SORRY NO CLASS CAN BE ADDED, ${temp_status_check} , ${currentSlide}, ${index} , ${slideNumber}`)
         	 return;
         }
         if (isAnswered(tags)) {
