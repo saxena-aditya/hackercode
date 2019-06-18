@@ -1407,3 +1407,8 @@ i.fab.fa-facebook.fb {
   color: white !important;
   background: blue !important;
 }
+
+ol.f {
+	list-style-type: decimal;
+	padding: 4px;
+}
