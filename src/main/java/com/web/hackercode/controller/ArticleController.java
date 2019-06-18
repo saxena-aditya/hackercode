@@ -45,20 +45,20 @@ public class ArticleController {
 				 .addObject("nav", adao.getNavJSON());
 	 }
 	 
-	 @RequestMapping(value = "/article/{articleCode}/{articleName}")
+	 @RequestMapping(value = "/article/{articleIDHash}/{articleName}")
 	 public ModelAndView article(HttpServletRequest req, 
-			 @PathVariable String articleCode, @PathVariable String articleName ) {
+			 @PathVariable String articleIDHash, @PathVariable String articleName ) {
 		 
 		 ArticleDAO adao = ctx.getBean(ArticleDAO.class);
 		 CourseDAO cdao = ctx.getBean(CourseDAO.class);
-		 Article article = adao.getArticle(articleCode);
+		 Article article = adao.getArticle(articleIDHash);
 		 
 		 String tagStr = article.getTags().replaceAll(",", "|");
 		 System.out.println(tagStr);
 		 
 		 return new ModelAndView("articles/article")
 				 .addObject("article", article)
-				 .addObject("similarArticles", adao.getSimilarArticles(articleCode, tagStr))
+				 .addObject("similarArticles", adao.getSimilarArticles(articleIDHash, tagStr))
 				 .addObject("courses", cdao.getSimilarCourse(tagStr))
 				 .addObject("nav", adao.getNavJSON());
 	 }
@@ -77,6 +77,19 @@ public class ArticleController {
 			 RedirectView view = new RedirectView("/");
 			 return new ModelAndView(view);
 		 }
+		 
+	 }
+	 
+	 @RequestMapping( value = "/admin/articles/review/{id}", method = RequestMethod.GET)
+	 public ModelAndView reviewArticle(@PathVariable String id) {
+		 ArticleDAO adao = ctx.getBean(ArticleDAO.class);
+		 Article a = adao.getArticle(id);
+		 if (a != null) {
+			 return new ModelAndView("test-admin-dashboard-review-article")
+					 .addObject("article", a);
+		 }
+		 
+		return null;
 		 
 	 }
 	 

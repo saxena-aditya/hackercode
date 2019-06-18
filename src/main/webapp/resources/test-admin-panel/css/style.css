@@ -21278,3 +21278,21 @@ dl li, ol li, ul li {
     left: 0;
     z-index: 996 !important;
 }
+a.edit-cr {
+    font-size: 1.1em;
+    margin:  0 5px 0 0;
+    color: inherit;
+    /* padding:  3px; */
+}
+div.chapter-container {
+    border: solid 1px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-color: #000000c9;
+}
+
+div.lesson-container {
+    border: solid 1px;
+    padding:  10px;
+    border-color: #0000008c;
+}

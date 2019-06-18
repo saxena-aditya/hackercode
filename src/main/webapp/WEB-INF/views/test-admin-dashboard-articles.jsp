@@ -69,7 +69,7 @@
 	          							<td><button class="btn btn-success s-btn approve" id="article-${ article.getId() }"><i class="fas fa-check-circle" id="status-${ article.getId() }"></i></button></td>
 	          							<td>${ article.getName() }</td>
 	          							<td>${ article.getUserName() }</td>
-	          							<td>${ article.getTitle() }</td>
+	          							<td><a href="/admin/articles/review/${ article.getId_hash() }">${ article.getTitle() }</a></td>
 	          							<td>${ article.getCategory() } > ${ article.getSubCategory() }</td>
 	          							
 	          						</tr>

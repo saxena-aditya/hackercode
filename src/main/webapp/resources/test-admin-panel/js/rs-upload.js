@@ -3,15 +3,15 @@
 	$("#status, .progress").hide();
 
     var albumBucketName = 'hcvideo212';
-    var bucketRegion = 'us-east-1';
-    var IdentityPoolId = 'us-east-1:bd02edbc-3f46-4c0e-9ebe-ea8f4f80c8b3';
+    var bucketRegion = "ap-south-1";
+    var IdentityPoolId = "ap-south-1:8ab0020b-b609-4377-899b-bd39c4aa120b";
 
     AWS.config.update({
         credentials: new AWS.CognitoIdentityCredentials({
             IdentityPoolId: IdentityPoolId
         })
     });
-    AWS.config.region = 'us-east-1';
+    AWS.config.region = bucketRegion;
 
     var s3 = new AWS.S3({
         apiVersion: '2006-03-01',

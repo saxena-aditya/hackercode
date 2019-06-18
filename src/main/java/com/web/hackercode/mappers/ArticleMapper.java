@@ -19,6 +19,7 @@ public class ArticleMapper implements RowMapper<Article> {
 	     a.setContent(rs.getString("content"));
 	     a.setCategory(rs.getString("cat"));
 	     a.setSubCategory(rs.getString("sub_cat"));
+	     a.setId_hash(rs.getString("id_hash"));
 	     
 	     return a;
 	   }

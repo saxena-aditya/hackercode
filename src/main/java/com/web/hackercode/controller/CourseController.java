@@ -28,11 +28,13 @@ import com.web.hackercode.structures.EditChapter;
 import com.web.hackercode.structures.EditCourse;
 import com.web.hackercode.structures.EditLesson;
 import com.web.hackercode.structures.User;
+import com.web.hackercode.utility.Utility;
 
 
 @Controller
 public class CourseController {
     ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
+    Utility utils = new Utility();
     
     @RequestMapping(value = "/get-live-courses", method = RequestMethod.GET)
     public ModelAndView getLiveCourses(HttpServletRequest req) throws InterruptedException{
@@ -61,6 +63,19 @@ public class CourseController {
 		}
     	return null;
 	}
+    
+    @RequestMapping(value = "/admin/courses", method = RequestMethod.GET)
+    public ModelAndView showCourse(HttpServletRequest req) {
+    	CourseDAO cdao = ctx.getBean(CourseDAO.class);
+    	
+    	if (utils.isUserAuthenticated(req)) {
+    		return new ModelAndView("test-admin-dashboard-courses")
+    				.addObject("courses", cdao.getEntityCourses(req));
+    	}
+    	
+    	return new ModelAndView(new RedirectView("/"));
+    	// return error!
+    }
     
     @RequestMapping(value = "/admin/courses/edit/{courseCode}", method = RequestMethod.GET)
     public ModelAndView editCourse(HttpServletRequest req, @PathVariable String courseCode) {

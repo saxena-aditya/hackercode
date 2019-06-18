@@ -59,7 +59,7 @@
 	                	<c:set var = "str" value = "${fn:toLowerCase(str)}" />
 	                	
       					<c:set var = "title" value = "${fn:replace(str, ' ', '-')}" />
-	                        <div class="name"><a href="${ pageContext.request.contextPath }/article/${a.getId()}/${title}">${ a.getTitle() }</a> </div>
+	                        <div class="name"><a href="${ pageContext.request.contextPath }/article/${a.getId_hash()}/${title}">${ a.getTitle() }</a> </div>
 	                        <div class="details d-flex">
 	                            <div class="date"><i class="fas fa-calendar-week"></i> 26 April 2018</div>
 	                            <div class="visits"><i class="fas fa-eye"></i> 50 views</div>

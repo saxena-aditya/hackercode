@@ -18,7 +18,7 @@ public interface UserDAO {
 	public User saveUser(HttpServletRequest req, Register user);
 	public void updateUserInfo(User u, User currentUser);
 	public String returnImagePath(MultipartFile file) throws IOException;
-	public String uploadFile(HttpServletRequest req, MultipartFile file);
+	public String uploadFile(HttpServletRequest req, MultipartFile file, String relPath);
 	public boolean isUser(String username, String password, HttpServletRequest request);
 	public boolean savePicture(User user, String filePath);
 	public boolean saveResetLink(String username, String resetLink);

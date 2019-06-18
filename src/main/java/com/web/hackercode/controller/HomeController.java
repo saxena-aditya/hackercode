@@ -3,9 +3,11 @@ package com.web.hackercode.controller;
 
 import java.util.Enumeration;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,9 @@ import org.apache.commons.lang.StringUtils;
 
 @Controller
 public class HomeController {
-
+	@Autowired
+    ServletContext context;
+	
 	String message = "Welcome to Spring MVC!";
     ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
     Utility utils = new Utility();
@@ -49,7 +53,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET) 
 	  public ModelAndView showIndex(HttpServletRequest req) {
-		
 		
 		String url = "";
 		ReportsDAO rdao = ctx.getBean(ReportsDAO.class);
@@ -138,9 +141,7 @@ public class HomeController {
 					 url = "profile";
 				 }
 			 }
-    		 
-			 
-    			
+    		
     	}
 	    	
 		  return new ModelAndView("resources")
@@ -164,6 +165,4 @@ public class HomeController {
 		  return obj.toString(); 
 	  }
 	  
-	 
-
 }

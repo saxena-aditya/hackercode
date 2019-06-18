@@ -11,7 +11,7 @@
     }
   }
 
-  // Launch fullscreen for browsers that support it!
+  // Launch full screen for browsers that support it!
   document.getElementById('f-btn').addEventListener('click', function (e) {
     console.log('sd');
     launchIntoFullscreen(document.documentElement);

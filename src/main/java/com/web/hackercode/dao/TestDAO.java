@@ -18,11 +18,11 @@ import com.web.hackercode.structures.User;
 
 
 public interface TestDAO {
-	public boolean saveTest(Test test) throws IOException;
+	public boolean saveTest(Test test, String path) throws IOException;
 	public boolean saveQuestions(int testId, Question q);
 	public String getTestData(int testIdentifier, String test_id, String user_id);
 	public JsonObject makeAnswerSheet(String data,HttpServletRequest request);
-	public boolean saveFile(int testId, MultipartFile file) throws IOException;
+	public boolean saveFile(int testId, MultipartFile file, String path) throws IOException;
 	public String getStoredTestData(String json);
 	public Test getTest(int testId);
 	public Test getTest(String testCode);

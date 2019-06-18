@@ -28,6 +28,7 @@ $(function () {
     				console.log(categories);
     				
     				let subCatContainer = $("#sub-cat");
+    				subCatContainer.html("");
     				categories.forEach((cat) => {
     					let option =  $("<option>", {
     						value: cat.id

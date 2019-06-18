@@ -1,5 +1,6 @@
 package com.web.hackercode.controller;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,10 @@ import com.web.hackercode.utility.Utility;
 @Controller
 public class UserController {
 	
+
+	@Autowired
+    ServletContext context;
+	
 	
     ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
     Utility utils = new Utility();
@@ -43,10 +48,14 @@ public class UserController {
     public boolean saveProfilePic(HttpServletRequest req, 
     		@RequestParam("profile-pic") MultipartFile file) {
     	
+    	 
+        String relativeWebPath = "/resources/ff-ideas/img";
+		String absoluteFilePath = context.getRealPath(relativeWebPath);
+    	
     	UserDAO userDao = ctx.getBean(UserDAO.class);
     	TestDAO testDao = ctx.getBean(TestDAO.class);
     	User user = (User) req.getSession().getAttribute("user");
-    	String filePath = userDao.uploadFile(req, file);
+    	String filePath = userDao.uploadFile(req, file, absoluteFilePath);
     	if (filePath.length() != 0) {
     		boolean x = userDao.savePicture(user, filePath);
     		System.out.println("after request");

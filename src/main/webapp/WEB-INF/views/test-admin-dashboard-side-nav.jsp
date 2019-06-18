@@ -42,12 +42,7 @@
               </ul>
             </div>
           </li> -->
-          <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/tests" id="tests-all">
-              <i class="menu-icon mdi mdi-backup-restore"></i>
-              <span class="menu-title">Your Tests</span>
-            </a>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/admin/add-courses">
               <i class="menu-icon mdi mdi-chart-line"></i>
@@ -58,6 +53,18 @@
             <a class="nav-link" href="${ pageContext.request.contextPath }/admin/add-resources">
               <i class="menu-icon mdi mdi-table"></i>
               <span class="menu-title">Add Resources</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/admin/tests" id="tests-all">
+              <i class="menu-icon mdi mdi-backup-restore"></i>
+              <span class="menu-title">Your Tests</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/admin/courses" id="tests-all">
+              <i class="menu-icon mdi mdi-chart-line"></i>
+              <span class="menu-title">Your Courses</span>
             </a>
           </li>
            <li class="nav-item">
