@@ -281,7 +281,7 @@ public class TestController extends AbstractController {
         testDAO.getStoredTestData(json);
     }
     
-    @RequestMapping(value = "/tests", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/tests", method = RequestMethod.GET)
     public ModelAndView showTests(HttpServletRequest req) {
     	TestDAO testDao = ctx.getBean(TestDAO.class);
     	if (utils.isUserAuthenticated(req)) {
