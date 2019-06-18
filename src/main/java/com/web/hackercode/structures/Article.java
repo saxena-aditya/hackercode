@@ -14,9 +14,23 @@ public class Article {
 	private String userName;
 	private String name;
 	private Timestamp created_at;
+	public String id_hash;
 	
 	
 	
+	
+	/**
+	 * @return the id_hash
+	 */
+	public String getId_hash() {
+		return id_hash;
+	}
+	/**
+	 * @param id_hash the id_hash to set
+	 */
+	public void setId_hash(String id_hash) {
+		this.id_hash = id_hash;
+	}
 	/**
 	 * @return the created_at
 	 */

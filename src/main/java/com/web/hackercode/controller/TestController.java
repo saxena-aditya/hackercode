@@ -10,8 +10,12 @@ import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -47,6 +51,10 @@ import org.springframework.validation.BindingResult;
 
 @Controller
 public class TestController extends AbstractController {
+	
+	@Autowired
+    ServletContext context;
+	
     ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
     Utility utils = new Utility();
     User loggedInUser = null;
@@ -60,11 +68,14 @@ public class TestController extends AbstractController {
     @ResponseBody
     public int saveTest(@ModelAttribute("test") Test test, BindingResult result) {
         TestDAO testDAO = ctx.getBean(TestDAO.class);
-      
+       
+        String relativeWebPath = "/resources/file-data";
+		String absoluteFilePath = context.getRealPath(relativeWebPath);
+		
         System.out.println(result.getModel().toString());
         if (result.hasErrors()) return 0;
         try {
-            boolean testSaved = testDAO.saveTest(test);
+            boolean testSaved = testDAO.saveTest(test, absoluteFilePath);
             if (testSaved) {
                 return 1;
             } else {

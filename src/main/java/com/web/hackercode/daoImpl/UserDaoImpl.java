@@ -71,14 +71,14 @@ public class UserDaoImpl implements UserDAO {
 		
 		return false;
 	}
-	public String uploadFile(HttpServletRequest req, MultipartFile file) {
+	public String uploadFile(HttpServletRequest req, MultipartFile file, String relPath) {
 		if (!file.isEmpty()) {
 			String LOCATION = null;
 	        InputStream in;
 	        FileOutputStream f = null;
 			try {
 				in = file.getInputStream();
-				File currdir = new File("A:\\HackerCode\\src\\main\\webapp\\resources\\ff-ideas\\img");
+				File currdir = new File(relPath);
 		        String path = currdir.getAbsolutePath();
 		        LOCATION = path.substring(0, path.length()) + "\\" + file.getOriginalFilename();
 		        f = new FileOutputStream(LOCATION);

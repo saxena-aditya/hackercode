@@ -7,6 +7,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>HelloWorld Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	
+	
 
 	<properties>
 		<spring.version>4.3.1.RELEASE</spring.version>
@@ -168,9 +170,25 @@
         
 		
 	</dependencies>
-
-
 	<build>
+	<plugins>
+      
+      
+      <plugin>  
+		 <groupId>org.apache.tomcat.maven</groupId>  
+		 <artifactId>tomcat7-maven-plugin</artifactId>  
+		 <version>2.2</version>  
+		 <configuration>  
+		  <url>http://hackercode.in:80/manager/text</url>  
+		  <server>TomcatServer</server>  
+		  <path>/hackercode-maven-deploy</path>
+	      <username>hackercode</username>
+    	  <password>hackercode</password>
+    	  <update>true</update>
+    	  
+		 </configuration>   
+		</plugin> 
+    </plugins>
 		<finalName>WebHackerCode</finalName>
 	</build>
 </project>

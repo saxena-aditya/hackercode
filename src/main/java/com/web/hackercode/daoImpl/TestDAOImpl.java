@@ -31,6 +31,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,10 @@ import com.google.gson.*;
 
 @Component
 public class TestDAOImpl implements TestDAO {
+	/*
+	 * @Autowired ServletContext context;
+	 */
+	
     @Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
@@ -77,9 +82,10 @@ public class TestDAOImpl implements TestDAO {
     }
    
     
-    public boolean saveFile(int testId, MultipartFile file) throws IOException {
+    public boolean saveFile(int testId, MultipartFile file, String path) throws IOException {
     		
     	
+    	String pathServer = "/opt/bitnami/apache-tomcat/webapps/WebHackerCode/resources/file-data";
     	
     	String unEscapedString = "<java>public static void main(String[] args) { ... }</java>";
         
@@ -89,8 +95,16 @@ public class TestDAOImpl implements TestDAO {
         String LOCATION = "";
         System.out.println(file.getName());
         InputStream in = file.getInputStream();
+       
+		/*
+		 * String relativeWebPath = "/resources/file-data"; String absoluteFilePath =
+		 * context.getRealPath(relativeWebPath);
+		 */
+		
+		
         File currdir = new File("A:\\HackerCode\\src\\main\\webapp\\resources\\file-data");
-        String path = currdir.getAbsolutePath();
+        
+//      String path = currdir.getAbsolutePath();
         LOCATION = path.substring(0, path.length()) + "\\" + file.getOriginalFilename();
         FileOutputStream f = new FileOutputStream(LOCATION);
         int ch = 0;
@@ -141,7 +155,7 @@ public class TestDAOImpl implements TestDAO {
 		return false;
       
     }
-    public boolean saveTest(Test test) throws IOException {
+    public boolean saveTest(Test test, String path) throws IOException {
         String startTime, endTime;
         Timestamp start, end;
         jdbcTemplate.setDataSource(getDataSource());
@@ -171,7 +185,7 @@ public class TestDAOImpl implements TestDAO {
             String GET_TEST_CODE = "SELECT t_id FROM hc_tests WHERE t_test_code = ?";
             Number testId = jdbcTemplate.queryForObject(GET_TEST_CODE, Integer.class, test.getCode());
 
-            if (saveFile(testId.intValue(), test.getFile())) return true;
+            if (saveFile(testId.intValue(), test.getFile(), path)) return true;
            
             	return false;
            
