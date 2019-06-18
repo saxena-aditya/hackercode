@@ -63,6 +63,8 @@
                     <p>Previous Articles <span><i class="fas fa-history"></i></span></p>
                 </div>
                 <div class="col-content">
+                	<c:forEach items="${ articles }" var = "a">
+                	</c:forEach>
                     <div class="prev-article">
                         <div class="name">Finding the most common Sub Devisor</div>
                         <div class="tags">

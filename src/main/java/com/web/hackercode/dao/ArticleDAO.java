@@ -24,5 +24,6 @@ public interface ArticleDAO {
 	public List<Article> getSimilarArticles(String id,String tagStr);
 	public Article getCategoryArticle(String category, String subCategory);
 	public List<Article> getSameCatArticles(String category, String subCategory);
+	public List<Article> getUserArticles(User user);
 
 }

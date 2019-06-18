@@ -14,11 +14,37 @@ public class Article {
 	private String userName;
 	private String name;
 	private Timestamp created_at;
-	public String id_hash;
+	private String id_hash;
+	private int views;
+	private boolean isApproved;
 	
 	
 	
 	
+	/**
+	 * @return the isApproved
+	 */
+	public boolean isApproved() {
+		return isApproved;
+	}
+	/**
+	 * @param isApproved the isApproved to set
+	 */
+	public void setApproved(boolean isApproved) {
+		this.isApproved = isApproved;
+	}
+	/**
+	 * @return the views
+	 */
+	public int getViews() {
+		return views;
+	}
+	/**
+	 * @param views the views to set
+	 */
+	public void setViews(int views) {
+		this.views = views;
+	}
 	/**
 	 * @return the id_hash
 	 */

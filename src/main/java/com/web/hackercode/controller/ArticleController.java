@@ -111,8 +111,10 @@ public class ArticleController {
 		 ArticleDAO adao = ctx.getBean(ArticleDAO.class);
 		 
 		 if (utils.isUserAuthenticated(req)) {
+			 User user = (User) req.getSession().getAttribute("user");
 	    		return new ModelAndView("drafter-home")
-	    				.addObject("categories", adao.getCategories());
+	    				.addObject("categories", adao.getCategories())
+	    				.addObject("articles", adao.getUserArticles(user));
 		 }
 		 
 		 

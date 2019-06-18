@@ -401,5 +401,39 @@ public class ArticleDAOImpl implements ArticleDAO {
 		 }
 		return null;
 	}
+	
+	public List<Article> getUserArticles(User user) {
+		jdbcTemplate.setDataSource(getDataSource());
+
+		String GET_USER_ARTICLES = "select * from hc_user_articles JOIN hc_articles WHERE hc_user_articles.article_id = hc_articles.id AND user_name = ?";
+		try {
+            List<Article> articles = jdbcTemplate.query( GET_USER_ARTICLES, new Object[] {user.getUsername()},new ResultSetExtractor < List < Article >> () {
+                public List < Article > extractData(ResultSet rs) throws SQLException, DataAccessException {
+                    List < Article > list = new ArrayList < Article > ();
+                    while (rs.next()) {
+                    	Article a = new Article();
+                    	a.setId(rs.getInt("id"));
+                    	a.setId_hash(rs.getString("id_hash"));
+                    	a.setTitle(rs.getString("name"));
+                    	a.setTags(rs.getString("tags"));
+                    	a.setViews(rs.getInt("views"));
+                    	a.setCreated_at(rs.getTimestamp("updated_at"));
+                    	
+                    	if (rs.getInt("a_is_approved") == 1)
+                    		a.setApproved(true);
+                    	else 
+                    		a.setApproved(false);
+                    	list.add(a);
+                    }
+                    return list;
+                }
+            });
+            return articles;
+		 
+		 } catch (Exception e) {
+            e.printStackTrace();
+		 }
+		return null;
+	}
     
 }
