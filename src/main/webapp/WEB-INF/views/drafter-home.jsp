@@ -159,11 +159,10 @@
                 </div>
                 <div class="col-content">
                     <ul>
-                        <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo quis repudiandae praesentium dolores.</li>
-                        <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo quis repudiandae praesentium dolores.</li>
-                        <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo quis repudiandae praesentium dolores.</li>
-                        <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo quis repudiandae praesentium dolores.</li>
-                        <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo quis repudiandae praesentium dolores.</li>
+                        <li>Consider <b>ARTICLE HEADING</b> as Title of Article. <b>TAGS</b> as relevant topics of article, <b>CATEGORY</b> as main subject of article and <b>SUB-CATEGORY</b> as sub-topic of your subject. Eg. <i>ARTICLE HEADING</i> as Introduction on Bubble sort, <i>TAGS</i> as sorting, algo, bubble sort. <i>CATEGORY</i> as Algorithms and <i>SUB-CATEGORY</i> as Sorting.</li>
+                        <li>Use the Editor only for writting the article. If you wish to write a code inside the article use <b>&lt;/&gt;</b> (code view) button and write your code inside <b>&lt;pre&gt;&lt;code&gt;  &lt;/pre&gt;&lt;/code&gt;</b> tag only. <br>Eg. <b>&lt;pre&gt;&lt;code&gt; #include&lt;iostream&gt; <br> int main(){}<br> &lt;/pre&gt;&lt;/code&gt;</b></li>
+                        <li>Plagiarism % of an article should not be greater 15% in any case.</li>
+                        <li>For any questions or doubts, Please write us at hackercode.19@gmail.com with a subject "Doubt on Drafter Account".</li>
                     </ul>
                 </div>
             </div>

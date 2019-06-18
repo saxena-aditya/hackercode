@@ -34,7 +34,13 @@
 	    	</div>
 	    	<div class="modal-body">
 	    		<div class="info-internship">
-	    			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis excepturi nesciunt placeat quaerat mollitia ducimus corrupti aspernatur dolorem tenetur beatae reiciendis eos eum explicabo pariatur natus saepe omnis totam repudiandae?
+	    			<ol class="f">
+	    				<li>Apply for an internship and get the credentials at your mailBox.</li>
+	    				<li>Choose a topic which is not published at HackerCode.</li>
+	    				<li>Submit an article by login to drafter account by using our login button at Home Page.</li>
+	    				<li>Drop a mail at hackercode.19@gmail.com with your resume, after 3 of your articles get published with Subject "Technical Writer Intern".</li>
+	    				<li>Get a stipend and an internship certificate.</li>
+	    			</ol>
 	    		</div>
 	    		<hr />
 	    		<div class="saved-msg" style="display:none;">
