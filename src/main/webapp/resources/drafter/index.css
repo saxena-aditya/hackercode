@@ -55,6 +55,9 @@
     margin-bottom: 5px;
     color: #474646;
 }
+.prev-article a {
+    color: inherit;
+}
 
 .prev-article .name:hover {
     cursor: pointer;
@@ -78,9 +81,10 @@
     font-size: 0.8em;
     background-color: #673AB7;
     color: #ffffff;
-    padding: 2px 15px;
+    padding: 1px 10px 3px 10px;
     width: fit-content;
     border-radius: 15px;
+    text-transform: uppercase;
 }
 
 .header-inp {
@@ -134,4 +138,9 @@ pre {
 }
 .details.d-flex.justify-content-between {
     font-size: 0.95em;
+}
+p.no-articles-msg {
+    font-size: 2em;
+    padding: 30px 0 0 15px;
+    color: #19171747;
 }

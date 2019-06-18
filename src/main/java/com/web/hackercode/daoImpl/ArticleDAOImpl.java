@@ -435,5 +435,17 @@ public class ArticleDAOImpl implements ArticleDAO {
 		 }
 		return null;
 	}
+	public void incrementViewCount(String articleIDHash) {
+		jdbcTemplate.setDataSource(getDataSource());
+		
+		String UPDATE_VIEWS = "UPDATE hc_articles SET views = views + 1 WHERE id_hash = ?";
+		
+		try {
+			jdbcTemplate.update(UPDATE_VIEWS, articleIDHash); 
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
     
 }
