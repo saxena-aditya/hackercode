@@ -30,7 +30,9 @@ public class ArticleDAOImpl implements ArticleDAO {
 	@Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    
     Utility utils = new Utility();
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
