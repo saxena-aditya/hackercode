@@ -300,7 +300,7 @@ public class TestController extends AbstractController {
     	
     }
     
-    @RequestMapping(value = "/get-questions-for-test/{testId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/admin/get-questions-for-test/{testId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public String getQuestions(@PathVariable String testId, HttpServletRequest req) {
     	TestDAO testDao = ctx.getBean(TestDAO.class);

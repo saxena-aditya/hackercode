@@ -178,18 +178,24 @@ public class TestDAOImpl implements TestDAO {
             start = Timestamp.valueOf(startTime.replace("T", " "));
             end = Timestamp.valueOf(endTime.replace("T", " "));
             // saving test data.
-            jdbcTemplate.update(sql, new Object[] {
-                test.getName(),test.getCourseCode(), test.getAdmin(), test.getCode(), test.getPassword(),
-                    start, end, milliseconds, test.getIsTimeStrict(), test.getIsAnsShuffle()
-            });
-            String GET_TEST_CODE = "SELECT t_id FROM hc_tests WHERE t_test_code = ?";
-            Number testId = jdbcTemplate.queryForObject(GET_TEST_CODE, Integer.class, test.getCode());
+            try {
 
-            if (saveFile(testId.intValue(), test.getFile(), path)) return true;
-           
-            	return false;
+                jdbcTemplate.update(sql, new Object[] {
+                    test.getName(),test.getCourseCode(), test.getAdmin(), test.getCode(), test.getPassword(),
+                        start, end, milliseconds, test.getIsTimeStrict(), test.getIsAnsShuffle()
+                });
+                
+                String GET_TEST_CODE = "SELECT t_id FROM hc_tests WHERE t_test_code = ?";
+                Number testId = jdbcTemplate.queryForObject(GET_TEST_CODE, new Object[] {test.getCode()},Integer.class);
+
+                if (saveFile(testId.intValue(), test.getFile(), path)) return true;
+            }
+            catch(Exception e) {
+            	e.printStackTrace();
+            }            	return false;
            
     }
+    
     public boolean saveQuestions(int testId, Question q) {
         jdbcTemplate.setDataSource(getDataSource());
 

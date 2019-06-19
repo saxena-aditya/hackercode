@@ -204,7 +204,7 @@ public class CourseDAOImpl implements CourseDAO {
 	public String isChapterPresent(String name, String courseCode) {
 		jdbcTemplate.setDataSource(getDataSource());
 		String IS_COURSE_PRESENT = "SELECT count(*) FROM hc_chapters WHERE ch_name = ? AND ch_c_code = ? AND ch_is_active = 1";
-		String GET_COURSE_CODE = "SELECT ch_code FROM hc_chapters WHERE ch_name = ? AND ch_is_active = ?";
+		String GET_COURSE_CODE = "SELECT ch_code FROM hc_chapters WHERE ch_name = ? AND ch_is_active = 1";
 	    
 		int count = jdbcTemplate.queryForObject(IS_COURSE_PRESENT, new Object[] { name, courseCode }, Integer.class);
 		
