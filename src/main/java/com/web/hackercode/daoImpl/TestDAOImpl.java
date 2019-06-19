@@ -185,7 +185,7 @@ public class TestDAOImpl implements TestDAO {
                         start, end, milliseconds, test.getIsTimeStrict(), test.getIsAnsShuffle()
                 });
                 
-                String GET_TEST_CODE = "SELECT t_id FROM hc_tests WHERE t_test_code = ?";
+                String GET_TEST_CODE = "SELECT t_id FROM hc_tests WHERE t_test_code = ? AND t_is_active = 1";
                 Number testId = jdbcTemplate.queryForObject(GET_TEST_CODE, new Object[] {test.getCode()},Integer.class);
 
                 if (saveFile(testId.intValue(), test.getFile(), path)) return true;
