@@ -492,7 +492,10 @@
 			</div> <!-- cd-login -->
 
 			<div id="cd-signup"> <!-- sign up form -->
-				<form class="cd-form" action="${pageContext.request.contextPath}/signup" method="post">
+			<span id="signup-uri" style="display: none;">${pageContext.request.contextPath}/signup?course=${course.getCode()}</span>
+			<span id="signup-uri-normal" style="display: none;">${pageContext.request.contextPath}/signup</span>
+			
+				<form class="cd-form" id="signup-frm" method="post">
 				<div class="row">
 				<p id="r-error-msg" style="display: none;text-align: center;width: 100%;padding: 0 0 20px 0;color: #F44336;">Oops! Seems like this E-Mail is already taken. Please Try Again.</p>
 					<div class="col-md-6">
@@ -594,6 +597,7 @@
 			if (xx.length == 0) {
 				$("#login-frm").attr("action", $("#login-uri-normal").html());
 				$("#signup-frm").attr("action", $("#signup-uri-normal").html());
+				
 			}
 			else {
 				$("#login-frm").attr("action", $("#login-uri").html());
@@ -786,7 +790,7 @@
     			// save data
     			$.ajax({
     				method: "POST",
-    				url: "/signup",
+    				url: $("#signup-frm").attr("action"),
     				data: {
     					fName: r.flName,
     					lName: r.llName,

@@ -31,17 +31,6 @@ public class AuthController {
     	RedirectView home = new RedirectView("/");
     	return new ModelAndView(home);
     }
-    
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public ModelAndView showSignup(HttpServletRequest req) {
-        //List < Program > programs = testDAO.getAllPrograms();
-        String courseCode =  req.getParameter("course");
-        if (courseCode != null) {
-        	req.getSession().setAttribute("courseToProcess", courseCode);
-        }
-        req.setAttribute("course", req.getAttribute("course"));
-        return new ModelAndView("signup");
-    }
   
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
