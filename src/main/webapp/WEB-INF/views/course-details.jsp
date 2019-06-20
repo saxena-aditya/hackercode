@@ -121,7 +121,17 @@
 	                            </div>
 	                            <div class="lectures inf">
 	                                <i class="far fa-play-circle sm-icon"></i>
-	                                <span id="top-lec-num"></span> lectures
+	                             
+	                                <c:choose>
+								  <c:when test="${course.isTestSeries()}">
+									<span id="top-lec-num"></span> test(s)
+
+								  </c:when>
+								
+								  <c:otherwise>
+								     <span id="top-lec-num"></span> lectures
+								  </c:otherwise>
+								</c:choose>
 	                    
 	                            
 	                            </div>
