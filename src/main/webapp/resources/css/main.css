@@ -1123,6 +1123,24 @@ i.fab.fa-facebook.fb {
   ##Screen = B/w 320px to 479px
 */
 @media (min-width: 320px) and (max-width: 480px) {
+   
+   #sec-nav {
+       position: absolute;
+       width: fit-content;
+       z-index: 0;
+       margin: -8% 6%;
+       right:0;
+   }
+
+   #sec-nav ul {
+       width: 100%;
+       background-color: #fff;
+       padding: 20px 40px;
+       border-top: solid 2px;
+       margin-top: 5px;
+   }
+   
+
     .head-area {
         position: relative;
         float: none;
@@ -1133,7 +1151,8 @@ i.fab.fa-facebook.fb {
         -ms-transform: none;
         transform: none;
         text-align: center;
-        padding: 20px 10px;
+        /* padding: 40px 10px; */
+        margin: 40px 10px;
     }
 
     .head-area h4 {
@@ -1171,7 +1190,7 @@ i.fab.fa-facebook.fb {
     }
 
     #menu-hack {
-        z-index: 999;
+        z-index: -1;
         position: absolute;
         display: flex !important;
         flex-wrap: wrap;
@@ -1227,7 +1246,7 @@ i.fab.fa-facebook.fb {
         color: #fff;
         padding: 8px 10px;
         margin-left: 5px;
-        font-size: 0.9em;
+        font-size: 0.85em;
         -webkit-box-shadow: #857979a3 1px 1px 6px;
         box-shadow: #857979a3 1px 1px 6px;
         line-height: 3em;

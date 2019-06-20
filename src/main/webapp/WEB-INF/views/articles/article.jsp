@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <c:set var="rand"><%= java.lang.Math.random() %></c:set>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -15,9 +16,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/github.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css?id="${rand}" >
     
-    <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/article/index.css">
+    <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/article/index.css?id=${rand}">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -38,9 +39,7 @@
             <li class="nav-item active">
             	<a href="#" class="nav-link nav-btn">Exercises</a>
             </li>
-
           </ul>
-         
         </div>
     </nav>
     <div class="container-fluid">
@@ -166,7 +165,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="${ pageContext.request.contextPath }/resources/article/index.js"></script>
+    <script src="${ pageContext.request.contextPath }/resources/article/index.js?id=${rand}"></script>
 
 </body>
 </html>

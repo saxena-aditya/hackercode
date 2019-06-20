@@ -11,6 +11,10 @@
   background-color: #736b6b;
   outline: 1px solid slategrey;
 }
+.article-content img {
+    width: 100% !important;
+    height: auto;
+}
 .article-head {
     font-size: 2.3em;
     padding: 20px 0 0 0;
@@ -20,12 +24,15 @@
 }
 
 .article-head .tags .tag {
+    display: inline-block;
+    /* padding: 0 0 0 0; */
     font-size: 0.45em;
     color: #fff;
-    padding: 3px 15px 5px 15px;
+    padding: 0px 15px 0px 15px;
     border-radius: 20px;
     text-transform: uppercase;
     margin-right: 5px;
+    line-height: 2em;
 }
 
 span.tag.bg-red {}

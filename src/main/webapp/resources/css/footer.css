@@ -107,6 +107,16 @@
     #myFooter {
         text-align: center;
     }
+    
+    #v-counter {
+       position: relative !important;
+       right: auto !important;
+       bottom: auto !important;
+   }
+   #myFooter .social-networks {
+    margin: 0 auto !important;
+}
+   
 }
 
 

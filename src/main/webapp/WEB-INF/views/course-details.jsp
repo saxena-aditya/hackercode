@@ -226,10 +226,20 @@
 							<div class="course-dd">
 								<div class="heading-small">This Course Includes</div>
 								<ul>
-									<li><i class="fas fa-play-circle"></i> <span id="lec-num">33</span> Lectures</li>
+								<c:choose>
+								  <c:when test="${course.isTestSeries()}">
+									<li><i class="fas fa-play-circle"></i> <span id="lec-num"></span>Test(s)</li>
+								  </c:when>
+								
+								  <c:otherwise>
+								    <li><i class="fas fa-vial"></i> Practice Test Series</li>
+									<li><i class="fas fa-play-circle"></i> <span id="lec-num">${ course.getLessonCount() }</span> Lecture(s)</li>
 									<li><i class="fas fa-clock"></i> <span id="lec-hrs"></span> Mins worth study material</li>
+								  </c:otherwise>
+								</c:choose>
+									
+									
 									<li><i class="fas fa-calendar-day"></i> ${ course.getTotalDays() } Days for access</li>
-									<li><i class="fas fa-vial"></i> Practice Test Series</li>
 									<li><i class="fas fa-certificate"></i> Certificate on successful completion</li>
 								</ul>
 							</div>

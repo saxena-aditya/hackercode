@@ -23,10 +23,36 @@ public class Course {
 	private List<Float> duration;
 	private String cover;
 	private String intro;
+	private boolean isTestSeries;
+	private int lessonCount;
 	
 	
 	
 	
+	/**
+	 * @return the lessonCount
+	 */
+	public int getLessonCount() {
+		return lessonCount;
+	}
+	/**
+	 * @param lessonCount the lessonCount to set
+	 */
+	public void setLessonCount(int lessonCount) {
+		this.lessonCount = lessonCount;
+	}
+	/**
+	 * @return the isTestSeries
+	 */
+	public boolean isTestSeries() {
+		return isTestSeries;
+	}
+	/**
+	 * @param isTestSeries the isTestSeries to set
+	 */
+	public void setTestSeries(boolean isTestSeries) {
+		this.isTestSeries = isTestSeries;
+	}
 	/**
 	 * @return the cover
 	 */

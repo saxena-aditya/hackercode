@@ -405,4 +405,6 @@ div#top-nav ul {
     .course .name {
         height: 100px;
         font-size: 1.6em !important;
+        line-height: 1.2em;
     }
+}

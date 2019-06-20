@@ -82,6 +82,16 @@ public class Utility {
 		
 		return content; 
 	}
+	
+	public boolean isTestSeries(String courseTitle) {
+		final String testSeries = "test series";
+		System.out.println("Course Title " + courseTitle.toLowerCase());
+		if (courseTitle.toLowerCase().contains(testSeries)) {
+			return true;
+		}
+		
+		return false;
+	}
 
 
 }
