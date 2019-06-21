@@ -13,9 +13,22 @@ public class EntityCourse {
 	private String intro;
 	private String cover;
 	private int lessonCount;
+	private boolean isTestSeries;
 	
 	
 	
+	/**
+	 * @return the isTestSeries
+	 */
+	public boolean isTestSeries() {
+		return isTestSeries;
+	}
+	/**
+	 * @param isTestSeries the isTestSeries to set
+	 */
+	public void setTestSeries(boolean isTestSeries) {
+		this.isTestSeries = isTestSeries;
+	}
 	/**
 	 * @return the lessonCount
 	 */

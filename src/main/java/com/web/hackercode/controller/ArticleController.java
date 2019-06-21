@@ -54,8 +54,7 @@ public class ArticleController {
 		 Article article = adao.getArticle(articleIDHash);
 		 
 		 String tagStr = article.getTags().replaceAll(",", "|");
-		 System.out.println(tagStr);
-		 
+		 adao.incrementViewCount(articleIDHash);
 		 return new ModelAndView("articles/article")
 				 .addObject("article", article)
 				 .addObject("similarArticles", adao.getSimilarArticles(articleIDHash, tagStr))
@@ -91,6 +90,13 @@ public class ArticleController {
 		 
 		return null;
 		 
+	 }
+	 
+	 @RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
+	 public ModelAndView showEditCategory() {
+		ArticleDAO adao = ctx.getBean(ArticleDAO.class); 
+		 return new ModelAndView("test-admin-dashboard-add-categories")
+				 .addObject("nav", adao.getNavJSON());
 	 }
 	 
 	 @RequestMapping(value = "/admin/articles/api/approve")

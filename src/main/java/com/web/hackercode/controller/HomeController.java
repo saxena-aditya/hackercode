@@ -74,7 +74,7 @@ public class HomeController {
 			 
     		System.out.println("Session Not Null");
     		if (utils.isUserAuthenticated(req)) {
-    			doLogin = 0;
+    			 doLogin = 0;
 				 User user = (User) req.getSession().getAttribute("user");
 				 System.out.println(user.toString());
 				 if (user.isAdmin()) {

@@ -25,5 +25,6 @@ public interface ArticleDAO {
 	public Article getCategoryArticle(String category, String subCategory);
 	public List<Article> getSameCatArticles(String category, String subCategory);
 	public List<Article> getUserArticles(User user);
+	public void incrementViewCount(String articleIDHash);
 
 }

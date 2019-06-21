@@ -121,7 +121,17 @@
 	                            </div>
 	                            <div class="lectures inf">
 	                                <i class="far fa-play-circle sm-icon"></i>
-	                                <span id="top-lec-num"></span> lectures
+	                             
+	                                <c:choose>
+								  <c:when test="${course.isTestSeries()}">
+									<span id="top-lec-num"></span> test(s)
+
+								  </c:when>
+								
+								  <c:otherwise>
+								     <span id="top-lec-num"></span> lectures
+								  </c:otherwise>
+								</c:choose>
 	                    
 	                            
 	                            </div>
@@ -226,10 +236,20 @@
 							<div class="course-dd">
 								<div class="heading-small">This Course Includes</div>
 								<ul>
-									<li><i class="fas fa-play-circle"></i> <span id="lec-num">33</span> Lectures</li>
+								<c:choose>
+								  <c:when test="${course.isTestSeries()}">
+									<li><i class="fas fa-play-circle"></i> <span id="lec-num"></span>Test(s)</li>
+								  </c:when>
+								
+								  <c:otherwise>
+								    <li><i class="fas fa-vial"></i> Practice Test Series</li>
+									<li><i class="fas fa-play-circle"></i> <span id="lec-num">${ course.getLessonCount() }</span> Lecture(s)</li>
 									<li><i class="fas fa-clock"></i> <span id="lec-hrs"></span> Mins worth study material</li>
+								  </c:otherwise>
+								</c:choose>
+									
+									
 									<li><i class="fas fa-calendar-day"></i> ${ course.getTotalDays() } Days for access</li>
-									<li><i class="fas fa-vial"></i> Practice Test Series</li>
 									<li><i class="fas fa-certificate"></i> Certificate on successful completion</li>
 								</ul>
 							</div>
@@ -482,7 +502,10 @@
 			</div> <!-- cd-login -->
 
 			<div id="cd-signup"> <!-- sign up form -->
-				<form class="cd-form" action="${pageContext.request.contextPath}/signup" method="post">
+			<span id="signup-uri" style="display: none;">${pageContext.request.contextPath}/signup?course=${course.getCode()}</span>
+			<span id="signup-uri-normal" style="display: none;">${pageContext.request.contextPath}/signup</span>
+			
+				<form class="cd-form" id="signup-frm" method="post">
 				<div class="row">
 				<p id="r-error-msg" style="display: none;text-align: center;width: 100%;padding: 0 0 20px 0;color: #F44336;">Oops! Seems like this E-Mail is already taken. Please Try Again.</p>
 					<div class="col-md-6">
@@ -584,6 +607,7 @@
 			if (xx.length == 0) {
 				$("#login-frm").attr("action", $("#login-uri-normal").html());
 				$("#signup-frm").attr("action", $("#signup-uri-normal").html());
+				
 			}
 			else {
 				$("#login-frm").attr("action", $("#login-uri").html());
@@ -776,7 +800,7 @@
     			// save data
     			$.ajax({
     				method: "POST",
-    				url: "/signup",
+    				url: $("#signup-frm").attr("action"),
     				data: {
     					fName: r.flName,
     					lName: r.llName,

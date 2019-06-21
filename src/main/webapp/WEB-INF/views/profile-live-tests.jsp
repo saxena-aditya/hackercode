@@ -26,7 +26,7 @@
            <td class="time-convert">${test.getTotalTime().toString()}</td>
            <td><p class="valid-till-date">${test.getEndTime().toString()}</p></td>
            <td>
-               <a class="take-test-btn btn btn-success"  id="test-1" href="${pageContext.request.contextPath}/give-test/${test.getTestId().toString()}" >
+               <a class="take-test-btn btn btn-success" href="${pageContext.request.contextPath}/give-test/${test.getTestId().toString()}" >
                    Take Test
                </a>
            </td>

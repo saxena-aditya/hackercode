@@ -17,18 +17,21 @@
 	};
 	
     $(window).scroll(function () {
-        console.log($(this).scrollTop(), (120 + articleHeight-windowHeight+footerHeight));
-        if ($(this).scrollTop() > 120 ) {
-            $('.dd').addClass('fix')
-        }
-        else {
-        	$('.dd').removeClass("fix");
-        }
-        
-        if ($('footer').isInViewport()) {
-        	$('.dd').removeClass("fix");
+    	console.log(window.innerHeight)
+	   if(window.innerWidth >= 800 && window.innerHeight >= 560) {
 
-        }
+        	if ($(this).scrollTop() > 120 ) {
+                $('.dd').addClass('fix')
+            }
+            else {
+            	$('.dd').removeClass("fix");
+            }
+            
+            if ($('footer').isInViewport()) {
+            	$('.dd').removeClass("fix");
+            }
+
+    	}
     });
 
 

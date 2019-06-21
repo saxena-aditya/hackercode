@@ -5,6 +5,8 @@
 <!doctype html>
 <html class="no-js" lang="">
     <head>
+        <c:set var="rand"><%= java.lang.Math.random() %></c:set>
+    
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Hackercode.in</title>
@@ -18,9 +20,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/test-admin-panel/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
 	    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/test-admin-panel/images/favicon.png" />
 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login-register.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css?id=${rand}" >
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css?id=${rand}">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login-register.css?id=${rand}">
     </head>
     <body>
     <input type="hidden" value='${nav}' id="nav">
@@ -345,8 +347,8 @@
                 <img src="${pageContext.request.contextPath}/resources/ff-ideas/logo.png" id="owl-graph" alt="">
                 <img src="${pageContext.request.contextPath}/resources/ff-ideas/bulb-front.png" alt="" id="bulb-front">
                 <div class="sec-nav container">
-                	<nav class="navbar navbar-expand-lg navbar-light">
-					  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                	<nav class="navbar navbar-expand-lg navbar-light" id="sec-nav">
+					  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 					    <span class="navbar-toggler-icon"></span>
 					  </button>
 					  <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -436,8 +438,18 @@
                                                                 </div>
                                                                 <div class="lectures inf">
                                                                     <i class="far fa-play-circle sm-icon"></i>
-                                                                    23 lectures
-
+                                                                    <c:choose>
+																	  <c:when test="${c.isTestSeries()}">
+																	   	${ c.getLessonCount() } test(s)
+																	  </c:when>
+																	  <%-- <c:when test="${condition2}">
+																	   
+																	  </c:when> --%>
+																	  <c:otherwise>
+																	    ${ c.getLessonCount() } lecture(s)
+																	  </c:otherwise>
+																	</c:choose>
+                                                                  
                                                                 </div>
                                                                 <div class="level inf">
                                                                     <i class="fas fa-level-up-alt"></i>
@@ -558,7 +570,7 @@
 	                                        </div>
 	                                        <div class="lectures inf">
 	                                            <i class="far fa-play-circle sm-icon"></i>
-	                                            23 lectures
+	                                            ${c.getLessonCount()} lectures
 	                                
 	                                        
 	                                        </div>
@@ -947,7 +959,7 @@ efforts!</div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.extensions.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
        <script src="${pageContext.request.contextPath}/resources/test-admin-panel/js/off-canvas.js"></script>

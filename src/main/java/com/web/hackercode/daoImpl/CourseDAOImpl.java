@@ -49,6 +49,7 @@ import com.web.hackercode.structures.EntityLesson;
 import com.web.hackercode.structures.Resource;
 import com.web.hackercode.structures.TestUser;
 import com.web.hackercode.structures.User;
+import com.web.hackercode.utility.Utility;
 
 @Component
 public class CourseDAOImpl implements CourseDAO {
@@ -57,6 +58,8 @@ public class CourseDAOImpl implements CourseDAO {
 	@Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    
+    Utility utils = new Utility();
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -204,7 +207,7 @@ public class CourseDAOImpl implements CourseDAO {
 	public String isChapterPresent(String name, String courseCode) {
 		jdbcTemplate.setDataSource(getDataSource());
 		String IS_COURSE_PRESENT = "SELECT count(*) FROM hc_chapters WHERE ch_name = ? AND ch_c_code = ? AND ch_is_active = 1";
-		String GET_COURSE_CODE = "SELECT ch_code FROM hc_chapters WHERE ch_name = ? AND ch_is_active = ?";
+		String GET_COURSE_CODE = "SELECT ch_code FROM hc_chapters WHERE ch_name = ? AND ch_is_active = 1";
 	    
 		int count = jdbcTemplate.queryForObject(IS_COURSE_PRESENT, new Object[] { name, courseCode }, Integer.class);
 		
@@ -293,7 +296,7 @@ public class CourseDAOImpl implements CourseDAO {
 					try {
 						List < EntityCourse > courses = jdbcTemplate.query(
 								GET_COURSES, 
-								new Object[] {user.getUsername()},
+								new Object[] { user.getUsername() },
 					            new ResultSetExtractor < List < EntityCourse >> () {
 					                public List < EntityCourse > extractData(ResultSet rs) throws SQLException, DataAccessException {
 					                    List < EntityCourse > list = new ArrayList < EntityCourse > ();
@@ -310,6 +313,14 @@ public class CourseDAOImpl implements CourseDAO {
 					                        ec.setDays(rs.getInt("c_total_days"));
 					                        ec.setIntro(rs.getString("c_intro"));
 					                        ec.setCover(rs.getString("c_cover"));
+					                        ec.setLessonCount(getlLessonCount(rs.getString("c_code")));                        
+					                       
+					                        if (utils.isTestSeries(rs.getString("c_name"))) {
+					                        	ec.setTestSeries(true);
+					                        } 
+					                        else {
+					                        	ec.setTestSeries(false);
+					                        }
 					                        
 					                        list.add(ec);
 					                    }
@@ -342,6 +353,14 @@ public class CourseDAOImpl implements CourseDAO {
                         ec.setDays(rs.getInt("c_total_days"));
                         ec.setIntro(rs.getString("c_intro"));
                         ec.setCover(rs.getString("c_cover"));
+                        ec.setLessonCount(getlLessonCount(rs.getString("c_code")));  
+                        
+                        if (utils.isTestSeries(rs.getString("c_name"))) {
+                        	ec.setTestSeries(true);
+                        } 
+                        else {
+                        	ec.setTestSeries(false);
+                        }
                         
                         list.add(ec);
                     }

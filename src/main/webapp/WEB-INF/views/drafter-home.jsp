@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    
+    
     
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +47,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                       <img src="http://www.top-madagascar.com/assets/images/admin/user-admin.png" alt="user-avatar" style="max-height: 45px;"
+                       <img src="http://www.top-madagascar.com/assets/images/admin/user-admin.png" alt="user-avatar" style="max-height: 40px;"
 />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -63,47 +67,54 @@
                     <p>Previous Articles <span><i class="fas fa-history"></i></span></p>
                 </div>
                 <div class="col-content">
-                	<c:forEach items="${ articles }" var = "a">
+                <c:choose>
+				    <c:when test="${empty articles}">
+				    	<p class="no-articles-msg">No Previous Articles</p>
+				    </c:when>
+				    <c:otherwise>
+				        <c:forEach items="${ articles }" var = "a">
+	                	<div class="prev-article">
+	                		<div class="name">
+	                        	<a class="" href="X">${ a.getTitle() }</a>
+	                        </div>
+	                        <div class="tags">
+	                        <c:forEach var="splt" items="${fn:split(a.getTags(),',')}">
+								    <span class="tag">${splt}</span> 
+								</c:forEach><!-- 
+	                            <span class="tag">Web Devlopment</span>
+	                            <span class="tag">Full-Stack Development</span>
+	                            <span class="tag">Algorithms</span> -->
+	                        </div>
+	                        <div class="details d-flex justify-content-between">
+	                        	<c:set var="monthStr" value = "Jan,Feb,March,April,May,June,July,Aug,Sept,Oct,Nov,Dec"/>
+	                        	<c:set var="months" value="${fn:split(monthStr, ',')}"/>
+	                        	
+	                        	<c:set var="timestamp" value="${ a.getCreated_at() }" />
+    							<c:set var="dateStr" value="${fn:split(timestamp,' ')}" />
+								<c:set var="dateExp" value="${fn:split(dateStr[0],'-')}" /> 
+								                      
+	                            <div class="date"><i class="fas fa-calendar-week"></i> ${dateExp[2]}-${months[dateExp[1]]}-${ dateExp[0] }</div>
+	                            <%-- <div class="views"><i class="fas fa-eye"></i> ${ a.getViews() } Views</div> --%>
+	                            <div class="text">
+	                            	<c:choose>
+									    <c:when test="${ a.isApproved()}">
+									        <i class="fas fa-check-circle green"></i> Approved
+									    </c:when>
+									    <c:otherwise>
+									        <i class="fas fa-circle-notch red"></i> Pending
+									    </c:otherwise>
+									</c:choose>
+	                            	
+	                            </div>
+	                        </div>
+	                    </div>
                 	</c:forEach>
-                    <div class="prev-article">
-                        <div class="name">Finding the most common Sub Devisor</div>
-                        <div class="tags">
-                            <span class="tag">Web Devlopment</span>
-                            <span class="tag">Full-Stack Development</span>
-                            <span class="tag">Algorithms</span>
-                        </div>
-                        <div class="details d-flex justify-content-between">
-                            <div class="date"><i class="fas fa-calendar-week"></i> 22 April 2016</div>
-                            <div class="views"><i class="fas fa-eye"></i> 16 Views</div>
-                            <div class="text"><i class="fas fa-check-circle green"></i> Approved</div>
-                        </div>
-                    </div>
-                    <div class="prev-article">
-                        <div class="name">Finding the most common Sub Devisor</div>
-                        <div class="tags">
-                            <span class="tag bg-purple">Web Devlopment</span>
-                            <span class="tag bg-orange">Full-Stack Development</span>
-                            <span class="tag bg-red">Algorithms</span>
-                        </div>
-                        <div class="details d-flex justify-content-between">
-                            <div class="date"><i class="fas fa-calendar-week"></i> 22 April 2016</div>
-                            <div class="views"><i class="fas fa-eye"></i> 16 Views</div>
-                            <div class="text"><i class="fas fa-circle-notch red"></i> Pending</div>
-                        </div>
-                    </div>
-                    <div class="prev-article">
-                        <div class="name">Finding the most common Sub Devisor</div>
-                        <div class="tags">
-                            <span class="tag">Web Devlopment</span>
-                            <span class="tag">Full-Stack Development</span>
-                            <span class="tag">Algorithms</span>
-                        </div>
-                        <div class="details d-flex justify-content-between">
-                            <div class="date"><i class="fas fa-calendar-week"></i> 22 April 2016</div>
-                            <div class="views"><i class="fas fa-eye"></i> 16 Views</div>
-                            <div class="text"><i class="fas fa-check-circle green"></i> Approved</div>
-                        </div>
-                    </div>
+				    </c:otherwise>
+				</c:choose>
+                	
+                   
+                   
+                    
                 </div>
             </div>
             <div class="col-md-6">

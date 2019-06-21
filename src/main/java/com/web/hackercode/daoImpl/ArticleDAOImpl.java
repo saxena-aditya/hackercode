@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.tomcat.dbcp.dbcp2.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,10 +21,8 @@ import com.web.hackercode.mappers.ArticleMapper;
 import com.web.hackercode.structures.Article;
 import com.web.hackercode.structures.ArticleCategory;
 import com.web.hackercode.structures.ArticleSubCategory;
-import com.web.hackercode.structures.Program;
 import com.web.hackercode.structures.User;
 import com.web.hackercode.utility.Utility;
-import com.web.hackercode.structures.Article;
 
 @Component
 public class ArticleDAOImpl implements ArticleDAO {
@@ -33,7 +30,9 @@ public class ArticleDAOImpl implements ArticleDAO {
 	@Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    
     Utility utils = new Utility();
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -434,6 +433,18 @@ public class ArticleDAOImpl implements ArticleDAO {
             e.printStackTrace();
 		 }
 		return null;
+	}
+	public void incrementViewCount(String articleIDHash) {
+		jdbcTemplate.setDataSource(getDataSource());
+		
+		String UPDATE_VIEWS = "UPDATE hc_articles SET views = views + 1 WHERE id_hash = ?";
+		
+		try {
+			jdbcTemplate.update(UPDATE_VIEWS, articleIDHash); 
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
     
 }

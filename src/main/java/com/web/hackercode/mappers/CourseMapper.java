@@ -5,8 +5,10 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.web.hackercode.structures.Course;
+import com.web.hackercode.utility.Utility;
 
 public class CourseMapper implements RowMapper<Course> {
+	Utility utils = new Utility();
    public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
        Course course = new Course();
        course.setName(rs.getString("c_name"));
@@ -20,6 +22,13 @@ public class CourseMapper implements RowMapper<Course> {
        course.setIntro(rs.getString("c_intro"));
        course.setCover(rs.getString("c_cover"));
        course.setSubDesc(rs.getString("c_sub_desc"));
+       
+       if (utils.isTestSeries(rs.getString("c_name"))) {
+       	course.setTestSeries(true);
+       } 
+       else {
+       	course.setTestSeries(false);
+       }
 	   return course;
    }
 }
