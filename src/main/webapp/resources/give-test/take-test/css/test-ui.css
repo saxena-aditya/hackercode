@@ -158,6 +158,8 @@ span#note-prob {
     border-radius: 50%;
     font-weight: 600;
     margin: 10px 15px 0 0;
+    width: 18.5%;
+    max-width: 18.5%;
 }
 
 .triangle-down {
