@@ -113,6 +113,16 @@
             </div>
         </div>
 </div>
+<div class="test-loading" style="display: none;">
+	<div class="middle">
+	<img src="${ pageContext.request.contextPath }/resources/ff-ideas/test-loader.gif" alt="" />
+	</div>
+</div>
+<div class="test-error" style="display: none">
+	<div class="middle">
+	<img src="${ pageContext.request.contextPath }/resources/ff-ideas/test-error.jpg" alt="" />
+	</div>
+</div>
     <div class="container-fluid" id="test-area">
         <button id="f-screen"><i class="fa fa-arrows-alt"></i>full screen</button>
         <div class="row bg-blue">

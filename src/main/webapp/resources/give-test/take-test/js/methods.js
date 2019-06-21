@@ -66,6 +66,9 @@ $(function() {
             contentType: "application/json",
             dataType: "json",
             data: JSON.stringify(testInfo),
+            beforeSend: function() {
+            	$(".test-loading").show();
+            },
             success: function(data) {
                 console.log("SERVER APPROACHED");
                 console.log("data from server", data);
@@ -93,9 +96,11 @@ $(function() {
             
                 console.log("TEST ..........<><>" , test);
                 startTest(test); //function to initiate test and everything
+                $(".test-loading").fadeOut();
             },
             error: function(a, b, c) {
-                console.log("error occured"); //or whatever
+                console.log("error occured", a, b, c); //or whatever
+                $(".test-error").show();
             }
         });
     }

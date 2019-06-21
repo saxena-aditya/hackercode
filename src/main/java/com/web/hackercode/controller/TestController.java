@@ -209,7 +209,7 @@ public class TestController extends AbstractController {
         }
         
         System.out.println("isLoggedIn: " + req.getSession().getAttribute("isLoggedIn").toString());
-        System.out.println("LOGGED IN USER CURRENT USER"+(User)req.getSession().getAttribute("user") );
+        System.out.println("LOGGED IN USER CURRENT USER"+(User)req.getSession().getAttribute("user"));
         this.loggedInUser = (User) req.getSession().getAttribute("user");
         
         String courseCode = req.getParameter("course");

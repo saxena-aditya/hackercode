@@ -648,3 +648,19 @@ footer {
     width: 100%;
     bottom: 0;
 }
+
+.test-loading , .test-error{
+    position: absolute;
+    top: 0;
+    right:0;
+    left:0;
+    bottom:0;
+    z-index: 999;
+    background-color: #fff;
+}
+.test-loading .middle, .test-error .middle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
