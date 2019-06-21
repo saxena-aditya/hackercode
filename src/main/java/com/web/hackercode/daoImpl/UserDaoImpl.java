@@ -80,7 +80,7 @@ public class UserDaoImpl implements UserDAO {
 				in = file.getInputStream();
 				File currdir = new File(relPath);
 		        String path = currdir.getAbsolutePath();
-		        LOCATION = path.substring(0, path.length()) + "\\" + file.getOriginalFilename();
+		        LOCATION = path.substring(0, path.length()) + "/" + file.getOriginalFilename();
 		        f = new FileOutputStream(LOCATION);
 		        int ch = 0;
 		        // add try,catch and finally block to copy the file
