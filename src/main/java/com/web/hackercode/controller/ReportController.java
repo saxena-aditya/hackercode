@@ -77,6 +77,7 @@ public class ReportController {
 						JsonObject jr = new JsonObject();
 						jr.addProperty("max", tq.getQuestionMaxMarks());
 						jr.addProperty("question_num", 1);
+						jr.addProperty("user", 0);
 						if (tq.isAnswered()) {
 							jr.addProperty("question_answered", 1);
 							if (tq.getQuestionAns().equalsIgnoreCase(tq.getUserAns()))
