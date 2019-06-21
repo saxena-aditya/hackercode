@@ -136,7 +136,7 @@
 				         
 							
 				            <li data-menuanchor="firstPage">
-				                <a id="r-btn" class="cd-signup" href="#firstPage" id="register-main">Register</a>
+				                <a id="r-btn" class="cd-signup" href="#firstPage">Register</a>
 				            </li>
 				            <li data-menuanchor="secondPage">
 				                <a id="l-btn" class="cd-signin" href="#" data-toggle="modal" data-target="#login-modal">Login</a>
@@ -1393,14 +1393,14 @@ efforts!</div>
             	});
             };
             
-            $("#register-me").on('click', function() {
-            	$("#register-main").click();
-           		
+            $("#register-me").on('click', function(e) {
+            	e.preventDefault();
+            	$("#r-btn").click();
             	return false;
             });
             $("#take-test").on('click', function(e) {
             	e.preventDefault();
-            	$("#register-main").click();
+            	$("#r-btn").click();
             	return false;
             })
             
