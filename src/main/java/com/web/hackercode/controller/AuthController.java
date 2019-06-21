@@ -88,19 +88,19 @@ public class AuthController {
             obj.addProperty("isUser", true);
             if (user.isAdmin()) {
                 // get details for admin and pass the details to the model.
-            	obj.addProperty("view", "/dashboard");
+            	obj.addProperty("view", "dashboard");
                 //view = new RedirectView("dashboard", true);
             } 
             else if (user.isDrafter()) {
             	// article uploader.
-            	obj.addProperty("view", "/user/drafter");
+            	obj.addProperty("view", "user/drafter");
             	//view = new RedirectView("");  
             }
             else {
             
             	String courseCode = req.getParameter("course");
             	if (courseCode == null) {
-            		obj.addProperty("view", "/profile");
+            		obj.addProperty("view", "profile");
             		//view = new RedirectView("profile" , true);
             	}
             	else {
