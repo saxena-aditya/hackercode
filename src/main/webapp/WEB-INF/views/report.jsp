@@ -175,7 +175,7 @@
 		                    <div class="q-num"><c:out value="${ loop.index + 1}"></c:out>.</div>
 		                    <div class="q-content">
 		                        <div class="q-text">
-		                            <c:out value="${ q.getQuestionContent() }"></c:out>
+		                            ${ q.getQuestionContent() }
 		                        </div>
 		                        <div class="q-options">
 		                            <span class="sub-head">options</span>
@@ -187,10 +187,10 @@
 									    	<c:when test="${q.getQuestionAns() == q.getUserAns()}">
 									    		<c:choose>
 										    		<c:when test="${op == q.getQuestionAns() }">
-										    			<li class="c-user-right"><c:out value="${ op }"></c:out></li>
+										    			<li class="c-user-right">${ op }</li>
 										    		</c:when>
 										    		<c:otherwise>
-										    				<li><c:out value="${ op }"></c:out></li>
+										    				<li>${ op }</li>
 										    		</c:otherwise>
 									    		</c:choose>
 								     		</c:when>
