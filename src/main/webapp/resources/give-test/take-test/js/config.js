@@ -18,6 +18,8 @@ const dev_test_submit_url = 'http://localhost:8080/WebHackerCode/get-result';
 const dev_test_get_store_url = "localhost:3000/get";
 const dev_redirect_url = "http://localhost:8080/WebHackerCode/dashboard";
 
+const redirect_url_after_window_switch = "/profile";
+
 const inProduction = true;
 
 if (!inProduction) {

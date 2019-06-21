@@ -100,7 +100,7 @@ body, html {
     float: left;
     left: 50%;
     top: 55%;
-    z-index: -1;
+    z-index: 7;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -152,7 +152,7 @@ body, html {
 
 /*=========== MENU ==============*/
 #menu-hack {
-    z-index: 999;
+    z-index: 8;
     position: absolute;
     display : -webkit-inline-box;
     display : -ms-inline-flexbox;
@@ -1123,23 +1123,21 @@ i.fab.fa-facebook.fb {
   ##Screen = B/w 320px to 479px
 */
 @media (min-width: 320px) and (max-width: 480px) {
-   
-   #sec-nav {
-       position: absolute;
-       width: fit-content;
-       z-index: 0;
-       margin: -8% 6%;
-       right:0;
-   }
+    #sec-nav {
+        position: absolute;
+        width: fit-content;
+        z-index: 0;
+        margin: -8% 6%;
+        right: 0;
+    }
 
-   #sec-nav ul {
-       width: 100%;
-       background-color: #fff;
-       padding: 20px 40px;
-       border-top: solid 2px;
-       margin-top: 5px;
-   }
-   
+    #sec-nav ul {
+        width: 100%;
+        background-color: #fff;
+        padding: 20px 40px;
+        border-top: solid 2px;
+        margin-top: 5px;
+    }
 
     .head-area {
         position: relative;
@@ -1291,7 +1289,8 @@ i.fab.fa-facebook.fb {
         width: 70px;
         margin-right: 10px;
     }
-    .lms-feature:last-child{
+
+    .lms-feature:last-child {
         margin-right: 0px;
     }
 
@@ -1366,12 +1365,15 @@ i.fab.fa-facebook.fb {
     #res-btn {
         display: none;
     }
+
     .inf {
         font-size: .9em;
     }
+
     .col-md-xxc .card-title {
-        font-size :1.3em;
+        font-size : 1.3em;
     }
+
     .is-price {
         font-size: 1.2em;
     }
@@ -1380,27 +1382,34 @@ i.fab.fa-facebook.fb {
 .modal-content, .form-control, .btn {
     border-radius: 0px;
 }
+
 .internship-form {
     padding: 0 15px 0 15px;
 }
+
 .modal-dialog {
     max-width: 540px !important;
 }
+
 .saved-msg {
     text-align: center;
     padding: 30px 0 60px 0;
 }
+
 .saved-msg i {
     font-size: 4em;
     color: #4CAF50;
 }
+
 .saved-msg h1 {
     padding: 10px 0 5px 0;
     font-size: 1.4em;
 }
+
 .saved-msg h6 {
     font-size: 1.2em;
 }
+
 .slick-slide img {
     display: block;
     /* height: -webkit-fill-available; */
@@ -1408,6 +1417,7 @@ i.fab.fa-facebook.fb {
     max-height: 160px;
     height: 160px;
 }
+
 .sec-nav {
     width: 100%;
     position: absolute;
@@ -1415,19 +1425,21 @@ i.fab.fa-facebook.fb {
     margin: auto;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 8;
 }
 
-::-moz-selection { /* Code for Firefox */
-  color: white !important;
-  background: blue !important;
+::-moz-selection {
+    /* Code for Firefox */
+    color: white !important;
+    background: blue !important;
 }
 
 ::selection {
-  color: white !important;
-  background: blue !important;
+    color: white !important;
+    background: blue !important;
 }
 
 ol.f {
-	list-style-type: decimal;
-	padding: 4px;
+    list-style-type: decimal;
+    padding: 4px;
 }

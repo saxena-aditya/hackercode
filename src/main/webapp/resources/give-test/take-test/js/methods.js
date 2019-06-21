@@ -997,7 +997,7 @@ window.onfocus = function () {
 window.onblur = function () { 
   if (penalties >= totalPenalties) {
 	  alert("You have exceeded the allowed penalties. Canceling your test now!");
-     window.location.href = "/dashboard";
+     window.location.href = redirect_url_after_window_switch;
      return false;
   }
   isTabActive = false; 
