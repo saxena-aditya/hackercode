@@ -204,9 +204,13 @@ public class TestController extends AbstractController {
     public ModelAndView showStudentDashBoard(HttpServletRequest req) {
         TestUtilitiesDAO tutils = ctx.getBean(TestUtilitiesDAO.class);
         
+        if (!utils.isUserAuthenticated(req)) {
+            return new ModelAndView(new RedirectView("/", true));
+        }
+        
         System.out.println("isLoggedIn: " + req.getSession().getAttribute("isLoggedIn").toString());
         System.out.println("LOGGED IN USER CURRENT USER"+(User)req.getSession().getAttribute("user") );
-        this.loggedInUser = (User)req.getSession().getAttribute("user");
+        this.loggedInUser = (User) req.getSession().getAttribute("user");
         
         String courseCode = req.getParameter("course");
         
@@ -220,9 +224,7 @@ public class TestController extends AbstractController {
             
         }
         
-        if (!utils.isUserAuthenticated(req)) {
-            return new ModelAndView(new RedirectView("/", true));
-        }
+        
         
         User u = (User) req.getSession().getAttribute("user");
 
