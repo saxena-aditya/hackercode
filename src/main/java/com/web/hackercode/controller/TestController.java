@@ -88,7 +88,7 @@ public class TestController extends AbstractController {
         return 0;
     }
     
-    @RequestMapping(value = "/save-question", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/save-question", method = RequestMethod.POST)
     @ResponseBody
     public int saveQuestion(@ModelAttribute("question") Question q, BindingResult result) {
     	boolean success = false;
