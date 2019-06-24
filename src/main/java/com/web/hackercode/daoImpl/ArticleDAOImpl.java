@@ -363,7 +363,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public Article getCategoryArticle(String category, String subCategory) {
 		jdbcTemplate.setDataSource(getDataSource());
 
-		String GET_SPECIAL_ARTICLE = "SELECT a.id_hash, a.id, c.name as cat, s.name as sub_cat, a.name, a.content, a.tags, a.updated_at FROM hc_articles a JOIN hc_categories c JOIN hc_sub_categories s where a.category = c.id AND a.sub_category = s.id AND c.name_ = ? AND s.name_ = ? and a.a_is_active = 1 AND a.is_special = 1 AND a.a_is_approved = 1";
+		String GET_SPECIAL_ARTICLE = "SELECT a.id_hash, a.id, c.name as cat, s.name as sub_cat, a.name, a.content, a.tags, a.updated_at, c.id as cat_id, s.id as sub_cat_id FROM hc_articles a JOIN hc_categories c JOIN hc_sub_categories s where a.category = c.id AND a.sub_category = s.id AND c.name_ = ? AND s.name_ = ? and a.a_is_active = 1 AND a.is_special = 1 AND a.a_is_approved = 1";
 		try {
 			 Article a =  jdbcTemplate.queryForObject(GET_SPECIAL_ARTICLE, new ArticleMapper(), category, subCategory);
 			 System.out.print(a.toString());
