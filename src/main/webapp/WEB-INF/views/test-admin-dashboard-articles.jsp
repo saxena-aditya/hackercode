@@ -89,12 +89,14 @@
           				<thead>
           					<th>User Name</th>
           					<th>Title</th>
+          					<th>Disapprove</th>
           				</thead>
           				<tbody>
           					<c:forEach items="${ approvedArticles }" var="article">
           						<tr>
           							<td>${ article.getUserName() }</td>
           							<td>${ article.getTitle() }</td>
+          							<td><button class="btn btn-danger s-btn disapprove" id="article-${ article.getId() }"><i class="fas fa-times-circle" id="status-${ article.getId() }"></i></button></td>
           						</tr>
           					</c:forEach>
           				</tbody>
