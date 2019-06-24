@@ -192,7 +192,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public Article getArticle(Article a) {
 		jdbcTemplate.setDataSource(getDataSource());
 		
-		String GET_ARTICLE = "SELECT a.id, a.id_hash, a.name, a.tags, a.content, c.name as cat, s.name as sub_cat FROM hc_articles as a JOIN hc_categories as"
+		String GET_ARTICLE = "SELECT a.id, a.id_hash, a.name, a.tags, a.content, c.name as cat, s.name as sub_cat, c.id as cat_id, s.id as sub_cat_id FROM hc_articles as a JOIN hc_categories as"
 				+ " c JOIN hc_sub_categories as s WHERE a.name = ? AND a.category = c.id AND a.sub_category = s.id";
 		
 		if (isArticlePresent(a)) {

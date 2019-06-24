@@ -77,7 +77,7 @@
 	                        	<span class="article-edit" id="${ a.getId_hash() }"><i class="far fa-edit"></i></span>
 	                        	
 	                        		<c:choose>
-									    <c:when test="!${ a.isApproved()}">
+									    <c:when test="${ a.isApproved()}">
 									    </c:when>
 									    <c:otherwise>
 									    	<span class="delete-article" id="${ a.getId_hash() }">
