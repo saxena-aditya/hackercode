@@ -238,7 +238,7 @@
 			</ul>
 
 			<div id="cd-login"> <!-- log in form -->
-			<div class="error-msg" style="display: none;text-align: center;padding: 20px 0 0 0;color: #E91E63;font-size: 1.2em;">Opps! Username or Password do not match. Please Try again..!</div>
+			<div class="error-msg" style="display: none;text-align: center;padding: 20px 0 0 0;color: #E91E63;font-size: 1em;">Opps! Username or Password do not match. </div>
 				<form class="cd-form" action="${pageContext.request.contextPath}/login" method="POST">
 					<p class="fieldset">
 						<label class="image-replace cd-email" for="signin-email">E-mail</label>

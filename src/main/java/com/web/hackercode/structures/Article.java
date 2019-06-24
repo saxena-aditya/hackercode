@@ -17,10 +17,23 @@ public class Article {
 	private String id_hash;
 	private int views;
 	private boolean isApproved;
+	private boolean doUpdate;
 	
 	
 	
 	
+	/**
+	 * @return the doUpdate
+	 */
+	public boolean isDoUpdate() {
+		return doUpdate;
+	}
+	/**
+	 * @param doUpdate the doUpdate to set
+	 */
+	public void setDoUpdate(boolean doUpdate) {
+		this.doUpdate = doUpdate;
+	}
 	/**
 	 * @return the isApproved
 	 */
@@ -192,8 +205,11 @@ public class Article {
 	
 	@Override
 	public String toString() {
-		return "Article [title=" + title + ", tags=" + tags + ", categoryCode=" + categoryCode + ", subCategoryCode="
-				+ subCategoryCode + "]";
+		return "Article [id=" + id + ", title=" + title + ", tags=" + tags + ", content=" + content + ", categoryCode="
+				+ categoryCode + ", subCategoryCode=" + subCategoryCode + ", category=" + category + ", subCategory="
+				+ subCategory + ", userName=" + userName + ", name=" + name + ", created_at=" + created_at
+				+ ", id_hash=" + id_hash + ", views=" + views + ", isApproved=" + isApproved + ", doUpdate=" + doUpdate
+				+ "]";
 	}
 	
 	

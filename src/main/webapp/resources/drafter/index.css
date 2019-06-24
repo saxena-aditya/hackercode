@@ -144,3 +144,6 @@ p.no-articles-msg {
     padding: 30px 0 0 15px;
     color: #19171747;
 }
+.delete-article:hover {
+    color: #f71a0a;
+}

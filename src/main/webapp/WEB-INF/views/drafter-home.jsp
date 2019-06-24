@@ -3,9 +3,7 @@
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-    
-    
-    
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,9 +71,20 @@
 				    </c:when>
 				    <c:otherwise>
 				        <c:forEach items="${ articles }" var = "a">
-	                	<div class="prev-article">
+	                	<div class="prev-article ${ a.getId_hash() }">
 	                		<div class="name">
 	                        	<a class="" href="X">${ a.getTitle() }</a>
+	                        	<span class="article-edit" id="${ a.getId_hash() }"><i class="far fa-edit"></i></span>
+	                        	
+	                        		<c:choose>
+									    <c:when test="!${ a.isApproved()}">
+									    </c:when>
+									    <c:otherwise>
+									    	<span class="delete-article" id="${ a.getId_hash() }">
+									    	   <i class="fas fa-trash-alt"></i>
+									       </span>
+									    </c:otherwise>
+									</c:choose>
 	                        </div>
 	                        <div class="tags">
 	                        <c:forEach var="splt" items="${fn:split(a.getTags(),',')}">

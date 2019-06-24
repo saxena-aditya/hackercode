@@ -170,7 +170,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	
 	public Article getArticle(String IDHash) {
 		jdbcTemplate.setDataSource(getDataSource());
-		String GET_ARTICLE = "SELECT a.id, a.id_hash, a.name, a.tags, a.content, c.name as cat, s.name as sub_cat FROM hc_articles as a JOIN hc_categories as"
+		String GET_ARTICLE = "SELECT a.id, a.id_hash, a.name, a.tags, a.content, c.name as cat, c.id AS cat_id, s.name as sub_cat, s.id AS sub_cat_id FROM hc_articles as a JOIN hc_categories as"
 				+ " c JOIN hc_sub_categories as s WHERE a.id_hash = ? AND a.category = c.id AND a.sub_category = s.id";
 		
 		if (isArticlePresent(IDHash)) {
@@ -245,7 +245,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	}
 	public List<Article> getAllNotApprovedArticles() {
 		jdbcTemplate.setDataSource(getDataSource());
-
+ 
 		String GET_ALL_APPROVED_ARTICLES = "SELECT a.id_hash, a.name as title , a.tags, a.id, ud_email, concat(ud_firstname, ud_lastname) as name ,"+
 				" c.name AS cat, s.name AS sub_cat, a_is_approved FROM hc_articles a JOIN hc_user_details ud JOIN hc_user_articles ua JOIN hc_categories c JOIN "+
 				"hc_sub_categories s WHERE c.id = a.category AND s.id = a.sub_category AND ua.user_name = ud.ud_email AND a.id = ua.article_id and a_is_approved = 0";
@@ -284,7 +284,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public boolean approveArticle(String id) {
 		jdbcTemplate.setDataSource(getDataSource());
 
-		String APPROVE_ARTICLE = "UPDATE hc_articles set a_is_approved = 1 WHERE id = ?";
+		String APPROVE_ARTICLE = "UPDATE hc_articles set a_is_approved = 1 WHERE id = ? AND a_is_active = 1";
 		try {
 			jdbcTemplate.update(APPROVE_ARTICLE, id);
 			return true;
@@ -298,7 +298,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public boolean disapproveArticle(String id) {
 		jdbcTemplate.setDataSource(getDataSource());
 
-		String DISAPPROVE_ARTICLE = "UPDATE hc_articles set a_is_approved = 0 WHERE id = ?";
+		String DISAPPROVE_ARTICLE = "UPDATE hc_articles set a_is_approved = 0 WHERE id = ? AND a_is_active = 1";
 		try {
 			jdbcTemplate.update(DISAPPROVE_ARTICLE, id);
 			return true;
@@ -404,7 +404,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public List<Article> getUserArticles(User user) {
 		jdbcTemplate.setDataSource(getDataSource());
 
-		String GET_USER_ARTICLES = "select * from hc_user_articles JOIN hc_articles WHERE hc_user_articles.article_id = hc_articles.id AND user_name = ?";
+		String GET_USER_ARTICLES = "select * from hc_user_articles JOIN hc_articles WHERE hc_user_articles.article_id = hc_articles.id AND user_name = ? AND a_is_active = 1";
 		try {
             List<Article> articles = jdbcTemplate.query( GET_USER_ARTICLES, new Object[] {user.getUsername()},new ResultSetExtractor < List < Article >> () {
                 public List < Article > extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -445,6 +445,41 @@ public class ArticleDAOImpl implements ArticleDAO {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public boolean updateArticle(Article article) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String UPDATE_ARTICLE = "UPDATE hc_articles SET tags = ?, content = ?, category = ?, sub_category = ?, a_is_approved = 0 WHERE name = ?";
+		System.out.println(article.toString());
+		try {
+			jdbcTemplate.update(UPDATE_ARTICLE, new Object[] {
+				article.getTags(),
+				article.getContent(),
+				article.getCategoryCode(),
+				article.getSubCategoryCode(),
+				article.getTitle()
+			});
+			
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	public boolean deleteArticle(String articleHash) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String DELETE_ARTICLE = "UPDATE hc_articles SET a_is_active = 0 WHERE id_hash = ?";
+		
+		try {
+			jdbcTemplate.update(DELETE_ARTICLE, new Object[] {articleHash});
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
     
 }

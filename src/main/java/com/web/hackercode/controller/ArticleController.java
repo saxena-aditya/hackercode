@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.web.hackercode.dao.ArticleDAO;
 import com.web.hackercode.dao.CourseDAO;
 import com.web.hackercode.structures.Article;
@@ -160,21 +162,125 @@ public class ArticleController {
 		if (utils.isUserAuthenticated(req)) {
 			User user = (User) req.getSession().getAttribute("user");
 			ArticleDAO adao = ctx.getBean(ArticleDAO.class);
-			if (adao.saveArticle(article, user)) {
-				obj.addProperty("msg", "Article Drafted");
-				return obj.toString();
-			}
+			
+			if (article.isDoUpdate()) {
+				// update article
+				 if (adao.updateArticle(article)) {
+					 obj.addProperty("msg", "Article Updated.");
+				 }
+				 else {
+					 obj.addProperty("error", true);
+					 obj.addProperty("error_msg", "Could Not Update Article");	 
+				 }
+			} 
 			else {
-				obj.addProperty("error", true);
-				obj.addProperty("error_text", "Seems like we already have a article by this title. Please Try another title.");
+				if (adao.saveArticle(article, user)) {
+					obj.addProperty("msg", "Article Drafted");
+					return obj.toString();
+				}
+				else {
+					obj.addProperty("error", true);
+					obj.addProperty("error_text", "Seems like we already have a article by this title. Please Try another title.");
+				}
 			}
+			
 		}
 		else{
+			
 			obj.addProperty("error", true);
 			obj.addProperty("error_text", "Session Over. Please Login Again.");
 		}
 		 
 		return obj.toString();
 	 }
-
+	 
+	 @RequestMapping(value = "/user/drafter/api/update-article", method = RequestMethod.POST)
+	 @ResponseBody
+	 public String updateArticle(HttpServletRequest req, @ModelAttribute("Article") Article article) {
+		 JsonObject obj = new JsonObject();
+		 ArticleDAO adao = ctx.getBean(ArticleDAO.class);
+			
+		 obj.addProperty("error", false);
+		 
+		 if (adao.updateArticle(article)) {
+			 obj.addProperty("msg", "Article Updated.");
+		 }
+		 else {
+			 obj.addProperty("error", true);
+			 obj.addProperty("error_text", "Could Not Update Article");	 
+		 }
+		 
+		 return obj.toString();
+	 }
+	 
+	 
+	 @RequestMapping(value = "/user/drafter/api/get-article", method = RequestMethod.GET) 
+	 @ResponseBody
+	 public String getArticle(HttpServletRequest req, @RequestParam("articleHash") String articleHash) {
+		  
+		 ArticleDAO adao = ctx.getBean(ArticleDAO.class);
+		 JsonObject obj = new JsonObject();
+		 obj.addProperty("error", false);
+		 Article article = adao.getArticle(articleHash);
+		 
+		 if (article == null) {
+			 obj.addProperty("error", true);
+			 obj.addProperty("error_text", "Article Not Found");
+			 return obj.toString();
+		 }
+		 
+		 JsonObject art = new JsonObject();
+		 art.addProperty("title", article.getTitle());
+		 art.addProperty("tags", article.getTags());
+		 art.addProperty("category", article.getCategory());
+		 art.addProperty("sub_category", article.getSubCategory());
+		 art.addProperty("category_id", article.getCategoryCode());
+		 art.addProperty("sub_category_id", article.getSubCategoryCode());
+		 art.addProperty("content", article.getContent());
+		 
+		 
+		 List<ArticleCategory> cat = adao.getCategories();
+ 		 List<ArticleSubCategory> subCat = adao.getSubCategories(article.getCategoryCode());
+		 
+		 JsonArray sub_cat = new JsonArray();
+		 for(int i=0; i<subCat.size(); i++) {
+			 JsonObject x = new JsonObject();
+			 x.addProperty("cat_id", subCat.get(i).getCatId());
+			 x.addProperty("id", subCat.get(i).getId());
+			 x.addProperty("name", subCat.get(i).getName());
+			 sub_cat.add(x);
+		 }
+		 
+		 JsonArray catJSON = new JsonArray();
+		 for(int i=0; i<cat.size(); i++) {
+			 JsonObject x = new JsonObject();
+			 x.addProperty("id", cat.get(i).getId());
+			 x.addProperty("name", cat.get(i).getName());
+			 catJSON.add(x);
+		 }
+		 
+		 art.add("categories", catJSON);
+		 art.add("sub_categories", sub_cat);
+		 obj.add("article", art);
+		 
+		 return obj.toString();
+	 }
+	 
+	 @RequestMapping(value = "/user/drafter/api/delete-article", method = RequestMethod.GET)
+	 @ResponseBody
+	 public String deleteArticle(HttpServletRequest req, @RequestParam("articleHash") String articleHash) {
+		 ArticleDAO adao = ctx.getBean(ArticleDAO.class);
+		 JsonObject obj = new JsonObject();
+		 obj.addProperty("error", false);
+		 
+		 if (adao.deleteArticle(articleHash)) {
+			 obj.addProperty("msg", "Article Deleted.");
+		 }
+		 else {
+			 obj.addProperty("error", true);
+			 obj.addProperty("error_text", "Server Error! Could Not Delete Article.");
+		 }
+		 
+		 return obj.toString();
+	 }
 }
