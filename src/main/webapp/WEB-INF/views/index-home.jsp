@@ -291,12 +291,23 @@
 						<input class="full-width has-padding has-border" name="email" id="emaill" type="text" placeholder="E-mail">
 						<span class="cd-error-message">Please use a valid value</span>
 					</p>
-
-					<p class="fieldset">
-						<label class="image-replace cd-email" for="signup-email">Phone Number</label>
-						<input class="full-width has-padding has-border" name="phoneNum" id="phonel" type="text" placeholder="Phone Number">
-						<span class="cd-error-message">Please use a valid value</span>
-					</p>
+					<div class="row">
+						<div class="col-md-6">
+							<p class="fieldset">
+								<label class="image-replace cd-email" for="signup-email">Phone Number</label>
+								<input class="full-width has-padding has-border" name="phoneNum" id="phonel" type="text" placeholder="Phone Number">
+								<span class="cd-error-message">Please use a valid value</span>
+							</p>
+						</div>
+						<div class="col-md-6">
+							<p class="fieldset">
+								<label class="image-replace cd-email" for="signup-email">Institute</label>
+								<input class="full-width has-padding has-border" name="institute" id="institute" type="text" placeholder="Institute">
+								<span class="cd-error-message">Please use a valid value</span>
+							</p>
+						</div>
+					</div>
+					
 
 					<p class="fieldset">
 						<label class="image-replace cd-password" for="signup-password">Password</label>
@@ -1015,8 +1026,6 @@ efforts!</div>
             	}
             	/********* SET ARTICLE MENU *********/
 
-            	
-            	
                 $('.tooltipp').tooltipster({
                    
                     contentAsHTML: true,
@@ -1270,6 +1279,7 @@ efforts!</div>
             				llName: $("#llName").val(),
             				phonel: $("#phonel").val(),
             				emaill: $("#emaill").val(),
+            				institute: $("#institute").val(),
             				passwordl: $("#passwordl").val()
             		};
             		console.log("regester", r );
@@ -1317,6 +1327,7 @@ efforts!</div>
             					email: r.emaill,
             					password: r.passwordl,
             					phone: r.phonel,
+            					institute: r.institute
             				},
             				beforeSend:function() {
             					$(".acc-init").val("Registering...");

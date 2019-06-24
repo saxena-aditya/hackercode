@@ -11,7 +11,21 @@ public class Register {
 	private String course;
 	private String []programs;
 	private String phone;
+	private String institute;
 	
+	
+	/**
+	 * @return the institute
+	 */
+	public String getInstitute() {
+		return institute;
+	}
+	/**
+	 * @param institute the institute to set
+	 */
+	public void setInstitute(String institute) {
+		this.institute = institute;
+	}
 	/**
 	 * @return the phone
 	 */

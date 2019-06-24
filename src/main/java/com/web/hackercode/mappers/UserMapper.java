@@ -19,6 +19,7 @@ public class UserMapper implements RowMapper<Object> {
 		user.setInstitute(rs.getString("ud_institute"));
 		user.setEmail(rs.getString("ud_email"));
 		user.setFilePath(rs.getString("ud_img_path"));
+		user.setInstitute(rs.getString("ud_institute"));
 		
 		if (rs.getString("ud_role").equals("1")) {
 			user.setAdmin(true);

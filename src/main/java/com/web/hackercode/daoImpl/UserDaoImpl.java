@@ -201,7 +201,7 @@ public class UserDaoImpl implements UserDAO {
     public User saveUser(HttpServletRequest req, Register ruser) {
         jdbcTemplate.setDataSource(getDataSource());
         ruser.setPassword(utils.getMd5(ruser.getPassword()));
-        String SAVE_USER = "INSERT INTO hc_user_details (ud_username, ud_firstname, ud_lastname, ud_email, ud_role, ud_phone) VALUES (?,?,?,?,0,?)";
+        String SAVE_USER = "INSERT INTO hc_user_details (ud_username, ud_firstname, ud_lastname, ud_email, ud_role, ud_phone, ud_institute) VALUES (?,?,?,?,0,?,?)";
         String SAVE_USER_LOGIN_CREDENTIALS = "INSERT INTO hc_user (u_username, u_password) VALUES (?,?)";
        // String ADD_USER_WITH_PROGRAM = "INSERT INTO hc_user_program (up_username, up_code) VALUES (?,?)";
         try {
@@ -210,7 +210,8 @@ public class UserDaoImpl implements UserDAO {
                 ruser.getfName(),
                 ruser.getlName(),
                 ruser.getEmail(),
-                ruser.getPhone()
+                ruser.getPhone(),
+                ruser.getInstitute()
             });
             
             jdbcTemplate.update(SAVE_USER_LOGIN_CREDENTIALS, new Object[] {
