@@ -554,3 +554,9 @@ a.r-btn {
     padding:  5px 10px;
     color: #fff;
 }
+h1.empty-msg {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #00000038;
+    padding: 160px;
+}

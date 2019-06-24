@@ -62,30 +62,38 @@
 	        <div class="card col-md-6">
 		        <div class="card-body">
 		        	<div class="table-responsive">
-		        		<table class="table table-hover">
-		        			<thead>
-		        				<tr>
-			        				<th>Test Code</th>
-			        				<th>Starting Date</th>
-			        				<th>Ending Date</th>
-			        				<th></th>
-		        				</tr>
-		        			</thead>
-		        			<tbody>
-							  <c:forEach items="${ tests }" var="test">
-								  <c:set value="${ test.getStartTime() }" var="startTime" />
-							  	  <c:set value="${ test.getEndTime() }" var="endTime" />
-							  	  <fmt:parseDate value="${endTime}" var="endTime" pattern="yyyy-MM-dd HH:mm:ss" />
-								  <fmt:parseDate value="${startTime}" var="startTime" pattern="yyyy-MM-dd HH:mm:ss" />
-								  <tr id="label-${ test.getTestId() }">
-								  	<td><a href="#" id="question-get-${ test.getTestId() }">${ test.getCode() }</a></td>
-								  	<td><fmt:formatDate value="${ startTime }" pattern="dd/MM/yyyy HH:mm" /></td>
-								  	<td><fmt:formatDate value="${ endTime }" pattern="dd/MM/yyyy HH:mm" /></td>
-								  	<td><a href="${ pageContext.request.contextPath }/admin/test-details/${ test.getCode() }"><i class="fas fa-info-circle"></i></a></td>
-								  </tr>
-							  </c:forEach>
-						  	</tbody>
-		        		</table>
+		        	<c:choose>
+		        		<c:when test=${ empty tests }>
+		        			<h1>No Tests Present</h1>
+		        		</c:when>
+		        		<c:otherwise>
+		        			<table class="table table-hover">
+			        			<thead>
+			        				<tr>
+				        				<th>Test Code</th>
+				        				<th>Starting Date</th>
+				        				<th>Ending Date</th>
+				        				<th></th>
+			        				</tr>
+			        			</thead>
+			        			<tbody>
+								  <c:forEach items="${ tests }" var="test">
+									  <c:set value="${ test.getStartTime() }" var="startTime" />
+								  	  <c:set value="${ test.getEndTime() }" var="endTime" />
+								  	  <fmt:parseDate value="${endTime}" var="endTime" pattern="yyyy-MM-dd HH:mm:ss" />
+									  <fmt:parseDate value="${startTime}" var="startTime" pattern="yyyy-MM-dd HH:mm:ss" />
+									  <tr id="label-${ test.getTestId() }">
+									  	<td><a href="#" id="question-get-${ test.getTestId() }">${ test.getCode() }</a></td>
+									  	<td><fmt:formatDate value="${ startTime }" pattern="dd/MM/yyyy HH:mm" /></td>
+									  	<td><fmt:formatDate value="${ endTime }" pattern="dd/MM/yyyy HH:mm" /></td>
+									  	<td><a href="${ pageContext.request.contextPath }/admin/test-details/${ test.getCode() }"><i class="fas fa-info-circle"></i></a></td>
+									  </tr>
+								  </c:forEach>
+							  	</tbody>
+		        			</table>
+		        		</c:otherwise>
+		        	</c:choose>
+		        		
 		        	</div>
 	        	</div>
         	</div>
