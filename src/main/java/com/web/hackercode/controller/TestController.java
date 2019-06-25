@@ -230,8 +230,10 @@ public class TestController extends AbstractController {
 
         List<ProgramSpecificTests> tests = tutils.getAllTest(u);
         List < TestUser > finishedTest = tutils.getAllFinishedTest(u);
-        return new ModelAndView("admin-dashboard").addObject("tests", tests)
-            .addObject("finishedTest", finishedTest).addObject("user",u);
+        return new ModelAndView("admin-dashboard")
+        		.addObject("tests", tests)
+	            .addObject("finishedTest", finishedTest)
+	            .addObject("user",u);
 
     }
 

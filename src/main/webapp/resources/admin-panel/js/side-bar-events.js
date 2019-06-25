@@ -72,6 +72,7 @@ function getMyCourses() {
             //formatDate(".date-convert");
 
             $("#status-arr").removeClass("running");
+            $(document).trigger("make-slick-course-gal");
         },
         error: function() {
             alert("error");
@@ -236,7 +237,7 @@ function getCourselessons(courseId) {
             //formatDate(".date-convert");
             buildCourseUI(data, "#content");
             $("#status-arr").removeClass("running");
-            $( document ).trigger( "myCustomEvent");
+            $( document ).trigger( "make-video-player");
 
         },
         error: function() {
@@ -245,7 +246,7 @@ function getCourselessons(courseId) {
     });
 }
 let player = null;
-$(document).on("myCustomEvent", function() {
+$(document).on("make-video-player", function() {
 	//alert("works");
 	 player = new Plyr('#my-player', {
 		controls: [
@@ -306,6 +307,16 @@ $(document).on("myCustomEvent", function() {
 
 });
 
+$(document).on("make-slick-course-gal", function() {
+	 $('.slick').slick({
+   	  infinite: true,
+   	  center: false,
+   	  slidesToShow: 4,
+   	  slidesToScroll: 4,
+  	  prevArrow:"<div class='n-btn prev-btn'><i class='fas fa-angle-left'></i></div>",
+      nextArrow:"<div class='n-btn next-btn'><i class='fas fa-angle-right'></i></div>"
+   	});
+});
 
 $(document).on("click", ".lesson-title", function(e) {
 	$("video-container").addClass("running");

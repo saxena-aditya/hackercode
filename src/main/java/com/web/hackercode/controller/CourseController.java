@@ -43,7 +43,7 @@ public class CourseController {
     	
     	User user = (User) req.getSession().getAttribute("user");
     	return new ModelAndView("profile-courses")
-    			.addObject("coursesMore", cdao.getEntityCourses(req))
+    			.addObject("otherCourses", cdao.getEntityCourses(req))
     			.addObject("courses", cdao.getUserCourses(user.getUsername()));
     			
     }

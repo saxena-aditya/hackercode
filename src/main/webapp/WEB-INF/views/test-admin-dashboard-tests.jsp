@@ -63,7 +63,7 @@
 		        <div class="card-body">
 		        	<div class="table-responsive">
 		        	<c:choose>
-		        		<c:when test=${ empty tests }>
+		        		<c:when test="${ empty tests }">
 		        			<h1>No Tests Present</h1>
 		        		</c:when>
 		        		<c:otherwise>

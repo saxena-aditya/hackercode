@@ -544,6 +544,7 @@ public class CourseDAOImpl implements CourseDAO {
                         ec.setTotalDays(rs.getInt("c_total_days"));
                         ec.setTotalLessons(getlLessonCount(rs.getString("c_code")));
                         ec.setCompletedLessons(getCompletedLessonCount(rs.getString("c_code")));
+                        ec.setCover(rs.getString("c_cover"));
                         
                         list.add(ec);
                     }

@@ -472,11 +472,11 @@ ul.list-unstyled.components > li:hover:after {
 }
 
 .col-md-xxcc {
-	width: 20%;
+	width: 25%;
 	margin :0.5%;
 }
 .courses-list {
-    padding-left: 10px;
+    padding-left: 40px;
 }
 .content-section {
     width: 100%;
@@ -559,4 +559,21 @@ h1.empty-msg {
     font-weight: bold;
     color: #00000038;
     padding: 160px;
+}
+.col-md-xxc {
+    width: 100% !important;
+}
+.col-md-xxc .card > img {
+    max-height: 150px;
+}
+.other-courses {
+    padding: 0 30px
+}
+.c-heading p{
+    margin-left: 0px;
+    padding-left: 0px;
+    margin-bottom: 20px;
+}
+.slick .slick-track {    
+    margin-left:0 !important;
 }
