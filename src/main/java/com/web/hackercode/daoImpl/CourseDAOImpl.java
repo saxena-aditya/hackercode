@@ -494,17 +494,19 @@ public class CourseDAOImpl implements CourseDAO {
 				+ "resp_code = ?, resp_msg = ?, status = ?, txn_amount = ?, txn_date = ?, "
 				+ "txn_id = ? WHERE order_id = ?";
 		
-		try {
-			jdbcTemplate.update(COMPLETE_PAYMENT, param.get("BANKNAME"), param.get("BANKTXNID"),
-					param.get("CURRENCY"), param.get("GATEWAYNAME"), param.get("MID"),
-					param.get("PAYMENTMODE"), param.get("RESPCODE"), param.get("RESPMSG"),
-					param.get("STATUS"), param.get("TXNAMOUNT"), param.get("TXNDATE"), 
-					param.get("TXNID"), orderId);
-			System.out.println(orderId);
-			return true;	
-		}
-		catch(Exception e) {
-			e.printStackTrace();
+		if (param.get("STATUS").equals("TXN_SUCCESS")) {
+			try {
+				jdbcTemplate.update(COMPLETE_PAYMENT, param.get("BANKNAME"), param.get("BANKTXNID"),
+						param.get("CURRENCY"), param.get("GATEWAYNAME"), param.get("MID"),
+						param.get("PAYMENTMODE"), param.get("RESPCODE"), param.get("RESPMSG"),
+						param.get("STATUS"), param.get("TXNAMOUNT"), param.get("TXNDATE"), 
+						param.get("TXNID"), orderId);
+				System.out.println(orderId);
+				return true;	
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return false;

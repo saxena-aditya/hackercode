@@ -188,7 +188,7 @@ public class CourseController {
         	parameters.put("WEBSITE",PaytmConstants.WEBSITE);
         	parameters.put("MOBILE_NO","9876543210");
         	parameters.put("EMAIL","test@gmail.com");
-        	parameters.put("CALLBACK_URL", "https://hackercode.in/courses/"+courseCode+"/payment/callback");
+        	parameters.put("CALLBACK_URL", "http://hackercode.in/courses/"+courseCode+"/payment/callback");
         	String checkSum =  CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum(PaytmConstants.MERCHANT_KEY, parameters);
         	outputHtml.append("<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>");
         	outputHtml.append("<html>");
@@ -231,36 +231,53 @@ public class CourseController {
     	Map<String, String[]> mapData = req.getParameterMap();
     	TreeMap<String,String> parameters = new TreeMap<String,String>();
     	String paytmChecksum =  "";
-    	while(paramNames.hasMoreElements()) {
-    		String paramName = (String)paramNames.nextElement();
-    		if(paramName.equals("CHECKSUMHASH")){
-    			paytmChecksum = mapData.get(paramName)[0];
-    		}else{
-    			parameters.put(paramName,mapData.get(paramName)[0]);
-    		}
+    	
+    	if (utils.isUserAuthenticated(req)) {
+    		while(paramNames.hasMoreElements()) {
+        		String paramName = (String) paramNames.nextElement();
+        		if(paramName.equals("CHECKSUMHASH")) {
+        			paytmChecksum = mapData.get(paramName)[0];
+        		}
+        		else {
+        			parameters.put(paramName,mapData.get(paramName)[0]);
+        		}
+        	}
+        	
+    		boolean isValideChecksum = false;
+        	String outputHTML="";
+        	
+        	try {
+        		isValideChecksum = CheckSumServiceHelper.getCheckSumServiceHelper().verifycheckSum(PaytmConstants.MERCHANT_KEY,parameters,paytmChecksum);
+        		if (isValideChecksum && parameters.containsKey("RESPCODE")) {
+        			if (parameters.get("STATUS").equals("TXN_SUCCESS")) {
+        				outputHTML = parameters.toString();
+        				if (cdao.completePayment(parameters)) {
+        					if (cdao.addCourseToUser(req, courseCode))
+        						outputHTML = "success";
+        				}
+        			}
+        			else {
+        				// Your payment failed
+        				System.out.println(parameters.toString());
+        				outputHTML="<b>Payment Failed.</b>";
+        			}
+        		}
+        		else {
+        			// Add payment failed error output here
+        			outputHTML="<b>Checksum mismatched.</b>";
+        		}
+        	}
+        	catch (Exception e) {
+        		outputHTML = e.toString();
+        	}
     	}
-    	boolean isValideChecksum = false;
-    	String outputHTML="";
-    	try{
-    		isValideChecksum = CheckSumServiceHelper.getCheckSumServiceHelper().verifycheckSum(PaytmConstants.MERCHANT_KEY,parameters,paytmChecksum);
-    		if(isValideChecksum && parameters.containsKey("RESPCODE")){
-    			if(parameters.get("RESPCODE").equals("01")){
-    				outputHTML = parameters.toString();
-    				if (cdao.completePayment(parameters)) {
-    					if (cdao.addCourseToUser(req, courseCode))
-    					outputHTML = "success";
-    				}
-    			}else{
-    				System.out.println(parameters.toString());
-    				outputHTML="<b>Payment Failed.</b>";
-    			}
-    		}else{
-    			outputHTML="<b>Checksum mismatched.</b>";
-    		}
-    	}catch(Exception e){
-    		outputHTML=e.toString();
+    	else {
+    		// user not in the session redirect to home page.
+    		return new ModelAndView(new RedirectView("/"));
     	}
-    	RedirectView v = new RedirectView(req.getContextPath() + "/profile");
+    	
+    	User user = (User) req.getSession().getAttribute("user");
+    	RedirectView v = new RedirectView(req.getContextPath() + utils.getUserBaseUrl(user));
     	return new ModelAndView(v);
     }
     

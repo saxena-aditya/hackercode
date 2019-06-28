@@ -1362,7 +1362,7 @@ efforts!</div>
 
             	//IE9 placeholder fallback
             	//credits http://www.hagenburger.net/BLOG/HTML5-Input-Placeholder-Fix-With-jQuery.html
-            	if(!Modernizr.input.placeholder){
+            	/* if(!Modernizr.input.placeholder){
             		$('[placeholder]').focus(function() {
             			var input = $(this);
             			if (input.val() == input.attr('placeholder')) {
@@ -1382,7 +1382,7 @@ efforts!</div>
             				}
             		  	})
             		});
-            	}
+            	} */
 
             });
 
@@ -1475,7 +1475,21 @@ efforts!</div>
 	            }
 
             });
-            
+          /*   window.onkeypress = function(e) {
+                console.log("TAB switched");
+
+            	if (e.which == 13) {
+                    e.preventDefault();
+                    console.log("TAB switched");
+                    var inputs = document.getElementsByClassName('input');
+                    for (var i = 0; i < inputs.length; i++) {
+	                    if (document.activeElement.id == inputs[i].id && i+1 < inputs.length ) {
+	                        inputs[i+1].focus();
+	                        break;   
+	                    }
+                	}
+                }
+            } */
             
         </script>
     </body>

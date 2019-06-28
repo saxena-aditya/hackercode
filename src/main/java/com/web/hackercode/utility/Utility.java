@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.web.hackercode.constants.HCConstants;
+import com.web.hackercode.structures.User;
+
 public class Utility {
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -91,6 +94,22 @@ public class Utility {
 		}
 		
 		return false;
+	}
+
+	public String getUserBaseUrl(User user) {
+		String redirectTo = "";
+		
+		if (user.isAdmin()) {
+    		redirectTo = HCConstants.ADMIN_DASHBOARD;
+    	}
+    	else if (user.isDrafter()) {
+    		redirectTo = HCConstants.DRAFTER_DASHBOARD;
+    	}
+    	else {
+    		redirectTo = HCConstants.USER_DASHBOARD;
+    	}
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

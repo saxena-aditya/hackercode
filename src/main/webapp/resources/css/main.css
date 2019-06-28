@@ -1188,7 +1188,7 @@ i.fab.fa-facebook.fb {
     }
 
     #menu-hack {
-        z-index: -1;
+        z-index: none;
         position: absolute;
         display: flex !important;
         flex-wrap: wrap;
