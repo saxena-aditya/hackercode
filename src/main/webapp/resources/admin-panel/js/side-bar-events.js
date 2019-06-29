@@ -27,24 +27,15 @@ function readURL(input) {
 	    let fdata = new FormData();
 	    fdata.append("profile-pic", input.files[0]);
 	    
-	    $.ajax({
-	    	type: "POST",
-	    	url: dev_upload_profile_pic,
-	    	data: fdata,
-	    	processData: false,
-	    	contentType: false,
-	    	beforeSend: function() {
-	    		$("#img-contain").addClass("running");
-	    	},
-	    	success: function(data) {
-	    		if(data) {
-	    			$("#img-contain").removeClass("running");
-	    		}
-	    	},
-	    	error: function() {
-	    		alert("error")
-	    	}
-	    });
+	    var rs = {
+	    	file: input.files[0],
+	    	name: input.files[0].name
+	    };
+	    console.log(rs);
+	    // in admin-panels's main.js, upload image to S3 
+	    $("#img-contain").addClass("running");
+	    uploadFile(rs);
+	  
 	  }
 	}
 

@@ -109,7 +109,7 @@ public class Utility {
     		redirectTo = HCConstants.USER_DASHBOARD;
     	}
 		// TODO Auto-generated method stub
-		return null;
+		return redirectTo;
 	}
 
 

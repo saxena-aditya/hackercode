@@ -63,7 +63,7 @@
 			    <c:otherwise>
 			    
 			    <li class="nav-item">
-			    	<a class="nav-link" href="${ pageContext.request.contextPath }/profile">View Dashboard</a>
+			    	<a class="nav-link" href="${ pageContext.request.contextPath }${ url }">View Dashboard</a>
 			    </li>
 			    <li class="nav-item">
 			    	<a class="nav-link" href="${ pageContext.request.contextPath }/logout">logout</a>

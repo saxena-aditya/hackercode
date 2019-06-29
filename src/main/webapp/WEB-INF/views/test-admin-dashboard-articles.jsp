@@ -58,6 +58,7 @@
 	          		<div class="table-responsive">
 	          			<table class="table table-striped">
 	          				<thead>
+	          					<th>Status</th>
 	          					<th>Name</th>
 	          					<th>UserName</th>
 	          					<th>Article Title</th>

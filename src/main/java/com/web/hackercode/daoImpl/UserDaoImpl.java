@@ -24,6 +24,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.hackercode.constants.HCConstants;
 import com.web.hackercode.dao.UserDAO;
 import com.web.hackercode.mappers.StudentMapper;
 import com.web.hackercode.mappers.UserMapper;
@@ -61,7 +62,7 @@ public class UserDaoImpl implements UserDAO {
 		try {
 			System.out.println(user.getEmail());
 			System.out.println(imagePath);
-			jdbcTemplate.update(UPDATE_PROFILE_PIC, new Object[] {imagePath, user.getEmail()});
+			jdbcTemplate.update(UPDATE_PROFILE_PIC, new Object[] {HCConstants.S3_CDN_URL + imagePath, user.getEmail()});
 			System.out.println("returning after query");
 			return true;
 		}

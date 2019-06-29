@@ -15,25 +15,28 @@
 	crossorigin="anonymous" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/admin-panel/css/main.css" />
-	
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/loading-btn/loading.css" />
-	
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/loading-btn/loading-btn.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"/>
-	
-	<script
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/main.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
+
+<script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
 	type="text/javascript"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous" type="text/javascript"></script>
-	<link rel="stylesheet" href="https://cdn.plyr.io/3.5.3/plyr.css" />
-	
-	<script src="https://cdn.plyr.io/3.5.3/plyr.polyfilled.js"></script>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.5.3/plyr.css" />
+
+<script src="https://cdn.plyr.io/3.5.3/plyr.polyfilled.js"
+	type="text/javascript"></script>
 
 </head>
 <body>
@@ -61,14 +64,17 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> 
-						<img src="${pageContext.request.contextPath}/resources/admin-panel/img/user-image.jpg" id="user-profile-small" alt="user"> ${ user.getFirstName() }
+						aria-expanded="false"> <img
+							src="${ user.getFilePath() }"
+							id="user-profile-small" alt="user"> ${ user.getFirstName() }
 					</a>
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdown">
-							 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editDetailsModal">Edit Details</a>
+							<a class="dropdown-item" href="#" data-toggle="modal"
+								data-target="#editDetailsModal">Edit Details</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
+							<a class="dropdown-item"
+								href="${pageContext.request.contextPath}/logout">Logout</a>
 						</div></li>
 				</ul>
 			</div>
@@ -81,37 +87,37 @@
 					<!-- <button class="btn btn-info">
 						<i class="fas fa-download"></i>
 					</button> -->
-					<button class="btn btn-success" data-toggle="modal" data-target="#editDetailsModal">
+					<button class="btn btn-success" data-toggle="modal"
+						data-target="#editDetailsModal">
 						<i class="far fa-user"></i>
 					</button>
 					<!-- <button class="btn btn-warning">
 						<i class="fas fa-key"></i>
 					</button> -->
-					<a class="btn btn-danger" style="color: #fff;" id="logout-alt" href="${pageContext.request.contextPath}/logout">
-						<i class="fas fa-power-off"></i>
+					<a class="btn btn-danger" style="color: #fff;" id="logout-alt"
+						href="${pageContext.request.contextPath}/logout"> <i
+						class="fas fa-power-off"></i>
 					</a>
 				</div>
 				<div class="sidebar-header">
 					<div class="user-img">
 						<div class="img-contain ld-over" id="img-contain">
 							<div class="ld ld-ring ld-spin"></div>
-						
-						
-						<img
-							src="${pageContext.request.contextPath}/resources/ff-ideas/${user.getFilePath() }"
-							alt="" 
-							class="user-image-big" 
-							id="usr-img">
-							
+
+
+							<img
+								src="${ user.getFilePath() }"
+								alt="" class="user-image-big" id="usr-img">
+
 							<div class="float-upload">
-								  <input type='file' id="img-inp" />
-								<i class="fas fa-user-plus" id="init-usr-img-upload"></i>
+								<input type='file' id="img-inp" /> <i class="fas fa-user-plus"
+									id="init-usr-img-upload"></i>
 							</div>
-							</div>
+						</div>
 					</div>
 					<div class="student-name">
 						<div class="std-name">
-							<p id="#name">${ user.getFirstName() }</p>
+							<p id="#name" style="line-height: 1.5em;">${ user.getFirstName() }</p>
 						</div>
 					</div>
 					<div class="info-user">
@@ -127,15 +133,15 @@
 							Dashboard
 
 					</a></li>
-					<li><a href="#courses" id="courses"> <i class="fas fa-file-video ia"></i>
-							My Courses
+					<li><a href="#courses" id="courses"> <i
+							class="fas fa-file-video ia"></i> My Courses
 
 					</a></li>
 					<li><a href="#exams" id="my-exams"> <i
 							class="fas fa-edit ia"></i> My Exams
 
 					</a></li>
-					
+
 					<!-- <li><a href="#"> <i class="fas fa-envelope ia"></i> Inbox
 
 					</a></li> -->
@@ -143,7 +149,7 @@
 							class="far fa-chart-bar ia"></i> My Reports
 
 					</a></li>
-					
+
 					<!-- <li><a href="#homeSubmenu" data-toggle="collapse"
 						aria-expanded="false" class="dropdown-toggle sidebar-a"> <i
 							class="fas fa-bars ia"></i> More
@@ -171,14 +177,14 @@
 							<li><a href="#">Page 2</a></li>
 							<li><a href="#">Page 3</a></li>
 						</ul></li> -->
-					<li><a href="${ pageContext.request.contextPath }/logout"> <i class="fas fa-sign-out-alt ia"></i>
-							Logout
+					<li><a href="${ pageContext.request.contextPath }/logout">
+							<i class="fas fa-sign-out-alt ia"></i> Logout
 
 					</a></li>
 				</ul>
 			</nav>
 			<div class="content ld-over" id="status-arr">
-			<div class="ld ld-ring ld-spin"></div>
+				<div class="ld ld-ring ld-spin"></div>
 				<div class="row" style="margin: 0">
 					<div class="col-12 grey" style="padding: 0;">
 						<div class="top-sec-nav flex">
@@ -225,18 +231,13 @@
 								<p>Package Categories</p>
 							</div>
 							<div class="disc">
-								<p>
-									Placements
-								</p>
+								<p>Placements</p>
 							</div>
 
 						</div>
 					</div>
-					<div class="content-section" id="content">
+					<div class="content-section" id="content"></div>
 
-							
-					</div>
-	
 				</div>
 			</div>
 		</div>
@@ -310,25 +311,25 @@
 			</div>
 		</div>
 	</div>
-	<footer style="
-    background: black;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0 15px 0px;
-">
-		<span><i class="far fa-copyright"></i> Copyright, 2019</span>
-		<span style="
-    position: absolute;
-    right: 60px;
-"><i class="fas fa-envelope"></i> &nbsp;hackercode.19@gmail.com</span>
+	<footer
+		style="background: black; color: #fff; text-align: center; padding: 10px 0 15px 0px;">
+		<span><i class="far fa-copyright"></i> Copyright, 2019</span> <span
+			style="position: absolute; right: 60px;"><i
+			class="fas fa-envelope"></i> &nbsp;hackercode.19@gmail.com</span>
 	</footer>
 </body>
 </html>
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"
+	type="text/javascript"></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.452.0.min.js"
+	type="text/javascript"></script>
+<script
+	src="${ pageContext.request.contextPath }/resources/js/aws-config.js"
+	type="text/javascript"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/admin-panel/js/main.js"
 	type="text/javascript"></script>
@@ -337,58 +338,52 @@
 	type="text/javascript"></script>
 
 <script type="text/javascript">
-
-	$('#editSubmit').click(function(e){
+	$('#editSubmit').click(function(e) {
 		e.preventDefault();
 		console.log("Button Clicked");
 		var submitForm = $('#submitform')[0];
 		var formData = new FormData(submitForm);
 		var d = {
-				'email' : $('#Email').val(),
-				'firstName' : $('#fname').val(),
-				'lastName' : $('#lname').val(),
-				'username':$('#username').val(),
-				'institute':$('#ins').val(),
-				'file' : $('input[type=file]')[0].files[0]				
+			'email' : $('#Email').val(),
+			'firstName' : $('#fname').val(),
+			'lastName' : $('#lname').val(),
+			'username' : $('#username').val(),
+			'institute' : $('#ins').val(),
+			'file' : $('input[type=file]')[0].files[0]
 		}
-		
+
 		$.ajax({
-		    url: "${pageContext.request.contextPath}/update-user-info",
-		     type: "POST",
-	         enctype: 'multipart/form-data',
-	        	data: formData,
-	            processData: false,
-	            contentType: false,
-	            cache: false,
-	            timeout: 600000,
-		});	
+			url : "${pageContext.request.contextPath}/update-user-info",
+			type : "POST",
+			enctype : 'multipart/form-data',
+			data : formData,
+			processData : false,
+			contentType : false,
+			cache : false,
+			timeout : 600000,
+		});
 	})
-	
+
 	$(document).on("click", ".hc-indicator", function(e) {
 		console.log("it clicked...");
-		let original  = $(this)[0].id;
-		
+		let original = $(this)[0].id;
+
 		if ($(this).hasClass("fa-plus")) {
 			$(this).removeClass("fa-plus");
 			$(this).addClass("fa-minus");
-		}
-		else if ($(this).hasClass("fa-minus")){
+		} else if ($(this).hasClass("fa-minus")) {
 			$(this).removeClass("fa-minus");
 			$(this).addClass("fa-plus");
 		}
-		
-		 $(".hc-indicator").each(function() {
-			if (original != $(this)[0].id){
+
+		$(".hc-indicator").each(function() {
+			if (original != $(this)[0].id) {
 				if ($(this).hasClass("fa-minus")) {
 					$(this).removeClass("fa-minus");
 					$(this).addClass("fa-plus");
 				}
-					
+
 			}
 		});
 	});
-	
-	
-
-	
 </script>

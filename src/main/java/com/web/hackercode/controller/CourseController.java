@@ -130,30 +130,18 @@ public class CourseController {
     		@PathVariable String courseCode ,@PathVariable String courseName) {
     	CourseDAO cdao = ctx.getBean(CourseDAO.class);
     	int doLogin = 1;
+    	String url = null;
     	
-    	if (req.getSession() == null) {
-    		doLogin = 1;
-    		System.out.println("Session Null");
-    	}
-    	else {
-			System.out.println(req.getSession());
-			  Enumeration<String> x =req.getSession().getAttributeNames();
-			  while(x.hasMoreElements()) { System.out.println(x.nextElement()); }
-			 
-    		System.out.println("Session Not Null");
-    		if (req.getSession().getAttribute("isLoggedIn") != null) {
-        		System.out.println("Session Not Null isLoggedIn");
-
-    			if (req.getSession().getAttribute("isLoggedIn").toString().equalsIgnoreCase("true")) {
-    	    		System.out.println("Session Not Null false");
-    				doLogin = 0;
-    			}
-    		}		
+    	if (utils.isUserAuthenticated(req)) {
+    		doLogin = 0;
+    		User user = (User) req.getSession().getAttribute("user");
+    		url = utils.getUserBaseUrl(user);
     	}
     	
     	return new ModelAndView("course-details")
     			.addObject("course", cdao.getCourse(courseCode))
-    			.addObject("doLogin", doLogin);
+    			.addObject("doLogin", doLogin)
+    			.addObject("url", url);
     }
     
     @RequestMapping(value = "/courses/{courseCode}/payment/redirect", method = {RequestMethod.GET, RequestMethod.POST})

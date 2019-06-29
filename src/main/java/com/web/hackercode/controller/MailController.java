@@ -18,16 +18,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
+import com.web.hackercode.constants.HCConstants;
+import com.web.hackercode.constants.MailTemplate;
+import com.web.hackercode.dao.ArticleDAO;
+import com.web.hackercode.dao.MailerDAO;
 import com.web.hackercode.dao.UserDAO;
 import com.web.hackercode.structures.User;
 import com.web.hackercode.utility.Utility;
 
 @Controller
 public class MailController {
-
 	@Autowired
 	private JavaMailSender mailSenderObj;
-	private final String emailFromRecipient = "hackercode.19@gmail.com";
+	
     
 	ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
     Utility utils = new Utility();
@@ -40,6 +43,7 @@ public class MailController {
     	final String message = "localhost:8000/password-reset/" + resetLink;
 		
     	UserDAO udao = ctx.getBean(UserDAO.class);
+    	MailerDAO mail = ctx.getBean(MailerDAO.class);
     	JsonObject obj = new JsonObject();
     	
     	obj.addProperty("isUser", false);
@@ -52,41 +56,54 @@ public class MailController {
 
     		// save md5 hash to database to compare it later with incoming request.
     		if (udao.saveResetLink(user.getUsername(), resetLink)) {
-    			try {
-        			mailSenderObj.send(new MimeMessagePreparator() {
-                        public void prepare(MimeMessage mimeMessage) throws Exception {
-             
-                            MimeMessageHelper mimeMsgHelperObj = new MimeMessageHelper(mimeMessage, true, "UTF-8");             
-                            mimeMsgHelperObj.setTo(email);
-                            mimeMsgHelperObj.setFrom(emailFromRecipient);               
-                            mimeMsgHelperObj.setText( message);
-                            mimeMsgHelperObj.setSubject(subject);
-             
-                            // Determine If There Is An File Upload. If Yes, Attach It To The Client Email              
-                            /*if ((attachFileObj != null) && (attachFileObj.getSize() > 0) && (!attachFileObj.equals(""))) {
-                                System.out.println("\nAttachment Name?= " + attachFileObj.getOriginalFilename() + "\n");
-                                mimeMsgHelperObj.addAttachment(attachFileObj.getOriginalFilename(), new InputStreamSource() {                   
-                                    public InputStream getInputStream() throws IOException {
-                                        return attachFileObj.getInputStream();
-                                    }
-                                });
-                            } else {
-                                System.out.println("\nNo Attachment Is Selected By The User. Sending Text Email!\n");
-                            }*/
-                        }
-                    });
-        			
-        			obj.addProperty("isMailSent", true);
-        		}
-        		catch(Exception e) {
-        			e.printStackTrace();
-        		}
+    			if (mail.sendMail(mailSenderObj, subject, email, message)) {
+    				obj.addProperty("isMailSent", true);
+    			}
     		}
-    		
-    	
     	} 
     	
     	return obj.toString();
     }
+    
+    @RequestMapping(value = "/user/api/send-mail-article-action", method = RequestMethod.POST)
+    @ResponseBody
+    public String sendArticleApprovedMail(HttpServletRequest req, @RequestParam final String emailTo, 
+    		@RequestParam String articleName, @RequestParam boolean approved) {
+    	
+    	String subject = null;
+    	String message = null;
+    	
+    	JsonObject obj = new JsonObject();
+    	obj.addProperty("isLoggedIn", false);
+    	obj.addProperty("isMailSent", false);
+    	obj.addProperty("error_text", "");
+    	
+    	if (utils.isUserAuthenticated(req)) {
+    		
+    		obj.addProperty("isLoggedIn", true);
+    		User user = (User) req.getSession().getAttribute("user");
+        	MailerDAO mail = ctx.getBean(MailerDAO.class);
+        	
+    		if (approved) {
+    			subject = "HackerCode | Article " + articleName + " Approved";
+    			message = MailTemplate.ARTICLE_ACTION_APPROVE;
+    		}
+    		else {
+    			subject = "HackerCode | Article " + articleName + " Disapproved";
+    			message = MailTemplate.ARTICLE_ACTION_DISAPPROVE;
+    		}
+    		
+    		final String subject_final = subject;
+    		final String message_final = message;
+        	
+    		if (mail.sendMail(mailSenderObj, subject_final, emailTo, message_final)) {
+        		obj.addProperty("isMailSent", true);
+        	}
+    	} 
+    	
+    	return obj.toString();
+    }
+    
+    
 }
 
