@@ -73,11 +73,22 @@
 				        <c:forEach items="${ articles }" var = "a">
 	                	<div class="prev-article ${ a.getId_hash() }">
 	                		<div class="name">
-	                        	<a class="" href="X">${ a.getTitle() }</a>
+	                		<c:set var = "str" value = "${ a.getTitle() }"/>
+		                	<c:set var = "str" value = "${fn:toLowerCase(str)}" />
+	      					<c:set var = "title" value = "${fn:replace(str, ' ', '-')}" />
+	                        	<c:choose>
+									    <c:when test="${ a.isApproved() }">
+									    	<a class="" href="/article/${ a.getId_hash() }/${ title }">${ a.getTitle() }</a>
+									    </c:when>
+									    <c:otherwise>
+									    	<a class="" href="#">${ a.getTitle() }</a>
+									    </c:otherwise>
+									</c:choose>
+	                        	
 	                        	<span class="article-edit" id="${ a.getId_hash() }"><i class="far fa-edit"></i></span>
 	                        	
 	                        		<c:choose>
-									    <c:when test="${ a.isApproved()}">
+									    <c:when test="${ a.isApproved() }">
 									    </c:when>
 									    <c:otherwise>
 									    	<span class="delete-article" id="${ a.getId_hash() }">

@@ -40,7 +40,7 @@ public class MailController {
     public String resetPasswordMailer(HttpServletRequest req, @RequestParam final String email) {
     	final String subject = "HackerCode | Password Reset Link";
     	final String resetLink =  utils.getMd5(email +  utils.getMd5(utils.randomAlphaNumeric(10)));
-    	final String message = "localhost:8000/password-reset/" + resetLink;
+    	final String message = "https::/hackercode.in/password-reset/" + resetLink;
 		
     	UserDAO udao = ctx.getBean(UserDAO.class);
     	MailerDAO mail = ctx.getBean(MailerDAO.class);
