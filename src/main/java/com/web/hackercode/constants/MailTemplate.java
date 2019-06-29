@@ -356,7 +356,7 @@ public static String ARTICLE_ACTION_APPROVE = "<!DOCTYPE html PUBLIC '-//W3C//DT
 "<!--[if mso]><table width='100%' cellpadding='0' cellspacing='0' border='0'><tr><td style='padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 5px; font-family: Georgia, 'Times New Roman', serif'><![endif]-->"+
 "<div style='color:#134C75;font-family:'Bitter', Georgia, Times, 'Times New Roman', serif;line-height:120%;padding-top:30px;padding-right:30px;padding-bottom:5px;padding-left:30px;'>"+
 "<div style='line-height: 14px; font-size: 12px; color: #134C75; font-family: 'Bitter', Georgia, Times, 'Times New Roman', serif;'>"+
-"<p style='line-height: 24px; text-align: center; font-size: 19px; margin: 0;'><span style='line-height: 24px; font-size: 19px;'><strong style='font-family: Bitter, Georgia, Times, 'Times New Roman', serif; font-size: 24px;'>Content-Developer Internship Program</strong></span></p>"+
+"<p style='line-height: 24px; text-align: center; font-size: 19px; margin: 0;'><span style='line-height: 24px; font-size: 19px;'><strong style='font-family: Bitter, Georgia, Times, 'Times New Roman', serif; font-size: 24px;'>Content-Developer Internship-Program</strong></span></p>"+
 "</div>"+
 "</div>"+
 "<!--[if mso]></td></tr></table><![endif]-->"+
@@ -802,7 +802,7 @@ public static String ARTICLE_ACTION_DISAPPROVE = "<!DOCTYPE html PUBLIC '-//W3C/
 "<!--[if mso]><table width='100%' cellpadding='0' cellspacing='0' border='0'><tr><td style='padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 5px; font-family: Georgia, 'Times New Roman', serif'><![endif]-->"+
 "<div style='color:#134C75;font-family:'Bitter', Georgia, Times, 'Times New Roman', serif;line-height:120%;padding-top:30px;padding-right:30px;padding-bottom:5px;padding-left:30px;'>"+
 "<div style='line-height: 14px; font-size: 12px; color: #134C75; font-family: 'Bitter', Georgia, Times, 'Times New Roman', serif;'>"+
-"<p style='line-height: 24px; text-align: center; font-size: 19px; margin: 0;'><span style='line-height: 24px; font-size: 19px;'><strong style='font-family: Bitter, Georgia, Times, 'Times New Roman', serif; font-size: 24px;'>Content-Developer Internship Program</strong></span></p>"+
+"<p style='line-height: 24px; text-align: center; font-size: 19px; margin: 0;'><span style='line-height: 24px; font-size: 19px;'><strong style='font-family: Bitter, Georgia, Times, 'Times New Roman', serif; font-size: 24px;'>Content-Developer Internship-Program</strong></span></p>"+
 "</div>"+
 "</div>"+
 "<!--[if mso]></td></tr></table><![endif]-->"+
