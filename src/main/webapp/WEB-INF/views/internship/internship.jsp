@@ -51,6 +51,7 @@
 	        	<div class="table-responsive">
 	        		<table class="table table-striped">
 	        			<thead>
+	        				<th>Status</th>
 	        				<th>Full Name</th>
 	        				<th>Email</th>
 	        				<th>Contact</th>
@@ -63,6 +64,16 @@
 	        			<tbody>
 	        				<c:forEach items="${ app }" var="a">
 	        					<tr>
+	        						<td>
+	        							<c:choose>
+	        								<c:when test="${ a.isHandled() }">
+	        									Handled
+	        								</c:when>
+	        								<c:otherwise>
+	        									<button class="btn btn-success handle-intern" id="${ a.getId() }">Mark Handled</button>
+	        								</c:otherwise>
+	        							</c:choose>
+	        						</td>
 	        						<td>${ a.getFirstName() } ${ a.getLastName() }</td>
 	        						<td>${ a.getEmail() }</td>
 	        						<td>${ a.getPhnNum() }</td>
@@ -108,6 +119,39 @@
 $(document).ready( function () {
     $('.table').DataTable();
 } );
+
+$(document).on("click", ".handle-intern", function(e) {
+	let internLetterId = $(this)[0].id;
+	if (!$(this).hasClass("marked")) {
+		$.ajax({
+			method: "POST",
+			url: "/admin/api/mark-internship-handled",
+			data: {id : internLetterId},
+			beforeSend: function() {
+				$(".handle-intern").text("Marking...");
+			},
+			success: function(data) {
+				if (data) {
+					let mark = JSON.parse(data);
+					if (!mark.error) {
+						$(".handle-intern").text("Marked");
+						$(".handle-intern").addClass("marked");
+					}
+					else {
+						alert(mark.error_text);
+					}
+				}
+			},
+			error: function(a,xhr,b) {
+				console.log(a,xhr,b);
+			}
+		});
+	}
+	else {
+		alert("Already Marked");
+	}
+	
+});
 </script>   
   <!-- endinject -->
   <!-- Plugin js for this page-->

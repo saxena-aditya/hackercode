@@ -97,3 +97,9 @@
 .file-upload-r {
   display: none;
 }
+
+.article-action {
+  color: #4a4141;
+  margin-left: 4px;
+  font-size: 1.05em;
+}

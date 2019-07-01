@@ -161,12 +161,12 @@ public class UserDaoImpl implements UserDAO {
         return null;
     }
 
-    public int getUserWithEmail(String email, String username, HttpServletRequest req) {
+    public int getUserCountWithEmail(String email, int acc_type) {
         jdbcTemplate.setDataSource(getDataSource());
-        String GET_USER = "SELECT COUNT(*) FROM hc_user_details WHERE BINARY ud_email = ? OR BINARY ud_username = ?";
+        String GET_USER = "SELECT COUNT(*) FROM hc_user_details WHERE BINARY ud_email = ? AND ud_role = ?";
         Number count = 0;
         try {
-            count = jdbcTemplate.queryForObject(GET_USER, Integer.class, email, username);
+            count = jdbcTemplate.queryForObject(GET_USER, Integer.class, email, acc_type);
             return new Integer(count.intValue());
         } catch (Exception e) {
             e.printStackTrace();
@@ -328,57 +328,5 @@ public class UserDaoImpl implements UserDAO {
 		}
 		return false;
 	}
-	
-	public boolean applyForInternship(InternshipForm itn) {
-		jdbcTemplate.setDataSource(getDataSource());
-		
-		String APPLY_FOR_INTERN = "INSERT INTO hc_internships (f_name, l_name, ph_num, email, university, city, course, semester) VALUES (?,?,?,?,?,?,?,?)";
-		try {
-			jdbcTemplate.update(APPLY_FOR_INTERN, itn.getFirstName(), itn.getLastName(), itn.getPhnNum(), itn.getEmail(),
-					itn.getUniversity(), itn.getCity(), itn.getCourse(), itn.getSemester());
-			return true;
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return false;
-	}
-	public List<InternshipForm> getInternshipApplications() {
-		jdbcTemplate.setDataSource(getDataSource());
-
-		String GET_APPLICATIONS = "SELECT * FROM hc_internships";
-		try {
-			List < InternshipForm > itn = jdbcTemplate.query(GET_APPLICATIONS,
-		            new ResultSetExtractor < List < InternshipForm >> () {
-		                public List < InternshipForm > extractData(ResultSet rs) throws SQLException, DataAccessException {
-		                    List < InternshipForm > list = new ArrayList < InternshipForm > ();
-		                    while (rs.next()) {
-		                    	InternshipForm el = new InternshipForm();
-		                    	el.setFirstName(rs.getString("f_name"));
-		                    	el.setLastName(rs.getString("l_name"));
-		                    	el.setUniversity(rs.getString("university"));
-		                    	el.setCourse(rs.getString("course"));
-		                    	el.setSemester(rs.getInt("semester"));
-		                    	el.setCity(rs.getString("city"));
-		                    	el.setEmail(rs.getString("email"));
-		                    	el.setPhnNum(rs.getLong("ph_num"));
-		                    	el.setAppliedAt(rs.getTimestamp("applied_at"));
-		                        list.add(el);
-		                    }
-		                    return list;
-		                }
-		            });
-			
-			return itn;
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-
-
 	
 }

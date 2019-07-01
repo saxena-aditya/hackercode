@@ -70,7 +70,15 @@
 	          							<td><button class="btn btn-success s-btn approve" id="article-${ article.getId() }"><i class="fas fa-check-circle" id="status-${ article.getId() }"></i></button></td>
 	          							<td>${ article.getName() }</td>
 	          							<td>${ article.getUserName() }</td>
-	          							<td><a href="/admin/articles/review/${ article.getId_hash() }">${ article.getTitle() }</a></td>
+	          							<td>
+		          							${ article.getTitle() } 
+		          							<span>
+		          								<a class="article-action" href="/admin/articles/review/${ article.getId_hash() }"><i class="fas fa-eye"></i></a>
+		          							</span>
+		          							<span>
+		          								<a class="article-action" href="/admin/articles/edit"><i class="fas fa-edit"></i></a>
+		          							</span>
+	          							</td>
 	          							<td>${ article.getCategory() } > ${ article.getSubCategory() }</td>
 	          							
 	          						</tr>

@@ -33,12 +33,7 @@ public class UserController {
 	ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
 	Utility utils = new Utility();
 
-	@RequestMapping(value = "/admin/intern-letters", method = RequestMethod.GET)
-	public ModelAndView showInternshipLetters() {
-		UserDAO udao = ctx.getBean(UserDAO.class);
-		return new ModelAndView("internship/internship").addObject("app", udao.getInternshipApplications());
-	}
-
+	
 	@RequestMapping(value = "/save-profile-pic", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean saveProfilePic(HttpServletRequest req, @RequestParam String fileName) {
@@ -84,5 +79,6 @@ public class UserController {
 
 		return obj.toString();
 	}
-
+	
+	
 }

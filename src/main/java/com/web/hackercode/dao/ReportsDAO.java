@@ -6,7 +6,9 @@ import com.web.hackercode.structures.FinishedTest;
 import com.web.hackercode.structures.Question;
 
 public interface ReportsDAO {
-	FinishedTest getFinishedTestData(String testId, String userId);
-	List<Question> getReportCompatibleQuestions(List<Question> testQuestions, String ansData);
-	int incrementCounter();
+	public FinishedTest getFinishedTestData(String testId, String userId);
+
+	public List<Question> getReportCompatibleQuestions(List<Question> testQuestions, String ansData);
+
+	public int incrementCounter();
 }

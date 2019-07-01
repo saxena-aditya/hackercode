@@ -3,6 +3,7 @@ package com.web.hackercode.structures;
 import java.sql.Timestamp;
 
 public class InternshipForm {
+	private int id;
 	private String firstName;
 	private String lastName;
 	private long phnNum;
@@ -12,7 +13,34 @@ public class InternshipForm {
 	private String course;
 	private int semester;
 	private Timestamp appliedAt;
+	private boolean isHandled;
 	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
+	/**
+	 * @return the isHandled
+	 */
+	public boolean isHandled() {
+		return isHandled;
+	}
+	/**
+	 * @param isHandled the isHandled to set
+	 */
+	public void setHandled(boolean isHandled) {
+		this.isHandled = isHandled;
+	}
 	/**
 	 * @return the appliedAt
 	 */
