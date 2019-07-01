@@ -147,3 +147,7 @@ p.no-articles-msg {
 .delete-article:hover {
     color: #f71a0a;
 }
+.prev-box {
+    overflow-y: auto;
+    max-height: 30%;
+}

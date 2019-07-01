@@ -64,7 +64,7 @@
                 <div class="col-head pre-head">
                     <p>Previous Articles <span><i class="fas fa-history"></i></span></p>
                 </div>
-                <div class="col-content">
+                <div class="col-content prev-box">
                 <c:choose>
 				    <c:when test="${empty articles}">
 				    	<p class="no-articles-msg">No Previous Articles</p>
