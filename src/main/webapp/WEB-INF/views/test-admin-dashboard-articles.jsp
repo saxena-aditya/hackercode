@@ -67,7 +67,7 @@
 	          				<tbody>
 	          					<c:forEach items="${ notApprovedArticles }" var="article">
 	          						<tr>
-	          							<td><button class="btn btn-success s-btn approve" id="article-${ article.getId() }"><i class="fas fa-check-circle" id="status-${ article.getId() }"></i></button></td>
+	          							<td><button title="Approve Article" class="btn btn-success s-btn approve" id="article-${ article.getId() }"><i class="fas fa-check-circle" id="status-${ article.getId() }"></i></button></td>
 	          							<td>${ article.getName() }</td>
 	          							<td>${ article.getUserName() }</td>
 	          							<td>

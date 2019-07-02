@@ -147,7 +147,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 		String GET_ALL_NOT_APPROVED_ARTICLES = "SELECT a.id_hash, a.name as title , a.tags, a.id, ud_email, concat(ud_firstname, ud_lastname) as name ,"
 				+ " c.name AS cat, s.name AS sub_cat, a_is_approved FROM hc_articles a JOIN hc_user_details ud JOIN hc_user_articles ua JOIN hc_categories c JOIN "
-				+ "hc_sub_categories s WHERE c.id = a.category AND s.id = a.sub_category AND ua.user_name = ud.ud_email AND a.id = ua.article_id and a_is_approved = 1";
+				+ "hc_sub_categories s WHERE c.id = a.category AND s.id = a.sub_category AND ua.user_name = ud.ud_username AND a.id = ua.article_id and a_is_approved = 1";
 
 		try {
 			List<Article> articles = jdbcTemplate.query(GET_ALL_NOT_APPROVED_ARTICLES,
@@ -182,9 +182,9 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public List<Article> getAllNotApprovedArticles() {
 		jdbcTemplate.setDataSource(getDataSource());
 
-		String GET_ALL_APPROVED_ARTICLES = "SELECT a.id_hash, a.name as title , a.tags, a.id, ud_email, concat(ud_firstname, ud_lastname) as name ,"
+		String GET_ALL_APPROVED_ARTICLES = "SELECT a.id_hash, a.name as title , a.tags, a.id, ud_email, concat(ud_firstname,' ', ud_lastname) as name ,"
 				+ " c.name AS cat, s.name AS sub_cat, a_is_approved FROM hc_articles a JOIN hc_user_details ud JOIN hc_user_articles ua JOIN hc_categories c JOIN "
-				+ "hc_sub_categories s WHERE c.id = a.category AND s.id = a.sub_category AND ua.user_name = ud.ud_email AND a.id = ua.article_id and a_is_approved = 0";
+				+ "hc_sub_categories s WHERE c.id = a.category AND s.id = a.sub_category AND ua.user_name = ud.ud_username AND a.id = ua.article_id and a_is_approved = 0";
 
 		try {
 			List<Article> articles = jdbcTemplate.query(GET_ALL_APPROVED_ARTICLES,

@@ -48,6 +48,8 @@
 						$("#article-" + articleId).removeClass("approve");
 						$("#article-" + articleId).addClass("disapprove");
 						
+						$("#article-" + articleId).attr("title", "Disapprove Article");
+						
 					}
 				},
 				error: function(a, xhr, b) {

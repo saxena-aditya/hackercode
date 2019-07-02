@@ -70,7 +70,7 @@
 	        									Handled
 	        								</c:when>
 	        								<c:otherwise>
-	        									<button class="btn btn-success handle-intern" id="${ a.getId() }">Mark Handled</button>
+	        									<button title="Mark as Handled" class="btn btn-success handle-intern" id="${ a.getId() }">Mark Handled</button>
 	        								</c:otherwise>
 	        							</c:choose>
 	        						</td>
@@ -128,13 +128,13 @@ $(document).on("click", ".handle-intern", function(e) {
 			url: "/admin/api/mark-internship-handled",
 			data: {id : internLetterId},
 			beforeSend: function() {
-				$(".handle-intern").text("Marking...");
+				$("#" + internLetterId).text("Marking...");
 			},
 			success: function(data) {
 				if (data) {
 					let mark = JSON.parse(data);
 					if (!mark.error) {
-						$(".handle-intern").text("Marked");
+						$("#" + internLetterId).text("Marked");
 						$(".handle-intern").addClass("marked");
 					}
 					else {
