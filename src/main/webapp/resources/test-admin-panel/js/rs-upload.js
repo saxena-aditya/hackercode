@@ -49,7 +49,6 @@
     var totalSize = 0;
     $(".upload-rs").on('click', function(e) {
     	if (e.target.tagName === "BUTTON") {
-    		alert("sad")
     		let $rs = $(".rs-file");
     		console.log($rs);
     		let $rsArr = [];
@@ -126,7 +125,7 @@
 						console.log("resource added!");
 					},
 					error: function(z,b,c) {
-						alert("Error");
+						alert("Opps! Seems like the server is down. Please try again.);
 					}
 				})
 
