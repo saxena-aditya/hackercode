@@ -125,7 +125,7 @@
 						console.log("resource added!");
 					},
 					error: function(z,b,c) {
-						alert("Opps! Seems like the server is down. Please try again.);
+						alert("Opps! Seems like the server is down. Please try again.");
 					}
 				})
 

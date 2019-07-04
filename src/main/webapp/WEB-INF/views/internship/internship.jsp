@@ -135,7 +135,7 @@ $(document).on("click", ".handle-intern", function(e) {
 					let mark = JSON.parse(data);
 					if (!mark.error) {
 						$("#" + internLetterId).text("Marked");
-						$(".handle-intern").addClass("marked");
+						$("#" + internLetterId).addClass("marked");
 					}
 					else {
 						alert(mark.error_text);
