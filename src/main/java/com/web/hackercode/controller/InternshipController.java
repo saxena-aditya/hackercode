@@ -57,7 +57,7 @@ public class InternshipController {
 			String subject = "HackerCode | Content Developer Internship";
 			String message = "<h4>Hi " + iform.getFirstName() + ",</h4><h4>Thank you for your interest in Internship at HackerCode. Below are the login credentials for your article writing account. Please read the instructions carefully after login at https://hackercode.in/</h4>"
 					+ "<p> Your Drafter Account Credentials are: <br> Username: " + internUsername + "<br>"
-					+ "Password: " + iform.getPhnNum() + "<br><br>After 10 of your articles are published, you are entitled to get an Internship certificate from HackerCode. For any exceptional article will you get PayTM cash as well.<br><br>For any questions or doubts you can always write to us on this same email id. <br><br><br><br> Best of Luck!<br>Team HackerCode";
+					+ "Password: " + iform.getPhnNum() + "<br><br>After 10 of your articles are published, you are entitled to get an Internship certificate from HackerCode. For any exceptional article you will get PayTM cash as well.<br><br>For any questions or doubts you can always write to us on this same email id.<br><br> Best of Luck!<br>Team HackerCode";
 			
 
 			int users = udao.getUserCountWithEmail(internUsername, HCConstants.DRAFTER_ACC);

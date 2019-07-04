@@ -55,7 +55,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView showIndex(HttpServletRequest req) {
-
+		System.out.println("<text>google<text/>".replaceAll("<", "&gt;"));
 		String url = "";
 		ReportsDAO rdao = ctx.getBean(ReportsDAO.class);
 		CourseDAO cdao = ctx.getBean(CourseDAO.class);

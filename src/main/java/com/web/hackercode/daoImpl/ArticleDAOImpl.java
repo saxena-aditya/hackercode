@@ -67,7 +67,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 				// for getting inserted article ID
 				Article a = getArticle(article);
-				jdbcTemplate.update(SAVE_USER_ARTICLE, new Object[] { user.getEmail(), a.getId() });
+				jdbcTemplate.update(SAVE_USER_ARTICLE, new Object[] { user.getUsername(), a.getId() });
 
 				return true;
 			} catch (Exception e) {

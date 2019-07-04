@@ -149,5 +149,8 @@ p.no-articles-msg {
 }
 .prev-box {
     overflow-y: auto;
-    max-height: 30%;
+    /* background: red; */
+    height: 65vh;
 }
+
+.col-content.prev-box {}
