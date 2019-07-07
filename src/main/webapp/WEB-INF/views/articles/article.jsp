@@ -37,7 +37,7 @@
         <div class="collapse navbar-collapse" id="navbarsExample09">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-            	<a href="#" class="nav-link nav-btn">Exercises</a>
+            	<a href="/resources" class="nav-link nav-btn">Exercises</a>
             </li>
           </ul>
         </div>
@@ -61,7 +61,7 @@
 	                        <div class="name"><a href="${ pageContext.request.contextPath }/article/${a.getId_hash()}/${title}">${ a.getTitle() }</a> </div>
 	                        <div class="details d-flex">
 	                            <div class="date"><i class="fas fa-calendar-week"></i> 26 April 2018</div>
-	                            <div class="visits"><i class="fas fa-eye"></i> 50 views</div>
+	                            <div class="visits"><i class="fas fa-eye"></i> ${ a.getViews() } Views</div>
 	                        </div>
 	                    </div>
 	                </c:forEach>

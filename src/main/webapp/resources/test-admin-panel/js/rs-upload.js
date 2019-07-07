@@ -123,6 +123,7 @@
 					},
 					success: function(data) {
 						console.log("resource added!");
+						alert("Resource successfully added.");
 					},
 					error: function(z,b,c) {
 						alert("Opps! Seems like the server is down. Please try again.");

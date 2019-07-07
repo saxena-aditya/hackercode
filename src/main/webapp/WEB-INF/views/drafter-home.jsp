@@ -114,7 +114,7 @@
 								<c:set var="dateExp" value="${fn:split(dateStr[0],'-')}" /> 
 								                      
 	                            <div class="date"><i class="fas fa-calendar-week"></i> ${dateExp[2]}-${months[dateExp[1]]}-${ dateExp[0] }</div>
-	                            <%-- <div class="views"><i class="fas fa-eye"></i> ${ a.getViews() } Views</div> --%>
+	                            <div class="views"><i class="fas fa-eye"></i> ${ a.getViews() } Views</div>
 	                            <div class="text">
 	                            	<c:choose>
 									    <c:when test="${ a.isApproved()}">
