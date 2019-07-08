@@ -1,2 +1,2 @@
 # hackercode
-front-end for HackerCode
+HackerCode
