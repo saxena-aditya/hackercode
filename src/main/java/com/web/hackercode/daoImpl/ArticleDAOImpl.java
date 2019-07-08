@@ -184,7 +184,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 		String GET_ALL_APPROVED_ARTICLES = "SELECT a.id_hash, a.name as title , a.tags, a.id, ud_email, concat(ud_firstname,' ', ud_lastname) as name ,"
 				+ " c.name AS cat, s.name AS sub_cat, a_is_approved FROM hc_articles a JOIN hc_user_details ud JOIN hc_user_articles ua JOIN hc_categories c JOIN "
-				+ "hc_sub_categories s WHERE c.id = a.category AND s.id = a.sub_category AND ua.user_name = ud.ud_username AND a.id = ua.article_id and a_is_approved = 0";
+				+ "hc_sub_categories s WHERE c.id = a.category AND s.id = a.sub_category AND ua.user_name = ud.ud_username AND a.id = ua.article_id and a_is_approved = 0 and a_is_active = 1";
 
 		try {
 			List<Article> articles = jdbcTemplate.query(GET_ALL_APPROVED_ARTICLES,
@@ -245,7 +245,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	public List<Article> getSimilarArticles(String IDHash, String tagStr) {
 		jdbcTemplate.setDataSource(getDataSource());
-
+		tagStr = tagStr.replaceAll("/+/", "p");
 		String GET_SIMILAR_ARTICLES = "SELECT * FROM hc_articles WHERE tags REGEXP ? AND id_hash != ? AND a_is_approved = 1 AND  a_is_active = 1";
 		try {
 			List<Article> articles = jdbcTemplate.query(GET_SIMILAR_ARTICLES, new Object[] { tagStr, IDHash },
@@ -258,6 +258,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 								a.setId_hash(rs.getString("id_hash"));
 								a.setTitle(rs.getString("name"));
 								a.setCreated_at(rs.getTimestamp("updated_at"));
+								a.setViews(rs.getInt("views"));
 								list.add(a);
 							}
 							return list;
