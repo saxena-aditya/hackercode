@@ -5,6 +5,7 @@
 <!doctype html>
 <html class="no-js" lang="">
     <head>
+    <meta name="google-site-verification" content="6xz6g-OzW5ivUFcdVpEW-gs4rDzRxvSPltcphvqOuNI" />
         <c:set var="rand"><%= java.lang.Math.random() %></c:set>
     
         <meta charset="utf-8">
