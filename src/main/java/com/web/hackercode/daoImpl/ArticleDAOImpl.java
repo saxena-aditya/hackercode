@@ -245,7 +245,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	public List<Article> getSimilarArticles(String IDHash, String tagStr) {
 		jdbcTemplate.setDataSource(getDataSource());
-		tagStr = tagStr.replaceAll("/+/", "p");
+		tagStr = tagStr.replace("+", "p");
 		String GET_SIMILAR_ARTICLES = "SELECT * FROM hc_articles WHERE tags REGEXP ? AND id_hash != ? AND a_is_approved = 1 AND  a_is_active = 1";
 		try {
 			List<Article> articles = jdbcTemplate.query(GET_SIMILAR_ARTICLES, new Object[] { tagStr, IDHash },
@@ -354,10 +354,11 @@ public class ArticleDAOImpl implements ArticleDAO {
 	}
 
 	public List<Article> getArticlesByTags(String tags) {
+		
 		jdbcTemplate.setDataSource(getDataSource());
 		String SEARCH_ARTICLES_BY_TAGS = "SELECT * FROM hc_articles WHERE tags REGEXP ?";
 		
-		tags = tags.replace(" ", "|");
+		tags = tags.replace(" ", "|").replace("+", "p");
 		try {
 			List<Article> articles = jdbcTemplate.query(SEARCH_ARTICLES_BY_TAGS, new Object[] { tags },
 					new ResultSetExtractor<List<Article>>() {
