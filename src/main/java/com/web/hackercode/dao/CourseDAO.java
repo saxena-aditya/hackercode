@@ -11,6 +11,7 @@ import com.web.hackercode.structures.EditChapter;
 import com.web.hackercode.structures.EditCourse;
 import com.web.hackercode.structures.EditLesson;
 import com.web.hackercode.structures.EntityCourse;
+import com.web.hackercode.structures.EntityLesson;
 import com.web.hackercode.structures.Resource;
 import com.web.hackercode.structures.User;
 
@@ -34,6 +35,10 @@ public interface CourseDAO {
 	public boolean addCourseToUser(HttpServletRequest req, String courseCode);
 
 	public List<Course> getUserCourses(String username);
+	
+	public List<EntityCourse> getCoursesByTags(String tags);
+	
+	public List<EntityLesson> getRelatedVideos(String tags);
 
 	public String getCourseJson(String courseCode);
 

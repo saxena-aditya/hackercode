@@ -11,5 +11,13 @@ public interface CategoryDAO {
 	public List<ArticleCategory> getCategories();
 
 	public String getNavJSON();
+	
+	public boolean deleteSubCategory(int catId, int SubCatId);
+
+	int addSubCategory(int catId, String subCatName);
+
+	int addCategory(String catName);
+
+	boolean deleteCategory(int catId);
 
 }

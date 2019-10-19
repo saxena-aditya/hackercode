@@ -183,7 +183,7 @@ public class CourseDAOImpl implements CourseDAO {
 	
 	public String saveCourse(Course course) {
 		jdbcTemplate.setDataSource(getDataSource());
-		String SAVE_COURSE = "INSERT INTO hc_courses (c_name, c_code, c_desc, c_price, c_total_days, c_tags, c_mrp, c_sub_desc, c_cover, c_intro) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		String SAVE_COURSE = "INSERT INTO hc_courses (c_name, c_code, c_desc, c_price, c_total_days, c_tags, c_mrp, c_sub_desc, c_cover, c_intro, c_is_free) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	
 		try {
 			System.out.println("Saving course...: " + course.getName());
@@ -191,7 +191,7 @@ public class CourseDAOImpl implements CourseDAO {
 			
 			jdbcTemplate.update(SAVE_COURSE, course.getName(), code, course.getDesc(),
 					course.getPrice(), course.getTotalDays(), course.getTags(), course.getMrp(), 
-					course.getSubDesc(), course.getCover(), course.getIntro());
+					course.getSubDesc(), course.getCover(), course.getIntro(), course.getIsCourseFree());
 			
 			System.out.println("getting course code...: ");
 			return code;
@@ -222,7 +222,7 @@ public class CourseDAOImpl implements CourseDAO {
 		
 		jdbcTemplate.setDataSource(getDataSource());
 		String SAVE_CHAPTER = "INSERT INTO hc_chapters (ch_c_code, ch_name, ch_code) VALUES (?,?,?)";
-		String SAVE_LESSION = "INSERT INTO hc_lessons (l_code, l_ch_code, l_c_code, l_name, l_resource, l_duration) VALUES (?,?,?,?,?,?)";
+		String SAVE_LESSION = "INSERT INTO hc_lessons (l_code, l_ch_code, l_c_code, l_name, l_resource, l_duration, l_is_free, l_tags) VALUES (?,?,?,?,?,?,?,?)";
 	     String domain = "https://do4k6lnx3y4m9.cloudfront.net/";
 
 		String chCode = isChapterPresent(course.getChapter(), courseCode);
@@ -241,12 +241,17 @@ public class CourseDAOImpl implements CourseDAO {
 		
 		try {
 			System.out.println("Size of video : " + course.getFiles().size());
-			for (int i=0; i< course.getFiles().size(); i++) {
+			
+			// one lesson will have only on resource attached to it.
+			for (int i = 0; ;) {
 				String location = domain + course.getFiles().get(i);
-				System.out.println(randomAlphaNumeric(7) + " | "  +
-						chCode + " | " + courseCode + " | " + course.getLesson() + " | " + location + " | " +  course.getDuration().get(i));
+				/*
+				 * System.out.println(randomAlphaNumeric(7) + " | " + chCode + " | " +
+				 * courseCode + " | " + course.getLesson() + " | " + location + " | " +
+				 * course.getDuration().get(i) + "|" + course.getIsFree());
+				 */
 				jdbcTemplate.update(SAVE_LESSION,  randomAlphaNumeric(7), 
-						chCode, courseCode, course.getLesson(), location, course.getDuration().get(i));
+						chCode, courseCode, course.getLesson(), location, course.getDuration().get(i), course.getIsFree(), course.getLessonTags());
 				
 				return true;
 			}
@@ -273,6 +278,10 @@ public class CourseDAOImpl implements CourseDAO {
 	                    	el.setCode(rs.getString("l_code"));
 	                    	el.setResourse(rs.getString("l_resource"));
 	                    	el.setDuration(rs.getFloat("l_duration"));
+	                    	
+	                    	if (rs.getString("l_is_free").equalsIgnoreCase("1")) el.setFree(true);
+	                    	else el.setFree(false);
+	                    	
 	                        list.add(el);
 	                    }
 	                    return list;
@@ -421,6 +430,7 @@ public class CourseDAOImpl implements CourseDAO {
 							JsonObject jj = new JsonObject();
 							jj.addProperty("name", lessons.get(k).getName());
 							jj.addProperty("code", lessons.get(k).getCode());
+							jj.addProperty("isFree", lessons.get(k).isFree());
 							jj.addProperty("resourse", lessons.get(k).getResourse());
 							jj.addProperty("duration", lessons.get(k).getDuration());
 							jLessons.add(jj);
@@ -560,6 +570,58 @@ public class CourseDAOImpl implements CourseDAO {
 		
 		return courses;
 	}
+	
+	public List<EntityCourse> getCoursesByTags(String tags) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String SEARCH_COURSE_BY_TAG = "SELECT * FROM hc_courses WHERE c_tags REGEXP ?";
+		
+		tags = tags.replace(" ", "|");
+		System.out.println(tags);
+		
+		try {
+			List < EntityCourse > courses = jdbcTemplate.query(
+					SEARCH_COURSE_BY_TAG,
+					new Object[] { tags },
+		            new ResultSetExtractor < List < EntityCourse >> () {
+		                public List < EntityCourse > extractData(ResultSet rs) throws SQLException, DataAccessException {
+		                    List < EntityCourse > list = new ArrayList < EntityCourse > ();
+		                    while (rs.next()) {
+		                        EntityCourse ec = new EntityCourse();
+		                        ec.setName(rs.getString("c_name"));
+		                        ec.setCode(rs.getString("c_code"));
+		                        ec.setTags(rs.getString("c_tags"));
+		                        ec.setMrp(rs.getInt("c_mrp"));
+		                        ec.setSubDesc(rs.getString("c_sub_desc"));
+
+		                        ec.setPrice(rs.getInt("c_price"));
+		                        ec.setDesc(rs.getString("c_desc"));
+		                        ec.setDays(rs.getInt("c_total_days"));
+		                        ec.setIntro(rs.getString("c_intro"));
+		                        ec.setCover(rs.getString("c_cover"));
+		                        ec.setLessonCount(getlLessonCount(rs.getString("c_code")));                        
+		                       
+		                        if (utils.isTestSeries(rs.getString("c_name"))) {
+		                        	ec.setTestSeries(true);
+		                        } 
+		                        else {
+		                        	ec.setTestSeries(false);
+		                        }
+		                        
+		                        list.add(ec);
+		                    }
+		                    return list;
+		                }
+		            });
+				
+				return courses;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	public String getCourses() {
 
 		List<EntityCourse> courses = getEntityCourses(null);
@@ -855,6 +917,36 @@ public class CourseDAOImpl implements CourseDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@Override
+	public List<EntityLesson> getRelatedVideos(String tags) {
+		jdbcTemplate.setDataSource(getDataSource());
+		tags = tags.replace(" ", "|");
+		
+		String GET_RELATED_VIDEOS = "SELECT * FROM hc_lessons WHERE l_tags REGEXP ? AND l_is_free = 1 LIMIT 1";
+		
+		List < EntityLesson > lessons = jdbcTemplate.query(GET_RELATED_VIDEOS, new Object[] { tags },
+	            new ResultSetExtractor < List < EntityLesson >> () {
+	                public List < EntityLesson > extractData(ResultSet rs) throws SQLException, DataAccessException {
+	                    List < EntityLesson > list = new ArrayList < EntityLesson > ();
+	                    while (rs.next()) {
+	                    	EntityLesson el = new EntityLesson();
+	                    	el.setName(rs.getString("l_name"));
+	                    	el.setCode(rs.getString("l_code"));
+	                    	el.setResourse(rs.getString("l_resource"));
+	                    	el.setDuration(rs.getFloat("l_duration"));
+	                    	
+	                    	if (rs.getString("l_is_free").equalsIgnoreCase("1")) el.setFree(true);
+	                    	else el.setFree(false);
+	                    	
+	                        list.add(el);
+	                    }
+	                    return list;
+	                }
+	            });
+		
+		return lessons;
 	}
 	
 }

@@ -124,6 +124,12 @@
           					<textarea name="quick-desc" class="form-control" id="quick-desc" cols="10" rows="10"></textarea>
           				</div>
           			</div>
+          			<div class="form-group row">
+          			
+          					Make Course Free
+          					<input type="checkbox" id="is-course-free" />
+          			
+          			</div>
           		</div>
           	</div>
           </div>

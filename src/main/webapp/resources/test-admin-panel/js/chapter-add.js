@@ -58,6 +58,7 @@
     obj.mrp = $("#mrp").val();
     obj.tags = $("#tags").val();
     obj.quickDesc = $("#quick-desc").val();
+    obj.isCourseFree = $("#is-course-free").is(":checked") ? '1' : '0';
     
     /*obj.cover = $("#course-cover").prop("files")[0]?$("#course-cover").prop("files")[0]:null;
     obj.intro = $("#course-intro").prop("files")[0]?$("#course-intro").prop("files")[0]:null;*/
@@ -94,11 +95,19 @@
       let chId = blocks.pop();
       let fileKey =
         Date.now() + "_" + $(this)[0].files[0].name.replace(/\s/g, "-");
+      
       obj.chapters[chId - 1].lessons[lnId - 1].resources[rId - 1] = {
         file: $(this)[0].files[0],
         key: fileKey,
-        duration: duration[$(this)[0].files[0].name]
+        duration: duration[$(this)[0].files[0].name],
       };
+      
+      // mark lesson as free or not-free. 
+      // Please note: only one resource can be added in a lesson heading.
+      obj.chapters[chId - 1].lessons[lnId - 1].isFree =  $('#is-free-input-' + chId + '-' + lnId + '-' + rId ).is(":checked") ? '1' : '0';
+      obj.chapters[chId - 1].lessons[lnId - 1].lessonTags = $('#f-tags-' + chId + '-' + lnId + '-' + rId ).val();
+      console.log($('#f-tags-' + chId + '-' + lnId + '-' + rId ).val());
+      
       totalSize += $(this)[0].files[0].size;
       loaded[$(this)[0].files[0].name] = 0;
     });
@@ -251,6 +260,7 @@
           let quickDesc = obj.quickDesc;
           let cover = obj.cover;
           let intro = obj.intro;
+          let isCourseFree = obj.isCourseFree;
           
           obj.chapters.forEach(function(chapter) {
             let chName = chapter.title;
@@ -265,6 +275,16 @@
               fd.append("totalDays", days);
               fd.append("chapter", chName);
               fd.append("lesson", lesson.name);
+              
+              // add isFree to data list to send on server 
+              fd.append("isFree", lesson.isFree);
+              
+              // add video tags for each resource
+              fd.append("lessonTags", lesson.lessonTags);
+              
+              // add param to mark course free or not
+              fd.append("isCourseFree", isCourseFree);
+              
               fd.append("tags", tags);
               fd.append("mrp", mrp);
               fd.append("subDesc", quickDesc);
@@ -395,7 +415,7 @@
 	 </div>\
 	 <div class="col-md-11">\
 	 <label for="">lesson Source</label>\
-		<div class="input-group col-xs-12">\
+		<div class="input-group col-xs-9">\
 	     <input type="file" class="form-control file-upload-r r-inp" id="f-upload-' +
       chapter +
       "-" +
@@ -419,7 +439,24 @@
       res +
       '" type="button">Upload</button>\
      </span>\
-	</div></div></div>'
+	</div><span><input type="checkbox" id="is-free-input-' +
+    chapter +
+    "-" +
+    lesson +
+    "-" +
+    res +
+    '"/> Is Free?</span><br><label></label>Resource Tags' + 
+    '<div class="input-group col-xs-9">\
+    <input type="text" class="form-control file-upload-info f-tags" style="height: 24px;" id="f-tags-' +
+	 chapter +
+	 "-" +
+	 lesson +
+	 "-" +
+	 res +
+	 '" placeholder="comma seperated tags">\
+	</span>\
+	</div>'
+    + '</div></div>'
     );
   }
 

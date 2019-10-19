@@ -353,6 +353,43 @@ public class ArticleDAOImpl implements ArticleDAO {
 		return null;
 	}
 
+	public List<Article> getArticlesByTags(String tags) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String SEARCH_ARTICLES_BY_TAGS = "SELECT * FROM hc_articles WHERE tags REGEXP ?";
+		
+		tags = tags.replace(" ", "|");
+		try {
+			List<Article> articles = jdbcTemplate.query(SEARCH_ARTICLES_BY_TAGS, new Object[] { tags },
+					new ResultSetExtractor<List<Article>>() {
+						public List<Article> extractData(ResultSet rs) throws SQLException, DataAccessException {
+							List<Article> list = new ArrayList<Article>();
+							while (rs.next()) {
+								Article a = new Article();
+								a.setId(rs.getInt("id"));
+								a.setId_hash(rs.getString("id_hash"));
+								a.setTitle(rs.getString("name"));
+								a.setTags(rs.getString("tags"));
+								a.setViews(rs.getInt("views"));
+								a.setCreated_at(rs.getTimestamp("updated_at"));
+
+								if (rs.getInt("a_is_approved") == 1)
+									a.setApproved(true);
+								else
+									a.setApproved(false);
+								list.add(a);
+							}
+							return list;
+						}
+					});
+			return articles;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		return null;
+	
+	}
 	public void incrementViewCount(String articleIDHash) {
 		jdbcTemplate.setDataSource(getDataSource());
 

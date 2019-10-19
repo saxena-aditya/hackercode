@@ -58,3 +58,6 @@ Example operations include - Creating a Test, Deleting a Test, Modifying a Test,
 All the controller classes are supported by DAO classes. For example, for ArticleController.java there is ArticleDAO.java, for TestController.java there is TestDAO.java. 
 DAO class files have all the prototyping for the methods that are used to perform various operations.
 DAO classes *only* hold the prototypes for the methods whereas DAOImpl classes contain their definitions. So if you need to change anything, chances are you'll have to look for a DAOImpl class file. Lookup is fairly logical tho, like DAO class files, DAOImpl class files also have names according to there Controller counterparts eg. ArticleController.java will have ArticleDAOImpl.java and so on
+
+#### CRUD operations 
+ 

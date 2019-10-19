@@ -413,7 +413,7 @@ public class TestDAOImpl implements TestDAO {
                 }
             });
 
-        System.out.println("LENTH OF ARRAY KLIST IN USERS" + users_test.size());
+        System.out.println("LENGTH OF ARRAY KLIST IN USERS" + users_test.size());
         //first time
         if (users_test.size() == 0) {
             String sql = "INSERT INTO hc_temp_test(tt_user_id, tt_test_id, tt_time_remaining ,tt_ans_object) VALUES (?,?,?,?)";

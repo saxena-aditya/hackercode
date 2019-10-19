@@ -579,7 +579,20 @@
 			<a href="#" class="cd-close-form">Close</a>
 		</div> <!-- cd-user-modal-container -->
 	</div> <!-- cd-user-modal -->
-	 
+	
+	
+	 <div class="modal fade bd-example-modal-lg" id="free-video-modal" tabindex="-1" role="dialog" aria-labelledby="free-video-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+     
+       <video class="free-vid">
+			<source src="${ course.getIntro() }"></source>
+		</video>
+      </div>
+    </div>
+  </div>
+</div>
 	
 	<div id="path" style="display: none">${pageContext.request.contextPath}</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>

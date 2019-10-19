@@ -6,8 +6,23 @@ public class EditLesson {
 	private String code;
 	private String name;
 	private String fileUrl;
-	private boolean update; 
+	private String tags;
+	private boolean update;
 	private double duration;
+	
+	
+	/**
+	 * @return the tags
+	 */
+	public String getTags() {
+		return tags;
+	}
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 	/**
 	 * @return the courseCode
 	 */

@@ -378,6 +378,10 @@
 					        </div>
 					      </li> -->
 					    </ul>
+					    <div class="container-">
+						  <input type="text" placeholder="Search..." id="search-box">
+						  <div class="search"></div>
+						</div>
 					  </div>
 					</nav>
                 </div>
@@ -970,7 +974,6 @@ efforts!</div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.extensions.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>

@@ -83,6 +83,12 @@
                 <div class="article-content">
             		${ article.getContent() }
                 </div>
+                <div class="related-videos" style="margin: 5% 0 0 0">
+                	<c:if test="${fn:length(videos) >= 1}">
+                		<h3>Related Video</h3><hr />
+                		<video style="max-width: 100%;" controls src="${ videos[0].getResourse() }"></video>
+                	</c:if>
+                </div>
 
             </div>
             <div class="col-md-3 courses">

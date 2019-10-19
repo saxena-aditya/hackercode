@@ -3,6 +3,7 @@ package com.web.hackercode.structures;
 public class EntityLesson {
 	private String name;
 	private String code;
+	private boolean isFree;
 	private String resourse;
 	private float duration;
 	
@@ -13,6 +14,18 @@ public class EntityLesson {
 	 */
 	public float getDuration() {
 		return duration;
+	}
+	/**
+	 * @return the isFree
+	 */
+	public boolean isFree() {
+		return isFree;
+	}
+	/**
+	 * @param isFree the isFree to set
+	 */
+	public void setFree(boolean isFree) {
+		this.isFree = isFree;
 	}
 	/**
 	 * @param duration the duration to set

@@ -12,6 +12,11 @@ public class Course {
 	private int totalDays;
 	private String creator; 
 	private String lesson;
+	
+	private String isFree;
+	private String lessonTags;
+	private String isCourseFree;
+	
 	private String chapter;
 	private String tags;
 	private int mrp;
@@ -29,6 +34,18 @@ public class Course {
 	
 	
 	
+	/**
+	 * @return the isCourseFree
+	 */
+	public String getIsCourseFree() {
+		return isCourseFree;
+	}
+	/**
+	 * @param isCourseFree the isCourseFree to set
+	 */
+	public void setIsCourseFree(String isCourseFree) {
+		this.isCourseFree = isCourseFree;
+	}
 	/**
 	 * @return the lessonCount
 	 */
@@ -271,9 +288,36 @@ public class Course {
 	public List<String> getFiles() {
 		return files;
 	}
+	/**
+	 * @return the isFree
+	 */
+	public String getIsFree() {
+		return isFree;
+	}
+	/**
+	 * @param isFree the isFree to set
+	 */
+	public void setIsFree(String isFree) {
+		this.isFree = isFree;
+	}
+	
 	public String toString() {
 		return "course name: " + getName() + "\nchapter name: " + getChapter() + 
-				"\nlesson name: " + getLesson() + "\nfile size: " + getFiles().size(); 
+				"\nlesson name: " + getLesson() + "\nisLessonFree: " + getIsFree() + "\nfile size: " + getFiles().size(); 
 	}
+	
+	/**
+	 * @return the lessonTags
+	 */
+	public String getLessonTags() {
+		return lessonTags;
+	}
+	/**
+	 * @param lessonTags the lessonTags to set
+	 */
+	public void setLessonTags(String lessonTags) {
+		this.lessonTags = lessonTags;
+	}
+	
 	
 }

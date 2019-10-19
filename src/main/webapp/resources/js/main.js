@@ -55,5 +55,18 @@ $(document).ready(function() {
         asNavFor: '.right-slide-x'
 
     });
+    
+    $('#search-box').on('keypress', function (e) {
+       // enter
+    	if(e.which === 13) {
+    		if ($('#search-box').val().length != 0) {
+    			window.location = "/search?query=" +  $('#search-box').val();	
+    		}
+    		else {
+    			// do something else here
+    		}
+    		
+        }
+  });
 
 });

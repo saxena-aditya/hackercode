@@ -24,6 +24,8 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/test-admin-panel/images/favicon.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/test-admin-panel/css/categories.css">
+  
 </head>
 
 <body>
@@ -46,6 +48,20 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+       <div class="row" style="background: #fff;padding:10px;">`
+       		<div class="col-md-7">
+       			<div id="cat-container"></div>
+       		</div>
+       		<div class="col-md-4">
+       			<div class="new-cat-container">
+	       			<label for="">Add New Category:</label><br>
+	       			<input type="text" id = "new-cat-name" class="form-control" placeholder="Enter Category Name"/>
+	       			<small><b>NOTE:</b> Please use a URL friendly naming scheme. Example - category 'Interview Experience' in URL will look like 'interview-experience'</small>
+	       			<br />
+	       			<button class="btn" id="new-cat-btn">Save</button><span id="cat-save-msg"></span>
+       			</div>
+       		</div>
+       </div>
         	
          </div>
         <!-- content-wrapper ends -->
@@ -65,6 +81,7 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  <input type="text" id="navJSON" value='${ nav }' style="display:none;">
   <!-- container-scroller -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
   <!-- plugins:js -->
@@ -76,6 +93,7 @@
   <!-- inject:js -->
   
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/js/off-canvas.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/test-admin-panel/js/categories.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->

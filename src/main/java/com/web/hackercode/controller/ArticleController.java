@@ -55,11 +55,13 @@ public class ArticleController {
 
 		Article article = adao.getArticle(articleIDHash);
 
-		String tagStr = article.getTags().replaceAll(",", "|");
+		String tagStr = article.getTags().replace(",", "|").replace(" ", "|");
+		System.out.println("\nTags are: "+ tagStr + "Size: " + cdao.getRelatedVideos(tagStr).size());
 		adao.incrementViewCount(articleIDHash);
 		return new ModelAndView("articles/article").addObject("article", article)
 				.addObject("similarArticles", adao.getSimilarArticles(articleIDHash, tagStr))
-				.addObject("courses", cdao.getSimilarCourse(tagStr)).addObject("nav", catdao.getNavJSON());
+				.addObject("courses", cdao.getSimilarCourse(tagStr)).addObject("nav", catdao.getNavJSON())
+				.addObject("videos", cdao.getRelatedVideos(tagStr));
 	}
 
 	@RequestMapping(value = "/admin/articles", method = RequestMethod.GET)
@@ -89,13 +91,7 @@ public class ArticleController {
 
 	}
 
-	@RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
-	public ModelAndView showEditCategory() {
-		CategoryDAO catdao = ctx.getBean(CategoryDAO.class);
-
-		return new ModelAndView("test-admin-dashboard-add-categories").addObject("nav", catdao.getNavJSON());
-	}
-
+	
 	@RequestMapping(value = "/admin/articles/api/approve")
 	@ResponseBody
 	public boolean approve(HttpServletRequest req, @RequestParam String id) {
