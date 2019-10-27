@@ -24,11 +24,13 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css?id=${rand}" >
     
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/article/index.css?id=${rand}">
+	
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 	      		<script src="${pageContext.request.contextPath}/resources/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-	
+	        
+	    
         
 </head>
 <style>
@@ -64,7 +66,10 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto" id="categories">
             </ul>
-            
+            <div class="container-">
+						  <input type="text" placeholder="Search..." id="search-box">
+						  <div class="search"></div>
+			</div>
         </div>
         <div class="collapse navbar-collapse" id="navbarsExample09">
           <ul class="navbar-nav ml-auto">
@@ -75,6 +80,7 @@
         </div>
     </nav>
     <div class="container">
+    <input type="hidden" value='${ nav }' id ="nav" />
     <div class="hh-heading">Courses (${courseCount})</div><hr />
     <div class="row slick" style="margin: 0;">
        <c:forEach items="${courses}" var="c">
@@ -142,9 +148,7 @@
                                    </span>
                                </div>
                                <div class="details">
-                                   <span class="tooltipp" data-tooltip-content="#tooltip_content-${c.getCode()}">
-                                       <i class="fas fa-info-circle"></i>
-                                   </span>
+                                  
                                    <c:set var = "verbose" value = "${c.getName()}"/>
 									<c:set var = "urlF" value = "${fn:toLowerCase(fn:replace(verbose, ' ', '-'))}" />
                                    <a class="enroll-btn sm-btn" href="${ pageContext.request.contextPath }/courses/${ c.getCode()}/${ urlF }">Details</a>
@@ -174,6 +178,7 @@
       </c:forEach>
 	                    
     </div>
+    
     <script>
     
     $('.slick').slick({
@@ -211,5 +216,7 @@
     	});
 
     </script>
+ 	<script src="${ pageContext.request.contextPath }/resources/js/make-nav-search.js?id=${rand}"></script>
+    
 </body>
 </html>

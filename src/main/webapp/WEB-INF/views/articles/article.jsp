@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/github.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css?id="${rand}" >
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css?id="${rand}" >
     
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/article/index.css?id=${rand}">
 </head>
@@ -31,7 +31,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto" id="categories">
+            	
             </ul>
+            <div class="container-">
+						  <input type="text" placeholder="Search..." id="search-box">
+						  <div class="search"></div>
+			</div>
             
         </div>
         <div class="collapse navbar-collapse" id="navbarsExample09">
@@ -172,6 +177,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script src="${ pageContext.request.contextPath }/resources/article/index.js?id=${rand}"></script>
+    <script src="${ pageContext.request.contextPath }/resources/js/make-nav-search.js?id=${rand}"></script>
+    
 
 </body>
 </html>

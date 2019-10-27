@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.hackercode.dao.ArticleDAO;
+import com.web.hackercode.dao.CategoryDAO;
 import com.web.hackercode.dao.CourseDAO;
 import com.web.hackercode.structures.Article;
 import com.web.hackercode.structures.Course;
@@ -25,15 +26,17 @@ public class SearchController {
 		
 		CourseDAO cdao = ctx.getBean(CourseDAO.class);
 		ArticleDAO adao = ctx.getBean(ArticleDAO.class);
-		
+		CategoryDAO catdao = ctx.getBean(CategoryDAO.class);
+
 		List<EntityCourse> matchedCourses = cdao.getCoursesByTags(query);
 		List<Article> matchedArticles = adao.getArticlesByTags(query);
-		
+
 		System.out.println(matchedArticles.size());
 		return new ModelAndView("search/search-view")
 				.addObject("articleCount", matchedArticles.size())
 				.addObject("courseCount", matchedCourses.size())
 				.addObject("articles", matchedArticles)
-				.addObject("courses", matchedCourses);
+				.addObject("courses", matchedCourses)
+				.addObject("nav", catdao.getNavJSON());
 	}
 }
