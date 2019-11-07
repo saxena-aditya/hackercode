@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Component;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.mysql.jdbc.Statement;
 import com.web.hackercode.dao.CategoryDAO;
 import com.web.hackercode.structures.ArticleCategory;
 import com.web.hackercode.structures.ArticleSubCategory;
