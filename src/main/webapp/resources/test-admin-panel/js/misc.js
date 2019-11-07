@@ -219,13 +219,16 @@
   
   
  
-  
-  $("#modal").iziModal({
-	  width: '70%',
-	  onClosing: function() {
-		  $('#summernote').summernote('destroy');
-		  $("select[name='questionSet']").html("");
-		  $("textarea[name='questionContent']").html("");
-	  }
-  }); 
+  if (typeof $("#modal").iziModal !== "undefined") { 
+	  $("#modal").iziModal({
+		  width: '70%',
+		  onClosing: function() {
+			  $('#summernote').summernote('destroy');
+			  $("select[name='questionSet']").html("");
+			  $("textarea[name='questionContent']").html("");
+		  }
+	  }); 
+	}
+
+ 
 })(jQuery);

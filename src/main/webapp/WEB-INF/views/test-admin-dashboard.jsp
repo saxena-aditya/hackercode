@@ -36,8 +36,8 @@
             <div class="col-12">
               <span class="d-block d-md-flex align-items-center">
                 <p>Like what you see? Check out our premium version for more.</p>
-                <a class="btn ml-auto download-button d-none d-md-block" href="${pageContext.request.contextPath}/resources/test-admin-panel/https://github.com/BootstrapDash/StarAdmin-Free-Bootstrap-Admin-Template" target="_blank">Download Free Version</a>
-                <a class="btn purchase-button mt-4 mt-md-0" href="${pageContext.request.contextPath}/resources/test-admin-panel/https://www.bootstrapdash.com/product/star-admin-pro/" target="_blank">Upgrade To Pro</a>
+                <a class="btn ml-auto download-button d-none d-md-block" href="#" >User Bulk Upload</a>
+                <div><form action="/admin/bulk-upload/users" method="post" enctype="multipart/form-data"><input type="file" name="file" id="bulk-upload"/></form></div>
                 <i class="mdi mdi-close popup-dismiss d-none d-md-block"></i>
               </span>
             </div>
@@ -633,6 +633,32 @@
   <!-- Custom js for this page-->
   <script src="${pageContext.request.contextPath}/resources/test-admin-panel/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script>
+  
+  $(document).on("change", "#bulk-upload", function() {
+	  var form = document.forms[0];
+	  var formData = new FormData(form);
+	  
+	  $.ajax({
+	  		url : '/admin/bulk-upload/users',
+	  		type: 'POST',
+		    data : formData,
+		    cache : false,
+		    contentType : false,
+		    processData : false,
+		    beforeSend: function() {
+		    	console.log(formData)
+		    },
+		    success: function(data) {
+		    	console.log(data);
+		    },
+		    error: function(a, b, c) {
+		    	console.log(a, b, c);
+		    }
+	  	});
+  });
+  	
+  </script>
 </body>
 
 </html>

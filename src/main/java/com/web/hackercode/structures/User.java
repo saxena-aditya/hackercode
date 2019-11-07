@@ -12,9 +12,33 @@ public class User {
 	private boolean isAdmin;
 	private boolean isDrafter;
 	private String username;
+	private String phone;
 	private  MultipartFile file;
 	private String filePath;
+	private String password;
 	
+	
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @param phone the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
 	/**
 	 * @return the isDrafter
 	 */
@@ -140,7 +164,9 @@ public class User {
 	public String toString() {
 		return "User [u_id=" + u_id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", institute=" + institute + ", isAdmin=" + isAdmin + ", isDrafter=" + isDrafter + ", username="
-				+ username + ", file=" + file + ", filePath=" + filePath + "]";
+				+ username + ", phone=" + phone + ", file=" + file + ", filePath=" + filePath + ", password=" + password
+				+ "]";
 	}
+
 	
 }
