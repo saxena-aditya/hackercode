@@ -174,8 +174,8 @@ public class CourseController {
         	parameters.put("CHANNEL_ID",PaytmConstants.CHANNEL_ID);
         	parameters.put("INDUSTRY_TYPE_ID",PaytmConstants.INDUSTRY_TYPE_ID);
         	parameters.put("WEBSITE",PaytmConstants.WEBSITE);
-        	parameters.put("MOBILE_NO","9876543210");
-        	parameters.put("EMAIL","test@gmail.com");
+        	parameters.put("MOBILE_NO","9760418456");
+        	parameters.put("EMAIL","adityasaxena602@gmail.com");
         	parameters.put("CALLBACK_URL", "http://hackercode.in/courses/"+courseCode+"/payment/callback");
         	String checkSum =  CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum(PaytmConstants.MERCHANT_KEY, parameters);
         	outputHtml.append("<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>");
@@ -240,7 +240,9 @@ public class CourseController {
         			if (parameters.get("STATUS").equals("TXN_SUCCESS")) {
         				outputHTML = parameters.toString();
         				if (cdao.completePayment(parameters)) {
-        					if (cdao.addCourseToUser(req, courseCode))
+        					User user = (User) req.getSession().getAttribute("user");
+
+        					if (cdao.addCourseToUser(user.getUsername(), courseCode))
         						outputHTML = "success";
         				}
         			}

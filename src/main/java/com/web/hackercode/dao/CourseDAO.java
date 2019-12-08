@@ -32,7 +32,7 @@ public interface CourseDAO {
 
 	public boolean completePayment(TreeMap<String, String> param);
 
-	public boolean addCourseToUser(HttpServletRequest req, String courseCode);
+	public boolean addCourseToUser(String string, String courseCode);
 
 	public List<Course> getUserCourses(String username);
 	
@@ -65,4 +65,6 @@ public interface CourseDAO {
 	public boolean updateCourse(EditCourse course);
 
 	public List<EntityCourse> getSimilarCourse(String articleCode);
+
+	public boolean isCourseSubscribedByUser(String username, String string);
 }

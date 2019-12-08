@@ -9,11 +9,53 @@ public class Register {
 	private String email; 
 	private String password;
 	private String course;
-	private String []programs;
+	private String [] programs;
 	private String phone;
 	private String institute;
+	private boolean isAdmin;
+	private boolean isDrafter;
+	private String[] courses;
+
 	
 	
+	/**
+	 * @return the courses
+	 */
+	public String[] getCourses() {
+		return courses;
+	}
+	/**
+	 * @param courses the courses to set
+	 */
+	public void setCourses(String[] courses) {
+		this.courses = courses;
+	}
+	
+
+	/**
+	 * @return the isAdmin
+	 */
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	/**
+	 * @param isAdmin the isAdmin to set
+	 */
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	/**
+	 * @return the isDrafter
+	 */
+	public boolean isDrafter() {
+		return isDrafter;
+	}
+	/**
+	 * @param isDrafter the isDrafter to set
+	 */
+	public void setDrafter(boolean isDrafter) {
+		this.isDrafter = isDrafter;
+	}
 	/**
 	 * @return the institute
 	 */
@@ -80,10 +122,14 @@ public class Register {
 	public void setCourse(String course) {
 		this.course = course;
 	}
+	
 	@Override
 	public String toString() {
 		return "Register [fName=" + fName + ", lName=" + lName + ", username=" + username + ", email=" + email
-				+ ", password=" + password + ", course=" + course + ", programs=" + Arrays.toString(programs) + "]";
+				+ ", password=" + password + ", course=" + course + ", programs=" + Arrays.toString(programs)
+				+ ", phone=" + phone + ", institute=" + institute + ", isAdmin=" + isAdmin + ", isDrafter=" + isDrafter
+				+ ", courses=" + Arrays.toString(courses) + "]";
 	}
+	
 
 }

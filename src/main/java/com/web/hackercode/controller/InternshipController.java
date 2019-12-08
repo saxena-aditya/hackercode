@@ -60,7 +60,8 @@ public class InternshipController {
 					+ "Password: " + iform.getPhnNum() + "<br><br>After 10 of your articles are published, you are entitled to get an Internship certificate from HackerCode. For any exceptional article you will get PayTM cash as well.<br><br>For any questions or doubts you can always write to us on this same email id.<br><br> Best of Luck!<br>Team HackerCode";
 			
 
-			int users = udao.getUserCountWithEmail(internUsername, HCConstants.DRAFTER_ACC);
+			int users = udao.getUserCountWithEmail(internUsername);
+			
 			if (users == 0) {
 				idao.addDrafterAccount(iform, internUsername);
 

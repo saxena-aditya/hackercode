@@ -522,14 +522,12 @@ public class CourseDAOImpl implements CourseDAO {
 		return false;
 	}
 	
-	public boolean addCourseToUser(HttpServletRequest req, String courseCode) {
+	public boolean addCourseToUser(String username, String courseCode) {
 		jdbcTemplate.setDataSource(getDataSource());
-		
-		User user = (User) req.getSession().getAttribute("user");
 		String ADD_COURSE_TO_USER = "INSERT INTO hc_user_program (up_username, up_code, is_paid) VALUES (?,?,?)";
 		
 		try {
-			jdbcTemplate.update(ADD_COURSE_TO_USER, user.getUsername(), courseCode, 1);
+			jdbcTemplate.update(ADD_COURSE_TO_USER, username, courseCode, 1);
 			return true;
 		}
 		catch (Exception e) {
@@ -947,6 +945,24 @@ public class CourseDAOImpl implements CourseDAO {
 	            });
 		
 		return lessons;
+	}
+	
+	@Override
+	public boolean isCourseSubscribedByUser(String username, String courseCode) {
+		 jdbcTemplate.setDataSource(getDataSource());
+	        String GET_USER = "SELECT COUNT(*) FROM hc_user_program WHERE BINARY up_username = ? AND up_code = ?";
+	        Number count = 0;
+	        try {
+	            count = jdbcTemplate.queryForObject(GET_USER, Integer.class, username, courseCode);
+	            
+	            if (count.intValue() == 0)
+	            	return false;
+	            
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        
+	        return true;
 	}
 	
 }

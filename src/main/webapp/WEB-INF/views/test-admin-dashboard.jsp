@@ -647,10 +647,19 @@
 		    contentType : false,
 		    processData : false,
 		    beforeSend: function() {
-		    	console.log(formData)
+		    	alert("Sending request to upload data");
 		    },
 		    success: function(data) {
-		    	console.log(data);
+		    	try {
+		    		data = JSON.parse(data);
+		    		if (!data.error) alert("Bulk Upload Success.");
+		    		else alert("Error: " . data.message);
+		    	}
+		    	catch(e) {
+		    		if (e instanceof SyntaxError) alert("Json Syntax Error");
+		    		else alert("Could not parce the data. Please check your Excel.");
+		    	}
+		    	l
 		    },
 		    error: function(a, b, c) {
 		    	console.log(a, b, c);

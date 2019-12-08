@@ -161,12 +161,12 @@ public class UserDaoImpl implements UserDAO {
         return null;
     }
 
-    public int getUserCountWithEmail(String email, int acc_type) {
+    public int getUserCountWithEmail(String email) {
         jdbcTemplate.setDataSource(getDataSource());
-        String GET_USER = "SELECT COUNT(*) FROM hc_user_details WHERE BINARY ud_email = ? AND ud_role = ?";
+        String GET_USER = "SELECT COUNT(*) FROM hc_user_details WHERE BINARY ud_email = ?";
         Number count = 0;
         try {
-            count = jdbcTemplate.queryForObject(GET_USER, Integer.class, email, acc_type);
+            count = jdbcTemplate.queryForObject(GET_USER, Integer.class, email);
             return new Integer(count.intValue());
         } catch (Exception e) {
             e.printStackTrace();
@@ -198,8 +198,14 @@ public class UserDaoImpl implements UserDAO {
           return LOCATION;
     }
     
+	public User saveUserViaRequest(HttpServletRequest req, Register user) {
+		
+		if (this.saveUser(user))
+			return getUser(user.getEmail(), req);
+		return null;
+	}
 
-    public User saveUser(HttpServletRequest req, Register ruser) {
+    public boolean saveUser(Register ruser) {
         jdbcTemplate.setDataSource(getDataSource());
         ruser.setPassword(utils.getMd5(ruser.getPassword()));
         String SAVE_USER = "INSERT INTO hc_user_details (ud_username, ud_firstname, ud_lastname, ud_email, ud_role, ud_phone, ud_institute) VALUES (?,?,?,?,0,?,?)";
@@ -219,12 +225,15 @@ public class UserDaoImpl implements UserDAO {
                 ruser.getEmail(),
                 ruser.getPassword()
             });
+            
+            return true;
            
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return getUser(ruser.getEmail(), req);
+        
+       
+        return false;
     }
     
     public User getUser(String username) {

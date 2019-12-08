@@ -37,16 +37,14 @@ public class AuthController {
 	@ResponseBody
 	public String signup(@ModelAttribute("register") Register user, HttpServletRequest req) {
 		// for sign up
-		System.out.println("REGISTER CLASS>> " + user);
 		JsonObject obj = new JsonObject();
 		obj.addProperty("error", false);
 
 		req.getSession().setAttribute("isLoggedIn", false);
 		UserDAO userdao = ctx.getBean(UserDAO.class);
-		RedirectView view = null;
 
 		// check if there is user with same name password
-		int i = userdao.getUserCountWithEmail(user.getEmail(), HCConstants.USER_ACC);
+		int i = userdao.getUserCountWithEmail(user.getEmail());
 		if (i > 0) {
 			// List < Program > programs = testDao.getAllPrograms();
 			obj.addProperty("error", true);
@@ -54,8 +52,8 @@ public class AuthController {
 			return obj.toString();
 		}
 
-		// add user to db
-		User u = userdao.saveUser(req, user);
+		// add user to DB
+		User u = userdao.saveUserViaRequest(req, user);
 		req.getSession().setAttribute("isLoggedIn", true);
 		req.getSession().setAttribute("user", u);
 

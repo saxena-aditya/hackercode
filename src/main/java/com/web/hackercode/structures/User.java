@@ -1,5 +1,7 @@
 package com.web.hackercode.structures;
 
+import java.util.Arrays;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class User {
@@ -16,8 +18,23 @@ public class User {
 	private  MultipartFile file;
 	private String filePath;
 	private String password;
+	private String[] courses;
 	
 	
+	/**
+	 * @return the courses
+	 */
+	public String[] getCourses() {
+		return courses;
+	}
+
+	/**
+	 * @param courses the courses to set
+	 */
+	public void setCourses(String[] courses) {
+		this.courses = courses;
+	}
+
 	/**
 	 * @return the phone
 	 */
@@ -165,7 +182,7 @@ public class User {
 		return "User [u_id=" + u_id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", institute=" + institute + ", isAdmin=" + isAdmin + ", isDrafter=" + isDrafter + ", username="
 				+ username + ", phone=" + phone + ", file=" + file + ", filePath=" + filePath + ", password=" + password
-				+ "]";
+				+ ", courses=" + Arrays.toString(courses) + "]";
 	}
 
 	

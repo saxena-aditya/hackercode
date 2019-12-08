@@ -14,11 +14,11 @@ import com.web.hackercode.structures.User;
 public interface UserDAO {
 	public User getUser(String username, HttpServletRequest request);
 
-	public int getUserCountWithEmail(String email, int acc_role);
+	public int getUserCountWithEmail(String email);
 
 	public User getUser(String username);
 
-	public User saveUser(HttpServletRequest req, Register user);
+	public boolean saveUser(Register user);
 
 	public void updateUserInfo(User u, User currentUser);
 
@@ -37,5 +37,7 @@ public interface UserDAO {
 	public boolean dropKey(String resetLink);
 
 	public boolean updatePassword(String password, String resetKey);
+
+	public User saveUserViaRequest(HttpServletRequest req, Register user);
 
 }
