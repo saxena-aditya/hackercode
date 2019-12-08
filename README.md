@@ -5,6 +5,13 @@ The application presently runs on apache-tomcat hosted on a GCE Compute Engine. 
 
 Jenkins (http://34.67.112.194/jenkins-install) is set up to automatically fetch and build all the code and deploy it on tomcat. Two separate freestyle jobs have been configured to fetch and build the code. 
 
+##### To setup your own Jenkins instance
+1. Use Git plugin of Jenkins and give the repo URL and branch name.
+2. Go to repo settings and generate a webhook URL.
+3. Use this URL to use in the Jenkins plugin.
+4. From the repo settings generate a key pair.
+5. Use this key pair in Jenkins to authenticate with the Git. 
+
 Additional improvements may include adding a new piece to the pipeline for restarting the server whenever a build is successful.
 
 The setup at present listens to each commit and gets initiated automatically. Whenever you commit your code to the `dev` branch of the repo, your code will be built and deployed hence the CD. 
@@ -191,3 +198,33 @@ public boolean disapproveArticle(String id) {
     return false;
 } 
  ```
+#### AWS Code Example to save data:
+```javascript
+const albumBucketName = "<bucket_name>";
+const bucketRegion = "<region>";
+const IdentityPoolId = "<poll_id>";
+
+AWS.config.update({
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: IdentityPoolId
+   })
+});
+
+AWS.config.region = bucketRegion;
+
+const s3 = new AWS.S3({
+   apiVersion: "<api_version>",
+   params: {
+     Bucket: albumBucketName
+   }
+});
+s3.upload({
+        Key: rs.key,
+        Body: rs.file,
+        ContentType: rs.file.type,
+        ACL: "<access_level>"
+      }, options)
+      .on("httpUploadProgress", function(evt) {
+       // show the loading bar here.
+      )}
+```
