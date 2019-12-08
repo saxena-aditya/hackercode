@@ -61,3 +61,133 @@ DAO classes *only* hold the prototypes for the methods whereas DAOImpl classes c
 
 #### CRUD operations 
  
+ ###### Saving a user:
+ 
+ ```java
+ public boolean saveUser(Register ruser) {
+        jdbcTemplate.setDataSource(getDataSource());
+        ruser.setPassword(utils.getMd5(ruser.getPassword()));
+        String SAVE_USER = "INSERT INTO hc_user_details (ud_username, ud_firstname, ud_lastname, ud_email, ud_role, ud_phone, ud_institute) VALUES (?,?,?,?,0,?,?)";
+        String SAVE_USER_LOGIN_CREDENTIALS = "INSERT INTO hc_user (u_username, u_password) VALUES (?,?)";
+       // String ADD_USER_WITH_PROGRAM = "INSERT INTO hc_user_program (up_username, up_code) VALUES (?,?)";
+        try {
+            jdbcTemplate.update(SAVE_USER, new Object[] {
+            	ruser.getEmail(),
+                ruser.getfName(),
+                ruser.getlName(),
+                ruser.getEmail(),
+                ruser.getPhone(),
+                ruser.getInstitute()
+            });
+            
+            jdbcTemplate.update(SAVE_USER_LOGIN_CREDENTIALS, new Object[] {
+                ruser.getEmail(),
+                ruser.getPassword()
+            });
+            
+            return true;
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+       
+        return false;
+    } 
+ ```
+
+ ###### Check is User is already registered:
+
+ ```java
+ public int getUserCountWithEmail(String email) {
+        jdbcTemplate.setDataSource(getDataSource());
+        String GET_USER = "SELECT COUNT(*) FROM hc_user_details WHERE BINARY ud_email = ?";
+        Number count = 0;
+        try {
+            count = jdbcTemplate.queryForObject(GET_USER, Integer.class, email);
+            return new Integer(count.intValue());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+ ```
+
+ ###### Getting a user from database:
+
+ ```java
+ public User getUser(String username) {
+        jdbcTemplate.setDataSource(getDataSource());
+        String COUNT_USER = "SELECT COUNT(*) FROM hc_user_details WHERE ud_username = ?";
+        String GET_USER = "SELECT * FROM hc_user_details WHERE ud_username = ?";
+        
+        int count = jdbcTemplate.queryForObject(COUNT_USER, new Object[] {username}, Integer.class);
+        
+        if (count != 0) {
+	        User user = (User) jdbcTemplate.queryForObject(GET_USER, new Object[] {
+	                username
+	            }, new UserMapper());
+	            
+	        if (user != null)
+	           return user;
+        } 
+   
+        return null;
+    } 
+ ```
+
+ ###### Saving a course
+
+ ```java 
+ public String saveCourse(Course course) {
+		jdbcTemplate.setDataSource(getDataSource());
+		String SAVE_COURSE = "INSERT INTO hc_courses (c_name, c_code, c_desc, c_price, c_total_days, c_tags, c_mrp, c_sub_desc, c_cover, c_intro, c_is_free) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	
+		try {
+			System.out.println("Saving course...: " + course.getName());
+			String code = randomAlphaNumeric(6);
+			
+			jdbcTemplate.update(SAVE_COURSE, course.getName(), code, course.getDesc(),
+					course.getPrice(), course.getTotalDays(), course.getTags(), course.getMrp(), 
+					course.getSubDesc(), course.getCover(), course.getIntro(), course.getIsCourseFree());
+			
+			System.out.println("getting course code...: ");
+			return code;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+ ```
+
+ ###### Approving and Disapproving any article:
+
+ ```java
+ public boolean approveArticle(String id) {
+		jdbcTemplate.setDataSource(getDataSource());
+
+		String APPROVE_ARTICLE = "UPDATE hc_articles set a_is_approved = 1 WHERE id = ? AND a_is_active = 1";
+		try {
+			jdbcTemplate.update(APPROVE_ARTICLE, id);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+public boolean disapproveArticle(String id) {
+    jdbcTemplate.setDataSource(getDataSource());
+
+    String DISAPPROVE_ARTICLE = "UPDATE hc_articles set a_is_approved = 0 WHERE id = ? AND a_is_active = 1";
+    try {
+        jdbcTemplate.update(DISAPPROVE_ARTICLE, id);
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+} 
+ ```
