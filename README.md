@@ -96,7 +96,7 @@ DAO classes *only* hold the prototypes for the methods whereas DAOImpl classes c
     } 
  ```
 
- ###### Check is User is already registered:
+ ###### Check if a User is already registered:
 
  ```java
  public int getUserCountWithEmail(String email) {
