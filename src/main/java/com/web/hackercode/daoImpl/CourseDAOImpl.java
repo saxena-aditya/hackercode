@@ -97,8 +97,8 @@ public class CourseDAOImpl implements CourseDAO {
     
 	private String uploadVideo(MultipartFile file) throws IOException {
 		AWSCredentials credentials = new BasicAWSCredentials(
-				  "AKIAICQ3HIZ2H2HEFXCQ", 
-				  "CU6DnLGq5S4VpzI4w8bXuuB40zrnXljAhdTw1eGp"
+				  "<short-client-id>", 
+				  "<long-api-key>"
 		);
 		 long contentLength = file.getSize();
 	     long partSize = 5 * 1024 * 1024; // Set part size to 5 MB. 
